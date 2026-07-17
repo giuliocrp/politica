@@ -1,0 +1,43 @@
+[
+  { "id": "VOTE001", "representativeId": "REP001", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE002", "representativeId": "REP002", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Contrario", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE003", "representativeId": "REP003", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Contrario", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE004", "representativeId": "REP004", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE005", "representativeId": "REP005", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE006", "representativeId": "REP006", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Astenuto", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE007", "representativeId": "REP007", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Contrario", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE008", "representativeId": "REP008", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Assente", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE009", "representativeId": "REP009", "title": "Legge di Bilancio 2026", "date": "2025-12-20", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+
+  { "id": "VOTE010", "representativeId": "REP001", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE011", "representativeId": "REP002", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE012", "representativeId": "REP003", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Astenuto", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE013", "representativeId": "REP004", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE014", "representativeId": "REP005", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE015", "representativeId": "REP006", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Contrario", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE016", "representativeId": "REP007", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Contrario", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE017", "representativeId": "REP008", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE018", "representativeId": "REP009", "title": "Decreto Legge Semplificazioni", "date": "2025-11-05", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+
+  { "id": "VOTE019", "representativeId": "REP001", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE020", "representativeId": "REP002", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Contrario", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE021", "representativeId": "REP003", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Astenuto", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE022", "representativeId": "REP004", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE023", "representativeId": "REP005", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE024", "representativeId": "REP006", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Contrario", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE025", "representativeId": "REP007", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Assente", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE026", "representativeId": "REP008", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Astenuto", "result": "Approvato", "sourceUrl": null },
+  { "id": "VOTE027", "representativeId": "REP009", "title": "Decreto Lavoro", "date": "2025-06-18", "vote": "Favorevole", "result": "Approvato", "sourceUrl": null },
+
+  { "id": "VOTE028", "representativeId": "REP010", "title": "Riforma della Giustizia Tributaria", "date": "2025-10-14", "vote": "Contrario", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE029", "representativeId": "REP011", "title": "Riforma della Giustizia Tributaria", "date": "2025-10-14", "vote": "Favorevole", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE030", "representativeId": "REP012", "title": "Riforma della Giustizia Tributaria", "date": "2025-10-14", "vote": "Contrario", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE031", "representativeId": "REP013", "title": "Riforma della Giustizia Tributaria", "date": "2025-10-14", "vote": "Favorevole", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE032", "representativeId": "REP014", "title": "Riforma della Giustizia Tributaria", "date": "2025-10-14", "vote": "Contrario", "result": "Respinto", "sourceUrl": null },
+
+  { "id": "VOTE033", "representativeId": "REP010", "title": "Riforma Fiscale", "date": "2025-05-09", "vote": "Contrario", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE034", "representativeId": "REP011", "title": "Riforma Fiscale", "date": "2025-05-09", "vote": "Favorevole", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE035", "representativeId": "REP012", "title": "Riforma Fiscale", "date": "2025-05-09", "vote": "Astenuto", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE036", "representativeId": "REP013", "title": "Riforma Fiscale", "date": "2025-05-09", "vote": "Favorevole", "result": "Respinto", "sourceUrl": null },
+  { "id": "VOTE037", "representativeId": "REP014", "title": "Riforma Fiscale", "date": "2025-05-09", "vote": "Contrario", "result": "Respinto", "sourceUrl": null }
+]

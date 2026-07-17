@@ -1,0 +1,34 @@
+//
+//  ServiceContainer.swift
+//  Politici
+//
+
+import SwiftUI
+
+/// Bundles the app's local-first services so they're constructed once at launch
+/// and injected into the view hierarchy via the SwiftUI environment, instead of
+/// every view reaching for a `.shared` singleton directly.
+struct ServiceContainer {
+    let districtService: DistrictService
+    let representativeService: RepresentativeService
+    let voteService: VoteService
+    let geocodingService: GeocodingService
+
+    static let live = ServiceContainer(
+        districtService: .shared,
+        representativeService: .shared,
+        voteService: .shared,
+        geocodingService: .shared
+    )
+}
+
+private struct ServiceContainerKey: EnvironmentKey {
+    static let defaultValue = ServiceContainer.live
+}
+
+extension EnvironmentValues {
+    var services: ServiceContainer {
+        get { self[ServiceContainerKey.self] }
+        set { self[ServiceContainerKey.self] = newValue }
+    }
+}

@@ -1,0 +1,105 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "IT-RM-C01",
+        "name": "Roma Centro",
+        "chamber": "Camera"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [12.4700, 41.8950],
+            [12.5100, 41.8950],
+            [12.5100, 41.9150],
+            [12.4700, 41.9150],
+            [12.4700, 41.8950]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "IT-MI-C01",
+        "name": "Milano Centro",
+        "chamber": "Camera"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [9.1600, 45.4500],
+            [9.2200, 45.4500],
+            [9.2200, 45.4800],
+            [9.1600, 45.4800],
+            [9.1600, 45.4500]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "IT-TO-S01",
+        "name": "Torino Sud",
+        "chamber": "Senato"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [7.6600, 45.0300],
+            [7.7200, 45.0300],
+            [7.7200, 45.0600],
+            [7.6600, 45.0600],
+            [7.6600, 45.0300]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "IT-NA-C01",
+        "name": "Napoli Nord",
+        "chamber": "Camera"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [14.2300, 40.8700],
+            [14.3000, 40.8700],
+            [14.3000, 40.9000],
+            [14.2300, 40.9000],
+            [14.2300, 40.8700]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "IT-FI-S01",
+        "name": "Firenze Urban",
+        "chamber": "Senato"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [11.2300, 43.7600],
+            [11.2800, 43.7600],
+            [11.2800, 43.7900],
+            [11.2300, 43.7900],
+            [11.2300, 43.7600]
+          ]
+        ]
+      }
+    }
+  ]
+}
