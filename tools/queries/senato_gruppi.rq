@@ -1,0 +1,27 @@
+# Senato della Repubblica — current parliamentary group memberships (query 2 of 3).
+# Endpoint: https://dati.senato.it/sparql
+# License: CC BY 3.0
+# Used by: tools/fetch_senato.py
+#
+# NOTE: no ?sigla variable exists here (unlike the Camera query) — party
+# falls back to the full nomeGruppo value for every Senato record.
+PREFIX osr:  <http://dati.senato.it/osr/>
+PREFIX ocd:  <http://dati.camera.it/ocd/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?gruppo ?nomeGruppo ?senatore ?nome ?cognome ?carica ?inizioAdesione
+WHERE {
+  ?gruppo a ocd:gruppoParlamentare ;
+          osr:denominazione ?denominazione .
+  ?denominazione osr:titolo ?nomeGruppo .
+  ?adesioneGruppo a ocd:adesioneGruppo ;
+                  osr:carica ?carica ;
+                  osr:inizio ?inizioAdesione ;
+                  osr:gruppo ?gruppo .
+  ?senatore ocd:aderisce ?adesioneGruppo ;
+            a osr:Senatore ;
+            foaf:firstName ?nome ;
+            foaf:lastName ?cognome .
+  OPTIONAL { ?adesioneGruppo osr:fine ?fineAdesione }
+  OPTIONAL { ?denominazione osr:fine ?fineDenominazione }
+  FILTER(!bound(?fineAdesione) && !bound(?fineDenominazione))
+} ORDER BY ?nomeGruppo ?cognome

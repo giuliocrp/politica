@@ -23,7 +23,7 @@ struct VoteHistoryView: View {
                 ContentUnavailableView(
                     "Nessuna votazione",
                     systemImage: "checkmark.circle.trianglebadge.exclamationmark",
-                    description: Text("Non ci sono votazioni registrate per questo rappresentante.")
+                    description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
                 )
             } else {
                 List(votes) { vote in

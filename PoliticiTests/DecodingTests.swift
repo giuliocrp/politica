@@ -26,7 +26,16 @@ final class DecodingTests: XCTestCase {
     }
 
     func testVotesDecodeWithExpectedCount() throws {
+        // Data/votes.json ships as an empty, valid schema-v2 collection — the
+        // fictional votes live in Data/votes.sample.json now (see
+        // testSampleVotesDecodeWithExpectedCount), since they reference the
+        // old REP### ids and no real roll-call vote data exists yet.
         let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        XCTAssertEqual(votes.count, 0)
+    }
+
+    func testSampleVotesDecodeWithExpectedCount() throws {
+        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes.sample")
         XCTAssertEqual(votes.count, 37)
     }
 
@@ -50,16 +59,13 @@ final class DecodingTests: XCTestCase {
         })
     }
 
-    // NOTE: there is deliberately no "every vote.representativeId references a
-    // known representative" test here anymore. Data/representatives.json now
-    // holds real representatives (p###/s### ids, imported from open data —
-    // see tools/import_representatives.py); Data/votes.json is still the
-    // original fictional dataset (REP### ids) and hasn't been migrated to
-    // reference real people yet, so that cross-reference is currently, and
-    // knowingly, unsatisfied for every vote. Re-add this check once votes.json
-    // is regenerated from real roll-call data in a future phase.
-    func testVotesFileStillUsesItsOwnSelfConsistentIds() throws {
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+    // The shipping vote<->representative referential-integrity check is back
+    // at full strength in SchemaV2Tests.testShippingVotesReferenceKnownRepresentatives
+    // now that Data/votes.json ships empty (vacuously true) instead of
+    // referencing stale REP### ids. This test covers the *.sample.* pair,
+    // which is still self-contained fictional data with its own REP### ids.
+    func testSampleVotesFileUsesConsistentRepresentativeIds() throws {
+        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes.sample")
         let voteIds = votes.map(\.id)
         XCTAssertEqual(voteIds.count, Set(voteIds).count, "vote ids must be unique")
         XCTAssertTrue(votes.allSatisfy { $0.representativeId.hasPrefix("REP") })

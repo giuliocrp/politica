@@ -31,9 +31,13 @@ the raw SPARQL data, so they're documented here rather than left implicit):
   scope here). The raw ?collegio text is likewise not carried into
   representatives.json, since there's no field for it in the current
   schema and it would be misleading to imply it's used for anything.
-- attendanceRate and stableSourceId are always null — nothing in the raw
-  data maps to them without inventing a meaning for stableSourceId that
-  the acquisition brief never defined.
+- attendanceRate is always null — nothing in the raw data maps to it.
+  stableSourceId is the bare numeric id from the source URI, stripped of
+  this app's own "p"/"s" prefix (e.g. sourceUrl
+  ".../persona.rdf/p307394" -> stableSourceId "307394"; ".../senatore/1103"
+  -> "1103") — the source system's own identifier, decoupled from this
+  app's id-prefixing convention, verified unique across all records before
+  adopting this as an invariant (no Camera/Senato numeric-id collisions).
 - legislature = "XIX" for every record — not fetched as a field (Camera's
   query doesn't even select it), but it's exactly what both queries are
   scoped to via their WHERE clauses, so stating it isn't fabrication.
@@ -146,7 +150,7 @@ def import_camera():
                 "provenance": "official",
                 "legislature": LEGISLATURE,
                 "electionType": None,
-                "stableSourceId": None,
+                "stableSourceId": person_id[1:],  # strip the leading "p"
                 "sourceUrl": p["sourceUrl"],
             }
         )
@@ -226,7 +230,7 @@ def import_senato():
                 "provenance": "official",
                 "legislature": LEGISLATURE,
                 "electionType": None,
-                "stableSourceId": None,
+                "stableSourceId": person_id[1:],  # strip the leading "s"
                 "sourceUrl": p["sourceUrl"],
             }
         )
@@ -245,6 +249,11 @@ def main():
     if len(ids) != len(set(ids)):
         duplicates = sorted({i for i in ids if ids.count(i) > 1})
         fail(f"id duplicati dopo l'unione: {duplicates}")
+
+    stable_ids = [r["stableSourceId"] for r in all_records]
+    if len(stable_ids) != len(set(stable_ids)):
+        duplicates = sorted({i for i in stable_ids if stable_ids.count(i) > 1})
+        fail(f"stableSourceId duplicati dopo l'unione: {duplicates}")
 
     all_records.sort(key=lambda r: r["id"])
 

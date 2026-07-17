@@ -3,8 +3,9 @@
 
 Offline — does not fetch anything. Checks the file is well-formed and
 internally consistent; it does NOT check cross-references against
-Data/votes.json, since votes.json is a separate, still-fictional dataset not
-yet migrated to reference real representative ids (see tools/README.md).
+Data/votes.json (that file ships as an empty schema-v2 collection and is
+validated separately by the Swift test suite — see
+docs/v2/02-post-import-audit.md).
 
 Exits non-zero with a clear diagnostic on any violation.
 """
@@ -35,6 +36,12 @@ REQUIRED_KEYS = {
 VALID_CHAMBERS = {"Camera", "Senato"}
 VALID_PROVENANCE = {"sample", "official"}
 
+# See docs/v2/02-post-import-audit.md: 400 is the exact constitutional size
+# of the Camera; 201 is Senato's currently-serving count (elected + the 5
+# active life senators), verified directly against the raw SPARQL cache.
+EXPECTED_CAMERA_COUNT = 400
+EXPECTED_SENATO_COUNT = 201
+
 
 def fail(errors):
     print(f"ERRORE: {len(errors)} problema/i in {DATA_PATH.relative_to(ROOT)}:", file=sys.stderr)
@@ -60,6 +67,7 @@ def main():
         errors.append("l'array è vuoto")
 
     seen_ids = set()
+    seen_stable_ids = set()
     for index, record in enumerate(records):
         label = f"record #{index} (id={record.get('id', '?')})"
 
@@ -80,6 +88,14 @@ def main():
         else:
             seen_ids.add(rec_id)
 
+        stable_id = record["stableSourceId"]
+        if not isinstance(stable_id, str) or not stable_id:
+            errors.append(f"{label}: 'stableSourceId' deve essere una stringa non vuota")
+        elif stable_id in seen_stable_ids:
+            errors.append(f"{label}: stableSourceId duplicato")
+        else:
+            seen_stable_ids.add(stable_id)
+
         if not isinstance(record["name"], str) or not record["name"].strip():
             errors.append(f"{label}: 'name' deve essere una stringa non vuota")
 
@@ -88,6 +104,9 @@ def main():
                 f"{label}: 'party' è vuoto — spesso un segnale che il mandato "
                 "è terminato e il record non dovrebbe essere incluso"
             )
+
+        if not isinstance(record["parliamentaryGroup"], str) or not record["parliamentaryGroup"].strip():
+            errors.append(f"{label}: 'parliamentaryGroup' deve essere una stringa non vuota")
 
         if record["chamber"] not in VALID_CHAMBERS:
             errors.append(f"{label}: 'chamber' non valido: {record['chamber']!r}")
@@ -110,11 +129,23 @@ def main():
         if source_url is not None and not (isinstance(source_url, str) and source_url.startswith("http")):
             errors.append(f"{label}: 'sourceUrl' deve essere null o un URL http(s)")
 
+    camera_count = sum(1 for r in records if r["chamber"] == "Camera")
+    senato_count = sum(1 for r in records if r["chamber"] == "Senato")
+
+    if camera_count != EXPECTED_CAMERA_COUNT:
+        errors.append(
+            f"totale Camera = {camera_count}, atteso {EXPECTED_CAMERA_COUNT} "
+            "(vedi docs/v2/02-post-import-audit.md)"
+        )
+    if senato_count != EXPECTED_SENATO_COUNT:
+        errors.append(
+            f"totale Senato = {senato_count}, atteso {EXPECTED_SENATO_COUNT} "
+            "(vedi docs/v2/02-post-import-audit.md)"
+        )
+
     if errors:
         fail(errors)
 
-    camera_count = sum(1 for r in records if r["chamber"] == "Camera")
-    senato_count = sum(1 for r in records if r["chamber"] == "Senato")
     official_count = sum(1 for r in records if r["provenance"] == "official")
     sample_count = sum(1 for r in records if r["provenance"] == "sample")
     with_district = sum(1 for r in records if r["districtId"] is not None)

@@ -10,7 +10,9 @@ import XCTest
 final class ServiceLookupTests: XCTestCase {
     private let districtService = DistrictService()
     private let representativeService = RepresentativeService()
-    private let voteService = VoteService()
+    // Data/votes.json ships empty (see DecodingTests/SchemaV2Tests); this
+    // suite's votes(for:) coverage exercises the *.sample.* fixture instead.
+    private let voteService = VoteService(resource: "votes.sample")
 
     // MARK: - district(for:) — one known in-polygon coordinate per sample city
 
@@ -53,6 +55,16 @@ final class ServiceLookupTests: XCTestCase {
         // The assertion below still exercises the actual filter predicate
         // rather than a hardcoded expectation about today's data shape.
         let representatives = representativeService.representatives(for: "IT-RM-C01")
+        XCTAssertTrue(representatives.allSatisfy { $0.districtId == "IT-RM-C01" })
+    }
+
+    func testRepresentativesForDistrictInSampleFixtureIsNonEmpty() {
+        // The *.sample.* pair still has districtId assigned, so this
+        // exercises the actual non-empty, correctly-filtered positive case
+        // that the shipping-data version above currently can't (see above).
+        let sampleService = RepresentativeService(resource: "representatives.sample")
+        let representatives = sampleService.representatives(for: "IT-RM-C01")
+        XCTAssertFalse(representatives.isEmpty)
         XCTAssertTrue(representatives.allSatisfy { $0.districtId == "IT-RM-C01" })
     }
 

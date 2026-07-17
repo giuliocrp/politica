@@ -16,3 +16,7 @@ DerivedData/
 .build/
 Packages/
 tools/raw/
+
+# Python
+__pycache__/
+*.pyc

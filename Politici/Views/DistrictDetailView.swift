@@ -45,6 +45,11 @@ struct DistrictDetailView: View {
             )
             .font(.subheadline)
             .foregroundStyle(.secondary)
+
+            // REMOVE-IN-BOUNDARIES-PHASE: see MapView.swift's legend caption.
+            Text("Confini dimostrativi — non corrispondono ai collegi reali.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
         }
     }
 
@@ -54,7 +59,7 @@ struct DistrictDetailView: View {
                 .font(.headline)
 
             if representatives.isEmpty {
-                Text("Nessun rappresentante trovato per questo collegio.")
+                Text("Nessun rappresentante collegato in questa versione del prototipo.")
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(representatives) { representative in
@@ -73,6 +78,7 @@ struct DistrictDetailView: View {
 /// Shared avatar/name/party row used by `HomeView`'s featured list and here.
 struct RepresentativeRow: View {
     let representative: Representative
+    @Environment(\.services) private var services
 
     var body: some View {
         HStack(spacing: 12) {
@@ -80,7 +86,7 @@ struct RepresentativeRow: View {
                 .font(.system(size: 34))
                 .foregroundStyle(.white)
                 .frame(width: 52, height: 52)
-                .background(PartyStyle.color(for: representative.party), in: Circle())
+                .background(services.partyStyleService.color(for: representative.party), in: Circle())
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(representative.name)
@@ -98,22 +104,6 @@ struct RepresentativeRow: View {
         }
         .padding(12)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
-    }
-}
-
-/// Maps a party name to a distinguishing accent color used across representative UI.
-enum PartyStyle {
-    static func color(for party: String) -> Color {
-        switch party {
-        case "Fratelli d'Italia": return .indigo
-        case "Partito Democratico": return .red
-        case "Movimento 5 Stelle": return .yellow
-        case "Lega": return .green
-        case "Forza Italia": return .blue
-        case "Alleanza Verdi e Sinistra": return .mint
-        case "Azione - Italia Viva": return .orange
-        default: return .gray
-        }
     }
 }
 

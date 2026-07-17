@@ -4,7 +4,36 @@ Supersedes `docs/v2/00-audit.md`'s representative-data numbers (that doc is a
 frozen snapshot and is intentionally not edited). This phase replaced
 `Data/representatives.json`'s fictional content with real, officially-sourced
 data fetched from the Camera dei Deputati and Senato della Repubblica open
-data portals.
+data portals. See `docs/v2/02-post-import-audit.md` for the follow-up
+reconciliation phase (bundle integrity, party styling, pipeline hygiene).
+
+## The fetch / import split
+
+The pipeline is deliberately two separate steps with different network
+requirements, so `make import` (and therefore every rebuild of
+`Data/representatives.json`) never depends on network access:
+
+- **`make fetch`** (`tools/fetch_camera.py` + `tools/fetch_senato.py`) —
+  the *only* step that touches the network. Runs the SPARQL queries in
+  `tools/queries/*.rq` against the live endpoints (with retry/backoff on
+  transient failures — see `tools/sparql_client.py`) and writes the raw
+  SPARQL-JSON responses to `tools/raw/*.json` (gitignored — regenerable,
+  not canonical). On success, also stamps
+  `tools/raw/.fetch_metadata.json` with today's date per source, so
+  `make manifest` can later record *when the data was actually retrieved*
+  rather than whenever the manifest happens to be regenerated.
+- **`make import`** (`tools/import_representatives.py`) — fully **offline**.
+  Reads only the cached `tools/raw/*.json` files and merges them into
+  `Politici/Data/representatives.json`. Fails loudly (non-zero exit, no
+  output written) if the raw cache is missing — it never falls back to
+  fetching, by design.
+- **`make validate`** / **`make manifest`** are likewise offline,
+  operating only on already-generated `Data/` files
+  (`tools/raw/.fetch_metadata.json` in the manifest's case).
+
+Practically: `make fetch` needs to succeed once (or whenever the data
+should be refreshed); every other target, including `make import`, can be
+re-run any number of times afterward with zero network access.
 
 ## What changed
 

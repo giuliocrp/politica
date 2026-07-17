@@ -49,7 +49,9 @@ final class SchemaV2Tests: XCTestCase {
     }
 
     func testSampleVotesDecodeWithSampleProvenance() throws {
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        // Data/votes.json ships empty now (see DecodingTests); the fictional,
+        // .sample-provenance votes live in Data/votes.sample.json.
+        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes.sample")
         XCTAssertFalse(votes.isEmpty)
         XCTAssertTrue(votes.allSatisfy { $0.provenance == .sample })
     }
@@ -90,13 +92,12 @@ final class SchemaV2Tests: XCTestCase {
 
     // MARK: - Referential integrity on the shipping bundle data
     //
-    // NOTE: this deliberately does NOT check vote.representativeId against
-    // representatives.json anymore. representatives.json now holds real
-    // people (p###/s### ids); votes.json is still the original fictional
-    // dataset (REP### ids) and hasn't been migrated to reference real
-    // representatives yet — see DecodingTests.testVotesFileStillUsesItsOwnSelfConsistentIds
-    // for that self-contained check, and re-merge this once votes.json is
-    // regenerated from real roll-call data.
+    // Reinstated at full strength: Data/votes.json now ships as a valid,
+    // empty schema-v2 collection (see docs/v2/02-post-import-audit.md)
+    // instead of referencing stale fictional REP### ids, so this check is
+    // vacuously — but genuinely, not artificially — satisfied, and will
+    // catch any future vote entry that doesn't reference a real
+    // representative id.
 
     func testShippingDataIdsAreUnique() throws {
         let districts = try GeoJSONLoader.loadDistricts()
@@ -112,6 +113,17 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertEqual(voteIds.count, Set(voteIds).count, "vote ids must be unique")
     }
 
+    func testShippingVotesReferenceKnownRepresentatives() throws {
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        let representativeIds = Set(representatives.map(\.id))
+
+        XCTAssertTrue(
+            votes.allSatisfy { representativeIds.contains($0.representativeId) },
+            "every shipping vote.representativeId must reference a real representative"
+        )
+    }
+
     func testEveryNonNilShippingRepresentativeDistrictIsKnown() throws {
         let districts = try GeoJSONLoader.loadDistricts()
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
@@ -124,6 +136,37 @@ final class SchemaV2Tests: XCTestCase {
             },
             "every non-nil representative.districtId must reference an existing district"
         )
+    }
+
+    // MARK: - Shipping-data invariants (post-import reconciliation phase)
+    //
+    // Counts are documented and justified in docs/v2/02-post-import-audit.md
+    // (400 = Camera's exact constitutional size; 201 = Senato's currently-
+    // serving count, elected + 5 active life senators, verified directly
+    // against the raw SPARQL cache).
+
+    func testShippingRepresentativesChamberCounts() throws {
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        XCTAssertEqual(representatives.filter { $0.chamber == .camera }.count, 400)
+        XCTAssertEqual(representatives.filter { $0.chamber == .senato }.count, 201)
+    }
+
+    func testShippingRepresentativeIdsAndStableSourceIdsAreUniqueAndNonEmpty() throws {
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+
+        let ids = representatives.map(\.id)
+        XCTAssertTrue(ids.allSatisfy { !$0.isEmpty })
+        XCTAssertEqual(ids.count, Set(ids).count, "representative ids must be unique")
+
+        let stableSourceIds = representatives.compactMap(\.stableSourceId)
+        XCTAssertEqual(stableSourceIds.count, representatives.count, "every shipping representative must have a stableSourceId")
+        XCTAssertTrue(stableSourceIds.allSatisfy { !$0.isEmpty })
+        XCTAssertEqual(stableSourceIds.count, Set(stableSourceIds).count, "stableSourceId must be unique")
+    }
+
+    func testShippingRepresentativesHaveNonEmptyParliamentaryGroup() throws {
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        XCTAssertTrue(representatives.allSatisfy { !$0.parliamentaryGroup.isEmpty })
     }
 
     // MARK: - Sources manifest

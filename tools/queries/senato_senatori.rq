@@ -1,0 +1,34 @@
+# Senato della Repubblica — senators, XIX Legislature (query 1 of 3).
+# Endpoint: https://dati.senato.it/sparql
+# License: CC BY 3.0
+# Used by: tools/fetch_senato.py
+#
+# NOTE: has no active-mandate filter — returns everyone who was ever part of
+# legislature XIX, including senators whose mandate has since ended
+# (resignation, death, replacement). tools/import_representatives.py
+# excludes any binding with a non-null fineMandato — see
+# docs/v2/02-post-import-audit.md for why, and confirmation that this
+# correctly includes active life senators (senatori a vita).
+PREFIX osr:  <http://dati.senato.it/osr/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?senatore ?foto ?nome ?cognome ?legislatura
+                ?inizioMandato ?fineMandato ?tipoMandato
+                ?tipoFineMandato ?dataNascita ?cittaNascita
+                ?provinciaNascita ?nazioneNascita
+WHERE {
+  ?senatore a osr:Senatore ;
+            foaf:firstName ?nome ;
+            foaf:lastName  ?cognome ;
+            foaf:depiction ?foto ;
+            osr:cittaNascita ?cittaNascita ;
+            osr:provinciaNascita ?provinciaNascita ;
+            osr:nazioneNascita ?nazioneNascita ;
+            osr:dataNascita ?dataNascita ;
+            osr:mandato ?mandato .
+  ?mandato osr:tipoMandato ?tipoMandato ;
+           osr:inizio ?inizioMandato ;
+           osr:legislatura ?legislatura .
+  OPTIONAL { ?mandato osr:fine ?fineMandato. }
+  OPTIONAL { ?mandato osr:tipoFineMandato ?tipoFineMandato. }
+  FILTER(?legislatura = 19)
+} ORDER BY ?cognome ?nome

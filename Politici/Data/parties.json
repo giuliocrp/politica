@@ -1,0 +1,21 @@
+[
+  { "value": "AVS", "shortName": "AVS", "colorHex": "#1B4332" },
+  { "value": "AZ-PER-RE", "shortName": "Azione", "colorHex": "#8A4B00" },
+  { "value": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare", "shortName": "Centristi", "colorHex": "#4E342E" },
+  { "value": "FDI", "shortName": "FdI", "colorHex": "#14213D" },
+  { "value": "FI-PPE", "shortName": "FI", "colorHex": "#0B5394" },
+  { "value": "Forza Italia - Berlusconi Presidente - PPE", "shortName": "FI", "colorHex": "#0B5394" },
+  { "value": "Fratelli d'Italia", "shortName": "FdI", "colorHex": "#14213D" },
+  { "value": "IV-CR", "shortName": "IV", "colorHex": "#6A1B4D" },
+  { "value": "Italia Viva - Casa Riformista", "shortName": "IV", "colorHex": "#6A1B4D" },
+  { "value": "LEGA", "shortName": "Lega", "colorHex": "#1B5E20" },
+  { "value": "Lega Salvini Premier - Partito Sardo d'Azione", "shortName": "Lega", "colorHex": "#1B5E20" },
+  { "value": "M5S", "shortName": "M5S", "colorHex": "#7A5C00" },
+  { "value": "MISTO", "shortName": "Misto", "colorHex": "#4A4A4A" },
+  { "value": "Misto", "shortName": "Misto", "colorHex": "#4A4A4A" },
+  { "value": "MoVimento 5 Stelle", "shortName": "M5S", "colorHex": "#7A5C00" },
+  { "value": "NM(N-C-U-I)M-CP", "shortName": "Noi Moderati", "colorHex": "#37474F" },
+  { "value": "PD-IDP", "shortName": "PD", "colorHex": "#8B1A1A" },
+  { "value": "Partito Democratico - Italia Democratica e Progressista", "shortName": "PD", "colorHex": "#8B1A1A" },
+  { "value": "Per le Autonomie (SVP-PATT, Campobase)", "shortName": "Autonomie", "colorHex": "#4A148C" }
+]

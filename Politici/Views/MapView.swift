@@ -68,11 +68,20 @@ struct MapView: View {
     }
 
     private var legend: some View {
-        HStack(spacing: 16) {
-            legendItem(color: .blue, label: "Camera dei Deputati")
-            legendItem(color: .purple, label: "Senato della Repubblica")
+        VStack(spacing: 4) {
+            HStack(spacing: 16) {
+                legendItem(color: .blue, label: "Camera dei Deputati")
+                legendItem(color: .purple, label: "Senato della Repubblica")
+            }
+            .font(.caption)
+
+            // REMOVE-IN-BOUNDARIES-PHASE: the 5 sample districts are
+            // demonstrative rectangles, not real electoral college
+            // boundaries. Drop this caption once real geography lands.
+            Text("Confini dimostrativi — non corrispondono ai collegi reali.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
         }
-        .font(.caption)
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)

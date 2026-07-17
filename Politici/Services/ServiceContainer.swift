@@ -14,13 +14,15 @@ struct ServiceContainer {
     let voteService: VoteService
     let geocodingService: GeocodingService
     let manifestService: ManifestService
+    let partyStyleService: PartyStyleService
 
     static let live = ServiceContainer(
         districtService: .shared,
         representativeService: .shared,
         voteService: .shared,
         geocodingService: .shared,
-        manifestService: .shared
+        manifestService: .shared,
+        partyStyleService: .shared
     )
 }
 

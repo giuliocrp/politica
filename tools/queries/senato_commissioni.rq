@@ -1,0 +1,21 @@
+# Senato della Repubblica — current committee memberships (query 3 of 3).
+# Endpoint: https://dati.senato.it/sparql
+# License: CC BY 3.0
+# Used by: tools/fetch_senato.py
+PREFIX osr:  <http://dati.senato.it/osr/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+SELECT DISTINCT ?senatore ?nome ?cognome ?inizioAfferenza ?carica ?commissione ?dizione
+WHERE {
+  ?senatore osr:afferisce ?afferenza ;
+            a osr:Senatore ;
+            foaf:firstName ?nome ;
+            foaf:lastName ?cognome .
+  ?afferenza osr:inizio ?inizioAfferenza ;
+             osr:commissione ?commissione ;
+             osr:carica ?carica .
+  ?commissione osr:denominazione ?denominazione .
+  ?denominazione osr:titolo ?dizione .
+  OPTIONAL { ?denominazione osr:fine ?dataFine }
+  OPTIONAL { ?afferenza osr:fine ?fineAfferenza }
+  FILTER(!bound(?fineAfferenza) && !bound(?dataFine))
+} ORDER BY ?commissione ?cognome

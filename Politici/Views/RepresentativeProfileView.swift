@@ -46,7 +46,7 @@ struct RepresentativeProfileView: View {
                 .font(.system(size: 56))
                 .foregroundStyle(.white)
                 .frame(width: 96, height: 96)
-                .background(PartyStyle.color(for: representative.party), in: Circle())
+                .background(services.partyStyleService.color(for: representative.party), in: Circle())
 
             Text(representative.name)
                 .font(.title2.bold())
@@ -60,8 +60,10 @@ struct RepresentativeProfileView: View {
                 .font(.caption)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 4)
-                .background(PartyStyle.color(for: representative.party).opacity(0.15), in: Capsule())
-                .foregroundStyle(PartyStyle.color(for: representative.party))
+                .background(services.partyStyleService.color(for: representative.party).opacity(0.15), in: Capsule())
+                .foregroundStyle(services.partyStyleService.color(for: representative.party))
+
+            provenanceBadge(representative.provenance)
 
             if let attendanceRate = representative.attendanceRate {
                 attendanceBadge(rate: attendanceRate)
@@ -72,6 +74,17 @@ struct RepresentativeProfileView: View {
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
+    }
+
+    private func provenanceBadge(_ provenance: DataProvenance) -> some View {
+        let color: Color = provenance == .official ? .blue : .orange
+        let icon = provenance == .official ? "checkmark.seal.fill" : "wand.and.stars"
+        return Label(provenance.displayName, systemImage: icon)
+            .font(.caption.weight(.semibold))
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(color.opacity(0.15), in: Capsule())
+            .foregroundStyle(color)
     }
 
     private func attendanceBadge(rate: Double) -> some View {
@@ -107,7 +120,7 @@ struct RepresentativeProfileView: View {
                 .font(.headline)
 
             if recentVotes.isEmpty {
-                Text("Nessuna votazione registrata.")
+                Text("Nessuna votazione disponibile in questa versione del prototipo.")
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(recentVotes) { vote in
