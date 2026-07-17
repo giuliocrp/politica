@@ -1,14 +1,30 @@
 {
+  "generatedAt": "2026-07-18",
   "schemaVersion": 2,
-  "generatedAt": "2026-07-17",
   "sources": [
     {
+      "id": "camera-dei-deputati-xix-legislatura",
+      "license": "CC BY 4.0",
+      "name": "Camera dei Deputati — Open Data (XIX Legislatura)",
+      "notes": "Dati su deputati, gruppi parlamentari e commissioni della XIX Legislatura, ottenuti tramite interrogazione SPARQL all'endpoint ufficiale dati.camera.it. Il collegio elettorale non è ancora associato ai collegi campione di questo prototipo (districtId è null).",
+      "retrievedAt": "2026-07-18",
+      "url": "https://dati.camera.it/sparql"
+    },
+    {
       "id": "prototipo-dati-dimostrativi",
-      "name": "Dati dimostrativi generati per il prototipo",
-      "url": "",
       "license": "n/a",
+      "name": "Dati dimostrativi generati per il prototipo",
+      "notes": "Dataset interamente fittizio, scritto a mano per dimostrare l'architettura dell'app. Non deriva da alcuna fonte esterna e non rappresenta collegi, rappresentanti o votazioni realmente esistenti.",
       "retrievedAt": "2026-07-17",
-      "notes": "Dataset interamente fittizio, scritto a mano per dimostrare l'architettura dell'app. Non deriva da alcuna fonte esterna e non rappresenta collegi, rappresentanti o votazioni realmente esistenti."
+      "url": ""
+    },
+    {
+      "id": "senato-della-repubblica-xix-legislatura",
+      "license": "CC BY 3.0",
+      "name": "Senato della Repubblica — Open Data (XIX Legislatura)",
+      "notes": "Dati su senatori, gruppi parlamentari e commissioni della XIX Legislatura, ottenuti tramite tre interrogazioni SPARQL all'endpoint ufficiale dati.senato.it. Il collegio elettorale non è ancora associato ai collegi campione di questo prototipo (districtId è null).",
+      "retrievedAt": "2026-07-18",
+      "url": "https://dati.senato.it/sparql"
     }
   ]
 }

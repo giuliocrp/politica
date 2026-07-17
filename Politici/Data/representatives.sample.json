@@ -1,0 +1,156 @@
+[
+  {
+    "id": "REP001",
+    "name": "Alessandro Ferretti",
+    "chamber": "Camera",
+    "districtId": "IT-RM-C01",
+    "party": "Fratelli d'Italia",
+    "parliamentaryGroup": "Fratelli d'Italia",
+    "committees": ["Commissione Affari Costituzionali", "Commissione Bilancio"],
+    "attendanceRate": 0.92,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP002",
+    "name": "Giulia Marchetti",
+    "chamber": "Camera",
+    "districtId": "IT-RM-C01",
+    "party": "Partito Democratico",
+    "parliamentaryGroup": "Partito Democratico",
+    "committees": ["Commissione Cultura", "Commissione Istruzione"],
+    "attendanceRate": 0.88,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP003",
+    "name": "Marco Esposito",
+    "chamber": "Camera",
+    "districtId": "IT-RM-C01",
+    "party": "Movimento 5 Stelle",
+    "parliamentaryGroup": "Movimento 5 Stelle",
+    "committees": ["Commissione Ambiente", "Commissione Trasporti"],
+    "attendanceRate": 0.79,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP004",
+    "name": "Chiara Bianchi",
+    "chamber": "Camera",
+    "districtId": "IT-MI-C01",
+    "party": "Lega",
+    "parliamentaryGroup": "Lega Salvini Premier",
+    "committees": ["Commissione Bilancio", "Commissione Finanze"],
+    "attendanceRate": 0.85,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP005",
+    "name": "Davide Colombo",
+    "chamber": "Camera",
+    "districtId": "IT-MI-C01",
+    "party": "Forza Italia",
+    "parliamentaryGroup": "Forza Italia",
+    "committees": ["Commissione Giustizia"],
+    "attendanceRate": 0.81,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP006",
+    "name": "Federica Ricci",
+    "chamber": "Camera",
+    "districtId": "IT-MI-C01",
+    "party": "Alleanza Verdi e Sinistra",
+    "parliamentaryGroup": "Alleanza Verdi e Sinistra",
+    "committees": ["Commissione Ambiente", "Commissione Lavoro"],
+    "attendanceRate": 0.90,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP007",
+    "name": "Salvatore Russo",
+    "chamber": "Camera",
+    "districtId": "IT-NA-C01",
+    "party": "Movimento 5 Stelle",
+    "parliamentaryGroup": "Movimento 5 Stelle",
+    "committees": ["Commissione Sanità"],
+    "attendanceRate": 0.76,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP008",
+    "name": "Antonella Greco",
+    "chamber": "Camera",
+    "districtId": "IT-NA-C01",
+    "party": "Partito Democratico",
+    "parliamentaryGroup": "Partito Democratico",
+    "committees": ["Commissione Lavoro", "Commissione Affari Sociali"],
+    "attendanceRate": 0.83,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP009",
+    "name": "Vincenzo Romano",
+    "chamber": "Camera",
+    "districtId": "IT-NA-C01",
+    "party": "Fratelli d'Italia",
+    "parliamentaryGroup": "Fratelli d'Italia",
+    "committees": ["Commissione Difesa"],
+    "attendanceRate": 0.94,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP010",
+    "name": "Laura Conti",
+    "chamber": "Senato",
+    "districtId": "IT-TO-S01",
+    "party": "Partito Democratico",
+    "parliamentaryGroup": "Partito Democratico",
+    "committees": ["Commissione Affari Costituzionali"],
+    "attendanceRate": 0.87,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP011",
+    "name": "Paolo Gallo",
+    "chamber": "Senato",
+    "districtId": "IT-TO-S01",
+    "party": "Lega",
+    "parliamentaryGroup": "Lega Salvini Premier",
+    "committees": ["Commissione Bilancio"],
+    "attendanceRate": 0.80,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP012",
+    "name": "Simona De Luca",
+    "chamber": "Senato",
+    "districtId": "IT-TO-S01",
+    "party": "Azione - Italia Viva",
+    "parliamentaryGroup": "Azione - Italia Viva",
+    "committees": ["Commissione Esteri"],
+    "attendanceRate": 0.91,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP013",
+    "name": "Roberto Fontana",
+    "chamber": "Senato",
+    "districtId": "IT-FI-S01",
+    "party": "Forza Italia",
+    "parliamentaryGroup": "Forza Italia",
+    "committees": ["Commissione Giustizia", "Commissione Cultura"],
+    "attendanceRate": 0.78,
+    "photoName": "person.crop.circle.fill"
+  },
+  {
+    "id": "REP014",
+    "name": "Elena Barbieri",
+    "chamber": "Senato",
+    "districtId": "IT-FI-S01",
+    "party": "Alleanza Verdi e Sinistra",
+    "parliamentaryGroup": "Alleanza Verdi e Sinistra",
+    "committees": ["Commissione Ambiente"],
+    "attendanceRate": 0.86,
+    "photoName": "person.crop.circle.fill"
+  }
+]

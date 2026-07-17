@@ -24,7 +24,11 @@ struct Representative: Identifiable, Hashable {
     let id: String
     let name: String
     let chamber: Chamber
-    let districtId: String
+    /// Nil for representatives imported from real open data whose electoral
+    /// college hasn't been mapped to one of this app's sample districts yet
+    /// (see tools/import_representatives.py). Always non-nil for the
+    /// fictional sample dataset.
+    let districtId: String?
     let party: String
     let parliamentaryGroup: String
     let committees: [String]
@@ -52,7 +56,7 @@ extension Representative: Codable {
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         chamber = try container.decode(Chamber.self, forKey: .chamber)
-        districtId = try container.decode(String.self, forKey: .districtId)
+        districtId = try container.decodeIfPresent(String.self, forKey: .districtId)
         party = try container.decode(String.self, forKey: .party)
         parliamentaryGroup = try container.decode(String.self, forKey: .parliamentaryGroup)
         committees = try container.decode([String].self, forKey: .committees)
@@ -70,7 +74,7 @@ extension Representative: Codable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(chamber, forKey: .chamber)
-        try container.encode(districtId, forKey: .districtId)
+        try container.encodeIfPresent(districtId, forKey: .districtId)
         try container.encode(party, forKey: .party)
         try container.encode(parliamentaryGroup, forKey: .parliamentaryGroup)
         try container.encode(committees, forKey: .committees)
