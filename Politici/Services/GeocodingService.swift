@@ -17,10 +17,24 @@ enum GeocodingError: LocalizedError {
     }
 }
 
+/// Seam between address-resolution callers (views) and the concrete geocoding
+/// implementation, so tests can inject a fake provider instead of exercising
+/// `CLGeocoder`/on-device search services.
+protocol GeocodingProviding {
+    func geocode(address: String) async throws -> CLLocationCoordinate2D
+}
+
 /// Resolves a free-text address to a coordinate using `CLGeocoder`, falling back to a
 /// hardcoded lookup table for the app's sample cities when geocoding fails or is
 /// unavailable (e.g. offline in the Simulator).
-final class GeocodingService {
+///
+/// `CLGeocoder` is slated for deprecation on newer Apple SDKs in favor of
+/// MapKit's `MKGeocodingRequest`. This class deliberately stays on `CLGeocoder`
+/// so the app keeps its current iOS 17 minimum deployment target, but callers
+/// depend on `GeocodingProviding` rather than this concrete type — that's the
+/// migration seam: swapping the implementation later (or branching by OS
+/// version) won't require touching call sites.
+final class GeocodingService: GeocodingProviding {
     static let shared = GeocodingService()
 
     private let geocoder: CLGeocoder
