@@ -32,6 +32,8 @@ struct ContentView: View {
             RepresentativeProfileView(representativeId: representativeId, path: $path)
         case .voteHistory(let representativeId):
             VoteHistoryView(representativeId: representativeId)
+        case .fontiEDati:
+            FontiEDatiView()
         }
     }
 }

@@ -8,6 +8,20 @@ import Foundation
 enum DateFormatting {
     static let italianLocale = Locale(identifier: "it_IT")
 
+    private static let isoDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(identifier: "Europe/Rome")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+
+    /// Parses a `yyyy-MM-dd` ISO-8601 date string, e.g. as found in Data/sources.json.
+    static func parseISODate(_ string: String) -> Date? {
+        isoDateFormatter.date(from: string)
+    }
+
     /// e.g. "12 marzo 2025"
     static let longDateFormatter: DateFormatter = {
         let formatter = DateFormatter()

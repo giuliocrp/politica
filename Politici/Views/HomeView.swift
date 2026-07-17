@@ -22,11 +22,22 @@ struct HomeView: View {
                 mapCTA
                 statsSection
                 featuredSection
+                footer
             }
             .padding()
         }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    path.append(.fontiEDati)
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+                .accessibilityLabel("Informazioni e fonti")
+            }
+        }
     }
 
     private var header: some View {
@@ -95,6 +106,18 @@ struct HomeView: View {
                 .buttonStyle(.plain)
             }
         }
+    }
+
+    private var footer: some View {
+        Button {
+            path.append(.fontiEDati)
+        } label: {
+            Text("Informazioni e fonti")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity)
+        }
+        .padding(.top, 4)
     }
 
     private func navigateToSearch() {
