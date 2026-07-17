@@ -90,6 +90,7 @@ struct VoteBadge: View {
         case .contrario: return .red
         case .astenuto: return .orange
         case .assente: return .gray
+        case .sconosciuto: return .gray
         }
     }
 }

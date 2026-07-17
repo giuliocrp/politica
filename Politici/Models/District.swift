@@ -20,12 +20,30 @@ struct Coordinate: Codable, Hashable {
     }
 }
 
+enum CollegioType: String, TolerantStringEnum, Hashable {
+    case uninominale
+    case plurinominale
+    case sconosciuto
+
+    static var unknownCase: CollegioType { .sconosciuto }
+}
+
+extension CollegioType: Codable {
+    init(from decoder: Decoder) throws {
+        self = try Self.decodeTolerant(from: decoder)
+    }
+}
+
 struct District: Identifiable, Hashable {
     let id: String
     let name: String
     let chamber: Chamber
     /// GeoJSON polygon rings: first ring is the exterior boundary, any further rings are holes.
     let polygonRings: [[Coordinate]]
+    let provenance: DataProvenance
+    let collegioType: CollegioType
+    let region: String?
+    let sourceName: String?
 
     var exteriorCoordinates: [CLLocationCoordinate2D] {
         polygonRings.first?.map(\.clLocationCoordinate2D) ?? []
@@ -53,6 +71,10 @@ extension District: Decodable {
         case id
         case name
         case chamber
+        case provenance
+        case collegioType
+        case region
+        case sourceName
     }
 
     private enum GeometryKeys: String, CodingKey {
@@ -67,6 +89,10 @@ extension District: Decodable {
         id = try properties.decode(String.self, forKey: .id)
         name = try properties.decode(String.self, forKey: .name)
         chamber = try properties.decode(Chamber.self, forKey: .chamber)
+        provenance = try properties.decodeIfPresent(DataProvenance.self, forKey: .provenance) ?? .sample
+        collegioType = try properties.decodeIfPresent(CollegioType.self, forKey: .collegioType) ?? .sconosciuto
+        region = try properties.decodeIfPresent(String.self, forKey: .region)
+        sourceName = try properties.decodeIfPresent(String.self, forKey: .sourceName)
 
         let geometry = try container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
         // GeoJSON Polygon coordinates: [ring][pointIndex][lon, lat]

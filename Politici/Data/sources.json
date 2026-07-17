@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-17",
+  "sources": [
+    {
+      "id": "prototipo-dati-dimostrativi",
+      "name": "Dati dimostrativi generati per il prototipo",
+      "url": "",
+      "license": "n/a",
+      "retrievedAt": "2026-07-17",
+      "notes": "Dataset interamente fittizio, scritto a mano per dimostrare l'architettura dell'app. Non deriva da alcuna fonte esterna e non rappresenta collegi, rappresentanti o votazioni realmente esistenti."
+    }
+  ]
+}

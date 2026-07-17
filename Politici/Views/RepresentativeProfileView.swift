@@ -63,7 +63,9 @@ struct RepresentativeProfileView: View {
                 .background(PartyStyle.color(for: representative.party).opacity(0.15), in: Capsule())
                 .foregroundStyle(PartyStyle.color(for: representative.party))
 
-            attendanceBadge(rate: representative.attendanceRate)
+            if let attendanceRate = representative.attendanceRate {
+                attendanceBadge(rate: attendanceRate)
+            }
 
             Text(representative.chamber == .camera ? "Camera dei Deputati" : "Senato della Repubblica")
                 .font(.footnote)
