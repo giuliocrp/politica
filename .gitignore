@@ -15,3 +15,4 @@ DerivedData/
 .swiftpm/
 .build/
 Packages/
+tools/raw/
