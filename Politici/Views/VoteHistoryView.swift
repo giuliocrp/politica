@@ -46,9 +46,14 @@ struct VoteRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            // Real titles can run long (bill/motion names, not the short
+            // placeholders used by the sample fixture) — wrap rather than
+            // truncate, so the subject of the vote stays legible.
             Text(vote.title)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.primary)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
 
             HStack {
                 Text(DateFormatting.longString(from: vote.date))
@@ -64,6 +69,14 @@ struct VoteRow: View {
                 Text("Esito: \(vote.result.rawValue)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+            }
+
+            if let sourceUrl = vote.sourceUrl, let url = URL(string: sourceUrl) {
+                Link(destination: url) {
+                    Label("Fonte", systemImage: "arrow.up.right.square")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
             }
         }
         .padding(12)

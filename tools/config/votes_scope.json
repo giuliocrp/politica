@@ -1,0 +1,8 @@
+{
+  "mode": "recent",
+  "n": 25,
+  "voteUris": [],
+  "maxVotes": 25,
+  "maxPositionRecords": 5000,
+  "notes": "mode 'recent': the N most recent Camera Assemblea electronic (non-secret) roll-call votes of the XIX legislature, ordered by dc:date descending. mode 'explicit': voteUris lists exact ocd:votazione URIs to import instead (curated by hand), ignoring n. maxVotes/maxPositionRecords are hard caps enforced in tools/fetch_camera_votes.py regardless of mode — see docs/v2/04-votes-import.md for why maxPositionRecords, not maxVotes, ends up being the binding constraint at the n=25 default."
+}

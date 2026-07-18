@@ -104,12 +104,10 @@ final class SchemaV2Tests: XCTestCase {
 
     // MARK: - Referential integrity on the shipping bundle data
     //
-    // Reinstated at full strength: Data/votes.json now ships as a valid,
-    // empty schema-v2 collection (see docs/v2/02-post-import-audit.md)
-    // instead of referencing stale fictional REP### ids, so this check is
-    // vacuously — but genuinely, not artificially — satisfied, and will
-    // catch any future vote entry that doesn't reference a real
-    // representative id.
+    // Data/votes.json now ships real, non-empty positions imported from
+    // dati.camera.it (see docs/v2/04-votes-import.md) — this is a genuine,
+    // non-vacuous check of every vote.representativeId against the real
+    // representatives.json.
 
     func testShippingDataIdsAreUnique() throws {
         let districts = try GeoJSONLoader.loadDistricts()
@@ -134,6 +132,33 @@ final class SchemaV2Tests: XCTestCase {
             votes.allSatisfy { representativeIds.contains($0.representativeId) },
             "every shipping vote.representativeId must reference a real representative"
         )
+    }
+
+    // MARK: - Votes import (Phase 9 — see docs/v2/04-votes-import.md)
+
+    func testShippingVotesAreAllOfficialProvenance() throws {
+        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        XCTAssertFalse(votes.isEmpty)
+        XCTAssertTrue(votes.allSatisfy { $0.provenance == .official })
+    }
+
+    func testShippingVotesHaveNoUnmappedVoteOrResultVocabulary() throws {
+        // The observed raw dc:type / ocd:approvato vocabulary (see
+        // docs/v2/04-votes-import.md) is fully mapped in
+        // tools/import_votes.py's RAW_VOTE_CHOICE/RAW_VOTE_RESULT tables —
+        // a .sconosciuto in shipping data would mean a new, unmapped raw
+        // value slipped through unnoticed on some future re-fetch.
+        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        XCTAssertTrue(votes.allSatisfy { $0.vote != .sconosciuto })
+        XCTAssertTrue(votes.allSatisfy { $0.result != .sconosciuto })
+    }
+
+    func testVoteServiceSortsRealVotesNewestFirst() throws {
+        let voteService = VoteService()
+        let representativeId = try XCTUnwrap(voteService.votes.first?.representativeId)
+        let votes = voteService.votes(for: representativeId)
+        XCTAssertFalse(votes.isEmpty)
+        XCTAssertEqual(votes.map(\.date), votes.map(\.date).sorted(by: >))
     }
 
     func testEveryNonNilShippingRepresentativeDistrictIsKnown() throws {

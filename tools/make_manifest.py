@@ -11,9 +11,9 @@ retrieved, not whenever this script happens to run. `generatedAt` (the
 manifest's own top-level field) is a different thing — when *this file* was
 last regenerated — and is always today's date.
 
-Preserves the original "prototipo-dati-dimostrativi" entry, since
-Data/votes.json is still fictional as of this script — representatives.json
-and (as of the boundaries phase) districts.geojson now have real,
+Preserves the original "prototipo-dati-dimostrativi" entry as the only
+remaining fictional-data source — representatives.json, districts.geojson,
+and (as of the votes-import phase) votes.json now all carry real,
 officially-sourced data.
 """
 
@@ -24,6 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 MANIFEST_PATH = ROOT / "Politici" / "Data" / "sources.json"
+VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
 FETCH_METADATA_PATH = Path(__file__).parent / "raw" / ".fetch_metadata.json"
 
 
@@ -51,6 +52,29 @@ def load_fetch_metadata():
         return {}
 
 
+def votazioni_scope_note():
+    """Builds the votes source's descriptive note from what's ACTUALLY in
+    Data/votes.json (not from tools/config/votes_scope.json's nominal N),
+    since tools/import_votes.py's maxPositionRecords budget can legitimately
+    reduce the real included count below the configured default — see
+    docs/v2/04-votes-import.md."""
+    if not VOTES_PATH.exists():
+        return (
+            "Nessuna votazione importata ancora — esegui 'make fetch' e "
+            "'make import' (vedi docs/v2/04-votes-import.md)."
+        )
+    votes = json.loads(VOTES_PATH.read_text(encoding="utf-8"))
+    vote_count = len({v["sourceUrl"] for v in votes if v.get("sourceUrl")})
+    return (
+        f"{vote_count} votazioni dell'Assemblea, XIX legislatura (voto "
+        "elettronico, non a scrutinio segreto), con la posizione di voto di "
+        "ogni deputato coinvolto. Le votazioni a scrutinio segreto sono "
+        "escluse: il dato sorgente non attribuisce una posizione al singolo "
+        "deputato per quel tipo di voto, per garantirne la segretezza. Il "
+        "Senato non è incluso in questa fase."
+    )
+
+
 def real_sources(fetch_metadata):
     return [
         {
@@ -62,9 +86,10 @@ def real_sources(fetch_metadata):
             "notes": (
                 "Dati su deputati, gruppi parlamentari e commissioni della XIX "
                 "Legislatura, ottenuti tramite interrogazione SPARQL "
-                "all'endpoint ufficiale dati.camera.it. Il collegio elettorale "
-                "non è ancora associato ai collegi campione di questo "
-                "prototipo (districtId è null)."
+                "all'endpoint ufficiale dati.camera.it. I deputati eletti in "
+                "un collegio uninominale sono associati al relativo collegio "
+                "ISTAT; i deputati eletti con quota proporzionale o all'estero "
+                "non hanno un collegio associato (districtId è null)."
             ),
         },
         {
@@ -93,6 +118,14 @@ def real_sources(fetch_metadata):
                 "semplificati per l'uso su mobile. I confini del Senato non "
                 "sono ancora inclusi in questo prototipo."
             ),
+        },
+        {
+            "id": "camera-dei-deputati-votazioni-xix-legislatura",
+            "name": "Camera dei Deputati — Votazioni (XIX Legislatura)",
+            "url": "https://dati.camera.it/sparql",
+            "license": "CC BY 4.0",
+            "retrievedAt": retrieved_at("camera_votazioni", fetch_metadata),
+            "notes": votazioni_scope_note(),
         },
     ]
 

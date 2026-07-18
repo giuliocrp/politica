@@ -7,11 +7,13 @@ PYTHON := python3
 fetch:
 	$(PYTHON) tools/fetch_camera.py
 	$(PYTHON) tools/fetch_senato.py
+	$(PYTHON) tools/fetch_camera_votes.py
 
-# Merges tools/raw/*.json into Politici/Data/representatives.json.
-# Offline — uses cached raw/ output from `make fetch`.
+# Merges tools/raw/*.json into Politici/Data/representatives.json and
+# Politici/Data/votes.json. Offline — uses cached raw/ output from `make fetch`.
 import:
 	$(PYTHON) tools/import_representatives.py
+	$(PYTHON) tools/import_votes.py
 
 # Structural validation of Politici/Data/representatives.json and
 # Politici/Data/districts.geojson.

@@ -33,13 +33,16 @@ final class DecodingTests: XCTestCase {
         XCTAssertEqual(representatives.count, 601)
     }
 
-    func testVotesDecodeWithExpectedCount() throws {
-        // Data/votes.json ships as an empty, valid schema-v2 collection — the
-        // fictional votes live in Data/votes.sample.json now (see
-        // testSampleVotesDecodeWithExpectedCount), since they reference the
-        // old REP### ids and no real roll-call vote data exists yet.
+    func testShippingVotesAreNonEmptyAndWithinBudget() throws {
+        // Real votazioni positions imported from dati.camera.it (see
+        // docs/v2/04-votes-import.md). Exact count depends on which votes
+        // were most recent when 'make fetch' last ran and how many fit
+        // under tools/config/votes_scope.json's maxPositionRecords budget,
+        // so it isn't asserted exactly here — just that it's non-empty and
+        // stays within the budget tools/import_votes.py enforces.
         let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
-        XCTAssertEqual(votes.count, 0)
+        XCTAssertFalse(votes.isEmpty)
+        XCTAssertLessThanOrEqual(votes.count, 5000)
     }
 
     func testSampleVotesDecodeWithExpectedCount() throws {
@@ -75,11 +78,12 @@ final class DecodingTests: XCTestCase {
         })
     }
 
-    // The shipping vote<->representative referential-integrity check is back
-    // at full strength in SchemaV2Tests.testShippingVotesReferenceKnownRepresentatives
-    // now that Data/votes.json ships empty (vacuously true) instead of
-    // referencing stale REP### ids. This test covers the *.sample.* pair,
-    // which is still self-contained fictional data with its own REP### ids.
+    // The shipping vote<->representative referential-integrity check is
+    // genuinely (not vacuously) exercised in
+    // SchemaV2Tests.testShippingVotesReferenceKnownRepresentatives now that
+    // Data/votes.json ships real positions (see docs/v2/04-votes-import.md).
+    // This test covers the *.sample.* pair, which is still self-contained
+    // fictional data with its own REP### ids.
     func testSampleVotesFileUsesConsistentRepresentativeIds() throws {
         let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes.sample")
         let voteIds = votes.map(\.id)

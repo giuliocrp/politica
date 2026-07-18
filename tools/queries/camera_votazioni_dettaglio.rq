@@ -1,0 +1,43 @@
+# Camera dei Deputati — full detail (metadata + every per-deputy position)
+# for an explicit, already-chosen set of votazioni.
+# Endpoint: https://dati.camera.it/sparql
+# License: CC BY 4.0
+# Used by: tools/fetch_camera_votes.py, both scope modes (after
+# camera_votazioni_scope.rq picks the URIs in "recent" mode, or directly
+# from the configured list in "explicit" mode).
+#
+# tools/fetch_camera_votes.py replaces the line "{{VALUES}}" below with a
+# literal `VALUES ?v { <uri1> <uri2> ... }` clause before sending the query
+# — this file is a template, not directly valid SPARQL on its own. (Not
+# spelled with a leading "#" since tools/sparql_client.py's load_query()
+# strips every '#'-prefixed line as a header comment before returning the
+# query text — a "##VALUES##" placeholder would silently vanish.)
+#
+# One row per (votazione, deputato) pair — the votazione-level columns
+# (title/date/approvato/relation/attoLabel) repeat on every row for that
+# votazione; tools/fetch_camera_votes.py dedupes them when building the
+# per-votazione record and only iterates rows for the per-deputy positions.
+#
+# ?attoLabel (the associated atto's rdfs:label) is the real bill/motion
+# title — dc:title on ?v itself is a generic template string ("Votazione
+# Articolo 6 ", "Votazione finale ") observed to never contain the actual
+# subject matter; see docs/v2/04-votes-import.md. ?attoLabel is OPTIONAL:
+# some votazioni (organizational votes, etc.) have no associated atto.
+PREFIX ocd:  <http://dati.camera.it/ocd/>
+PREFIX dc:   <http://purl.org/dc/elements/1.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?v ?title ?date ?approvato ?relation ?attoLabel ?voto ?deputato ?tipoVoto
+WHERE {
+{{VALUES}}
+  ?v a ocd:votazione ;
+     dc:title ?title ;
+     dc:date ?date ;
+     ocd:approvato ?approvato .
+  OPTIONAL { ?v dc:relation ?relation . }
+  OPTIONAL { ?v ocd:rif_attoCamera ?atto . ?atto rdfs:label ?attoLabel . }
+  ?voto a ocd:voto ;
+        ocd:rif_votazione ?v ;
+        ocd:rif_deputato ?deputato ;
+        dc:type ?tipoVoto .
+}
+ORDER BY ?v

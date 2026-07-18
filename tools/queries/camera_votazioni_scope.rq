@@ -1,0 +1,32 @@
+# Camera dei Deputati — candidate votazioni for the "recent" scope mode.
+# Endpoint: https://dati.camera.it/sparql
+# License: CC BY 4.0
+# Used by: tools/fetch_camera_votes.py (only when tools/config/votes_scope.json
+# has "mode": "recent" — "explicit" mode skips this query entirely and uses
+# the configured voteUris directly).
+#
+# Scope, all three explicit per docs/v2/04-votes-import.md's findings:
+#   - Assemblea only (ocd:rif_assemblea bound) — in practice this is true for
+#     essentially every ocd:votazione in this graph (no committee-level
+#     "votazione" entities were found), but kept explicit as documentation
+#     of intent, not just an accident of the data.
+#   - "electronic" == non-secret (ocd:votazioneSegreta 0). Secret-ballot
+#     votes exist in the graph but their per-deputy ocd:voto records only
+#     carry the generic dc:type "Ha votato" (presence, not a disclosed
+#     position) — genuinely un-attributable by design (ballot secrecy), not
+#     a gap in our query. Including them would misleadingly imply we know
+#     something we don't.
+#   - XIX legislature only.
+#
+# fetch_camera_votes.py appends "LIMIT <n>" itself (n comes from
+# tools/config/votes_scope.json, validated as a small positive integer
+# before string interpolation) — there is no LIMIT in this file.
+PREFIX ocd: <http://dati.camera.it/ocd/>
+SELECT DISTINCT ?v ?date WHERE {
+  ?v a ocd:votazione ;
+     ocd:rif_leg <http://dati.camera.it/ocd/legislatura.rdf/repubblica_19> ;
+     ocd:rif_assemblea ?assemblea ;
+     ocd:votazioneSegreta 0 ;
+     <http://purl.org/dc/elements/1.1/date> ?date .
+}
+ORDER BY DESC(?date)

@@ -1,23 +1,39 @@
 #!/usr/bin/env python3
-"""Structural validation of Data/representatives.json and Data/districts.geojson.
+"""Structural validation of Data/representatives.json, Data/districts.geojson,
+and Data/votes.json.
 
 Offline — does not fetch anything. Checks each file is well-formed and
-internally consistent; it does NOT check cross-references between
-representatives and districts (districtId is null for every representative
-in this phase — see docs/v2/03-boundaries-audit.md) or against
-Data/votes.json (ships as an empty schema-v2 collection — see
-docs/v2/02-post-import-audit.md).
+internally consistent, plus the votes<->representatives referential
+integrity check (every vote.representativeId must exist in
+representatives.json — see docs/v2/04-votes-import.md).
 
 Exits non-zero with a clear diagnostic on any violation.
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 REPRESENTATIVES_PATH = ROOT / "Politici" / "Data" / "representatives.json"
 DISTRICTS_PATH = ROOT / "Politici" / "Data" / "districts.geojson"
+VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
+
+REQUIRED_VOTE_KEYS = {
+    "id",
+    "representativeId",
+    "title",
+    "date",
+    "vote",
+    "result",
+    "sourceUrl",
+    "provenance",
+}
+VALID_VOTE_CHOICES = {"Favorevole", "Contrario", "Astenuto", "Assente", "Sconosciuto"}
+VALID_VOTE_RESULTS = {"Approvato", "Respinto", "Sconosciuto"}
+MAX_VOTES_FILE_BYTES = 2 * 1024 * 1024
+DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 REQUIRED_REPRESENTATIVE_KEYS = {
     "id",
@@ -296,13 +312,109 @@ def validate_linkage():
     return errors
 
 
+def validate_votes():
+    errors = []
+
+    if not VOTES_PATH.exists():
+        return [f"{VOTES_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make import'"]
+
+    file_size = VOTES_PATH.stat().st_size
+    if file_size > MAX_VOTES_FILE_BYTES:
+        errors.append(
+            f"{VOTES_PATH.relative_to(ROOT)}: {file_size / 1024 / 1024:.2f} MB, "
+            f"supera il limite di {MAX_VOTES_FILE_BYTES / 1024 / 1024:.1f} MB"
+        )
+
+    try:
+        records = json.loads(VOTES_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return errors + [f"{VOTES_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+
+    if not isinstance(records, list):
+        return errors + [f"{VOTES_PATH.relative_to(ROOT)}: il contenuto non è un array JSON"]
+
+    seen_ids = set()
+    for index, record in enumerate(records):
+        label = f"votes.json record #{index} (id={record.get('id', '?')})"
+
+        if not isinstance(record, dict):
+            errors.append(f"{label}: non è un oggetto JSON")
+            continue
+
+        missing = REQUIRED_VOTE_KEYS - record.keys()
+        if missing:
+            errors.append(f"{label}: chiavi mancanti: {sorted(missing)}")
+            continue
+
+        vote_id = record["id"]
+        if not isinstance(vote_id, str) or not vote_id:
+            errors.append(f"{label}: 'id' deve essere una stringa non vuota")
+        elif vote_id in seen_ids:
+            errors.append(f"{label}: id duplicato")
+        else:
+            seen_ids.add(vote_id)
+
+        if not isinstance(record["representativeId"], str) or not record["representativeId"]:
+            errors.append(f"{label}: 'representativeId' deve essere una stringa non vuota")
+
+        if not isinstance(record["title"], str) or not record["title"].strip():
+            errors.append(f"{label}: 'title' deve essere una stringa non vuota")
+
+        if not isinstance(record["date"], str) or not DATE_RE.fullmatch(record["date"]):
+            errors.append(f"{label}: 'date' deve essere nel formato yyyy-MM-dd, trovato {record['date']!r}")
+
+        if record["vote"] not in VALID_VOTE_CHOICES:
+            errors.append(f"{label}: 'vote' non valido: {record['vote']!r}")
+
+        if record["result"] not in VALID_VOTE_RESULTS:
+            errors.append(f"{label}: 'result' non valido: {record['result']!r}")
+
+        source_url = record["sourceUrl"]
+        if source_url is not None and not (isinstance(source_url, str) and source_url.startswith("http")):
+            errors.append(f"{label}: 'sourceUrl' deve essere null o un URL http(s)")
+
+        if record["provenance"] not in VALID_PROVENANCE:
+            errors.append(f"{label}: 'provenance' non valido: {record['provenance']!r}")
+
+    if not errors:
+        print(f"OK: {len(records)} posizioni valide in {VOTES_PATH.relative_to(ROOT)} ({file_size / 1024:.0f} KB)")
+
+    return errors
+
+
+def validate_votes_reference_representatives():
+    """Every vote.representativeId must exist in representatives.json — the
+    referential-integrity invariant reinstated at full strength now that
+    votes.json ships real, non-empty data (see docs/v2/04-votes-import.md).
+    Only meaningful once both files already passed their own structural
+    checks, so main() only calls this when they were both clean."""
+    representatives = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    votes = json.loads(VOTES_PATH.read_text(encoding="utf-8"))
+    representative_ids = {r["id"] for r in representatives}
+
+    unresolved = sorted({v["representativeId"] for v in votes} - representative_ids)
+    if unresolved:
+        return [f"votes.json: representativeId non trovati in representatives.json: {unresolved}"]
+
+    distinct_representatives_with_votes = {v["representativeId"] for v in votes}
+    print(
+        f"OK: integrità referenziale voti coerente — {len(votes)} posizioni, "
+        f"{len(distinct_representatives_with_votes)} rappresentanti coinvolti"
+    )
+    return []
+
+
 def main():
     representative_errors = validate_representatives()
     district_errors = validate_districts()
-    all_errors = representative_errors + district_errors
+    vote_errors = validate_votes()
+    all_errors = representative_errors + district_errors + vote_errors
 
     if not representative_errors and not district_errors:
         all_errors += validate_linkage()
+
+    if not representative_errors and not vote_errors:
+        all_errors += validate_votes_reference_representatives()
 
     if all_errors:
         print(f"ERRORE: {len(all_errors)} problema/i:", file=sys.stderr)
