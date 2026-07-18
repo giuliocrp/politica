@@ -466,12 +466,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Umbria",
         "collegioType": "uninominale",
         "id": "100001",
         "name": "Umbria - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -839,12 +840,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Umbria",
         "collegioType": "uninominale",
         "id": "100002",
         "name": "Umbria - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -914,12 +916,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 1",
         "collegioType": "uninominale",
         "id": "10101",
         "name": "Piemonte 1 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -995,12 +998,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 1",
         "collegioType": "uninominale",
         "id": "10102",
         "name": "Piemonte 1 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -1164,12 +1168,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 1",
         "collegioType": "uninominale",
         "id": "10103",
         "name": "Piemonte 1 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -1677,12 +1682,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 1",
         "collegioType": "uninominale",
         "id": "10104",
         "name": "Piemonte 1 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -2088,12 +2094,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 1",
         "collegioType": "uninominale",
         "id": "10105",
         "name": "Piemonte 1 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -2531,12 +2538,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 2",
         "collegioType": "uninominale",
         "id": "10201",
         "name": "Piemonte 2 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -2926,12 +2934,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 2",
         "collegioType": "uninominale",
         "id": "10202",
         "name": "Piemonte 2 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -3265,12 +3274,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 2",
         "collegioType": "uninominale",
         "id": "10203",
         "name": "Piemonte 2 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -3660,12 +3670,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 2",
         "collegioType": "uninominale",
         "id": "10204",
         "name": "Piemonte 2 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -4145,12 +4156,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Piemonte 2",
         "collegioType": "uninominale",
         "id": "10205",
         "name": "Piemonte 2 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -4320,12 +4332,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Marche",
         "collegioType": "uninominale",
         "id": "110001",
         "name": "Marche - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -4563,12 +4576,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Marche",
         "collegioType": "uninominale",
         "id": "110002",
         "name": "Marche - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -4818,12 +4832,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Marche",
         "collegioType": "uninominale",
         "id": "110003",
         "name": "Marche - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -5133,12 +5148,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Marche",
         "collegioType": "uninominale",
         "id": "110004",
         "name": "Marche - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -5192,12 +5208,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120101",
         "name": "Lazio 1 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -5279,12 +5296,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120102",
         "name": "Lazio 1 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -5370,12 +5388,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120103",
         "name": "Lazio 1 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -5449,12 +5468,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120104",
         "name": "Lazio 1 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -5658,12 +5678,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120105",
         "name": "Lazio 1 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -5757,12 +5778,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120106",
         "name": "Lazio 1 - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -5926,12 +5948,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120107",
         "name": "Lazio 1 - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -6225,12 +6248,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120108",
         "name": "Lazio 1 - U08",
         "provenance": "official",
-        "region": "U08",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U08"
       },
       "type": "Feature"
     },
@@ -6506,12 +6530,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 1",
         "collegioType": "uninominale",
         "id": "120109",
         "name": "Lazio 1 - U09",
         "provenance": "official",
-        "region": "U09",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U09"
       },
       "type": "Feature"
     },
@@ -6865,12 +6890,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 2",
         "collegioType": "uninominale",
         "id": "120201",
         "name": "Lazio 2 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -7330,12 +7356,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 2",
         "collegioType": "uninominale",
         "id": "120202",
         "name": "Lazio 2 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -7537,12 +7564,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 2",
         "collegioType": "uninominale",
         "id": "120203",
         "name": "Lazio 2 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -7804,12 +7832,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 2",
         "collegioType": "uninominale",
         "id": "120204",
         "name": "Lazio 2 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -8369,12 +8398,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lazio 2",
         "collegioType": "uninominale",
         "id": "120205",
         "name": "Lazio 2 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -8592,12 +8622,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Abruzzo",
         "collegioType": "uninominale",
         "id": "130001",
         "name": "Abruzzo - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -8929,12 +8960,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Abruzzo",
         "collegioType": "uninominale",
         "id": "130002",
         "name": "Abruzzo - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -9420,12 +9452,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Abruzzo",
         "collegioType": "uninominale",
         "id": "130003",
         "name": "Abruzzo - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -9779,12 +9812,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Molise",
         "collegioType": "uninominale",
         "id": "140001",
         "name": "Molise - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -9932,12 +9966,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 1",
         "collegioType": "uninominale",
         "id": "150101",
         "name": "Campania 1 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -10197,12 +10232,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 1",
         "collegioType": "uninominale",
         "id": "150102",
         "name": "Campania 1 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -10326,12 +10362,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 1",
         "collegioType": "uninominale",
         "id": "150103",
         "name": "Campania 1 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -10417,12 +10454,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 1",
         "collegioType": "uninominale",
         "id": "150104",
         "name": "Campania 1 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -10504,12 +10542,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 1",
         "collegioType": "uninominale",
         "id": "150105",
         "name": "Campania 1 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -10635,12 +10674,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 1",
         "collegioType": "uninominale",
         "id": "150106",
         "name": "Campania 1 - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -10948,12 +10988,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 1",
         "collegioType": "uninominale",
         "id": "150107",
         "name": "Campania 1 - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -11171,12 +11212,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 2",
         "collegioType": "uninominale",
         "id": "150201",
         "name": "Campania 2 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -11302,12 +11344,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 2",
         "collegioType": "uninominale",
         "id": "150202",
         "name": "Campania 2 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -11615,12 +11658,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 2",
         "collegioType": "uninominale",
         "id": "150203",
         "name": "Campania 2 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -11920,12 +11964,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 2",
         "collegioType": "uninominale",
         "id": "150204",
         "name": "Campania 2 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -12121,12 +12166,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 2",
         "collegioType": "uninominale",
         "id": "150205",
         "name": "Campania 2 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -12284,12 +12330,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 2",
         "collegioType": "uninominale",
         "id": "150206",
         "name": "Campania 2 - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -12569,12 +12616,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Campania 2",
         "collegioType": "uninominale",
         "id": "150207",
         "name": "Campania 2 - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -13048,12 +13096,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160001",
         "name": "Puglia - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -13661,12 +13710,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160002",
         "name": "Puglia - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -13856,12 +13906,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160003",
         "name": "Puglia - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -14265,12 +14316,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160004",
         "name": "Puglia - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -14462,12 +14514,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160005",
         "name": "Puglia - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -14941,12 +14994,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160006",
         "name": "Puglia - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -15426,12 +15480,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160007",
         "name": "Puglia - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -15655,12 +15710,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160008",
         "name": "Puglia - U08",
         "provenance": "official",
-        "region": "U08",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U08"
       },
       "type": "Feature"
     },
@@ -15928,12 +15984,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160009",
         "name": "Puglia - U09",
         "provenance": "official",
-        "region": "U09",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U09"
       },
       "type": "Feature"
     },
@@ -16301,12 +16358,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Puglia",
         "collegioType": "uninominale",
         "id": "160010",
         "name": "Puglia - U10",
         "provenance": "official",
-        "region": "U10",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U10"
       },
       "type": "Feature"
     },
@@ -16782,12 +16840,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Basilicata",
         "collegioType": "uninominale",
         "id": "170001",
         "name": "Basilicata - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -17197,12 +17256,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Calabria",
         "collegioType": "uninominale",
         "id": "180001",
         "name": "Calabria - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -17598,12 +17658,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Calabria",
         "collegioType": "uninominale",
         "id": "180002",
         "name": "Calabria - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -17869,12 +17930,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Calabria",
         "collegioType": "uninominale",
         "id": "180003",
         "name": "Calabria - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -18100,12 +18162,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Calabria",
         "collegioType": "uninominale",
         "id": "180004",
         "name": "Calabria - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -18303,12 +18366,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Calabria",
         "collegioType": "uninominale",
         "id": "180005",
         "name": "Calabria - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -18392,12 +18456,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 1",
         "collegioType": "uninominale",
         "id": "190101",
         "name": "Sicilia 1 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -18711,12 +18776,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 1",
         "collegioType": "uninominale",
         "id": "190102",
         "name": "Sicilia 1 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -19202,12 +19268,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 1",
         "collegioType": "uninominale",
         "id": "190103",
         "name": "Sicilia 1 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -19605,12 +19672,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 1",
         "collegioType": "uninominale",
         "id": "190104",
         "name": "Sicilia 1 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -20124,12 +20192,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 1",
         "collegioType": "uninominale",
         "id": "190105",
         "name": "Sicilia 1 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -20809,12 +20878,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 1",
         "collegioType": "uninominale",
         "id": "190106",
         "name": "Sicilia 1 - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -21190,12 +21260,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 2",
         "collegioType": "uninominale",
         "id": "190201",
         "name": "Sicilia 2 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -21277,12 +21348,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 2",
         "collegioType": "uninominale",
         "id": "190202",
         "name": "Sicilia 2 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -21534,12 +21606,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 2",
         "collegioType": "uninominale",
         "id": "190203",
         "name": "Sicilia 2 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -22023,12 +22096,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 2",
         "collegioType": "uninominale",
         "id": "190204",
         "name": "Sicilia 2 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -22492,12 +22566,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 2",
         "collegioType": "uninominale",
         "id": "190205",
         "name": "Sicilia 2 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -23013,12 +23088,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sicilia 2",
         "collegioType": "uninominale",
         "id": "190206",
         "name": "Sicilia 2 - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -23274,12 +23350,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sardegna",
         "collegioType": "uninominale",
         "id": "200001",
         "name": "Sardegna - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -24489,12 +24566,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sardegna",
         "collegioType": "uninominale",
         "id": "200002",
         "name": "Sardegna - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -25234,12 +25312,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sardegna",
         "collegioType": "uninominale",
         "id": "200003",
         "name": "Sardegna - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -28529,12 +28608,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Sardegna",
         "collegioType": "uninominale",
         "id": "200004",
         "name": "Sardegna - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -28784,12 +28864,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Valle d'aosta/Vallée d'Aoste",
         "collegioType": "uninominale",
         "id": "20001",
         "name": "Valle d'aosta/Vallée d'Aoste - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -28867,12 +28948,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30101",
         "name": "Lombardia 1 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -28950,12 +29032,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30102",
         "name": "Lombardia 1 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -29077,12 +29160,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30103",
         "name": "Lombardia 1 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -29216,12 +29300,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30104",
         "name": "Lombardia 1 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -29347,12 +29432,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30105",
         "name": "Lombardia 1 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -29430,12 +29516,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30106",
         "name": "Lombardia 1 - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -29493,12 +29580,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30107",
         "name": "Lombardia 1 - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -29580,12 +29668,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30108",
         "name": "Lombardia 1 - U08",
         "provenance": "official",
-        "region": "U08",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U08"
       },
       "type": "Feature"
     },
@@ -29623,12 +29712,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 1",
         "collegioType": "uninominale",
         "id": "30109",
         "name": "Lombardia 1 - U09",
         "provenance": "official",
-        "region": "U09",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U09"
       },
       "type": "Feature"
     },
@@ -29770,12 +29860,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 2",
         "collegioType": "uninominale",
         "id": "30201",
         "name": "Lombardia 2 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -29945,12 +30036,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 2",
         "collegioType": "uninominale",
         "id": "30202",
         "name": "Lombardia 2 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -30056,12 +30148,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 2",
         "collegioType": "uninominale",
         "id": "30203",
         "name": "Lombardia 2 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -30537,12 +30630,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 2",
         "collegioType": "uninominale",
         "id": "30204",
         "name": "Lombardia 2 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -30716,12 +30810,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 2",
         "collegioType": "uninominale",
         "id": "30205",
         "name": "Lombardia 2 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -30895,12 +30990,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 3",
         "collegioType": "uninominale",
         "id": "30301",
         "name": "Lombardia 3 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -31114,12 +31210,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 3",
         "collegioType": "uninominale",
         "id": "30302",
         "name": "Lombardia 3 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -31437,12 +31534,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 3",
         "collegioType": "uninominale",
         "id": "30303",
         "name": "Lombardia 3 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -31584,12 +31682,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 3",
         "collegioType": "uninominale",
         "id": "30304",
         "name": "Lombardia 3 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -31823,12 +31922,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 3",
         "collegioType": "uninominale",
         "id": "30305",
         "name": "Lombardia 3 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -32312,12 +32412,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 4",
         "collegioType": "uninominale",
         "id": "30401",
         "name": "Lombardia 4 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -32559,12 +32660,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 4",
         "collegioType": "uninominale",
         "id": "30402",
         "name": "Lombardia 4 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -32934,12 +33036,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 4",
         "collegioType": "uninominale",
         "id": "30403",
         "name": "Lombardia 4 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -33301,12 +33404,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Lombardia 4",
         "collegioType": "uninominale",
         "id": "30404",
         "name": "Lombardia 4 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -33732,12 +33836,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Trentino-Alto Adige/Südtirol",
         "collegioType": "uninominale",
         "id": "40001",
         "name": "Trentino-Alto Adige/Südtirol - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -34163,12 +34268,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Trentino-Alto Adige/Südtirol",
         "collegioType": "uninominale",
         "id": "40002",
         "name": "Trentino-Alto Adige/Südtirol - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -34386,12 +34492,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Trentino-Alto Adige/Südtirol",
         "collegioType": "uninominale",
         "id": "40003",
         "name": "Trentino-Alto Adige/Südtirol - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -34873,12 +34980,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Trentino-Alto Adige/Südtirol",
         "collegioType": "uninominale",
         "id": "40004",
         "name": "Trentino-Alto Adige/Südtirol - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -35136,12 +35244,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 1",
         "collegioType": "uninominale",
         "id": "50101",
         "name": "Veneto 1 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -35507,12 +35616,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 1",
         "collegioType": "uninominale",
         "id": "50102",
         "name": "Veneto 1 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -35722,12 +35832,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 1",
         "collegioType": "uninominale",
         "id": "50103",
         "name": "Veneto 1 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -35917,12 +36028,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 1",
         "collegioType": "uninominale",
         "id": "50104",
         "name": "Veneto 1 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -36340,12 +36452,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 1",
         "collegioType": "uninominale",
         "id": "50105",
         "name": "Veneto 1 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -36679,12 +36792,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 2",
         "collegioType": "uninominale",
         "id": "50201",
         "name": "Veneto 2 - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -36902,12 +37016,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 2",
         "collegioType": "uninominale",
         "id": "50202",
         "name": "Veneto 2 - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -37037,12 +37152,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 2",
         "collegioType": "uninominale",
         "id": "50203",
         "name": "Veneto 2 - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -37268,12 +37384,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 2",
         "collegioType": "uninominale",
         "id": "50204",
         "name": "Veneto 2 - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -37487,12 +37604,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 2",
         "collegioType": "uninominale",
         "id": "50205",
         "name": "Veneto 2 - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -37762,12 +37880,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 2",
         "collegioType": "uninominale",
         "id": "50206",
         "name": "Veneto 2 - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -38117,12 +38236,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Veneto 2",
         "collegioType": "uninominale",
         "id": "50207",
         "name": "Veneto 2 - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -38480,12 +38600,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Friuli-Venezia Giulia",
         "collegioType": "uninominale",
         "id": "60001",
         "name": "Friuli-Venezia Giulia - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -38715,12 +38836,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Friuli-Venezia Giulia",
         "collegioType": "uninominale",
         "id": "60002",
         "name": "Friuli-Venezia Giulia - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -39996,12 +40118,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Friuli-Venezia Giulia",
         "collegioType": "uninominale",
         "id": "60003",
         "name": "Friuli-Venezia Giulia - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -40321,12 +40444,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Liguria",
         "collegioType": "uninominale",
         "id": "70001",
         "name": "Liguria - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -40646,12 +40770,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Liguria",
         "collegioType": "uninominale",
         "id": "70002",
         "name": "Liguria - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -40831,12 +40956,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Liguria",
         "collegioType": "uninominale",
         "id": "70003",
         "name": "Liguria - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -41388,12 +41514,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Liguria",
         "collegioType": "uninominale",
         "id": "70004",
         "name": "Liguria - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -41793,12 +41920,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80001",
         "name": "Emilia-Romagna - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -42100,12 +42228,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80002",
         "name": "Emilia-Romagna - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -42331,12 +42460,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80003",
         "name": "Emilia-Romagna - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -42688,12 +42818,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80004",
         "name": "Emilia-Romagna - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -43023,12 +43154,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80005",
         "name": "Emilia-Romagna - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -43098,12 +43230,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80006",
         "name": "Emilia-Romagna - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -43417,12 +43550,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80007",
         "name": "Emilia-Romagna - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -43688,12 +43822,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80008",
         "name": "Emilia-Romagna - U08",
         "provenance": "official",
-        "region": "U08",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U08"
       },
       "type": "Feature"
     },
@@ -43971,12 +44106,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80009",
         "name": "Emilia-Romagna - U09",
         "provenance": "official",
-        "region": "U09",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U09"
       },
       "type": "Feature"
     },
@@ -44182,12 +44318,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80010",
         "name": "Emilia-Romagna - U10",
         "provenance": "official",
-        "region": "U10",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U10"
       },
       "type": "Feature"
     },
@@ -44403,12 +44540,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Emilia-Romagna",
         "collegioType": "uninominale",
         "id": "80011",
         "name": "Emilia-Romagna - U11",
         "provenance": "official",
-        "region": "U11",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U11"
       },
       "type": "Feature"
     },
@@ -45124,12 +45262,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90001",
         "name": "Toscana - U01",
         "provenance": "official",
-        "region": "U01",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U01"
       },
       "type": "Feature"
     },
@@ -45355,12 +45494,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90002",
         "name": "Toscana - U02",
         "provenance": "official",
-        "region": "U02",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U02"
       },
       "type": "Feature"
     },
@@ -45644,12 +45784,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90003",
         "name": "Toscana - U03",
         "provenance": "official",
-        "region": "U03",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U03"
       },
       "type": "Feature"
     },
@@ -45963,12 +46104,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90004",
         "name": "Toscana - U04",
         "provenance": "official",
-        "region": "U04",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U04"
       },
       "type": "Feature"
     },
@@ -46844,12 +46986,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90005",
         "name": "Toscana - U05",
         "provenance": "official",
-        "region": "U05",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U05"
       },
       "type": "Feature"
     },
@@ -47131,12 +47274,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90006",
         "name": "Toscana - U06",
         "provenance": "official",
-        "region": "U06",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U06"
       },
       "type": "Feature"
     },
@@ -47198,12 +47342,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90007",
         "name": "Toscana - U07",
         "provenance": "official",
-        "region": "U07",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U07"
       },
       "type": "Feature"
     },
@@ -47539,12 +47684,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90008",
         "name": "Toscana - U08",
         "provenance": "official",
-        "region": "U08",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U08"
       },
       "type": "Feature"
     },
@@ -47884,12 +48030,13 @@
       },
       "properties": {
         "chamber": "Camera",
+        "circoscrizione": "Toscana",
         "collegioType": "uninominale",
         "id": "90009",
         "name": "Toscana - U09",
         "provenance": "official",
-        "region": "U09",
-        "sourceName": "ISTAT"
+        "sourceName": "ISTAT",
+        "subCode": "U09"
       },
       "type": "Feature"
     }

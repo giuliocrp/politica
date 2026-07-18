@@ -16,11 +16,18 @@ Design notes:
   case-sensitive; "camera" lowercase would fail to decode).
 - collegioType = "uninominale" — this script only ever processes the Camera
   uninominali layer (Senato boundaries are out of scope for this phase).
-- region = CU20_C1. NOTE: despite the field's suggestive name, CU20_C1 is
-  NOT a geographic region — it's the within-plurinominale sub-collegio
-  suffix (e.g. "U01"), literally the tail of CU20_DEN ("Piemonte 1 - U01").
-  Carried over literally anyway since it's real, non-fabricated source
-  data — see docs/v2/03-boundaries-audit.md for the full finding.
+- subCode = CU20_C1 — the within-circoscrizione uninominale sequence suffix
+  (e.g. "U01"), literally the tail of CU20_DEN ("Piemonte 1 - U01").
+- circoscrizione = the CU20_DEN prefix before " - U0N" (e.g. "Piemonte 1",
+  "Lazio 2", "Sardegna"). The shapefile has no dedicated circoscrizione
+  field (confirmed via full `ogrinfo -so` schema dump — see
+  docs/v2/03-linkage-report.md); CU20_DEN's prefix was verified to match,
+  1:1 across all 147 rows with zero exceptions, the 28 official Camera
+  electoral circoscrizioni established by D.Lgs. 177/2020 (Piemonte 1/2,
+  Lombardia 1-4, Veneto 1/2, Lazio 1/2, Campania 1/2, Sicilia 1/2, and one
+  circoscrizione per each other region) — see the linkage report for the
+  verification. This replaces the previous, misleading "region" property
+  (which held CU20_C1 — a sub-collegio suffix, not a region).
 - provenance = "official", sourceName = "ISTAT" — both known facts about
   this pipeline, not fetched fields.
 """
@@ -73,13 +80,21 @@ def main():
 
         district_id = str(props.get("CU20_COD", "")).strip()
         name = (props.get("CU20_DEN") or "").strip()
-        region = (props.get("CU20_C1") or "").strip() or None
+        sub_code = (props.get("CU20_C1") or "").strip() or None
 
         if not district_id or not name:
             fail(f"feature con id o nome mancante: {props}")
         if district_id in seen_ids:
             fail(f"id duplicato dopo la conversione: {district_id}")
         seen_ids.add(district_id)
+
+        # circoscrizione = CU20_DEN prefix before " - <subCode>" — verified
+        # against the official 28-circoscrizione list (D.Lgs. 177/2020); see
+        # docs/v2/03-linkage-report.md.
+        if sub_code and name.endswith(f" - {sub_code}"):
+            circoscrizione = name[: -(len(sub_code) + 3)].strip()
+        else:
+            fail(f"CU20_DEN '{name}' non termina con ' - {sub_code}' come atteso: impossibile derivare la circoscrizione")
 
         features.append(
             {
@@ -89,7 +104,8 @@ def main():
                     "name": name,
                     "chamber": "Camera",
                     "collegioType": "uninominale",
-                    "region": region,
+                    "subCode": sub_code,
+                    "circoscrizione": circoscrizione,
                     "provenance": "official",
                     "sourceName": SOURCE_NAME,
                 },

@@ -49,7 +49,8 @@ REQUIRED_DISTRICT_PROPERTY_KEYS = {
     "name",
     "chamber",
     "collegioType",
-    "region",
+    "circoscrizione",
+    "subCode",
     "provenance",
     "sourceName",
 }
@@ -224,6 +225,12 @@ def validate_districts():
         if props["collegioType"] not in VALID_COLLEGIO_TYPES:
             errors.append(f"{label}: 'collegioType' non valido: {props['collegioType']!r}")
 
+        if props["chamber"] == "Camera" and props["collegioType"] == "uninominale":
+            if not isinstance(props["circoscrizione"], str) or not props["circoscrizione"].strip():
+                errors.append(f"{label}: 'circoscrizione' deve essere una stringa non vuota")
+            if not isinstance(props["subCode"], str) or not props["subCode"].strip():
+                errors.append(f"{label}: 'subCode' deve essere una stringa non vuota")
+
         if props["provenance"] not in VALID_PROVENANCE:
             errors.append(f"{label}: 'provenance' non valido: {props['provenance']!r}")
 
@@ -247,8 +254,55 @@ def validate_districts():
     return errors
 
 
+def validate_linkage():
+    """Cross-references representatives.json's districtId against
+    districts.geojson's shipping Camera uninominale ids. Only meaningful if
+    both files already passed their own structural checks, so main() only
+    calls this when validate_representatives()/validate_districts() were
+    both clean."""
+    errors = []
+
+    records = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    collection = json.loads(DISTRICTS_PATH.read_text(encoding="utf-8"))
+    uninominale_ids = {
+        f["properties"]["id"]
+        for f in collection["features"]
+        if f["properties"]["chamber"] == "Camera" and f["properties"]["collegioType"] == "uninominale"
+    }
+
+    district_of_deputy = {}
+    for record in records:
+        district_id = record["districtId"]
+        if district_id is None:
+            continue
+        label = f"representatives.json id={record['id']}"
+        if district_id not in uninominale_ids:
+            errors.append(f"{label}: districtId {district_id!r} non corrisponde a nessun collegio uninominale Camera")
+            continue
+        if district_id in district_of_deputy:
+            errors.append(
+                f"{label}: collegio {district_id} già assegnato a "
+                f"{district_of_deputy[district_id]!r} — più di un deputato corrente per lo stesso collegio"
+            )
+        else:
+            district_of_deputy[district_id] = record["id"]
+
+    if not errors:
+        print(
+            f"OK: collegamento coerente — {len(district_of_deputy)}/{len(uninominale_ids)} "
+            "collegi uninominali Camera con un deputato corrente"
+        )
+
+    return errors
+
+
 def main():
-    all_errors = validate_representatives() + validate_districts()
+    representative_errors = validate_representatives()
+    district_errors = validate_districts()
+    all_errors = representative_errors + district_errors
+
+    if not representative_errors and not district_errors:
+        all_errors += validate_linkage()
 
     if all_errors:
         print(f"ERRORE: {len(all_errors)} problema/i:", file=sys.stderr)

@@ -54,7 +54,8 @@ private struct DistrictProperties: Decodable {
     let chamber: Chamber
     let provenance: DataProvenance?
     let collegioType: CollegioType?
-    let region: String?
+    let circoscrizione: String?
+    let subCode: String?
     let sourceName: String?
 }
 
@@ -152,7 +153,8 @@ enum GeoJSONLoader {
             polygons: polygons,
             provenance: properties.provenance ?? .sample,
             collegioType: properties.collegioType ?? .sconosciuto,
-            region: properties.region,
+            circoscrizione: properties.circoscrizione,
+            subCode: properties.subCode,
             sourceName: properties.sourceName
         )
     }

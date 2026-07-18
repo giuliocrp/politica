@@ -40,12 +40,15 @@ struct District: Identifiable {
     let polygons: [MKPolygon]
     let provenance: DataProvenance
     let collegioType: CollegioType
-    /// NOTE: for the real ISTAT data this is NOT a geographic region despite
-    /// the name — see docs/v2/03-boundaries-audit.md. Kept as a generic
-    /// optional label rather than renamed, since the sample fixture's
-    /// `region` values (and any future genuinely-regional source) still fit
-    /// this shape.
-    let region: String?
+    /// The official Camera electoral circoscrizione (e.g. "Piemonte 1",
+    /// "Lazio 2", "Sardegna") — one of the 28 established by D.Lgs.
+    /// 177/2020. Derived from the source `CU20_DEN` prefix; see
+    /// docs/v2/03-linkage-report.md. `nil` for fixtures that don't carry it
+    /// (e.g. the sample rectangles).
+    let circoscrizione: String?
+    /// The within-circoscrizione uninominale sequence suffix (e.g. "U01"),
+    /// sourced from `CU20_C1`.
+    let subCode: String?
     let sourceName: String?
 
     /// Union bounding box across every polygon part, e.g. to fit a map

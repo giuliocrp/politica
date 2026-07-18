@@ -181,6 +181,53 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertTrue(representatives.allSatisfy { !$0.parliamentaryGroup.isEmpty })
     }
 
+    // MARK: - Collegio uninominale linkage (Phase 8 — see docs/v2/03-linkage-report.md)
+
+    func testShippingDistrictsHaveNonEmptyCircoscrizione() throws {
+        let districts = try GeoJSONLoader.loadDistricts()
+        XCTAssertTrue(districts.allSatisfy { ($0.circoscrizione?.isEmpty == false) })
+        XCTAssertTrue(districts.allSatisfy { ($0.subCode?.isEmpty == false) })
+    }
+
+    func testAtMostOneCurrentUninominaleRepresentativePerDistrict() throws {
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let districtIds = representatives.compactMap(\.districtId)
+        XCTAssertEqual(
+            districtIds.count,
+            Set(districtIds).count,
+            "at most one current representative may claim a given districtId"
+        )
+    }
+
+    func testUninominaleElectionTypeCountMatchesLinkedDistrictCount() throws {
+        // See docs/v2/03-linkage-report.md: 147/147 uninominale collegi
+        // linked, 0 vacant, 0 by-election-caused duplicates — so the count
+        // of electionType == .uninominale representatives should exactly
+        // equal the count of shipping (Camera) uninominale districts, with
+        // no undocumented deviation.
+        let districts = try GeoJSONLoader.loadDistricts()
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let uninominaleRepresentatives = representatives.filter { $0.electionType == .uninominale }
+        XCTAssertEqual(uninominaleRepresentatives.count, districts.count)
+        XCTAssertTrue(uninominaleRepresentatives.allSatisfy { $0.districtId != nil })
+    }
+
+    func testNonUninominaleCamereRepresentativesHaveNilDistrictId() throws {
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let cameraNonUninominale = representatives.filter {
+            $0.chamber == .camera && $0.electionType != .uninominale
+        }
+        XCTAssertFalse(cameraNonUninominale.isEmpty)
+        XCTAssertTrue(cameraNonUninominale.allSatisfy { $0.districtId == nil })
+    }
+
+    func testSenatoRepresentativesAreUntouchedByLinkage() throws {
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let senators = representatives.filter { $0.chamber == .senato }
+        XCTAssertEqual(senators.count, 201)
+        XCTAssertTrue(senators.allSatisfy { $0.districtId == nil && $0.electionType == .sconosciuto })
+    }
+
     // MARK: - Sources manifest
 
     func testSourcesManifestDecodesWithSchemaVersion2() throws {

@@ -49,10 +49,32 @@ the raw SPARQL data, so they're documented here rather than left implicit):
   title-cased here purely for consistent display — this can mis-capitalize
   apostrophed or multi-word surnames (e.g. "D'Alessandro" -> "D'alessandro"),
   a known, disclosed imperfection, not silently swept under the rug.
+
+Phase 8 addition — collegio uninominale linkage (see
+docs/v2/03-linkage-report.md for the full investigation):
+
+- electionType/districtId are now derived, not always null. ?tipoElezione
+  ("maggioritario" / "maggioritario suppletiva" / "proporzionale") on the
+  election resource classifies each mandate; ?collegioUninominale (the
+  election's dcterms:spatial, present ONLY for maggioritario(-suppletiva)
+  mandates) gives the exact uninominale collegio as "CIRCOSCRIZIONE - U0N"
+  — structurally identical to districts.geojson's circoscrizione+subCode
+  pair once both sides are case/accent-normalized. Estero mandates (the 4
+  overseas macro-constituencies) are tipoElezione "proporzionale" with no
+  spatial value; they're distinguished from domestic plurinominale by their
+  ?collegio (dc:coverage) literal matching one of the 4 known Estero names.
+- The MINUS on ?mandato ocd:endDate in the query itself already restricts
+  to the currently in-office mandate per person (see the .rq file's own
+  comment) — no additional current-mandate filtering happens here.
+- Senato is untouched: Senato boundaries are out of scope (see
+  docs/v2/03-boundaries-audit.md), so Senato records keep
+  districtId/electionType exactly as before (null / omitted).
 """
 
 import json
+import re
 import sys
+import unicodedata
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -60,9 +82,73 @@ RAW_DIR = Path(__file__).parent / "raw"
 DATA_DIR = ROOT / "Politici" / "Data"
 OUTPUT_PATH = DATA_DIR / "representatives.json"
 SAMPLE_BACKUP_PATH = DATA_DIR / "representatives.sample.json"
+DISTRICTS_PATH = DATA_DIR / "districts.geojson"
 
 FALLBACK_PHOTO_NAME = "person.crop.circle.fill"
 LEGISLATURE = "XIX"
+
+# The 4 Camera Estero (overseas) macro-constituencies — proporzionale-only,
+# no uninominale component. Verified via live SPARQL introspection (see
+# docs/v2/03-linkage-report.md): every current proporzionale mandate whose
+# ?collegio (dc:coverage) is one of these has no dcterms:spatial at all.
+ESTERO_COVERAGE_VALUES = {
+    "EUROPA",
+    "AMERICA MERIDIONALE",
+    "AMERICA SETTENTRIONALE E CENTRALE",
+    "AFRICA ASIA OCEANIA ANTARTIDE",
+}
+
+# Camera mandate election-type literals that represent a collegio
+# uninominale seat (an original majoritarian win, or a by-election
+# replacement — both represent the same collegio going forward).
+UNINOMINALE_TIPO_ELEZIONE = {"maggioritario", "maggioritario suppletiva"}
+
+MIN_LINKED_COLLEGI = 133  # 90% of 147 — see docs/v2/03-linkage-report.md
+
+
+def normalize_circoscrizione(name):
+    """Case/accent/punctuation-insensitive key for matching a circoscrizione
+    name across the two independent sources (ISTAT shapefile denominazione
+    vs. Camera SPARQL dcterms:spatial). Also strips a bilingual "/Secondo
+    Nome" suffix (e.g. districts.geojson's "Valle d'aosta/Vallée d'Aoste" vs
+    SPARQL's Italian-only "VALLE D'AOSTA") — verified this doesn't cause any
+    false collision across the 28 circoscrizioni (see the linkage report)."""
+    name = name.split("/", 1)[0]
+    name = unicodedata.normalize("NFKD", name)
+    name = "".join(c for c in name if not unicodedata.combining(c))
+    name = name.upper()
+    return re.sub(r"[^A-Z0-9]+", " ", name).strip()
+
+
+def load_uninominale_index():
+    """(circoscrizione_norm, subCode) -> CU20_COD for every shipping Camera
+    uninominale collegio. Fails loudly if districts.geojson is missing or
+    doesn't carry the Phase 8 circoscrizione/subCode properties — run
+    'make boundaries' first."""
+    if not DISTRICTS_PATH.exists():
+        fail(f"manca {DISTRICTS_PATH.relative_to(ROOT)} — esegui prima 'make boundaries'")
+
+    collection = json.loads(DISTRICTS_PATH.read_text(encoding="utf-8"))
+    index = {}
+    all_ids = set()
+    for feature in collection.get("features", []):
+        props = feature.get("properties", {})
+        if props.get("chamber") != "Camera" or props.get("collegioType") != "uninominale":
+            continue
+        circoscrizione = props.get("circoscrizione")
+        sub_code = props.get("subCode")
+        district_id = props.get("id")
+        if not circoscrizione or not sub_code or not district_id:
+            fail(
+                f"{DISTRICTS_PATH.relative_to(ROOT)}: collegio {district_id!r} senza "
+                "circoscrizione/subCode — esegui 'make boundaries' con la pipeline aggiornata"
+            )
+        key = (normalize_circoscrizione(circoscrizione), sub_code)
+        if key in index:
+            fail(f"chiave (circoscrizione, subCode) duplicata dopo la normalizzazione: {key}")
+        index[key] = district_id
+        all_ids.add(district_id)
+    return index, all_ids
 
 
 def fail(message):
@@ -104,7 +190,7 @@ def title_case_italian(name):
     return name.title() if name else name
 
 
-def import_camera():
+def import_camera(uninominale_index, all_uninominale_ids):
     payload = load_raw("camera_deputati_sparql.json")
     people = {}
     order = []
@@ -125,23 +211,62 @@ def import_camera():
                 "nomeGruppo": value(binding, "nomeGruppo"),
                 "sourceUrl": persona_uri,
                 "committees": set(),
+                "collegio": value(binding, "collegio"),
+                "tipoElezione": value(binding, "tipoElezione"),
+                "collegioUninominale": value(binding, "collegioUninominale"),
             }
 
         commissione = value(binding, "commissione")
         if commissione:
             people[person_id]["committees"].add(commissione)
 
+    linked_ids = {}  # district_id -> person_id, to catch >1 deputy per collegio
+    unmatched = []  # maggioritario(-suppletiva) mandates with no structural match
+    by_election_holders = []  # currently-serving deputies who arrived via a by-election
+
     records = []
     for person_id in order:
         p = people[person_id]
         nome = title_case_italian(p["nome"]) or ""
         cognome = title_case_italian(p["cognome"]) or ""
+        full_name = f"{nome} {cognome}".strip()
+
+        district_id = None
+        election_type = None
+        tipo = p["tipoElezione"]
+
+        if tipo in UNINOMINALE_TIPO_ELEZIONE:
+            election_type = "uninominale"
+            spatial = p["collegioUninominale"]
+            if spatial and " - " in spatial:
+                circ, sub_code = spatial.rsplit(" - ", 1)
+                district_id = uninominale_index.get((normalize_circoscrizione(circ), sub_code))
+            if district_id is None:
+                unmatched.append(
+                    {"name": full_name, "personId": person_id, "tipoElezione": tipo, "spatial": spatial}
+                )
+            else:
+                if district_id in linked_ids:
+                    fail(
+                        f"collegio {district_id} già collegato a "
+                        f"{linked_ids[district_id]!r}: doppio deputato uninominale corrente "
+                        f"trovato anche per {person_id!r} — controlla i dati sorgente"
+                    )
+                linked_ids[district_id] = person_id
+                if tipo == "maggioritario suppletiva":
+                    by_election_holders.append({"name": full_name, "districtId": district_id})
+        elif tipo == "proporzionale":
+            coverage = (p["collegio"] or "").strip().upper()
+            election_type = "estero" if coverage in ESTERO_COVERAGE_VALUES else "plurinominale"
+        # else: tipo is None (no ?el bound at all) — electionType stays None,
+        # honestly reflecting "we don't know" (decodes to .sconosciuto).
+
         records.append(
             {
                 "id": person_id,
-                "name": f"{nome} {cognome}".strip(),
+                "name": full_name,
                 "chamber": "Camera",
-                "districtId": None,
+                "districtId": district_id,
                 "party": p["sigla"] or p["nomeGruppo"] or "",
                 "parliamentaryGroup": p["nomeGruppo"] or p["sigla"] or "",
                 "committees": sorted(p["committees"]),
@@ -149,12 +274,21 @@ def import_camera():
                 "photoName": FALLBACK_PHOTO_NAME,
                 "provenance": "official",
                 "legislature": LEGISLATURE,
-                "electionType": None,
+                "electionType": election_type,
                 "stableSourceId": person_id[1:],  # strip the leading "p"
                 "sourceUrl": p["sourceUrl"],
             }
         )
-    return records
+
+    vacant_ids = sorted(all_uninominale_ids - set(linked_ids))
+    linkage_report = {
+        "linkedCount": len(linked_ids),
+        "totalUninominale": len(all_uninominale_ids),
+        "unmatched": unmatched,
+        "vacant": vacant_ids,
+        "byElection": by_election_holders,
+    }
+    return records, linkage_report
 
 
 def import_senato():
@@ -238,7 +372,8 @@ def import_senato():
 
 
 def main():
-    camera_records = import_camera()
+    uninominale_index, all_uninominale_ids = load_uninominale_index()
+    camera_records, linkage_report = import_camera(uninominale_index, all_uninominale_ids)
     senato_records = import_senato()
     all_records = camera_records + senato_records
 
@@ -254,6 +389,28 @@ def main():
     if len(stable_ids) != len(set(stable_ids)):
         duplicates = sorted({i for i in stable_ids if stable_ids.count(i) > 1})
         fail(f"stableSourceId duplicati dopo l'unione: {duplicates}")
+
+    print(
+        f"Collegamento collegio uninominale -> deputato: {linkage_report['linkedCount']}/"
+        f"{linkage_report['totalUninominale']}"
+    )
+    if linkage_report["unmatched"]:
+        print(f"  non risolti (join strutturale fallito): {len(linkage_report['unmatched'])}")
+        for u in linkage_report["unmatched"]:
+            print(f"    - {u['name']} ({u['personId']}): tipoElezione={u['tipoElezione']!r} spatial={u['spatial']!r}")
+    if linkage_report["vacant"]:
+        print(f"  collegi senza deputato corrente: {len(linkage_report['vacant'])}: {linkage_report['vacant']}")
+    if linkage_report["byElection"]:
+        print(f"  deputati subentrati per elezione suppletiva: {len(linkage_report['byElection'])}")
+        for be in linkage_report["byElection"]:
+            print(f"    - {be['name']} (collegio {be['districtId']})")
+
+    if linkage_report["linkedCount"] < MIN_LINKED_COLLEGI:
+        fail(
+            f"solo {linkage_report['linkedCount']}/{linkage_report['totalUninominale']} collegi collegati "
+            f"(minimo richiesto: {MIN_LINKED_COLLEGI}, il 90% di {linkage_report['totalUninominale']}) — "
+            "nessun file scritto. Rivedi docs/v2/03-linkage-report.md e la logica di join prima di rieseguire."
+        )
 
     all_records.sort(key=lambda r: r["id"])
 

@@ -8,8 +8,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30104",
+    "electionType": "uninominale",
     "id": "p200291",
     "legislature": "XIX",
     "name": "Riccardo De Corato",
@@ -31,7 +31,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p300299",
     "legislature": "XIX",
     "name": "Andrea Giorgio Felice Maria Orsini",
@@ -49,7 +49,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p300319",
     "legislature": "XIX",
     "name": "Edmondo Cirielli",
@@ -70,8 +70,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190103",
+    "electionType": "uninominale",
     "id": "p300369",
     "legislature": "XIX",
     "name": "Francesco Saverio Romano",
@@ -89,7 +89,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p300444",
     "legislature": "XIX",
     "name": "Maurizio Leo",
@@ -109,8 +109,8 @@
       "II COMMISSIONE (GIUSTIZIA)",
       "UNIONE INTERPARLAMENTARE"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30205",
+    "electionType": "uninominale",
     "id": "p300447",
     "legislature": "XIX",
     "name": "Maurizio Enzo Lupi",
@@ -132,7 +132,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p300469",
     "legislature": "XIX",
     "name": "Luana Zanella",
@@ -153,7 +153,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p300480",
     "legislature": "XIX",
     "name": "Roberto Giachetti",
@@ -171,7 +171,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p300497",
     "legislature": "XIX",
     "name": "Paolo Barelli",
@@ -191,7 +191,7 @@
       "UNIONE INTERPARLAMENTARE"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p300674",
     "legislature": "XIX",
     "name": "Ettore Rosato",
@@ -210,8 +210,8 @@
       "UFFICIO DI PRESIDENZA",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120103",
+    "electionType": "uninominale",
     "id": "p301436",
     "legislature": "XIX",
     "name": "Fabio Rampelli",
@@ -229,8 +229,8 @@
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELLA NATO",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "140001",
+    "electionType": "uninominale",
     "id": "p301439",
     "legislature": "XIX",
     "name": "Lorenzo Cesa",
@@ -247,8 +247,8 @@
     "committees": [
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30101",
+    "electionType": "uninominale",
     "id": "p301457",
     "legislature": "XIX",
     "name": "Paola Frassinetti",
@@ -266,8 +266,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30105",
+    "electionType": "uninominale",
     "id": "p301459",
     "legislature": "XIX",
     "name": "Laura Ravetto",
@@ -293,7 +293,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p301531",
     "legislature": "XIX",
     "name": "Maria Rosaria Carfagna",
@@ -314,7 +314,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p301541",
     "legislature": "XIX",
     "name": "Enrico Costa",
@@ -333,8 +333,8 @@
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50203",
+    "electionType": "uninominale",
     "id": "p301558",
     "legislature": "XIX",
     "name": "Elisabetta Gardini",
@@ -362,8 +362,8 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)",
       "UFFICIO DI PRESIDENZA"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30109",
+    "electionType": "uninominale",
     "id": "p301577",
     "legislature": "XIX",
     "name": "Benedetto Della Vedova",
@@ -382,7 +382,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302069",
     "legislature": "XIX",
     "name": "Arturo Scotto",
@@ -400,8 +400,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80005",
+    "electionType": "uninominale",
     "id": "p302080",
     "legislature": "XIX",
     "name": "Angelo Bonelli",
@@ -418,8 +418,8 @@
     "committees": [
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "130003",
+    "electionType": "uninominale",
     "id": "p302103",
     "legislature": "XIX",
     "name": "Giorgia Meloni",
@@ -438,7 +438,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302422",
     "legislature": "XIX",
     "name": "Giovanni Cuperlo",
@@ -457,7 +457,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302746",
     "legislature": "XIX",
     "name": "Vinicio Giuseppe Guido Peluffo",
@@ -475,7 +475,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302748",
     "legislature": "XIX",
     "name": "Eugenia Maria Roccella",
@@ -495,7 +495,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302754",
     "legislature": "XIX",
     "name": "Chiara Braga",
@@ -512,8 +512,8 @@
     "committees": [
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30203",
+    "electionType": "uninominale",
     "id": "p302762",
     "legislature": "XIX",
     "name": "Nicola Molteni",
@@ -531,8 +531,8 @@
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30403",
+    "electionType": "uninominale",
     "id": "p302764",
     "legislature": "XIX",
     "name": "Silvana Andreina Comaroli",
@@ -553,7 +553,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302789",
     "legislature": "XIX",
     "name": "Maria Anna Madia",
@@ -572,8 +572,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120104",
+    "electionType": "uninominale",
     "id": "p302794",
     "legislature": "XIX",
     "name": "Roberto Morassut",
@@ -592,7 +592,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302818",
     "legislature": "XIX",
     "name": "Stefano Graziano",
@@ -610,8 +610,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190104",
+    "electionType": "uninominale",
     "id": "p302838",
     "legislature": "XIX",
     "name": "Michela Vittoria Brambilla",
@@ -629,7 +629,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302856",
     "legislature": "XIX",
     "name": "Paola De Micheli",
@@ -651,7 +651,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302867",
     "legislature": "XIX",
     "name": "Deborah Bergamini",
@@ -674,7 +674,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p302902",
     "legislature": "XIX",
     "name": "Fabio Porta",
@@ -692,8 +692,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190201",
+    "electionType": "uninominale",
     "id": "p302913",
     "legislature": "XIX",
     "name": "Antonino Minardo",
@@ -711,7 +711,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302942",
     "legislature": "XIX",
     "name": "Antonio Angelucci",
@@ -732,7 +732,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p302968",
     "legislature": "XIX",
     "name": "Catia Polidori",
@@ -752,8 +752,8 @@
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10103",
+    "electionType": "uninominale",
     "id": "p302980",
     "legislature": "XIX",
     "name": "Elena Maccanti",
@@ -771,7 +771,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p303089",
     "legislature": "XIX",
     "name": "Gilberto Pichetto Fratin",
@@ -788,8 +788,8 @@
     "committees": [
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "70001",
+    "electionType": "uninominale",
     "id": "p304521",
     "legislature": "XIX",
     "name": "Edoardo Rixi",
@@ -809,7 +809,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305549",
     "legislature": "XIX",
     "name": "Simona Bonafe'",
@@ -828,7 +828,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305553",
     "legislature": "XIX",
     "name": "Maria Chiara Gadda",
@@ -848,8 +848,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "40004",
+    "electionType": "uninominale",
     "id": "p305580",
     "legislature": "XIX",
     "name": "Renate Gebhard",
@@ -871,8 +871,8 @@
       "UNIONE INTERPARLAMENTARE",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "40003",
+    "electionType": "uninominale",
     "id": "p305586",
     "legislature": "XIX",
     "name": "Manfred Schullian",
@@ -891,7 +891,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305624",
     "legislature": "XIX",
     "name": "Lorenzo Guerini",
@@ -910,8 +910,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "60002",
+    "electionType": "uninominale",
     "id": "p305688",
     "legislature": "XIX",
     "name": "Walter Rizzetto",
@@ -929,8 +929,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80007",
+    "electionType": "uninominale",
     "id": "p305698",
     "legislature": "XIX",
     "name": "Andrea De Maria",
@@ -950,7 +950,7 @@
       "UFFICIO DI PRESIDENZA"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305704",
     "legislature": "XIX",
     "name": "Anna Ascani",
@@ -970,7 +970,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305708",
     "legislature": "XIX",
     "name": "Matteo Richetti",
@@ -990,8 +990,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "70003",
+    "electionType": "uninominale",
     "id": "p305733",
     "legislature": "XIX",
     "name": "Luca Pastorino",
@@ -1012,7 +1012,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305757",
     "legislature": "XIX",
     "name": "Laura Boldrini",
@@ -1030,7 +1030,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305771",
     "legislature": "XIX",
     "name": "Irene Manzi",
@@ -1050,7 +1050,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305815",
     "legislature": "XIX",
     "name": "Matteo Orfini",
@@ -1075,7 +1075,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305880",
     "legislature": "XIX",
     "name": "Nicola Fratoianni",
@@ -1096,7 +1096,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305931",
     "legislature": "XIX",
     "name": "Vincenzo Amendola",
@@ -1115,7 +1115,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p305974",
     "legislature": "XIX",
     "name": "Roberto Speranza",
@@ -1135,7 +1135,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306003",
     "legislature": "XIX",
     "name": "Francesco Bonifazi",
@@ -1155,7 +1155,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306005",
     "legislature": "XIX",
     "name": "Davide Faraone",
@@ -1174,7 +1174,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306008",
     "legislature": "XIX",
     "name": "Chiara Gribaudo",
@@ -1197,7 +1197,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306064",
     "legislature": "XIX",
     "name": "Giulio Cesare Sottanelli",
@@ -1219,7 +1219,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306139",
     "legislature": "XIX",
     "name": "Nicola Stumpo",
@@ -1240,7 +1240,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306158",
     "legislature": "XIX",
     "name": "Giuseppe Castiglione",
@@ -1260,7 +1260,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306160",
     "legislature": "XIX",
     "name": "Maria Elena Boschi",
@@ -1279,7 +1279,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306176",
     "legislature": "XIX",
     "name": "Matteo Mauri",
@@ -1302,7 +1302,7 @@
       "UNIONE INTERPARLAMENTARE"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306189",
     "legislature": "XIX",
     "name": "Lia Quartapelle Procopio",
@@ -1321,7 +1321,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306214",
     "legislature": "XIX",
     "name": "Luca Squeri",
@@ -1341,8 +1341,8 @@
       "VI COMMISSIONE (FINANZE)",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30202",
+    "electionType": "uninominale",
     "id": "p306349",
     "legislature": "XIX",
     "name": "Stefano Candiani",
@@ -1360,7 +1360,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306352",
     "legislature": "XIX",
     "name": "Enrico Cappelletti",
@@ -1379,7 +1379,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306379",
     "legislature": "XIX",
     "name": "Isabella De Monte",
@@ -1399,7 +1399,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306382",
     "legislature": "XIX",
     "name": "Mauro Del Barba",
@@ -1417,7 +1417,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306395",
     "legislature": "XIX",
     "name": "Rosanna Filippin",
@@ -1437,7 +1437,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306398",
     "legislature": "XIX",
     "name": "Federico Fornaro",
@@ -1456,7 +1456,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306412",
     "legislature": "XIX",
     "name": "Maria Cecilia Guerra",
@@ -1476,7 +1476,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306417",
     "legislature": "XIX",
     "name": "Bachisio Silvio Lai",
@@ -1497,7 +1497,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306497",
     "legislature": "XIX",
     "name": "Stefano Vaccari",
@@ -1520,7 +1520,7 @@
       "UFFICIO DI PRESIDENZA"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p306521",
     "legislature": "XIX",
     "name": "Filiberto Zaratti",
@@ -1538,7 +1538,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307109",
     "legislature": "XIX",
     "name": "Mario Perantoni",
@@ -1559,7 +1559,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307130",
     "legislature": "XIX",
     "name": "Giorgio Mule'",
@@ -1579,7 +1579,7 @@
       "UFFICIO DI PRESIDENZA"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307132",
     "legislature": "XIX",
     "name": "Roberto Traversi",
@@ -1596,8 +1596,8 @@
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "70004",
+    "electionType": "uninominale",
     "id": "p307134",
     "legislature": "XIX",
     "name": "Roberto Bagnasco",
@@ -1614,8 +1614,8 @@
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "60001",
+    "electionType": "uninominale",
     "id": "p307138",
     "legislature": "XIX",
     "name": "Vannia Gava",
@@ -1635,8 +1635,8 @@
       "UFFICIO DI PRESIDENZA",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90003",
+    "electionType": "uninominale",
     "id": "p307142",
     "legislature": "XIX",
     "name": "Riccardo Zucconi",
@@ -1654,8 +1654,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90004",
+    "electionType": "uninominale",
     "id": "p307143",
     "legislature": "XIX",
     "name": "Edoardo Ziello",
@@ -1678,7 +1678,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p307151",
     "legislature": "XIX",
     "name": "Simone Billi",
@@ -1697,7 +1697,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p307161",
     "legislature": "XIX",
     "name": "Nicola Care'",
@@ -1719,8 +1719,8 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "170001",
+    "electionType": "uninominale",
     "id": "p307162",
     "legislature": "XIX",
     "name": "Salvatore Caiata",
@@ -1738,8 +1738,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "110002",
+    "electionType": "uninominale",
     "id": "p307173",
     "legislature": "XIX",
     "name": "Giorgia Latini",
@@ -1758,7 +1758,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307175",
     "legislature": "XIX",
     "name": "Rachele Silvestri",
@@ -1775,8 +1775,8 @@
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190106",
+    "electionType": "uninominale",
     "id": "p307185",
     "legislature": "XIX",
     "name": "Marta Antonia Fascina",
@@ -1794,7 +1794,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307193",
     "legislature": "XIX",
     "name": "Raffaele Bruno",
@@ -1815,7 +1815,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307202",
     "legislature": "XIX",
     "name": "Gilda Sportiello",
@@ -1833,8 +1833,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150106",
+    "electionType": "uninominale",
     "id": "p307210",
     "legislature": "XIX",
     "name": "Carmela Di Lauro",
@@ -1852,8 +1852,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "200001",
+    "electionType": "uninominale",
     "id": "p307215",
     "legislature": "XIX",
     "name": "Ugo Cappellacci",
@@ -1872,7 +1872,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307219",
     "legislature": "XIX",
     "name": "Salvatore Deidda",
@@ -1897,7 +1897,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307223",
     "legislature": "XIX",
     "name": "Pietro Pittalis",
@@ -1918,7 +1918,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307234",
     "legislature": "XIX",
     "name": "Daniela Torto",
@@ -1939,7 +1939,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307246",
     "legislature": "XIX",
     "name": "Giovanni Donzelli",
@@ -1959,8 +1959,8 @@
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90006",
+    "electionType": "uninominale",
     "id": "p307248",
     "legislature": "XIX",
     "name": "Erica Mazzetti",
@@ -1979,7 +1979,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307250",
     "legislature": "XIX",
     "name": "Riccardo Ricciardi",
@@ -1999,8 +1999,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80002",
+    "electionType": "uninominale",
     "id": "p307285",
     "legislature": "XIX",
     "name": "Laura Cavandoli",
@@ -2019,7 +2019,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307298",
     "legislature": "XIX",
     "name": "Galeazzo Bignami",
@@ -2037,8 +2037,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80011",
+    "electionType": "uninominale",
     "id": "p307300",
     "legislature": "XIX",
     "name": "Jacopo Morrone",
@@ -2062,7 +2062,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307302",
     "legislature": "XIX",
     "name": "Stefania Ascari",
@@ -2081,7 +2081,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307306",
     "legislature": "XIX",
     "name": "Andrea Rossi",
@@ -2103,7 +2103,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307308",
     "legislature": "XIX",
     "name": "Marco Lacarra",
@@ -2121,8 +2121,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160007",
+    "electionType": "uninominale",
     "id": "p307312",
     "legislature": "XIX",
     "name": "Mauro D'Attis",
@@ -2141,7 +2141,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307328",
     "legislature": "XIX",
     "name": "Luigi Marattin",
@@ -2159,7 +2159,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307332",
     "legislature": "XIX",
     "name": "Marcello Gemmato",
@@ -2181,7 +2181,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307334",
     "legislature": "XIX",
     "name": "Gianluca Vinci",
@@ -2203,7 +2203,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307340",
     "legislature": "XIX",
     "name": "Ylenja Lucaselli",
@@ -2221,7 +2221,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307348",
     "legislature": "XIX",
     "name": "Leonardo Donno",
@@ -2240,7 +2240,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307356",
     "legislature": "XIX",
     "name": "Giorgio Lovecchio",
@@ -2258,8 +2258,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160006",
+    "electionType": "uninominale",
     "id": "p307360",
     "legislature": "XIX",
     "name": "Rossano Sasso",
@@ -2281,7 +2281,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307370",
     "legislature": "XIX",
     "name": "Carla Giuliano",
@@ -2301,7 +2301,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307374",
     "legislature": "XIX",
     "name": "Debora Serracchiani",
@@ -2321,8 +2321,8 @@
       "GIUNTA DELLE ELEZIONI",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "60003",
+    "electionType": "uninominale",
     "id": "p307376",
     "legislature": "XIX",
     "name": "Massimiliano Panizzut",
@@ -2343,7 +2343,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307388",
     "legislature": "XIX",
     "name": "Valentina D'Orso",
@@ -2361,8 +2361,8 @@
       "GIUNTA DELLE ELEZIONI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190101",
+    "electionType": "uninominale",
     "id": "p307394",
     "legislature": "XIX",
     "name": "Davide Aiello",
@@ -2383,8 +2383,8 @@
       "II COMMISSIONE (GIUSTIZIA)",
       "UFFICIO DI PRESIDENZA"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190102",
+    "electionType": "uninominale",
     "id": "p307400",
     "legislature": "XIX",
     "name": "Maria Carolina Varchi",
@@ -2402,7 +2402,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307402",
     "legislature": "XIX",
     "name": "Matilde Siracusano",
@@ -2420,7 +2420,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307406",
     "legislature": "XIX",
     "name": "Angela Raffa",
@@ -2439,7 +2439,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307416",
     "legislature": "XIX",
     "name": "Luciano Cantone",
@@ -2463,7 +2463,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307418",
     "legislature": "XIX",
     "name": "Filippo Scerra",
@@ -2481,8 +2481,8 @@
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "100002",
+    "electionType": "uninominale",
     "id": "p307420",
     "legislature": "XIX",
     "name": "Virginio Caparvi",
@@ -2501,7 +2501,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307424",
     "legislature": "XIX",
     "name": "Federico Mollicone",
@@ -2519,7 +2519,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307426",
     "legislature": "XIX",
     "name": "Maria Teresa Bellucci",
@@ -2537,7 +2537,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307430",
     "legislature": "XIX",
     "name": "Patrizia Prestipino",
@@ -2556,7 +2556,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307435",
     "legislature": "XIX",
     "name": "Vittoria Baldino",
@@ -2573,8 +2573,8 @@
     "committees": [
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10101",
+    "electionType": "uninominale",
     "id": "p307436",
     "legislature": "XIX",
     "name": "Riccardo Magi",
@@ -2600,7 +2600,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307447",
     "legislature": "XIX",
     "name": "Francesco Silvestri",
@@ -2618,7 +2618,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307452",
     "legislature": "XIX",
     "name": "Emanuele Prisco",
@@ -2637,7 +2637,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307453",
     "legislature": "XIX",
     "name": "Riccardo Augusto Marchetti",
@@ -2654,8 +2654,8 @@
     "committees": [
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "100001",
+    "electionType": "uninominale",
     "id": "p307454",
     "legislature": "XIX",
     "name": "Raffaele Nevi",
@@ -2673,8 +2673,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120201",
+    "electionType": "uninominale",
     "id": "p307455",
     "legislature": "XIX",
     "name": "Mauro Rotelli",
@@ -2693,8 +2693,8 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120105",
+    "electionType": "uninominale",
     "id": "p307456",
     "legislature": "XIX",
     "name": "Alessandro Battilocchio",
@@ -2718,8 +2718,8 @@
       "UFFICIO DI PRESIDENZA",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120202",
+    "electionType": "uninominale",
     "id": "p307457",
     "legislature": "XIX",
     "name": "Paolo Trancassini",
@@ -2738,7 +2738,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307459",
     "legislature": "XIX",
     "name": "Ilaria Fontana",
@@ -2756,7 +2756,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307463",
     "legislature": "XIX",
     "name": "Francesco Lollobrigida",
@@ -2778,8 +2778,8 @@
       "GIUNTA PER IL REGOLAMENTO",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10102",
+    "electionType": "uninominale",
     "id": "p307464",
     "legislature": "XIX",
     "name": "Augusta Montaruli",
@@ -2803,7 +2803,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307466",
     "legislature": "XIX",
     "name": "Patrizia Marrocco",
@@ -2827,7 +2827,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307471",
     "legislature": "XIX",
     "name": "Alessandro Manuel Benvenuto",
@@ -2846,8 +2846,8 @@
       "VI COMMISSIONE (FINANZE)",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10202",
+    "electionType": "uninominale",
     "id": "p307475",
     "legislature": "XIX",
     "name": "Alberto Luigi Gusmeroli",
@@ -2868,7 +2868,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307478",
     "legislature": "XIX",
     "name": "Daniela Ruffino",
@@ -2885,8 +2885,8 @@
     "committees": [
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10203",
+    "electionType": "uninominale",
     "id": "p307479",
     "legislature": "XIX",
     "name": "Andrea Delmastro Delle Vedove",
@@ -2904,7 +2904,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307481",
     "legislature": "XIX",
     "name": "Claudio Mancini",
@@ -2922,8 +2922,8 @@
       "DELEGAZIONE PRESSO L'ASSEMBLEA PARLAMENTARE DELLA INIZIATIVA CENTRO EUROPEA (INCE)",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10105",
+    "electionType": "uninominale",
     "id": "p307496",
     "legislature": "XIX",
     "name": "Roberto Pella",
@@ -2946,8 +2946,8 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10104",
+    "electionType": "uninominale",
     "id": "p307502",
     "legislature": "XIX",
     "name": "Alessandro Giglio Vigna",
@@ -2965,8 +2965,8 @@
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10201",
+    "electionType": "uninominale",
     "id": "p307507",
     "legislature": "XIX",
     "name": "Riccardo Molinari",
@@ -2988,7 +2988,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307508",
     "legislature": "XIX",
     "name": "Andrea Giaccone",
@@ -3006,8 +3006,8 @@
       "IV COMMISSIONE (DIFESA)",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10205",
+    "electionType": "uninominale",
     "id": "p307511",
     "legislature": "XIX",
     "name": "Monica Ciaburro",
@@ -3026,7 +3026,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307531",
     "legislature": "XIX",
     "name": "Michele Gubitosa",
@@ -3046,7 +3046,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307561",
     "legislature": "XIX",
     "name": "Piero De Luca",
@@ -3067,7 +3067,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307564",
     "legislature": "XIX",
     "name": "Anna Laura Orrico",
@@ -3084,8 +3084,8 @@
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "180003",
+    "electionType": "uninominale",
     "id": "p307567",
     "legislature": "XIX",
     "name": "Wanda Ferro",
@@ -3102,8 +3102,8 @@
     "committees": [
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "180005",
+    "electionType": "uninominale",
     "id": "p307568",
     "legislature": "XIX",
     "name": "Francesco Cannizzaro",
@@ -3121,7 +3121,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307570",
     "legislature": "XIX",
     "name": "Arianna Lazzarini",
@@ -3140,8 +3140,8 @@
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50205",
+    "electionType": "uninominale",
     "id": "p307573",
     "legislature": "XIX",
     "name": "Maria Cristina Caretta",
@@ -3159,8 +3159,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50207",
+    "electionType": "uninominale",
     "id": "p307575",
     "legislature": "XIX",
     "name": "Ciro Maschio",
@@ -3178,7 +3178,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307580",
     "legislature": "XIX",
     "name": "Piergiorgio Cortelazzo",
@@ -3198,7 +3198,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307585",
     "legislature": "XIX",
     "name": "Erik Umberto Pretto",
@@ -3217,8 +3217,8 @@
       "GIUNTA PER IL REGOLAMENTO",
       "UFFICIO DI PRESIDENZA"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50206",
+    "electionType": "uninominale",
     "id": "p307591",
     "legislature": "XIX",
     "name": "Lorenzo Fontana",
@@ -3238,8 +3238,8 @@
       "GIUNTA PER IL REGOLAMENTO",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30303",
+    "electionType": "uninominale",
     "id": "p307601",
     "legislature": "XIX",
     "name": "Simona Bordonali",
@@ -3262,7 +3262,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307602",
     "legislature": "XIX",
     "name": "Paolo Formentini",
@@ -3285,8 +3285,8 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)",
       "UFFICIO DI PRESIDENZA"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160010",
+    "electionType": "uninominale",
     "id": "p307603",
     "legislature": "XIX",
     "name": "Alessandro Colucci",
@@ -3305,7 +3305,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307604",
     "legislature": "XIX",
     "name": "Stefano Benigni",
@@ -3324,8 +3324,8 @@
       "GIUNTA DELLE ELEZIONI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30301",
+    "electionType": "uninominale",
     "id": "p307608",
     "legislature": "XIX",
     "name": "Alessandro Sorte",
@@ -3344,8 +3344,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30106",
+    "electionType": "uninominale",
     "id": "p307612",
     "legislature": "XIX",
     "name": "Marco Osnato",
@@ -3365,7 +3365,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307616",
     "legislature": "XIX",
     "name": "Eugenio Zoffili",
@@ -3383,8 +3383,8 @@
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30302",
+    "electionType": "uninominale",
     "id": "p307630",
     "legislature": "XIX",
     "name": "Rebecca Frassini",
@@ -3407,7 +3407,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307632",
     "legislature": "XIX",
     "name": "Giulio Centemero",
@@ -3430,7 +3430,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307634",
     "legislature": "XIX",
     "name": "Devis Dori",
@@ -3451,8 +3451,8 @@
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELLA NATO",
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30102",
+    "electionType": "uninominale",
     "id": "p307639",
     "legislature": "XIX",
     "name": "Andrea Crippa",
@@ -3472,7 +3472,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307641",
     "legislature": "XIX",
     "name": "Igor Giancarlo Iezzi",
@@ -3490,8 +3490,8 @@
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30401",
+    "electionType": "uninominale",
     "id": "p307657",
     "legislature": "XIX",
     "name": "Alessandro Cattaneo",
@@ -3509,8 +3509,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80010",
+    "electionType": "uninominale",
     "id": "p307659",
     "legislature": "XIX",
     "name": "Gloria Saccani",
@@ -3528,8 +3528,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30108",
+    "electionType": "uninominale",
     "id": "p307678",
     "legislature": "XIX",
     "name": "Cristina Rossello",
@@ -3549,7 +3549,7 @@
       "UFFICIO DI PRESIDENZA"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307680",
     "legislature": "XIX",
     "name": "Fabrizio Cecchetti",
@@ -3567,8 +3567,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30404",
+    "electionType": "uninominale",
     "id": "p307683",
     "legislature": "XIX",
     "name": "Andrea Dara",
@@ -3586,8 +3586,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50102",
+    "electionType": "uninominale",
     "id": "p307686",
     "legislature": "XIX",
     "name": "Giorgia Andreuzza",
@@ -3610,8 +3610,8 @@
       "GIUNTA DELLE ELEZIONI",
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50104",
+    "electionType": "uninominale",
     "id": "p307688",
     "legislature": "XIX",
     "name": "Dimitri Coin",
@@ -3633,8 +3633,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50105",
+    "electionType": "uninominale",
     "id": "p307689",
     "legislature": "XIX",
     "name": "Ingrid Bisa",
@@ -3652,8 +3652,8 @@
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "40002",
+    "electionType": "uninominale",
     "id": "p307716",
     "legislature": "XIX",
     "name": "Vanessa Cattoi",
@@ -3671,8 +3671,8 @@
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULLA CASSA DEPOSITI E PRESTITI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "180001",
+    "electionType": "uninominale",
     "id": "p307718",
     "legislature": "XIX",
     "name": "Domenico Furgiuele",
@@ -3690,7 +3690,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307726",
     "legislature": "XIX",
     "name": "Riccardo Tucci",
@@ -3709,8 +3709,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "130001",
+    "electionType": "uninominale",
     "id": "p307749",
     "legislature": "XIX",
     "name": "Alberto Bagnai",
@@ -3730,8 +3730,8 @@
       "UFFICIO DI PRESIDENZA",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "110001",
+    "electionType": "uninominale",
     "id": "p307752",
     "legislature": "XIX",
     "name": "Francesco Battistoni",
@@ -3749,7 +3749,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307762",
     "legislature": "XIX",
     "name": "Francesco Bruzzone",
@@ -3768,7 +3768,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307782",
     "legislature": "XIX",
     "name": "Luciano D'Alfonso",
@@ -3787,7 +3787,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307790",
     "legislature": "XIX",
     "name": "Gianmauro Dell'Olio",
@@ -3806,7 +3806,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307803",
     "legislature": "XIX",
     "name": "Giorgio Fede",
@@ -3825,7 +3825,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307822",
     "legislature": "XIX",
     "name": "Pasqua L'Abbate",
@@ -3843,7 +3843,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307826",
     "legislature": "XIX",
     "name": "Mauro Antonio Donato Laus",
@@ -3862,7 +3862,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307829",
     "legislature": "XIX",
     "name": "Arnaldo Lomuti",
@@ -3881,7 +3881,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307837",
     "legislature": "XIX",
     "name": "Giuseppe Tommaso Vincenzo Mangialavori",
@@ -3900,8 +3900,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90009",
+    "electionType": "uninominale",
     "id": "p307851",
     "legislature": "XIX",
     "name": "Tiziana Nisini",
@@ -3921,7 +3921,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307857",
     "legislature": "XIX",
     "name": "Nazario Pagano",
@@ -3940,8 +3940,8 @@
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160001",
+    "electionType": "uninominale",
     "id": "p307863",
     "legislature": "XIX",
     "name": "Marco Pellegrini",
@@ -3959,8 +3959,8 @@
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120204",
+    "electionType": "uninominale",
     "id": "p307889",
     "legislature": "XIX",
     "name": "Massimo Ruspandini",
@@ -3980,7 +3980,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307892",
     "legislature": "XIX",
     "name": "Agostino Santillo",
@@ -3999,7 +3999,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307902",
     "legislature": "XIX",
     "name": "Dieter Steger",
@@ -4018,8 +4018,8 @@
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190202",
+    "electionType": "uninominale",
     "id": "p307903",
     "legislature": "XIX",
     "name": "Valeria Carmela Maria Sudano",
@@ -4037,8 +4037,8 @@
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "40001",
+    "electionType": "uninominale",
     "id": "p307918",
     "legislature": "XIX",
     "name": "Andrea De Bertoldi",
@@ -4057,8 +4057,8 @@
       "UFFICIO DI PRESIDENZA",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150102",
+    "electionType": "uninominale",
     "id": "p307922",
     "legislature": "XIX",
     "name": "Sergio Costa",
@@ -4077,7 +4077,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307926",
     "legislature": "XIX",
     "name": "Giuseppe Conte",
@@ -4095,7 +4095,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p307983",
     "legislature": "XIX",
     "name": "Luca Toccalini",
@@ -4116,7 +4116,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308001",
     "legislature": "XIX",
     "name": "Valentina Barzotti",
@@ -4135,8 +4135,8 @@
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30103",
+    "electionType": "uninominale",
     "id": "p308101",
     "legislature": "XIX",
     "name": "Lucrezia Maria Benedetta Mantovani",
@@ -4155,7 +4155,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308221",
     "legislature": "XIX",
     "name": "Emma Pavanelli",
@@ -4177,7 +4177,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308243",
     "legislature": "XIX",
     "name": "Giuseppe Luciano Calogero Provenzano",
@@ -4199,7 +4199,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308244",
     "legislature": "XIX",
     "name": "Elena Bonetti",
@@ -4217,7 +4217,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308421",
     "legislature": "XIX",
     "name": "Lucia Albano",
@@ -4237,7 +4237,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308600",
     "legislature": "XIX",
     "name": "Andrea Casu",
@@ -4257,8 +4257,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "180002",
+    "electionType": "uninominale",
     "id": "p308620",
     "legislature": "XIX",
     "name": "Andrea Gentile",
@@ -4277,8 +4277,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "20001",
+    "electionType": "uninominale",
     "id": "p308760",
     "legislature": "XIX",
     "name": "Franco Manes",
@@ -4297,8 +4297,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190105",
+    "electionType": "uninominale",
     "id": "p308761",
     "legislature": "XIX",
     "name": "Calogero Pisano",
@@ -4318,8 +4318,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "110003",
+    "electionType": "uninominale",
     "id": "p308762",
     "legislature": "XIX",
     "name": "Stefano Maria Benvenuti Gostoli",
@@ -4337,8 +4337,8 @@
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "110004",
+    "electionType": "uninominale",
     "id": "p308763",
     "legislature": "XIX",
     "name": "Mirco Carloni",
@@ -4357,8 +4357,8 @@
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190203",
+    "electionType": "uninominale",
     "id": "p308764",
     "legislature": "XIX",
     "name": "Francesco Maria Salvatore Ciancitto",
@@ -4376,8 +4376,8 @@
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190204",
+    "electionType": "uninominale",
     "id": "p308765",
     "legislature": "XIX",
     "name": "Giovanni Luca Cannata",
@@ -4395,8 +4395,8 @@
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190205",
+    "electionType": "uninominale",
     "id": "p308766",
     "legislature": "XIX",
     "name": "Tommaso Antonino Calderone",
@@ -4415,8 +4415,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "190206",
+    "electionType": "uninominale",
     "id": "p308767",
     "legislature": "XIX",
     "name": "Francesco Gallo",
@@ -4435,8 +4435,8 @@
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "200002",
+    "electionType": "uninominale",
     "id": "p308768",
     "legislature": "XIX",
     "name": "Gianni Lampis",
@@ -4455,8 +4455,8 @@
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "200003",
+    "electionType": "uninominale",
     "id": "p308769",
     "legislature": "XIX",
     "name": "Barbara Polo",
@@ -4475,8 +4475,8 @@
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "200004",
+    "electionType": "uninominale",
     "id": "p308770",
     "legislature": "XIX",
     "name": "Dario Giagoni",
@@ -4496,7 +4496,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p308780",
     "legislature": "XIX",
     "name": "Toni Ricciardi",
@@ -4523,7 +4523,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p308781",
     "legislature": "XIX",
     "name": "Federica Onori",
@@ -4543,7 +4543,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p308782",
     "legislature": "XIX",
     "name": "Franco Tirelli",
@@ -4562,7 +4562,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p308783",
     "legislature": "XIX",
     "name": "Christian Diego Di Sanzo",
@@ -4583,7 +4583,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "p308784",
     "legislature": "XIX",
     "name": "Andrea Di Giuseppe",
@@ -4603,8 +4603,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "70002",
+    "electionType": "uninominale",
     "id": "p308785",
     "legislature": "XIX",
     "name": "Ilaria Cavo",
@@ -4622,8 +4622,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150201",
+    "electionType": "uninominale",
     "id": "p308786",
     "legislature": "XIX",
     "name": "Gerolamo Cangiano",
@@ -4642,8 +4642,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150202",
+    "electionType": "uninominale",
     "id": "p308787",
     "legislature": "XIX",
     "name": "Carmen Letizia Giorgianni",
@@ -4661,8 +4661,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150203",
+    "electionType": "uninominale",
     "id": "p308788",
     "legislature": "XIX",
     "name": "Francesco Maria Rubano",
@@ -4680,8 +4680,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150205",
+    "electionType": "uninominale",
     "id": "p308789",
     "legislature": "XIX",
     "name": "Maria Immacolata Vietri",
@@ -4702,8 +4702,8 @@
       "GIUNTA DELLE ELEZIONI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150206",
+    "electionType": "uninominale",
     "id": "p308790",
     "legislature": "XIX",
     "name": "Giuseppe Bicchielli",
@@ -4721,8 +4721,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150207",
+    "electionType": "uninominale",
     "id": "p308791",
     "legislature": "XIX",
     "name": "Attilio Pierro",
@@ -4742,8 +4742,8 @@
       "GIUNTA DELLE ELEZIONI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30201",
+    "electionType": "uninominale",
     "id": "p308792",
     "legislature": "XIX",
     "name": "Andrea Pellicini",
@@ -4761,8 +4761,8 @@
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30304",
+    "electionType": "uninominale",
     "id": "p308793",
     "legislature": "XIX",
     "name": "Maurizio Casasco",
@@ -4785,8 +4785,8 @@
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELLA NATO",
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30305",
+    "electionType": "uninominale",
     "id": "p308794",
     "legislature": "XIX",
     "name": "Giangiacomo Calovini",
@@ -4804,8 +4804,8 @@
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30402",
+    "electionType": "uninominale",
     "id": "p308795",
     "legislature": "XIX",
     "name": "Carmine Fabio Raimondo",
@@ -4824,8 +4824,8 @@
       "GIUNTA DELLE ELEZIONI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "10204",
+    "electionType": "uninominale",
     "id": "p308796",
     "legislature": "XIX",
     "name": "Marcello Coppo",
@@ -4843,8 +4843,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50101",
+    "electionType": "uninominale",
     "id": "p308797",
     "legislature": "XIX",
     "name": "Martina Semenzato",
@@ -4861,8 +4861,8 @@
     "committees": [
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50103",
+    "electionType": "uninominale",
     "id": "p308798",
     "legislature": "XIX",
     "name": "Carlo Nordio",
@@ -4882,7 +4882,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308799",
     "legislature": "XIX",
     "name": "Francesco Filini",
@@ -4901,7 +4901,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308800",
     "legislature": "XIX",
     "name": "Marina Marchetto",
@@ -4920,7 +4920,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308801",
     "legislature": "XIX",
     "name": "Gianangelo Bof",
@@ -4940,7 +4940,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308802",
     "legislature": "XIX",
     "name": "Valentina Grippo",
@@ -4959,7 +4959,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308803",
     "legislature": "XIX",
     "name": "Rachele Scarpa",
@@ -4978,7 +4978,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308804",
     "legislature": "XIX",
     "name": "Augusto Curti",
@@ -4999,7 +4999,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308805",
     "legislature": "XIX",
     "name": "Antonio Baldelli",
@@ -5019,7 +5019,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308806",
     "legislature": "XIX",
     "name": "Vito De Palma",
@@ -5039,7 +5039,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308807",
     "legislature": "XIX",
     "name": "Andrea Caroppo",
@@ -5058,7 +5058,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308808",
     "legislature": "XIX",
     "name": "Salvatore Marcello Di Mattina",
@@ -5079,7 +5079,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308809",
     "legislature": "XIX",
     "name": "Antonino Iaria",
@@ -5098,7 +5098,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308810",
     "legislature": "XIX",
     "name": "Marco Grimaldi",
@@ -5120,7 +5120,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308811",
     "legislature": "XIX",
     "name": "Giandonato La Salandra",
@@ -5139,7 +5139,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308812",
     "legislature": "XIX",
     "name": "Marco Perissa",
@@ -5158,7 +5158,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308813",
     "legislature": "XIX",
     "name": "Immacolata Zurzolo",
@@ -5177,7 +5177,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308814",
     "legislature": "XIX",
     "name": "Luigi Giovanni Maiorano",
@@ -5196,7 +5196,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308815",
     "legislature": "XIX",
     "name": "Mauro Berruto",
@@ -5216,7 +5216,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308816",
     "legislature": "XIX",
     "name": "Elisabetta Piccolotti",
@@ -5236,7 +5236,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308817",
     "legislature": "XIX",
     "name": "Claudio Michele Stefanazzi",
@@ -5255,7 +5255,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308818",
     "legislature": "XIX",
     "name": "Daniela Morfino",
@@ -5274,7 +5274,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308819",
     "legislature": "XIX",
     "name": "Gianluca Caramanna",
@@ -5294,7 +5294,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308820",
     "legislature": "XIX",
     "name": "Ida Carmina",
@@ -5314,7 +5314,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308821",
     "legislature": "XIX",
     "name": "Giovanna Iacono",
@@ -5332,7 +5332,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308822",
     "legislature": "XIX",
     "name": "Emanuele Pozzolo",
@@ -5352,7 +5352,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308823",
     "legislature": "XIX",
     "name": "Antonio Giordano",
@@ -5370,7 +5370,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308824",
     "legislature": "XIX",
     "name": "Chiara Appendino",
@@ -5389,7 +5389,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308825",
     "legislature": "XIX",
     "name": "Vincenzo Amich",
@@ -5409,7 +5409,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308826",
     "legislature": "XIX",
     "name": "Fabrizio Comba",
@@ -5429,8 +5429,8 @@
       "GIUNTA DELLE ELEZIONI",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160002",
+    "electionType": "uninominale",
     "id": "p308827",
     "legislature": "XIX",
     "name": "Giacomo Diego Gatta",
@@ -5449,8 +5449,8 @@
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160003",
+    "electionType": "uninominale",
     "id": "p308828",
     "legislature": "XIX",
     "name": "Mariangela Matera",
@@ -5468,8 +5468,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160004",
+    "electionType": "uninominale",
     "id": "p308829",
     "legislature": "XIX",
     "name": "Rita Dalla Chiesa",
@@ -5487,8 +5487,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160005",
+    "electionType": "uninominale",
     "id": "p308830",
     "legislature": "XIX",
     "name": "Davide Bellomo",
@@ -5510,8 +5510,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160008",
+    "electionType": "uninominale",
     "id": "p308831",
     "legislature": "XIX",
     "name": "Dario Iaia",
@@ -5532,7 +5532,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308832",
     "legislature": "XIX",
     "name": "Alessia Ambrosi",
@@ -5550,8 +5550,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "160009",
+    "electionType": "uninominale",
     "id": "p308833",
     "legislature": "XIX",
     "name": "Saverio Congedo",
@@ -5570,7 +5570,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308834",
     "legislature": "XIX",
     "name": "Sara Ferrari",
@@ -5589,8 +5589,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120101",
+    "electionType": "uninominale",
     "id": "p308835",
     "legislature": "XIX",
     "name": "Paolo Ciani",
@@ -5611,8 +5611,8 @@
       "II COMMISSIONE (GIUSTIZIA)",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120102",
+    "electionType": "uninominale",
     "id": "p308836",
     "legislature": "XIX",
     "name": "Simonetta Matone",
@@ -5629,8 +5629,8 @@
     "committees": [
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120107",
+    "electionType": "uninominale",
     "id": "p308837",
     "legislature": "XIX",
     "name": "Federico Freni",
@@ -5647,8 +5647,8 @@
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120108",
+    "electionType": "uninominale",
     "id": "p308838",
     "legislature": "XIX",
     "name": "Antonio Tajani",
@@ -5668,8 +5668,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120109",
+    "electionType": "uninominale",
     "id": "p308839",
     "legislature": "XIX",
     "name": "Alessandro Palombi",
@@ -5687,8 +5687,8 @@
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150101",
+    "electionType": "uninominale",
     "id": "p308840",
     "legislature": "XIX",
     "name": "Antonio Caso",
@@ -5708,7 +5708,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308841",
     "legislature": "XIX",
     "name": "Alfonso Colucci",
@@ -5727,7 +5727,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308843",
     "legislature": "XIX",
     "name": "Michela Di Biase",
@@ -5745,8 +5745,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150103",
+    "electionType": "uninominale",
     "id": "p308844",
     "legislature": "XIX",
     "name": "Dario Carotenuto",
@@ -5764,8 +5764,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150104",
+    "electionType": "uninominale",
     "id": "p308845",
     "legislature": "XIX",
     "name": "Pasqualino Penza",
@@ -5785,8 +5785,8 @@
       "GIUNTA DELLE ELEZIONI",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150105",
+    "electionType": "uninominale",
     "id": "p308846",
     "legislature": "XIX",
     "name": "Carmela Auriemma",
@@ -5805,7 +5805,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308847",
     "legislature": "XIX",
     "name": "Andrea Volpi",
@@ -5825,7 +5825,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308848",
     "legislature": "XIX",
     "name": "Angelo Rossi",
@@ -5843,8 +5843,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150107",
+    "electionType": "uninominale",
     "id": "p308849",
     "legislature": "XIX",
     "name": "Gaetano Amato",
@@ -5863,7 +5863,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308850",
     "legislature": "XIX",
     "name": "Michele Schiano Di Visconti",
@@ -5883,7 +5883,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308851",
     "legislature": "XIX",
     "name": "Marta Schifone",
@@ -5907,7 +5907,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308852",
     "legislature": "XIX",
     "name": "Annarita Patriarca",
@@ -5925,7 +5925,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308853",
     "legislature": "XIX",
     "name": "Marianna Ricciardi",
@@ -5944,7 +5944,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308854",
     "legislature": "XIX",
     "name": "Alessandro Caramiello",
@@ -5963,8 +5963,8 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50204",
+    "electionType": "uninominale",
     "id": "p308855",
     "legislature": "XIX",
     "name": "Silvio Giovine",
@@ -5982,7 +5982,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308856",
     "legislature": "XIX",
     "name": "Marco Sarracino",
@@ -6004,7 +6004,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308857",
     "legislature": "XIX",
     "name": "Francesco Emilio Borrelli",
@@ -6023,7 +6023,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308858",
     "legislature": "XIX",
     "name": "Susanna Cherchi",
@@ -6047,7 +6047,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308859",
     "legislature": "XIX",
     "name": "Francesco Mura",
@@ -6065,7 +6065,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308860",
     "legislature": "XIX",
     "name": "Gianmarco Mazzi",
@@ -6087,7 +6087,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308861",
     "legislature": "XIX",
     "name": "Francesca Ghirra",
@@ -6106,7 +6106,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308862",
     "legislature": "XIX",
     "name": "Alessandro Urzi'",
@@ -6126,7 +6126,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308863",
     "legislature": "XIX",
     "name": "Maddalena Morgante",
@@ -6145,7 +6145,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308864",
     "legislature": "XIX",
     "name": "Marco Padovani",
@@ -6164,8 +6164,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "130002",
+    "electionType": "uninominale",
     "id": "p308866",
     "legislature": "XIX",
     "name": "Guerino Testa",
@@ -6184,7 +6184,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308867",
     "legislature": "XIX",
     "name": "Fabio Roscani",
@@ -6203,7 +6203,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308868",
     "legislature": "XIX",
     "name": "Matteo Rosso",
@@ -6223,7 +6223,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308869",
     "legislature": "XIX",
     "name": "Francesco Mari",
@@ -6243,7 +6243,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308870",
     "legislature": "XIX",
     "name": "Maria Grazia Frijia",
@@ -6264,7 +6264,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308871",
     "legislature": "XIX",
     "name": "Valentina Ghio",
@@ -6286,7 +6286,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308872",
     "legislature": "XIX",
     "name": "Enrica Alifano",
@@ -6307,7 +6307,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308873",
     "legislature": "XIX",
     "name": "Gianpiero Zinzi",
@@ -6326,7 +6326,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308874",
     "legislature": "XIX",
     "name": "Marco Cerreto",
@@ -6349,7 +6349,7 @@
       "UFFICIO DI PRESIDENZA"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308875",
     "legislature": "XIX",
     "name": "Antonio D'Alessio",
@@ -6367,7 +6367,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308876",
     "legislature": "XIX",
     "name": "Tullio Ferrante",
@@ -6385,8 +6385,8 @@
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90001",
+    "electionType": "uninominale",
     "id": "p308877",
     "legislature": "XIX",
     "name": "Fabrizio Rossi",
@@ -6406,8 +6406,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90002",
+    "electionType": "uninominale",
     "id": "p308878",
     "legislature": "XIX",
     "name": "Elisa Montemagni",
@@ -6427,8 +6427,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90005",
+    "electionType": "uninominale",
     "id": "p308879",
     "legislature": "XIX",
     "name": "Chiara Tenerini",
@@ -6449,8 +6449,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90007",
+    "electionType": "uninominale",
     "id": "p308880",
     "legislature": "XIX",
     "name": "Federico Gianassi",
@@ -6469,8 +6469,8 @@
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "90008",
+    "electionType": "uninominale",
     "id": "p308881",
     "legislature": "XIX",
     "name": "Emiliano Fossi",
@@ -6490,7 +6490,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308882",
     "legislature": "XIX",
     "name": "Fabrizio Sala",
@@ -6510,7 +6510,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308884",
     "legislature": "XIX",
     "name": "Alessandro Amorese",
@@ -6531,7 +6531,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308885",
     "legislature": "XIX",
     "name": "Stefano Giovanni Maullu",
@@ -6550,7 +6550,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308886",
     "legislature": "XIX",
     "name": "Lorenzo Malagola",
@@ -6572,7 +6572,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308887",
     "legislature": "XIX",
     "name": "Francesco Michelotti",
@@ -6593,7 +6593,7 @@
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308888",
     "legislature": "XIX",
     "name": "Grazia Di Maggio",
@@ -6613,7 +6613,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308889",
     "legislature": "XIX",
     "name": "Fabio Pietrella",
@@ -6633,7 +6633,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308890",
     "legislature": "XIX",
     "name": "Andrea Barabotti",
@@ -6652,7 +6652,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308891",
     "legislature": "XIX",
     "name": "Silvia Roggiani",
@@ -6671,7 +6671,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308892",
     "legislature": "XIX",
     "name": "Marco Furfaro",
@@ -6690,7 +6690,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308893",
     "legislature": "XIX",
     "name": "Eleonora Evi",
@@ -6709,7 +6709,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308894",
     "legislature": "XIX",
     "name": "Marco Simiani",
@@ -6728,7 +6728,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308895",
     "legislature": "XIX",
     "name": "Giulia Pastorella",
@@ -6749,7 +6749,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308896",
     "legislature": "XIX",
     "name": "Andrea Quartini",
@@ -6768,7 +6768,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308897",
     "legislature": "XIX",
     "name": "Manlio Messina",
@@ -6787,7 +6787,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308898",
     "legislature": "XIX",
     "name": "Eliana Longi",
@@ -6807,7 +6807,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308899",
     "legislature": "XIX",
     "name": "Paolo Emilio Russo",
@@ -6826,7 +6826,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308900",
     "legislature": "XIX",
     "name": "Anastasio Carra'",
@@ -6847,7 +6847,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308901",
     "legislature": "XIX",
     "name": "Maria Stefania Marino",
@@ -6867,7 +6867,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308902",
     "legislature": "XIX",
     "name": "Anthony Emanuele Barbagallo",
@@ -6887,7 +6887,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308903",
     "legislature": "XIX",
     "name": "Andrea Mascaretti",
@@ -6909,7 +6909,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308904",
     "legislature": "XIX",
     "name": "Sara Kelany",
@@ -6928,7 +6928,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308905",
     "legislature": "XIX",
     "name": "Novo Umberto Maerna",
@@ -6947,8 +6947,8 @@
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "180004",
+    "electionType": "uninominale",
     "id": "p308906",
     "legislature": "XIX",
     "name": "Giovanni Arruzzolo",
@@ -6968,7 +6968,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308907",
     "legislature": "XIX",
     "name": "Andrea Tremaglia",
@@ -6989,7 +6989,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308908",
     "legislature": "XIX",
     "name": "Luca Sbardella",
@@ -7008,7 +7008,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308909",
     "legislature": "XIX",
     "name": "Alfredo Antoniozzi",
@@ -7027,7 +7027,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308910",
     "legislature": "XIX",
     "name": "Cristina Almici",
@@ -7048,7 +7048,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308911",
     "legislature": "XIX",
     "name": "Simona Loizzo",
@@ -7067,7 +7067,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308912",
     "legislature": "XIX",
     "name": "Gian Antonio Girelli",
@@ -7087,7 +7087,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308913",
     "legislature": "XIX",
     "name": "Fabrizio Benzoni",
@@ -7106,7 +7106,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308914",
     "legislature": "XIX",
     "name": "Carlo Maccari",
@@ -7125,7 +7125,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308915",
     "legislature": "XIX",
     "name": "Paola Maria Chiesa",
@@ -7146,7 +7146,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308916",
     "legislature": "XIX",
     "name": "Antonella Forattini",
@@ -7164,8 +7164,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120203",
+    "electionType": "uninominale",
     "id": "p308917",
     "legislature": "XIX",
     "name": "Chiara Colosimo",
@@ -7183,8 +7183,8 @@
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120205",
+    "electionType": "uninominale",
     "id": "p308918",
     "legislature": "XIX",
     "name": "Nicola Ottaviani",
@@ -7203,7 +7203,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308920",
     "legislature": "XIX",
     "name": "Elisabetta Christiana Lancellotta",
@@ -7222,7 +7222,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308921",
     "legislature": "XIX",
     "name": "Giovanna Miele",
@@ -7241,7 +7241,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308922",
     "legislature": "XIX",
     "name": "Massimo Milani",
@@ -7262,7 +7262,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308923",
     "legislature": "XIX",
     "name": "Paolo Pulciani",
@@ -7285,7 +7285,7 @@
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308924",
     "legislature": "XIX",
     "name": "Naike Gruppioni",
@@ -7307,7 +7307,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308925",
     "legislature": "XIX",
     "name": "Rosaria Tassinari",
@@ -7328,7 +7328,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308926",
     "legislature": "XIX",
     "name": "Beatriz Colombo",
@@ -7348,7 +7348,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308927",
     "legislature": "XIX",
     "name": "Gaetana Russo",
@@ -7367,7 +7367,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308928",
     "legislature": "XIX",
     "name": "Davide Bergamini",
@@ -7386,7 +7386,7 @@
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308929",
     "legislature": "XIX",
     "name": "Aboubakar Soumahoro",
@@ -7404,7 +7404,7 @@
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308930",
     "legislature": "XIX",
     "name": "Elena Ethel Schlein",
@@ -7423,7 +7423,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308931",
     "legislature": "XIX",
     "name": "Ouidad Bakkali",
@@ -7442,7 +7442,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308932",
     "legislature": "XIX",
     "name": "Andrea Gnassi",
@@ -7461,7 +7461,7 @@
       "II COMMISSIONE (GIUSTIZIA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308933",
     "legislature": "XIX",
     "name": "Federico Cafiero De Raho",
@@ -7481,8 +7481,8 @@
       "GIUNTA DELLE ELEZIONI",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80003",
+    "electionType": "uninominale",
     "id": "p308934",
     "legislature": "XIX",
     "name": "Ilenia Malavasi",
@@ -7502,8 +7502,8 @@
       "GIUNTA PER LE AUTORIZZAZIONI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80004",
+    "electionType": "uninominale",
     "id": "p308935",
     "legislature": "XIX",
     "name": "Daniela Dondi",
@@ -7521,8 +7521,8 @@
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80006",
+    "electionType": "uninominale",
     "id": "p308936",
     "legislature": "XIX",
     "name": "Virginio Merola",
@@ -7543,8 +7543,8 @@
       "GIUNTA DELLE ELEZIONI",
       "II COMMISSIONE (GIUSTIZIA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80008",
+    "electionType": "uninominale",
     "id": "p308937",
     "legislature": "XIX",
     "name": "Alice Buonguerrieri",
@@ -7563,8 +7563,8 @@
       "IV COMMISSIONE (DIFESA)",
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80009",
+    "electionType": "uninominale",
     "id": "p308938",
     "legislature": "XIX",
     "name": "Mauro Malaguti",
@@ -7582,7 +7582,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308939",
     "legislature": "XIX",
     "name": "Aldo Mattia",
@@ -7605,7 +7605,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308940",
     "legislature": "XIX",
     "name": "Emanuele Loperfido",
@@ -7625,7 +7625,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308941",
     "legislature": "XIX",
     "name": "Nicole Matteoni",
@@ -7644,7 +7644,7 @@
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p308942",
     "legislature": "XIX",
     "name": "Graziano Pizzimenti",
@@ -7662,7 +7662,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309140",
     "legislature": "XIX",
     "name": "Antonio Ferrara",
@@ -7681,7 +7681,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309160",
     "legislature": "XIX",
     "name": "Nadia Romeo",
@@ -7700,7 +7700,7 @@
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309161",
     "legislature": "XIX",
     "name": "Maria Paola Boscaini",
@@ -7718,7 +7718,7 @@
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309200",
     "legislature": "XIX",
     "name": "Antonio Maria Gabellone",
@@ -7737,7 +7737,7 @@
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309220",
     "legislature": "XIX",
     "name": "Alberto Pandolfo",
@@ -7755,7 +7755,7 @@
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309260",
     "legislature": "XIX",
     "name": "Irene Gori",
@@ -7773,7 +7773,7 @@
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309280",
     "legislature": "XIX",
     "name": "Francesca Viggiano",
@@ -7791,7 +7791,7 @@
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p309300",
     "legislature": "XIX",
     "name": "Manuela Maffioli",
@@ -7808,8 +7808,8 @@
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50201",
+    "electionType": "uninominale",
     "id": "p309320",
     "legislature": "XIX",
     "name": "Alberto Di Rubba",
@@ -7826,8 +7826,8 @@
     "committees": [
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "50202",
+    "electionType": "uninominale",
     "id": "p309321",
     "legislature": "XIX",
     "name": "Giulio Centenaro",
@@ -7845,8 +7845,8 @@
       "COMITATO PER LA LEGISLAZIONE",
       "VI COMMISSIONE (FINANZE)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30107",
+    "electionType": "uninominale",
     "id": "p34580",
     "legislature": "XIX",
     "name": "Bruno Tabacci",
@@ -7864,8 +7864,8 @@
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "120106",
+    "electionType": "uninominale",
     "id": "p35980",
     "legislature": "XIX",
     "name": "Luciano Ciocchetti",
@@ -7884,7 +7884,7 @@
       "IV COMMISSIONE (DIFESA)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p36500",
     "legislature": "XIX",
     "name": "Piero Franco Fassino",
@@ -7903,8 +7903,8 @@
       "GIUNTA DELLE ELEZIONI",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "150204",
+    "electionType": "uninominale",
     "id": "p38560",
     "legislature": "XIX",
     "name": "Gianfranco Rotondi",
@@ -7925,7 +7925,7 @@
       "VI COMMISSIONE (FINANZE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "p39130",
     "legislature": "XIX",
     "name": "Giulio Carlo Danilo Tremonti",
@@ -7942,8 +7942,8 @@
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "30204",
+    "electionType": "uninominale",
     "id": "p50115",
     "legislature": "XIX",
     "name": "Giancarlo Giorgetti",
@@ -7960,8 +7960,8 @@
     "committees": [
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
-    "districtId": null,
-    "electionType": null,
+    "districtId": "80001",
+    "electionType": "uninominale",
     "id": "p50204",
     "legislature": "XIX",
     "name": "Tommaso Foti",

@@ -8,13 +8,28 @@
 # tools/import_representatives.py); use nomeGruppo only as a display
 # fallback. A deputy appears once per committee — GROUP BY person and
 # aggregate committees into an array during import.
+#
+# NOTE (Phase 8, boundary linkage): ?collegio (dc:coverage of the election)
+# is the PLURINOMINALE collegio ("SICILIA 1 - P01") — too coarse to identify
+# a specific uninominale collegio, which can hold 1-11 of them. The election
+# resource's dcterms:spatial gives the exact uninominale collegio for
+# majoritarian mandates ("SICILIA 1 - U01") and is entirely absent for
+# proportional/estero mandates — verified via live SPARQL introspection, see
+# docs/v2/03-linkage-report.md. ?tipoElezione ("maggioritario" /
+# "maggioritario suppletiva" / "proporzionale") classifies which. The added
+# `MINUS { ?mandato ocd:endDate ?fineMandato }` restricts to the currently
+# in-office mandate per person (excludes a since-replaced predecessor's row
+# when a collegio's original 2022 winner was later succeeded via
+# surrogazione/by-election) — verified this doesn't change the Camera total
+# (still exactly 400: 414 legislature-XIX mandati, 14 with an end date).
 PREFIX ocd:     <http://dati.camera.it/ocd/>
 PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
 PREFIX dc:      <http://purl.org/dc/elements/1.1/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX bio:     <http://purl.org/vocab/bio/0.1/>
 SELECT DISTINCT ?persona ?cognome ?nome ?genere ?dataNascita
-                ?collegio ?sigla ?nomeGruppo ?commissione ?foto
+                ?collegio ?tipoElezione ?collegioUninominale
+                ?sigla ?nomeGruppo ?commissione ?foto
 WHERE {
   ?d a ocd:deputato ;
      ocd:rif_leg <http://dati.camera.it/ocd/legislatura.rdf/repubblica_19> ;
@@ -23,10 +38,15 @@ WHERE {
      foaf:surname ?cognome ;
      foaf:firstName ?nome .
   ?persona ocd:rif_mandatoCamera ?mandato ; a foaf:Person .
+  MINUS { ?mandato ocd:endDate ?fineMandato. }
   OPTIONAL { ?d foaf:gender ?genere. }
   OPTIONAL { ?d foaf:depiction ?foto. }
   OPTIONAL { ?persona bio:Birth ?b. ?b bio:date ?dataNascita. }
-  OPTIONAL { ?mandato ocd:rif_elezione ?el. ?el dc:coverage ?collegio. }
+  OPTIONAL {
+    ?mandato ocd:rif_elezione ?el.
+    ?el dc:coverage ?collegio ; ocd:tipoElezione ?tipoElezione .
+    OPTIONAL { ?el dcterms:spatial ?collegioUninominale. }
+  }
   ?aderisce ocd:rif_gruppoParlamentare ?gruppo .
   ?gruppo dc:title ?nomeGruppo ; dcterms:alternative ?sigla .
   MINUS { ?aderisce ocd:endDate ?fineAdesione. }
