@@ -1,0 +1,112 @@
+# Changelog
+
+This project doesn't follow strict [SemVer](https://semver.org/) yet (no
+public releases), but entries are grouped by tagged/named milestone, newest
+first, in the spirit of [Keep a Changelog](https://keepachangelog.com/).
+Each v2 entry corresponds to one phase's commit on `v2` — see
+`docs/v2/*.md` for the full investigation and verification behind the ones
+with a design-note counterpart.
+
+## v2.0-prototype (2026-07-18)
+
+Rewrote every data layer from fictional sample content to real,
+officially-sourced Italian parliamentary data, while keeping the app
+itself local-first, honest about its own limitations, and fully
+accessible. See `README.md` for the current feature set and known
+limitations, and `docs/DATA_SOURCES.md` for exact source/license/retrieval
+detail.
+
+- **Phase 0 — Audit** (`b0b6c77`): baseline repo audit before any v2
+  change; established `CLAUDE.md`'s standing constraints (never rename
+  project/target/scheme/bundle id, Italian-only UI, local-first,
+  never fabricate).
+- **Phase 1 — Test bootstrap** (`bdff254`): replaced the unmodified Xcode
+  test-target boilerplate with real coverage — geometry, decoding, and
+  service-lookup tests, the foundation every later phase built on.
+- **Phase 2 — Schema v2** (`d9a922f`): added `provenance` tracking
+  (`.official`/`.sample`) to every model, tolerant enum decoding
+  (`TolerantStringEnum` — an unrecognized raw value becomes an explicit
+  "unknown" case instead of throwing), and the `Data/sources.json`
+  manifest infrastructure.
+- **Phase 3 — Attribution screen** (`e6e5ffe`): added "Informazioni e
+  fonti" (`FontiEDatiView`), rendering the sources manifest live with an
+  unofficial-status disclaimer — the app's legal/honesty anchor, wired in
+  before any real data existed to display.
+- **Phase 4 — Address autocomplete** (`b92ffd8`): `MKLocalSearchCompleter`
+  autocomplete behind a `GeocodingProviding` seam, layered over the
+  existing `CLGeocoder` + 5-city-fallback flow.
+- **Phase 5 — Real representative data import** (`f01dd15`, `f6867eb`):
+  built the `tools/` SPARQL fetch/import pipeline (network-touching fetch
+  step strictly separated from offline import) and replaced
+  `representatives.json`'s 14 fictional records with **601 real records**
+  (400 Camera deputies + 201 Senato senators, XIX Legislature) from
+  dati.camera.it/dati.senato.it. `districts.geojson` and `votes.json`
+  still fictional at this point — the original fixtures preserved at
+  `*.sample.*`.
+- **Phase 6 — Post-import reconciliation** (`8b16be1`): fixed the gaps the
+  import left behind — shipped `votes.json` as a valid empty schema-v2
+  collection (was orphaned, referencing stale fictional ids), added
+  `Data/parties.json` + `PartyStyleService` so real party sigla render
+  correctly instead of falling through to a gray default, added the
+  boundaries-are-still-demonstrative disclosure, hardened fetch-script
+  retry/backoff, and gave `stableSourceId` a real, non-fabricated meaning
+  (the bare numeric id from each source URI).
+- **Phase 7 — ISTAT electoral-college boundaries** (`9841fea`): replaced
+  the 5 fictional rectangular districts with the **147 real Camera
+  collegi uninominali** (ISTAT, D.Lgs. 177/2020), and upgraded the
+  geometry engine to native `MKPolygon`/`MKMultiPolygon` (56 of 147 are
+  genuine multi-part geometries) with a bounding-box prefilter before
+  exact point-in-polygon testing. Found and fixed a real `MKGeoJSONDecoder`
+  behavior gap (`MultiPolygon` geometry decodes to a single `MKMultiPolygon`,
+  not flattened `MKPolygon` entries) that silently dropped every
+  multi-part district until diagnosed with standalone probes. Original 5
+  fictional districts preserved at `districts.sample.geojson`.
+- **Phase 8 — Deputy-to-collegio linkage** (`2820bec`): fixed the
+  boundary metadata (`region` — actually a sub-collegio suffix, not a
+  region — replaced with truthful `circoscrizione`/`subCode` fields), then
+  linked **147/147** current Camera uninominale deputies to their real
+  ISTAT collegio via a structural join on the SPARQL graph's
+  `dcterms:spatial` (found after discovering the existing `?collegio`
+  field was the wrong granularity — plurinominale, not uninominale).
+  Verified zero ambiguity, 2 by-election holders, 0 vacancies.
+- **Phase 9 — Curated Camera votes import** (`6625944`): replaced the
+  empty `votes.json` with **12 curated real Camera roll-call votes**
+  (4,788 per-deputy positions) — scoped to non-secret "electronic" votes
+  (secret ballots excluded: the source only discloses a generic "voted"
+  flag for those, never an actual position), budget-capped from a nominal
+  25-vote target to fit a ~2MB bundle size.
+- **Phase 10 — UI completion for real data** (`8a1aa90`): audited and
+  confirmed party styling (colors/short names) was already complete and
+  WCAG-compliant from Phase 6; built the searchable, party-filterable
+  `RepresentativeListView` (previously no way to browse all 601 — only a
+  4-item Home preview existed), added local-first initials avatars
+  (replacing generic SF Symbol placeholders), and added the "Come
+  funziona l'elezione" explainer.
+- **Phase 11 — Accessibility pass** (`a084f3d`): found `MapView` had zero
+  VoiceOver support (polygon tap-selection is fundamentally undiscoverable
+  by VoiceOver) and built `CollegiListView` as the accessible alternative
+  path; made vote-outcome badges non-color-only (SF Symbol + text +
+  distinct Italian VoiceOver label per case); combined/labeled/hinted
+  interactive elements across every screen; fixed the one
+  Dynamic-Type-fighting `minimumScaleFactor` usage; brought five
+  under-44pt custom controls up to a real hit-target size.
+- **This phase — Documentation & tag**: rewrote `README.md` to describe
+  the actual shipped v2 state (no more "5 sample districts" / "prototype
+  v2 roadmap" language describing what's now already built); added
+  `docs/DATA_SOURCES.md` as the canonical, cross-checked source reference;
+  added this changelog; tagged `v2.0-prototype`.
+
+## v1.0.0 — original prototype (2026-07-16 – 2026-07-17)
+
+The original prototype: fictional sample data demonstrating the app's
+architecture and UX before any real-data work began.
+
+- `3ab4e58` — Initial commit.
+- `6d3b866` — Completed prototype v1: SwiftUI + MapKit app with 5 fictional
+  rectangular sample districts (Roma Centro, Milano Centro, Napoli Nord,
+  Torino Sud, Firenze Urban), 14 fictional representatives, 37 fictional
+  votes; `CLGeocoder` + hardcoded 5-city fallback geocoding;
+  MVVM/service-pattern architecture with `ServiceContainer` dependency
+  injection; app icon and display name ("Politica") finalized.
+- `5d8e36a` — Added the Xcode `.gitignore` and cleaned up previously
+  tracked build artifacts.
