@@ -1,4 +1,4 @@
-.PHONY: fetch import validate manifest all
+.PHONY: fetch import validate manifest boundaries all
 
 PYTHON := python3
 
@@ -13,7 +13,8 @@ fetch:
 import:
 	$(PYTHON) tools/import_representatives.py
 
-# Structural validation of Politici/Data/representatives.json.
+# Structural validation of Politici/Data/representatives.json and
+# Politici/Data/districts.geojson.
 validate:
 	$(PYTHON) tools/validate_data.py
 
@@ -21,4 +22,11 @@ validate:
 manifest:
 	$(PYTHON) tools/make_manifest.py
 
-all: fetch import validate manifest
+# Builds Politici/Data/districts.geojson from the ISTAT Camera
+# collegi-uninominali shapefile (reproject, simplify, convert via ogr2ogr,
+# then schema-v2 transform). Offline — processes an already-downloaded
+# local shapefile under tools/raw/collegi/, no network.
+boundaries:
+	./tools/build_boundaries.sh
+
+all: fetch import validate manifest boundaries

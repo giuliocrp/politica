@@ -13,9 +13,21 @@ final class SchemaV2Tests: XCTestCase {
     // MARK: - Decoding defaults: current sample files decode as .sample
 
     func testSampleDistrictsDecodeWithSampleProvenance() throws {
-        let districts = try GeoJSONLoader.loadDistricts()
+        // Data/districts.geojson ships real ISTAT geometry now (provenance
+        // .official — see testShippingDistrictsAreOfficialProvenance
+        // below); the fictional rectangles with .sample provenance-default
+        // live at districts.sample.geojson.
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts.sample")
         XCTAssertFalse(districts.isEmpty)
         XCTAssertTrue(districts.allSatisfy { $0.provenance == .sample })
+    }
+
+    func testShippingDistrictsAreOfficialProvenance() throws {
+        let districts = try GeoJSONLoader.loadDistricts()
+        XCTAssertFalse(districts.isEmpty)
+        XCTAssertTrue(districts.allSatisfy { $0.provenance == .official })
+        XCTAssertTrue(districts.allSatisfy { $0.collegioType == .uninominale })
+        XCTAssertTrue(districts.allSatisfy { $0.sourceName == "ISTAT" })
     }
 
     /// Data/representatives.json now ships real, officially-sourced records

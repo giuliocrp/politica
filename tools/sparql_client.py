@@ -2,7 +2,14 @@
 fetch_senato.py: query loading from tools/queries/*.rq, a descriptive
 User-Agent, a request timeout, and retry/backoff on transient failures.
 
-Not a script — imported by the two fetch scripts.
+Also home to `stamp_fetch_metadata`, a small generically-useful helper for
+recording "when was source X's raw data last (re)generated" into
+tools/raw/.fetch_metadata.json — reused by tools/import_boundaries.py even
+though that pipeline doesn't touch the network (it processes an
+already-downloaded local shapefile), since the metadata format and
+tools/make_manifest.py's consumption of it are identical either way.
+
+Not a script — imported by the fetch and boundary-import scripts.
 """
 
 import json

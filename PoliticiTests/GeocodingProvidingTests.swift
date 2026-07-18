@@ -16,7 +16,10 @@ private struct FakeGeocodingProvider: GeocodingProviding {
 }
 
 final class GeocodingProvidingTests: XCTestCase {
-    private let districtService = DistrictService()
+    // Data/districts.geojson ships real ISTAT geometry now; these tests
+    // exercise the *.sample.* rectangles instead, since "IT-RM-C01" only
+    // exists there (real ids are ISTAT numeric codes).
+    private let districtService = DistrictService(resource: "districts.sample")
 
     // MARK: - Five-city offline fallback table (unchanged behavior behind the seam)
 

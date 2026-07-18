@@ -11,6 +11,14 @@
       "url": "https://dati.camera.it/sparql"
     },
     {
+      "id": "istat-collegi-elettorali-camera-uninominali",
+      "license": "CC BY 4.0",
+      "name": "ISTAT — Basi geografiche dei collegi elettorali (Camera, uninominali)",
+      "notes": "Confini geografici dei 147 collegi uninominali della Camera (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. I confini del Senato non sono ancora inclusi in questo prototipo.",
+      "retrievedAt": "2026-07-18",
+      "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
+    },
+    {
       "id": "prototipo-dati-dimostrativi",
       "license": "n/a",
       "name": "Dati dimostrativi generati per il prototipo",

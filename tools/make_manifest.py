@@ -12,8 +12,9 @@ manifest's own top-level field) is a different thing — when *this file* was
 last regenerated — and is always today's date.
 
 Preserves the original "prototipo-dati-dimostrativi" entry, since
-Data/districts.geojson and Data/votes.json are still fictional as of this
-script — only representatives.json has real, officially-sourced data so far.
+Data/votes.json is still fictional as of this script — representatives.json
+and (as of the boundaries phase) districts.geojson now have real,
+officially-sourced data.
 """
 
 import json
@@ -78,6 +79,19 @@ def real_sources(fetch_metadata):
                 "all'endpoint ufficiale dati.senato.it. Il collegio elettorale "
                 "non è ancora associato ai collegi campione di questo "
                 "prototipo (districtId è null)."
+            ),
+        },
+        {
+            "id": "istat-collegi-elettorali-camera-uninominali",
+            "name": "ISTAT — Basi geografiche dei collegi elettorali (Camera, uninominali)",
+            "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2",
+            "license": "CC BY 4.0",
+            "retrievedAt": retrieved_at("istat", fetch_metadata),
+            "notes": (
+                "Confini geografici dei 147 collegi uninominali della Camera "
+                "(D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e "
+                "semplificati per l'uso su mobile. I confini del Senato non "
+                "sono ancora inclusi in questo prototipo."
             ),
         },
     ]

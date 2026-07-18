@@ -3,7 +3,6 @@
 //  Politici
 //
 
-import CoreLocation
 import Foundation
 import MapKit
 
@@ -46,61 +45,128 @@ enum LocalJSONLoader {
     }
 }
 
-/// Axis-aligned bounding box for a set of coordinates, used to size an initial
-/// map camera region or fit a district's overlay on screen.
+/// A district's `properties` object, decoded independently of its geometry
+/// (which `MKGeoJSONDecoder` parses natively into `MKPolygon` — see
+/// `GeoJSONLoader.loadDistricts`).
+private struct DistrictProperties: Decodable {
+    let id: String
+    let name: String
+    let chamber: Chamber
+    let provenance: DataProvenance?
+    let collegioType: CollegioType?
+    let region: String?
+    let sourceName: String?
+}
+
+/// Bounding box for a set of districts (or a single one), used to size an
+/// initial map camera region.
 struct MapBounds {
-    let northEast: CLLocationCoordinate2D
-    let southWest: CLLocationCoordinate2D
+    let mapRect: MKMapRect
 
     var region: MKCoordinateRegion {
-        let center = CLLocationCoordinate2D(
-            latitude: (northEast.latitude + southWest.latitude) / 2,
-            longitude: (northEast.longitude + southWest.longitude) / 2
+        let base = MKCoordinateRegion(mapRect)
+        return MKCoordinateRegion(
+            center: base.center,
+            span: MKCoordinateSpan(
+                latitudeDelta: max(base.span.latitudeDelta * 1.3, 0.02),
+                longitudeDelta: max(base.span.longitudeDelta * 1.3, 0.02)
+            )
         )
-        let span = MKCoordinateSpan(
-            latitudeDelta: max(abs(northEast.latitude - southWest.latitude) * 1.3, 0.02),
-            longitudeDelta: max(abs(northEast.longitude - southWest.longitude) * 1.3, 0.02)
-        )
-        return MKCoordinateRegion(center: center, span: span)
     }
 }
 
 enum GeoJSONLoader {
-    /// Parses `districts.geojson` (a GeoJSON `FeatureCollection`) into domain `District` values.
+    /// Parses `districts.geojson` (a GeoJSON `FeatureCollection`) into
+    /// domain `District` values, using `MKGeoJSONDecoder` for the geometry
+    /// (native `MKPolygon`/`MultiPolygon`/interior-ring support) and a
+    /// small `Decodable` struct for each feature's `properties`.
     static func loadDistricts(
         resource: String = "districts",
         bundle: Bundle = .main
     ) throws -> [District] {
-        let collection = try LocalJSONLoader.decode(
-            DistrictFeatureCollection.self,
-            fromResource: resource,
-            withExtension: "geojson",
-            bundle: bundle
-        )
-        return collection.features
-    }
-
-    /// Bounding box across every ring/point of the given districts, e.g. to fit an
-    /// initial map camera around all constituencies at once.
-    static func bounds(for districts: [District]) -> MapBounds? {
-        let coordinates = districts.flatMap { $0.polygonRings.flatMap { $0 } }
-        guard !coordinates.isEmpty else { return nil }
-
-        let latitudes = coordinates.map(\.latitude)
-        let longitudes = coordinates.map(\.longitude)
-
-        guard let minLat = latitudes.min(), let maxLat = latitudes.max(),
-              let minLon = longitudes.min(), let maxLon = longitudes.max() else {
-            return nil
+        guard let url = bundle.url(forResource: resource, withExtension: "geojson") else {
+            throw DataLoadingError.resourceNotFound("\(resource).geojson")
         }
 
-        return MapBounds(
-            northEast: CLLocationCoordinate2D(latitude: maxLat, longitude: maxLon),
-            southWest: CLLocationCoordinate2D(latitude: minLat, longitude: minLon)
+        let data: Data
+        do {
+            data = try Data(contentsOf: url)
+        } catch {
+            throw DataLoadingError.decodingFailed("\(resource).geojson", underlying: error)
+        }
+
+        do {
+            let objects = try MKGeoJSONDecoder().decode(data)
+            let features = objects.compactMap { $0 as? MKGeoJSONFeature }
+            return try features.map { try makeDistrict(from: $0, resource: resource) }
+        } catch let error as DataLoadingError {
+            throw error
+        } catch {
+            throw DataLoadingError.decodingFailed("\(resource).geojson", underlying: error)
+        }
+    }
+
+    private static func makeDistrict(from feature: MKGeoJSONFeature, resource: String) throws -> District {
+        guard let propertiesData = feature.properties else {
+            throw DataLoadingError.decodingFailed(
+                "\(resource).geojson",
+                underlying: DecodingError.dataCorrupted(
+                    DecodingError.Context(codingPath: [], debugDescription: "feature has no properties")
+                )
+            )
+        }
+
+        let properties: DistrictProperties
+        do {
+            properties = try JSONDecoder().decode(DistrictProperties.self, from: propertiesData)
+        } catch {
+            throw DataLoadingError.decodingFailed("\(resource).geojson", underlying: error)
+        }
+
+        // MKGeoJSONDecoder represents a GeoJSON "Polygon" geometry as a
+        // single MKPolygon, but a "MultiPolygon" as one MKMultiPolygon
+        // wrapping its parts — NOT as multiple MKPolygon entries directly
+        // in `feature.geometry`. Both must be unwrapped to get every part.
+        let polygons: [MKPolygon] = feature.geometry.flatMap { shape -> [MKPolygon] in
+            if let polygon = shape as? MKPolygon {
+                return [polygon]
+            } else if let multiPolygon = shape as? MKMultiPolygon {
+                return multiPolygon.polygons
+            } else {
+                return []
+            }
+        }
+        guard !polygons.isEmpty else {
+            throw DataLoadingError.decodingFailed(
+                "\(resource).geojson",
+                underlying: DecodingError.dataCorrupted(
+                    DecodingError.Context(codingPath: [], debugDescription: "feature \(properties.id) has no Polygon/MultiPolygon geometry")
+                )
+            )
+        }
+
+        return District(
+            id: properties.id,
+            name: properties.name,
+            chamber: properties.chamber,
+            polygons: polygons,
+            provenance: properties.provenance ?? .sample,
+            collegioType: properties.collegioType ?? .sconosciuto,
+            region: properties.region,
+            sourceName: properties.sourceName
         )
     }
 
-    /// Bounding box for a single district's polygon.
+    /// Bounding box across every polygon part of every given district, e.g.
+    /// to fit an initial map camera around all constituencies at once.
+    static func bounds(for districts: [District]) -> MapBounds? {
+        guard !districts.isEmpty else { return nil }
+        let rect = districts.reduce(MKMapRect.null) { $0.union($1.boundingMapRect) }
+        guard !rect.isNull else { return nil }
+        return MapBounds(mapRect: rect)
+    }
+
+    /// Bounding box for a single district's polygon(s).
     static func bounds(for district: District) -> MapBounds? {
         bounds(for: [district])
     }

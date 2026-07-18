@@ -202,7 +202,7 @@ struct AddressSearchView: View {
                 let coordinate = try await services.geocodingService.geocode(address: trimmed)
                 resolveCoordinate(coordinate)
             } catch {
-                errorMessage = "Indirizzo non coperto dal prototipo. Prova con una città campione come Roma, Milano o Torino."
+                errorMessage = "Non è stato possibile associare l'indirizzo a un collegio elettorale."
             }
         }
     }

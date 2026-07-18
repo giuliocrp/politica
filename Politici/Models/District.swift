@@ -3,21 +3,12 @@
 //  Politici
 //
 
-import CoreLocation
 import Foundation
+import MapKit
 
 enum Chamber: String, Codable, CaseIterable, Hashable {
     case camera = "Camera"
     case senato = "Senato"
-}
-
-struct Coordinate: Codable, Hashable {
-    let latitude: Double
-    let longitude: Double
-
-    var clLocationCoordinate2D: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    }
 }
 
 enum CollegioType: String, TolerantStringEnum, Hashable {
@@ -34,78 +25,46 @@ extension CollegioType: Codable {
     }
 }
 
-struct District: Identifiable, Hashable {
+/// A district's geometry may have multiple disjoint parts (e.g. a mainland
+/// collegio that also includes a small offshore island — genuinely common
+/// in the real ISTAT data: 56 of 147 shipping collegi are MultiPolygon, not
+/// a hypothetical edge case; see docs/v2/03-boundaries-audit.md), and each
+/// part may itself have interior holes (`MKPolygon.interiorPolygons`).
+/// `MKPolygon` already models both natively, so districts are built
+/// directly from `MKGeoJSONDecoder`'s output (see `GeoJSONLoader`) rather
+/// than a hand-rolled coordinate representation.
+struct District: Identifiable {
     let id: String
     let name: String
     let chamber: Chamber
-    /// GeoJSON polygon rings: first ring is the exterior boundary, any further rings are holes.
-    let polygonRings: [[Coordinate]]
+    let polygons: [MKPolygon]
     let provenance: DataProvenance
     let collegioType: CollegioType
+    /// NOTE: for the real ISTAT data this is NOT a geographic region despite
+    /// the name — see docs/v2/03-boundaries-audit.md. Kept as a generic
+    /// optional label rather than renamed, since the sample fixture's
+    /// `region` values (and any future genuinely-regional source) still fit
+    /// this shape.
     let region: String?
     let sourceName: String?
 
-    var exteriorCoordinates: [CLLocationCoordinate2D] {
-        polygonRings.first?.map(\.clLocationCoordinate2D) ?? []
-    }
-
-    var centroid: CLLocationCoordinate2D {
-        let coordinates = exteriorCoordinates
-        guard !coordinates.isEmpty else {
-            return CLLocationCoordinate2D(latitude: 41.9028, longitude: 12.4964)
-        }
-        let latitude = coordinates.map(\.latitude).reduce(0, +) / Double(coordinates.count)
-        let longitude = coordinates.map(\.longitude).reduce(0, +) / Double(coordinates.count)
-        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    /// Union bounding box across every polygon part, e.g. to fit a map
+    /// camera around just this district, or as a cheap pre-filter before
+    /// exact point-in-polygon testing (see `DistrictService.district(for:)`).
+    var boundingMapRect: MKMapRect {
+        polygons.reduce(MKMapRect.null) { $0.union($1.boundingMapRect) }
     }
 }
 
-/// Decodes directly from a GeoJSON `Feature` object (RFC 7946) with a `Polygon` geometry.
-extension District: Decodable {
-    private enum FeatureKeys: String, CodingKey {
-        case properties
-        case geometry
+/// `MKPolygon` isn't `Equatable`/`Hashable`, so identity is the district's
+/// own `id` — two `District` values are equal iff they represent the same
+/// collegio, regardless of geometry (which never changes for a given id).
+extension District: Equatable, Hashable {
+    static func == (lhs: District, rhs: District) -> Bool {
+        lhs.id == rhs.id
     }
 
-    private enum PropertyKeys: String, CodingKey {
-        case id
-        case name
-        case chamber
-        case provenance
-        case collegioType
-        case region
-        case sourceName
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
-
-    private enum GeometryKeys: String, CodingKey {
-        case type
-        case coordinates
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: FeatureKeys.self)
-
-        let properties = try container.nestedContainer(keyedBy: PropertyKeys.self, forKey: .properties)
-        id = try properties.decode(String.self, forKey: .id)
-        name = try properties.decode(String.self, forKey: .name)
-        chamber = try properties.decode(Chamber.self, forKey: .chamber)
-        provenance = try properties.decodeIfPresent(DataProvenance.self, forKey: .provenance) ?? .sample
-        collegioType = try properties.decodeIfPresent(CollegioType.self, forKey: .collegioType) ?? .sconosciuto
-        region = try properties.decodeIfPresent(String.self, forKey: .region)
-        sourceName = try properties.decodeIfPresent(String.self, forKey: .sourceName)
-
-        let geometry = try container.nestedContainer(keyedBy: GeometryKeys.self, forKey: .geometry)
-        // GeoJSON Polygon coordinates: [ring][pointIndex][lon, lat]
-        let rawRings = try geometry.decode([[[Double]]].self, forKey: .coordinates)
-        polygonRings = rawRings.map { ring in
-            ring.map { point in
-                Coordinate(latitude: point[1], longitude: point[0])
-            }
-        }
-    }
-}
-
-/// Top-level wrapper matching a GeoJSON `FeatureCollection`.
-struct DistrictFeatureCollection: Decodable {
-    let features: [District]
 }

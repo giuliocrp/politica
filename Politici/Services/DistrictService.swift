@@ -5,6 +5,7 @@
 
 import CoreLocation
 import Foundation
+import MapKit
 
 /// Loads `districts.geojson` once and answers district lookups, including
 /// resolving a map coordinate to the district whose polygon contains it.
@@ -31,11 +32,18 @@ final class DistrictService {
         districts.first { $0.id == id }
     }
 
-    /// Finds the district whose polygon contains `coordinate` via ray-casting.
-    /// Returns `nil` if no district's exterior ring contains the point.
+    /// Finds the district whose geometry contains `coordinate`.
+    ///
+    /// Real districts (e.g. ISTAT's 147 Camera collegi, several with
+    /// dozens of MultiPolygon parts for small islands) are far more
+    /// expensive to ray-cast than the old 5 sample rectangles, so this
+    /// first narrows to districts whose cheap bounding-box actually
+    /// contains the point before running exact point-in-polygon testing on
+    /// just those candidates — typically one, occasionally a couple near a
+    /// shared border.
     func district(for coordinate: CLLocationCoordinate2D) -> District? {
-        districts.first { district in
-            PointInPolygon.contains(coordinate, in: district.exteriorCoordinates)
-        }
+        let point = MKMapPoint(coordinate)
+        let candidates = districts.filter { $0.boundingMapRect.contains(point) }
+        return candidates.first { PointInPolygon.contains(coordinate, inAny: $0.polygons) }
     }
 }

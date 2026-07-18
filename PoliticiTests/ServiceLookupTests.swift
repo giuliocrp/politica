@@ -8,7 +8,10 @@ import XCTest
 @testable import Politici
 
 final class ServiceLookupTests: XCTestCase {
-    private let districtService = DistrictService()
+    // Data/districts.geojson ships real ISTAT geometry now; this suite's
+    // known-coordinate-to-known-id tests exercise the *.sample.* rectangles
+    // instead, since their ids/bounds are hand-picked and known exactly.
+    private let districtService = DistrictService(resource: "districts.sample")
     private let representativeService = RepresentativeService()
     // Data/votes.json ships empty (see DecodingTests/SchemaV2Tests); this
     // suite's votes(for:) coverage exercises the *.sample.* fixture instead.

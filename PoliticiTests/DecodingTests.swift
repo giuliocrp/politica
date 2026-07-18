@@ -14,7 +14,15 @@ import XCTest
 /// should be regenerated.
 final class DecodingTests: XCTestCase {
     func testDistrictsDecodeWithExpectedCount() throws {
+        // 147 real Camera collegi uninominali (ISTAT) — see
+        // docs/v2/03-boundaries-audit.md. The old 5 fictional rectangles
+        // are preserved at districts.sample.geojson (see below).
         let districts = try GeoJSONLoader.loadDistricts()
+        XCTAssertEqual(districts.count, 147)
+    }
+
+    func testSampleDistrictsDecodeWithExpectedCount() throws {
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts.sample")
         XCTAssertEqual(districts.count, 5)
     }
 
@@ -39,10 +47,18 @@ final class DecodingTests: XCTestCase {
         XCTAssertEqual(votes.count, 37)
     }
 
-    func testDistrictsSpanBothChambers() throws {
-        let districts = try GeoJSONLoader.loadDistricts()
+    func testSampleDistrictsSpanBothChambers() throws {
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts.sample")
         let chambers = Set(districts.map(\.chamber))
         XCTAssertEqual(chambers, [.camera, .senato])
+    }
+
+    /// Senato boundaries are explicitly out of scope for this phase — see
+    /// docs/v2/03-boundaries-audit.md. The shipping file should only ever
+    /// contain Camera collegi until a future phase adds Senato geometry.
+    func testShippingDistrictsAreCameraOnly() throws {
+        let districts = try GeoJSONLoader.loadDistricts()
+        XCTAssertTrue(districts.allSatisfy { $0.chamber == .camera })
     }
 
     func testEveryNonNilRepresentativeDistrictReferencesAKnownDistrict() throws {

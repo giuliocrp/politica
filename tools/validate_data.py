@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Structural validation of Data/representatives.json.
+"""Structural validation of Data/representatives.json and Data/districts.geojson.
 
-Offline — does not fetch anything. Checks the file is well-formed and
-internally consistent; it does NOT check cross-references against
-Data/votes.json (that file ships as an empty schema-v2 collection and is
-validated separately by the Swift test suite — see
+Offline — does not fetch anything. Checks each file is well-formed and
+internally consistent; it does NOT check cross-references between
+representatives and districts (districtId is null for every representative
+in this phase — see docs/v2/03-boundaries-audit.md) or against
+Data/votes.json (ships as an empty schema-v2 collection — see
 docs/v2/02-post-import-audit.md).
 
 Exits non-zero with a clear diagnostic on any violation.
@@ -15,9 +16,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-DATA_PATH = ROOT / "Politici" / "Data" / "representatives.json"
+REPRESENTATIVES_PATH = ROOT / "Politici" / "Data" / "representatives.json"
+DISTRICTS_PATH = ROOT / "Politici" / "Data" / "districts.geojson"
 
-REQUIRED_KEYS = {
+REQUIRED_REPRESENTATIVE_KEYS = {
     "id",
     "name",
     "chamber",
@@ -39,43 +41,51 @@ VALID_PROVENANCE = {"sample", "official"}
 # See docs/v2/02-post-import-audit.md: 400 is the exact constitutional size
 # of the Camera; 201 is Senato's currently-serving count (elected + the 5
 # active life senators), verified directly against the raw SPARQL cache.
-EXPECTED_CAMERA_COUNT = 400
-EXPECTED_SENATO_COUNT = 201
+EXPECTED_CAMERA_REPRESENTATIVE_COUNT = 400
+EXPECTED_SENATO_REPRESENTATIVE_COUNT = 201
+
+REQUIRED_DISTRICT_PROPERTY_KEYS = {
+    "id",
+    "name",
+    "chamber",
+    "collegioType",
+    "region",
+    "provenance",
+    "sourceName",
+}
+VALID_COLLEGIO_TYPES = {"uninominale", "plurinominale", "sconosciuto"}
+# See docs/v2/03-boundaries-audit.md: 147 is ISTAT's exact feature count for
+# the Camera collegi-uninominali layer.
+EXPECTED_DISTRICT_COUNT = 147
+MAX_DISTRICTS_FILE_BYTES = 3 * 1024 * 1024
 
 
-def fail(errors):
-    print(f"ERRORE: {len(errors)} problema/i in {DATA_PATH.relative_to(ROOT)}:", file=sys.stderr)
-    for error in errors:
-        print(f"  - {error}", file=sys.stderr)
-    sys.exit(1)
-
-
-def main():
-    if not DATA_PATH.exists():
-        fail([f"file non trovato — esegui prima 'make import'"])
-
-    try:
-        records = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as error:
-        fail([f"JSON non valido: {error}"])
-
+def validate_representatives():
     errors = []
 
+    if not REPRESENTATIVES_PATH.exists():
+        return [f"{REPRESENTATIVES_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make import'"]
+
+    try:
+        records = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return [f"{REPRESENTATIVES_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+
     if not isinstance(records, list):
-        fail(["il contenuto non è un array JSON"])
+        return [f"{REPRESENTATIVES_PATH.relative_to(ROOT)}: il contenuto non è un array JSON"]
     if not records:
-        errors.append("l'array è vuoto")
+        errors.append(f"{REPRESENTATIVES_PATH.relative_to(ROOT)}: l'array è vuoto")
 
     seen_ids = set()
     seen_stable_ids = set()
     for index, record in enumerate(records):
-        label = f"record #{index} (id={record.get('id', '?')})"
+        label = f"representatives.json record #{index} (id={record.get('id', '?')})"
 
         if not isinstance(record, dict):
             errors.append(f"{label}: non è un oggetto JSON")
             continue
 
-        missing = REQUIRED_KEYS - record.keys()
+        missing = REQUIRED_REPRESENTATIVE_KEYS - record.keys()
         if missing:
             errors.append(f"{label}: chiavi mancanti: {sorted(missing)}")
             continue
@@ -129,31 +139,122 @@ def main():
         if source_url is not None and not (isinstance(source_url, str) and source_url.startswith("http")):
             errors.append(f"{label}: 'sourceUrl' deve essere null o un URL http(s)")
 
+    if errors:
+        return errors
+
     camera_count = sum(1 for r in records if r["chamber"] == "Camera")
     senato_count = sum(1 for r in records if r["chamber"] == "Senato")
 
-    if camera_count != EXPECTED_CAMERA_COUNT:
+    if camera_count != EXPECTED_CAMERA_REPRESENTATIVE_COUNT:
         errors.append(
-            f"totale Camera = {camera_count}, atteso {EXPECTED_CAMERA_COUNT} "
-            "(vedi docs/v2/02-post-import-audit.md)"
+            f"representatives.json: totale Camera = {camera_count}, atteso "
+            f"{EXPECTED_CAMERA_REPRESENTATIVE_COUNT} (vedi docs/v2/02-post-import-audit.md)"
         )
-    if senato_count != EXPECTED_SENATO_COUNT:
+    if senato_count != EXPECTED_SENATO_REPRESENTATIVE_COUNT:
         errors.append(
-            f"totale Senato = {senato_count}, atteso {EXPECTED_SENATO_COUNT} "
-            "(vedi docs/v2/02-post-import-audit.md)"
+            f"representatives.json: totale Senato = {senato_count}, atteso "
+            f"{EXPECTED_SENATO_REPRESENTATIVE_COUNT} (vedi docs/v2/02-post-import-audit.md)"
         )
 
-    if errors:
-        fail(errors)
+    if not errors:
+        official_count = sum(1 for r in records if r["provenance"] == "official")
+        sample_count = sum(1 for r in records if r["provenance"] == "sample")
+        with_district = sum(1 for r in records if r["districtId"] is not None)
+        print(f"OK: {len(records)} record validi in {REPRESENTATIVES_PATH.relative_to(ROOT)}")
+        print(f"  Camera: {camera_count}  Senato: {senato_count}")
+        print(f"  provenance official: {official_count}  sample: {sample_count}")
+        print(f"  con districtId assegnato: {with_district}")
 
-    official_count = sum(1 for r in records if r["provenance"] == "official")
-    sample_count = sum(1 for r in records if r["provenance"] == "sample")
-    with_district = sum(1 for r in records if r["districtId"] is not None)
+    return errors
 
-    print(f"OK: {len(records)} record validi in {DATA_PATH.relative_to(ROOT)}")
-    print(f"  Camera: {camera_count}  Senato: {senato_count}")
-    print(f"  provenance official: {official_count}  sample: {sample_count}")
-    print(f"  con districtId assegnato: {with_district}")
+
+def validate_districts():
+    errors = []
+
+    if not DISTRICTS_PATH.exists():
+        return [f"{DISTRICTS_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make boundaries'"]
+
+    file_size = DISTRICTS_PATH.stat().st_size
+    if file_size > MAX_DISTRICTS_FILE_BYTES:
+        errors.append(
+            f"{DISTRICTS_PATH.relative_to(ROOT)}: {file_size / 1024 / 1024:.2f} MB, "
+            "supera il limite di 3 MB"
+        )
+
+    try:
+        collection = json.loads(DISTRICTS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return errors + [f"{DISTRICTS_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+
+    if collection.get("type") != "FeatureCollection":
+        return errors + [f"{DISTRICTS_PATH.relative_to(ROOT)}: non è una FeatureCollection GeoJSON"]
+
+    features = collection.get("features", [])
+    if not features:
+        errors.append(f"{DISTRICTS_PATH.relative_to(ROOT)}: nessuna feature")
+
+    seen_ids = set()
+    camera_count = 0
+    for index, feature in enumerate(features):
+        label = f"districts.geojson feature #{index}"
+        props = feature.get("properties", {})
+        label = f"{label} (id={props.get('id', '?')})"
+
+        missing = REQUIRED_DISTRICT_PROPERTY_KEYS - props.keys()
+        if missing:
+            errors.append(f"{label}: chiavi mancanti in 'properties': {sorted(missing)}")
+            continue
+
+        district_id = props["id"]
+        if not isinstance(district_id, str) or not district_id:
+            errors.append(f"{label}: 'id' deve essere una stringa non vuota")
+        elif district_id in seen_ids:
+            errors.append(f"{label}: id duplicato")
+        else:
+            seen_ids.add(district_id)
+
+        if not isinstance(props["name"], str) or not props["name"].strip():
+            errors.append(f"{label}: 'name' deve essere una stringa non vuota")
+
+        if props["chamber"] not in VALID_CHAMBERS:
+            errors.append(f"{label}: 'chamber' non valido: {props['chamber']!r}")
+        elif props["chamber"] == "Camera":
+            camera_count += 1
+
+        if props["collegioType"] not in VALID_COLLEGIO_TYPES:
+            errors.append(f"{label}: 'collegioType' non valido: {props['collegioType']!r}")
+
+        if props["provenance"] not in VALID_PROVENANCE:
+            errors.append(f"{label}: 'provenance' non valido: {props['provenance']!r}")
+
+        geometry = feature.get("geometry")
+        if geometry is None or geometry.get("type") not in ("Polygon", "MultiPolygon"):
+            errors.append(f"{label}: geometria mancante o non Polygon/MultiPolygon")
+
+    if not errors and camera_count != EXPECTED_DISTRICT_COUNT:
+        errors.append(
+            f"districts.geojson: totale Camera = {camera_count}, atteso "
+            f"{EXPECTED_DISTRICT_COUNT} (vedi docs/v2/03-boundaries-audit.md)"
+        )
+
+    if not errors:
+        multipolygon_count = sum(
+            1 for f in features if f.get("geometry", {}).get("type") == "MultiPolygon"
+        )
+        print(f"OK: {len(features)} collegi validi in {DISTRICTS_PATH.relative_to(ROOT)} ({file_size / 1024:.0f} KB)")
+        print(f"  Camera: {camera_count}  MultiPolygon (isole/parti multiple): {multipolygon_count}")
+
+    return errors
+
+
+def main():
+    all_errors = validate_representatives() + validate_districts()
+
+    if all_errors:
+        print(f"ERRORE: {len(all_errors)} problema/i:", file=sys.stderr)
+        for error in all_errors:
+            print(f"  - {error}", file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

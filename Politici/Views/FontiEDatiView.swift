@@ -60,8 +60,6 @@ struct FontiEDatiView: View {
                     BulletRow(text: "I dati mostrati sono uno snapshot e potrebbero non essere aggiornati.")
                     BulletRow(text: "Le sezioni contrassegnate come \"Dati dimostrativi\" contengono dati fittizi a solo scopo di prototipo.")
                     BulletRow(text: "Questa app non utilizza loghi o emblemi istituzionali.")
-                    // REMOVE-IN-BOUNDARIES-PHASE: see MapView.swift's legend caption.
-                    BulletRow(text: "I confini dei collegi sulla mappa sono dimostrativi e non corrispondono ai collegi elettorali reali.")
                 }
                 .padding(.vertical, 4)
             }

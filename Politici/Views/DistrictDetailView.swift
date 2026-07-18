@@ -45,11 +45,6 @@ struct DistrictDetailView: View {
             )
             .font(.subheadline)
             .foregroundStyle(.secondary)
-
-            // REMOVE-IN-BOUNDARIES-PHASE: see MapView.swift's legend caption.
-            Text("Confini dimostrativi — non corrispondono ai collegi reali.")
-                .font(.caption2)
-                .foregroundStyle(.secondary)
         }
     }
 

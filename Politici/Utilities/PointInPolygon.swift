@@ -4,6 +4,7 @@
 //
 
 import CoreLocation
+import MapKit
 
 enum PointInPolygon {
     /// Ray-casting (even-odd rule) point-in-polygon test.
@@ -36,5 +37,37 @@ enum PointInPolygon {
         }
 
         return isInside
+    }
+
+    /// Tests `point` against a single `MKPolygon`'s exterior ring, excluding
+    /// any interior rings (holes) it may have — a point inside a hole is
+    /// not considered inside the polygon, even though it's inside the
+    /// exterior ring.
+    static func contains(_ point: CLLocationCoordinate2D, in polygon: MKPolygon) -> Bool {
+        guard contains(point, in: polygon.exteriorRingCoordinates) else { return false }
+        for hole in polygon.interiorPolygons ?? [] {
+            if contains(point, in: hole.exteriorRingCoordinates) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /// Tests `point` against every part of a MultiPolygon-safe district
+    /// geometry (see `District.polygons`) — true if it falls inside *any*
+    /// part (accounting for each part's own interior holes).
+    static func contains(_ point: CLLocationCoordinate2D, inAny polygons: [MKPolygon]) -> Bool {
+        polygons.contains { contains(point, in: $0) }
+    }
+}
+
+extension MKPolygon {
+    /// The polygon's own boundary ring as plain coordinates, for use with
+    /// `PointInPolygon`'s ray-casting test. Does not include interior rings
+    /// (holes) — see `interiorPolygons`.
+    var exteriorRingCoordinates: [CLLocationCoordinate2D] {
+        var coordinates = [CLLocationCoordinate2D](repeating: kCLLocationCoordinate2DInvalid, count: pointCount)
+        getCoordinates(&coordinates, range: NSRange(location: 0, length: pointCount))
+        return coordinates
     }
 }

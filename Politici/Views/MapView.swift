@@ -27,12 +27,7 @@ struct MapView: View {
         MapReader { proxy in
             Map(position: $cameraPosition) {
                 ForEach(services.districtService.districts) { district in
-                    MapPolygon(coordinates: district.exteriorCoordinates)
-                        .foregroundStyle(fillColor(for: district).opacity(district.id == selectedDistrictId ? 0.55 : 0.28))
-                        .stroke(
-                            district.id == selectedDistrictId ? Color.orange : fillColor(for: district),
-                            lineWidth: district.id == selectedDistrictId ? 4 : 2
-                        )
+                    districtOverlay(district)
                 }
             }
             .mapStyle(.standard)
@@ -67,21 +62,28 @@ struct MapView: View {
         }
     }
 
-    private var legend: some View {
-        VStack(spacing: 4) {
-            HStack(spacing: 16) {
-                legendItem(color: .blue, label: "Camera dei Deputati")
-                legendItem(color: .purple, label: "Senato della Repubblica")
-            }
-            .font(.caption)
-
-            // REMOVE-IN-BOUNDARIES-PHASE: the 5 sample districts are
-            // demonstrative rectangles, not real electoral college
-            // boundaries. Drop this caption once real geography lands.
-            Text("Confini dimostrativi — non corrispondono ai collegi reali.")
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+    /// One `MapPolygon` per part of the district's geometry — most collegi
+    /// are a single Polygon, but many (56 of 147 in the shipping ISTAT
+    /// data) are MultiPolygon, e.g. a mainland collegio that also includes
+    /// small offshore islands. `MapPolygon(_:)` renders each MKPolygon's
+    /// own interior holes automatically.
+    @MapContentBuilder
+    private func districtOverlay(_ district: District) -> some MapContent {
+        let isSelected = district.id == selectedDistrictId
+        let color = fillColor(for: district)
+        ForEach(Array(district.polygons.enumerated()), id: \.offset) { _, polygon in
+            MapPolygon(polygon)
+                .foregroundStyle(color.opacity(isSelected ? 0.55 : 0.28))
+                .stroke(isSelected ? Color.orange : color, lineWidth: isSelected ? 4 : 2)
         }
+    }
+
+    private var legend: some View {
+        HStack(spacing: 16) {
+            legendItem(color: .blue, label: "Camera dei Deputati")
+            legendItem(color: .purple, label: "Senato della Repubblica")
+        }
+        .font(.caption)
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity)
