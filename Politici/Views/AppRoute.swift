@@ -11,6 +11,7 @@ enum AppRoute: Hashable {
     case map
     case addressSearch(initialQuery: String)
     case districtDetail(districtId: String)
+    case representativeList
     case representativeProfile(representativeId: String)
     case voteHistory(representativeId: String)
     case fontiEDati

@@ -21,6 +21,7 @@ struct HomeView: View {
                 searchSection
                 mapCTA
                 statsSection
+                comeFunzionaSection
                 featuredSection
                 footer
             }
@@ -88,15 +89,41 @@ struct HomeView: View {
     private var statsSection: some View {
         HStack(spacing: 12) {
             StatCard(value: "\(services.districtService.allDistricts().count)", label: "Collegi campione")
-            StatCard(value: "\(services.representativeService.allRepresentatives().count)", label: "Rappresentanti")
+            Button {
+                path.append(.representativeList)
+            } label: {
+                StatCard(value: "\(services.representativeService.allRepresentatives().count)", label: "Rappresentanti")
+            }
+            .buttonStyle(.plain)
             StatCard(value: "2", label: "Camere del Parlamento")
         }
     }
 
+    private var comeFunzionaSection: some View {
+        DisclosureGroup("Come funziona l'elezione") {
+            VStack(alignment: .leading, spacing: 10) {
+                BulletRow(text: "Alla Camera, 147 deputati sono eletti direttamente in un collegio uninominale: il loro nome è associato al collegio geografico che rappresentano, visibile sulla mappa.")
+                BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale (collegi plurinominali) o nella circoscrizione Estero: sono consultabili nell'elenco dei rappresentanti, ma non sono associati a un collegio geografico specifico.")
+                BulletRow(text: "I senatori del Senato della Repubblica sono anch'essi consultabili nell'elenco dei rappresentanti; i confini dei collegi del Senato non sono ancora inclusi in questo prototipo, quindi nessun senatore è associato a un'area sulla mappa.")
+            }
+            .padding(.top, 8)
+        }
+        .font(.headline)
+        .padding(14)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+    }
+
     private var featuredSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Rappresentanti in evidenza")
-                .font(.headline)
+            HStack {
+                Text("Rappresentanti in evidenza")
+                    .font(.headline)
+                Spacer()
+                Button("Vedi tutti") {
+                    path.append(.representativeList)
+                }
+                .font(.subheadline)
+            }
             ForEach(featuredRepresentatives) { representative in
                 Button {
                     path.append(.representativeProfile(representativeId: representative.id))

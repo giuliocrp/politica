@@ -109,7 +109,8 @@ private struct SourceCard: View {
     }
 }
 
-private struct BulletRow: View {
+/// Shared with `HomeView`'s "Come funziona l'elezione" explainer.
+struct BulletRow: View {
     let text: String
 
     var body: some View {

@@ -70,24 +70,25 @@ struct DistrictDetailView: View {
     }
 }
 
-/// Shared avatar/name/party row used by `HomeView`'s featured list and here.
+/// Shared avatar/name/party row used by `HomeView`'s featured list,
+/// `RepresentativeListView`, and here.
 struct RepresentativeRow: View {
     let representative: Representative
     @Environment(\.services) private var services
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: representative.photoName)
-                .font(.system(size: 34))
-                .foregroundStyle(.white)
-                .frame(width: 52, height: 52)
-                .background(services.partyStyleService.color(for: representative.party), in: Circle())
+            InitialsAvatar(
+                name: representative.name,
+                color: services.partyStyleService.color(for: representative.party),
+                diameter: 52
+            )
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(representative.name)
                     .font(.body.weight(.semibold))
                     .foregroundStyle(.primary)
-                Text(representative.party)
+                Text(services.partyStyleService.shortName(for: representative.party))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -99,6 +100,27 @@ struct RepresentativeRow: View {
         }
         .padding(12)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+    }
+}
+
+/// A local-first stand-in for a representative's photo: a colored circle
+/// with their initials, derived purely from their name — no image asset, no
+/// remote fetch (see CLAUDE.md's local-first constraint).
+struct InitialsAvatar: View {
+    let name: String
+    let color: Color
+    var diameter: CGFloat = 52
+
+    var body: some View {
+        Circle()
+            .fill(color)
+            .frame(width: diameter, height: diameter)
+            .overlay {
+                Text(Initials.from(name))
+                    .font(.system(size: diameter * 0.38, weight: .bold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .minimumScaleFactor(0.7)
+            }
     }
 }
 

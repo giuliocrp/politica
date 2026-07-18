@@ -42,11 +42,11 @@ struct RepresentativeProfileView: View {
     @ViewBuilder
     private func header(for representative: Representative) -> some View {
         VStack(spacing: 12) {
-            Image(systemName: representative.photoName)
-                .font(.system(size: 56))
-                .foregroundStyle(.white)
-                .frame(width: 96, height: 96)
-                .background(services.partyStyleService.color(for: representative.party), in: Circle())
+            InitialsAvatar(
+                name: representative.name,
+                color: services.partyStyleService.color(for: representative.party),
+                diameter: 96
+            )
 
             Text(representative.name)
                 .font(.title2.bold())
