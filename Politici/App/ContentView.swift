@@ -28,6 +28,8 @@ struct ContentView: View {
             AddressSearchView(path: $path, initialQuery: initialQuery)
         case .districtDetail(let districtId):
             DistrictDetailView(districtId: districtId, path: $path)
+        case .collegiList:
+            CollegiListView(path: $path)
         case .representativeList:
             RepresentativeListView(path: $path)
         case .representativeProfile(let representativeId):

@@ -47,6 +47,7 @@ struct RepresentativeProfileView: View {
                 color: services.partyStyleService.color(for: representative.party),
                 diameter: 96
             )
+            .accessibilityHidden(true)
 
             Text(representative.name)
                 .font(.title2.bold())
@@ -74,6 +75,7 @@ struct RepresentativeProfileView: View {
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .combine)
     }
 
     private func provenanceBadge(_ provenance: DataProvenance) -> some View {
@@ -135,6 +137,7 @@ struct RepresentativeProfileView: View {
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
+            .accessibilityHint("Apre l'elenco completo delle votazioni")
         }
     }
 }

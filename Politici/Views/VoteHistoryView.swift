@@ -46,30 +46,40 @@ struct VoteRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // Real titles can run long (bill/motion names, not the short
-            // placeholders used by the sample fixture) — wrap rather than
-            // truncate, so the subject of the vote stays legible.
-            Text(vote.title)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(.primary)
-                .multilineTextAlignment(.leading)
-                .fixedSize(horizontal: false, vertical: true)
+            // Grouped as one VoiceOver element — none of this static info
+            // (title/date/badge/esito) is individually interactive. The
+            // "Fonte" link below is deliberately kept OUTSIDE this group:
+            // combining a container that has a nested Link/Button would
+            // swallow that control from VoiceOver's swipe navigation, not
+            // just merge its text into the group's label.
+            VStack(alignment: .leading, spacing: 8) {
+                // Real titles can run long (bill/motion names, not the short
+                // placeholders used by the sample fixture) — wrap rather
+                // than truncate, so the subject of the vote stays legible.
+                Text(vote.title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.primary)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
 
-            HStack {
-                Text(DateFormatting.longString(from: vote.date))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                Spacer()
-                VoteBadge(choice: vote.vote)
-            }
+                HStack {
+                    Text(DateFormatting.longString(from: vote.date))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    VoteBadge(choice: vote.vote)
+                }
 
-            HStack(spacing: 6) {
-                Image(systemName: vote.result == .approvato ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundStyle(vote.result == .approvato ? .green : .red)
-                Text("Esito: \(vote.result.rawValue)")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 6) {
+                    Image(systemName: vote.result == .approvato ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundStyle(vote.result == .approvato ? .green : .red)
+                        .accessibilityHidden(true)
+                    Text("Esito: \(vote.result.rawValue)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
+            .accessibilityElement(children: .combine)
 
             if let sourceUrl = vote.sourceUrl, let url = URL(string: sourceUrl) {
                 Link(destination: url) {
@@ -77,6 +87,10 @@ struct VoteRow: View {
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                 }
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+                .accessibilityLabel("Fonte ufficiale")
+                .accessibilityHint("Apre la scheda della votazione sul sito della Camera dei Deputati")
             }
         }
         .padding(12)
@@ -84,17 +98,21 @@ struct VoteRow: View {
     }
 }
 
-/// Color-coded outcome badge: Favorevole (green), Contrario (red), Astenuto (orange), Assente (gray).
+/// Vote outcome badge — never color-only: an SF Symbol plus the existing
+/// Italian word (e.g. "checkmark" + "Favorevole"), with a distinct
+/// accessibility label so VoiceOver states the vote clearly rather than
+/// just reading the visible word.
 struct VoteBadge: View {
     let choice: VoteChoice
 
     var body: some View {
-        Text(choice.rawValue)
+        Label(choice.rawValue, systemImage: choice.symbolName)
             .font(.caption.weight(.bold))
             .padding(.horizontal, 10)
             .padding(.vertical, 4)
             .background(color.opacity(0.15), in: Capsule())
             .foregroundStyle(color)
+            .accessibilityLabel(choice.accessibilityLabel)
     }
 
     private var color: Color {

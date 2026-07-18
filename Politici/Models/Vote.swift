@@ -13,6 +13,31 @@ enum VoteChoice: String, TolerantStringEnum, CaseIterable, Hashable {
     case sconosciuto = "Sconosciuto"
 
     static var unknownCase: VoteChoice { .sconosciuto }
+
+    /// SF Symbol used by `VoteBadge` so the outcome is never conveyed by
+    /// color alone.
+    var symbolName: String {
+        switch self {
+        case .favorevole: return "checkmark"
+        case .contrario: return "xmark"
+        case .astenuto: return "minus"
+        case .assente: return "slash.circle"
+        case .sconosciuto: return "questionmark"
+        }
+    }
+
+    /// VoiceOver label for `VoteBadge` — distinct from `rawValue` (the
+    /// visible word) so it reads as a clear statement rather than a bare
+    /// party-line adjective.
+    var accessibilityLabel: String {
+        switch self {
+        case .favorevole: return "Voto favorevole"
+        case .contrario: return "Voto contrario"
+        case .astenuto: return "Astenuto"
+        case .assente: return "Assente"
+        case .sconosciuto: return "Esito non disponibile"
+        }
+    }
 }
 
 extension VoteChoice: Codable {

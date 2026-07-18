@@ -118,6 +118,10 @@ private struct PartyFilterChip: View {
                 .overlay(Capsule().strokeBorder(color.opacity(isSelected ? 0 : 0.4), lineWidth: 1))
         }
         .buttonStyle(.plain)
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
+        .accessibilityLabel("Filtra per \(label)")
+        .accessibilityAddTraits(isSelected ? [.isSelected] : [])
     }
 }
 

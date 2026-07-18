@@ -58,15 +58,20 @@ struct HomeView: View {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
                 TextField("Inserisci un indirizzo o una città", text: $addressQuery)
                     .textInputAutocapitalization(.words)
                     .submitLabel(.search)
                     .onSubmit(navigateToSearch)
+                    .accessibilityHint("Cerca il collegio elettorale per indirizzo o città")
                 Button(action: navigateToSearch) {
                     Image(systemName: "arrow.right.circle.fill")
                         .font(.title3)
                 }
+                .frame(minWidth: 44, minHeight: 44)
+                .contentShape(Rectangle())
                 .disabled(addressQuery.trimmingCharacters(in: .whitespaces).isEmpty)
+                .accessibilityLabel("Cerca")
             }
             .padding(12)
             .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
@@ -88,13 +93,22 @@ struct HomeView: View {
 
     private var statsSection: some View {
         HStack(spacing: 12) {
-            StatCard(value: "\(services.districtService.allDistricts().count)", label: "Collegi campione")
+            Button {
+                path.append(.collegiList)
+            } label: {
+                StatCard(value: "\(services.districtService.allDistricts().count)", label: "Collegi campione")
+            }
+            .buttonStyle(.plain)
+            .accessibilityHint("Apre l'elenco completo dei collegi")
+
             Button {
                 path.append(.representativeList)
             } label: {
                 StatCard(value: "\(services.representativeService.allRepresentatives().count)", label: "Rappresentanti")
             }
             .buttonStyle(.plain)
+            .accessibilityHint("Apre l'elenco completo dei rappresentanti")
+
             StatCard(value: "2", label: "Camere del Parlamento")
         }
     }
@@ -123,6 +137,9 @@ struct HomeView: View {
                     path.append(.representativeList)
                 }
                 .font(.subheadline)
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+                .accessibilityHint("Apre l'elenco completo dei rappresentanti")
             }
             ForEach(featuredRepresentatives) { representative in
                 Button {
@@ -144,6 +161,8 @@ struct HomeView: View {
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: .infinity)
         }
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
         .padding(.top, 4)
     }
 
@@ -169,6 +188,7 @@ private struct StatCard: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 12)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityElement(children: .combine)
     }
 }
 

@@ -46,6 +46,7 @@ struct DistrictDetailView: View {
             .font(.subheadline)
             .foregroundStyle(.secondary)
         }
+        .accessibilityElement(children: .combine)
     }
 
     private var representativesSection: some View {
@@ -83,6 +84,7 @@ struct RepresentativeRow: View {
                 color: services.partyStyleService.color(for: representative.party),
                 diameter: 52
             )
+            .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(representative.name)
@@ -97,15 +99,23 @@ struct RepresentativeRow: View {
             Image(systemName: "chevron.right")
                 .font(.caption)
                 .foregroundStyle(.tertiary)
+                .accessibilityHidden(true)
         }
         .padding(12)
         .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .accessibilityElement(children: .combine)
+        .accessibilityHint("Apre il profilo del rappresentante")
     }
 }
 
 /// A local-first stand-in for a representative's photo: a colored circle
 /// with their initials, derived purely from their name — no image asset, no
-/// remote fetch (see CLAUDE.md's local-first constraint).
+/// remote fetch (see CLAUDE.md's local-first constraint). Always marked
+/// `.accessibilityHidden(true)` by its callers: it's decorative once the
+/// surrounding row/header already states the person's full name as real
+/// text, so its `minimumScaleFactor` (needed to fit 2 letters in a fixed
+/// circle at large Dynamic Type sizes) never causes any information loss —
+/// VoiceOver never reads from it in the first place.
 struct InitialsAvatar: View {
     let name: String
     let color: Color

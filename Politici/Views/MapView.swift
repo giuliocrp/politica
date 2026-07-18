@@ -45,6 +45,16 @@ struct MapView: View {
         }
         .navigationTitle("Mappa dei Collegi")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    path.append(.collegiList)
+                } label: {
+                    Label("Sfoglia come elenco", systemImage: "list.bullet")
+                }
+                .accessibilityHint("Mostra tutti i collegi in un elenco navigabile, alternativo alla mappa")
+            }
+        }
         .safeAreaInset(edge: .top) {
             legend
         }
@@ -93,17 +103,22 @@ struct MapView: View {
     private func legendItem(color: Color, label: String) -> some View {
         HStack(spacing: 6) {
             Circle().fill(color).frame(width: 8, height: 8)
+                .accessibilityHidden(true)
             Text(label)
         }
     }
 
     private func selectionCard(_ district: District) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text(district.name)
-                .font(.headline)
-            Text(district.chamber == .camera ? "Camera dei Deputati" : "Senato della Repubblica")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 10) {
+                Text(district.name)
+                    .font(.headline)
+                Text(district.chamber == .camera ? "Camera dei Deputati" : "Senato della Repubblica")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .accessibilityElement(children: .combine)
+
             Button {
                 path.append(.districtDetail(districtId: district.id))
             } label: {

@@ -44,10 +44,12 @@ struct AddressSearchView: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
                     TextField("Es. Roma, Via del Corso", text: $query)
                         .textInputAutocapitalization(.words)
                         .submitLabel(.search)
                         .onSubmit(search)
+                        .accessibilityHint("Inserisci un indirizzo o una città per trovare il collegio")
                 }
                 .padding(12)
                 .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
@@ -69,6 +71,8 @@ struct AddressSearchView: View {
                             }
                             .buttonStyle(.bordered)
                             .controlSize(.small)
+                            .frame(minHeight: 44)
+                            .contentShape(Rectangle())
                         }
                     }
                 }
@@ -92,6 +96,9 @@ struct AddressSearchView: View {
             .disabled(query.trimmingCharacters(in: .whitespaces).isEmpty || isSearching)
 
             if let errorMessage {
+                // `Label` already presents icon+text as one accessibility
+                // element (VoiceOver reads just the title), so no extra
+                // grouping is needed here.
                 Label(errorMessage, systemImage: "exclamationmark.triangle.fill")
                     .font(.callout)
                     .foregroundStyle(.orange)
@@ -141,6 +148,8 @@ struct AddressSearchView: View {
                     .padding(.horizontal, 12)
                 }
                 .buttonStyle(.plain)
+                .frame(minHeight: 44)
+                .accessibilityElement(children: .combine)
 
                 if index < autocomplete.suggestions.count - 1 {
                     Divider()

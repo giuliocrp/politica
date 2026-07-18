@@ -88,14 +88,17 @@ private struct SourceCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(source.name)
-                .font(.headline)
-            Text("Licenza: \(source.license)")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-            Text("Dati aggiornati al: \(formattedRetrievedAt)")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 6) {
+                Text(source.name)
+                    .font(.headline)
+                Text("Licenza: \(source.license)")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Text("Dati aggiornati al: \(formattedRetrievedAt)")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .accessibilityElement(children: .combine)
 
             if !source.url.isEmpty, let url = URL(string: source.url) {
                 Link(destination: url) {
@@ -103,6 +106,9 @@ private struct SourceCard: View {
                         .font(.subheadline)
                 }
                 .padding(.top, 2)
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+                .accessibilityHint("Apre il sito della fonte in Safari")
             }
         }
         .padding(.vertical, 6)
