@@ -45,6 +45,11 @@ struct DistrictDetailView: View {
             )
             .font(.subheadline)
             .foregroundStyle(.secondary)
+            if let regione = district.regione {
+                Text("Regione: \(regione)")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
         }
         .accessibilityElement(children: .combine)
     }

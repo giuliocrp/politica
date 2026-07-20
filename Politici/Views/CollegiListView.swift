@@ -14,10 +14,11 @@ import SwiftUI
 struct CollegiListView: View {
     @Binding var path: [AppRoute]
     @Environment(\.services) private var services
+    @State private var selectedChamber: Chamber = .camera
     @State private var searchText = ""
 
     private var allDistricts: [District] {
-        services.districtService.allDistricts().sorted { $0.name < $1.name }
+        services.districtService.allDistricts(chamber: selectedChamber).sorted { $0.name < $1.name }
     }
 
     private var filteredDistricts: [District] {
@@ -27,14 +28,22 @@ struct CollegiListView: View {
         return allDistricts.filter { district in
             let normalizedName = district.name.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "it_IT"))
             if normalizedName.contains(normalizedQuery) { return true }
-            guard let circoscrizione = district.circoscrizione else { return false }
-            let normalizedCircoscrizione = circoscrizione.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "it_IT"))
-            return normalizedCircoscrizione.contains(normalizedQuery)
+            // Camera districts group by circoscrizione, Senato by regione —
+            // never both on the same district (see District.swift) — so
+            // checking whichever is non-nil covers both chambers.
+            let grouping = district.circoscrizione ?? district.regione
+            guard let grouping else { return false }
+            let normalizedGrouping = grouping.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "it_IT"))
+            return normalizedGrouping.contains(normalizedQuery)
         }
     }
 
     var body: some View {
-        Group {
+        VStack(spacing: 0) {
+            ChamberPicker(selection: $selectedChamber)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+
             if filteredDistricts.isEmpty {
                 ContentUnavailableView.search(text: searchText)
             } else {
@@ -51,7 +60,7 @@ struct CollegiListView: View {
                 .listStyle(.plain)
             }
         }
-        .searchable(text: $searchText, prompt: "Cerca per nome o circoscrizione")
+        .searchable(text: $searchText, prompt: "Cerca per nome o circoscrizione/regione")
         .navigationTitle("Collegi (\(allDistricts.count))")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -73,8 +82,10 @@ private struct CollegioRow: View {
                 Text(district.name)
                     .font(.body.weight(.semibold))
                     .foregroundStyle(.primary)
-                if let circoscrizione = district.circoscrizione {
-                    Text(circoscrizione)
+                // Camera rows show circoscrizione, Senato rows show
+                // regione — never both (see District.swift).
+                if let grouping = district.circoscrizione ?? district.regione {
+                    Text(grouping)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }

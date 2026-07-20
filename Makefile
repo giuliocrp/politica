@@ -1,4 +1,4 @@
-.PHONY: fetch import validate manifest boundaries all refresh
+.PHONY: fetch import validate manifest boundaries boundaries-senato all refresh
 
 PYTHON := python3
 
@@ -34,13 +34,19 @@ manifest:
 # then schema-v2 transform). Offline — processes an already-downloaded
 # local shapefile under tools/raw/collegi/, no network.
 boundaries:
-	./tools/build_boundaries.sh
+	./tools/build_boundaries.sh camera
+
+# Builds Politici/Data/districts_senato.geojson from the ISTAT Senato
+# collegi-uninominali shapefile — same pipeline as `boundaries`, Senato
+# layer (Phase 16; see docs/v3/16-senato-boundaries.md). Offline.
+boundaries-senato:
+	./tools/build_boundaries.sh senato
 
 # Fully offline: rebuilds every generated Data/*.json(.geojson) file from
 # the tools/raw/ cache left by a previous `make fetch`, in dependency
 # order, with validate last so it checks this run's actual final output.
 # Does NOT fetch — see `refresh` for that.
-all: import boundaries manifest validate
+all: import boundaries boundaries-senato manifest validate
 
 # Deliberate, network-touching refresh: fetch fresh data, then rebuild
 # everything from it. This is the only target besides `fetch` itself that

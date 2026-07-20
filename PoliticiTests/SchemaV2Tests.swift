@@ -30,6 +30,17 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertTrue(districts.allSatisfy { $0.sourceName == "ISTAT" })
     }
 
+    func testShippingSenatoDistrictsAreOfficialProvenance() throws {
+        // Same ISTAT release as Camera's (Phase 16 — see
+        // docs/v3/16-senato-boundaries.md), same provenance/collegioType/
+        // sourceName shape.
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
+        XCTAssertFalse(districts.isEmpty)
+        XCTAssertTrue(districts.allSatisfy { $0.provenance == .official })
+        XCTAssertTrue(districts.allSatisfy { $0.collegioType == .uninominale })
+        XCTAssertTrue(districts.allSatisfy { $0.sourceName == "ISTAT" })
+    }
+
     /// Data/representatives.json now ships real, officially-sourced records
     /// (see tools/import_representatives.py), so it always has explicit
     /// `"provenance": "official"` and no longer exercises the decode-default

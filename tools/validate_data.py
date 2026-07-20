@@ -18,6 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 REPRESENTATIVES_PATH = ROOT / "Politici" / "Data" / "representatives.json"
 DISTRICTS_PATH = ROOT / "Politici" / "Data" / "districts.geojson"
+DISTRICTS_SENATO_PATH = ROOT / "Politici" / "Data" / "districts_senato.geojson"
 VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
 
 REQUIRED_VOTE_KEYS = {
@@ -60,12 +61,15 @@ VALID_PROVENANCE = {"sample", "official"}
 EXPECTED_CAMERA_REPRESENTATIVE_COUNT = 400
 EXPECTED_SENATO_REPRESENTATIVE_COUNT = 201
 
+# "circoscrizione"/"regione" are deliberately NOT in this base set: Camera
+# features carry "circoscrizione" and Senato features carry "regione", never
+# both (see tools/import_boundaries.py) — checked separately, per chamber,
+# below rather than required unconditionally on every feature.
 REQUIRED_DISTRICT_PROPERTY_KEYS = {
     "id",
     "name",
     "chamber",
     "collegioType",
-    "circoscrizione",
     "subCode",
     "provenance",
     "sourceName",
@@ -74,6 +78,9 @@ VALID_COLLEGIO_TYPES = {"uninominale", "plurinominale", "sconosciuto"}
 # See docs/v2/03-boundaries-audit.md: 147 is ISTAT's exact feature count for
 # the Camera collegi-uninominali layer.
 EXPECTED_DISTRICT_COUNT = 147
+# See docs/v3/15-senato-exploration.md: 74 is ISTAT's exact feature count
+# for the Senato collegi-uninominali layer (verified via ogrinfo).
+EXPECTED_SENATO_DISTRICT_COUNT = 74
 MAX_DISTRICTS_FILE_BYTES = 3 * 1024 * 1024
 
 
@@ -185,35 +192,39 @@ def validate_representatives():
     return errors
 
 
-def validate_districts():
+def validate_districts_file(path, expected_chamber, expected_count, grouping_property, missing_hint):
+    """Structural validation for one boundaries file — Camera
+    (districts.geojson, chamber="Camera", grouping_property="circoscrizione")
+    or Senato (districts_senato.geojson, chamber="Senato",
+    grouping_property="regione", Phase 16). Returns (errors, feature_ids)."""
     errors = []
 
-    if not DISTRICTS_PATH.exists():
-        return [f"{DISTRICTS_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make boundaries'"]
+    if not path.exists():
+        return [f"{path.relative_to(ROOT)}: file non trovato — esegui prima '{missing_hint}'"], set()
 
-    file_size = DISTRICTS_PATH.stat().st_size
+    file_size = path.stat().st_size
     if file_size > MAX_DISTRICTS_FILE_BYTES:
         errors.append(
-            f"{DISTRICTS_PATH.relative_to(ROOT)}: {file_size / 1024 / 1024:.2f} MB, "
+            f"{path.relative_to(ROOT)}: {file_size / 1024 / 1024:.2f} MB, "
             "supera il limite di 3 MB"
         )
 
     try:
-        collection = json.loads(DISTRICTS_PATH.read_text(encoding="utf-8"))
+        collection = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as error:
-        return errors + [f"{DISTRICTS_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+        return errors + [f"{path.relative_to(ROOT)}: JSON non valido: {error}"], set()
 
     if collection.get("type") != "FeatureCollection":
-        return errors + [f"{DISTRICTS_PATH.relative_to(ROOT)}: non è una FeatureCollection GeoJSON"]
+        return errors + [f"{path.relative_to(ROOT)}: non è una FeatureCollection GeoJSON"], set()
 
     features = collection.get("features", [])
     if not features:
-        errors.append(f"{DISTRICTS_PATH.relative_to(ROOT)}: nessuna feature")
+        errors.append(f"{path.relative_to(ROOT)}: nessuna feature")
 
     seen_ids = set()
-    camera_count = 0
+    chamber_count = 0
     for index, feature in enumerate(features):
-        label = f"districts.geojson feature #{index}"
+        label = f"{path.name} feature #{index}"
         props = feature.get("properties", {})
         label = f"{label} (id={props.get('id', '?')})"
 
@@ -235,15 +246,18 @@ def validate_districts():
 
         if props["chamber"] not in VALID_CHAMBERS:
             errors.append(f"{label}: 'chamber' non valido: {props['chamber']!r}")
-        elif props["chamber"] == "Camera":
-            camera_count += 1
+        elif props["chamber"] == expected_chamber:
+            chamber_count += 1
+        else:
+            errors.append(f"{label}: 'chamber' atteso {expected_chamber!r}, trovato {props['chamber']!r}")
 
         if props["collegioType"] not in VALID_COLLEGIO_TYPES:
             errors.append(f"{label}: 'collegioType' non valido: {props['collegioType']!r}")
 
-        if props["chamber"] == "Camera" and props["collegioType"] == "uninominale":
-            if not isinstance(props["circoscrizione"], str) or not props["circoscrizione"].strip():
-                errors.append(f"{label}: 'circoscrizione' deve essere una stringa non vuota")
+        if props["chamber"] == expected_chamber and props["collegioType"] == "uninominale":
+            grouping_value = props.get(grouping_property)
+            if not isinstance(grouping_value, str) or not grouping_value.strip():
+                errors.append(f"{label}: '{grouping_property}' deve essere una stringa non vuota")
             if not isinstance(props["subCode"], str) or not props["subCode"].strip():
                 errors.append(f"{label}: 'subCode' deve essere una stringa non vuota")
 
@@ -254,18 +268,45 @@ def validate_districts():
         if geometry is None or geometry.get("type") not in ("Polygon", "MultiPolygon"):
             errors.append(f"{label}: geometria mancante o non Polygon/MultiPolygon")
 
-    if not errors and camera_count != EXPECTED_DISTRICT_COUNT:
+    if not errors and chamber_count != expected_count:
         errors.append(
-            f"districts.geojson: totale Camera = {camera_count}, atteso "
-            f"{EXPECTED_DISTRICT_COUNT} (vedi docs/v2/03-boundaries-audit.md)"
+            f"{path.name}: totale {expected_chamber} = {chamber_count}, atteso {expected_count}"
         )
 
     if not errors:
         multipolygon_count = sum(
             1 for f in features if f.get("geometry", {}).get("type") == "MultiPolygon"
         )
-        print(f"OK: {len(features)} collegi validi in {DISTRICTS_PATH.relative_to(ROOT)} ({file_size / 1024:.0f} KB)")
-        print(f"  Camera: {camera_count}  MultiPolygon (isole/parti multiple): {multipolygon_count}")
+        print(f"OK: {len(features)} collegi validi in {path.relative_to(ROOT)} ({file_size / 1024:.0f} KB)")
+        print(f"  {expected_chamber}: {chamber_count}  MultiPolygon (isole/parti multiple): {multipolygon_count}")
+
+    return errors, seen_ids
+
+
+def validate_districts():
+    """Validates both boundary files (Camera, Senato — Phase 16) and their
+    cross-file id uniqueness (147 + 74 = 221 unique ids expected; a Senato
+    id colliding with a Camera one would silently alias two real, distinct
+    collegi onto the same id — see docs/v3/15-senato-exploration.md's
+    collision check and the "S" id-prefix policy in
+    tools/import_boundaries.py)."""
+    camera_errors, camera_ids = validate_districts_file(
+        DISTRICTS_PATH, "Camera", EXPECTED_DISTRICT_COUNT, "circoscrizione", "make boundaries"
+    )
+    senato_errors, senato_ids = validate_districts_file(
+        DISTRICTS_SENATO_PATH, "Senato", EXPECTED_SENATO_DISTRICT_COUNT, "regione", "make boundaries-senato"
+    )
+    errors = camera_errors + senato_errors
+
+    if not camera_errors and not senato_errors:
+        colliding_ids = camera_ids & senato_ids
+        if colliding_ids:
+            errors.append(
+                f"id in collisione tra districts.geojson e districts_senato.geojson: {sorted(colliding_ids)}"
+            )
+        else:
+            combined_count = len(camera_ids) + len(senato_ids)
+            print(f"OK: id univoci tra le due camere — {combined_count} collegi totali (Camera {len(camera_ids)} + Senato {len(senato_ids)})")
 
     return errors
 

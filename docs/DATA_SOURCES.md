@@ -10,9 +10,10 @@ ever disagree, `sources.json` is right and this file is stale — regenerate
 it or fix this file, don't just trust whichever you're looking at.
 
 Cross-checked against the shipping `Politici/Data/sources.json` on
-2026-07-18: **all 5 entries match exactly** (id, name, url, license,
-retrievedAt, notes) — see "Cross-check" at the bottom for the verification
-method.
+2026-07-20 (v3 Phase 16, when the Senato boundaries source was added —
+originally cross-checked with 5 entries on 2026-07-18): **all 6 entries
+match exactly** (id, name, url, license, retrievedAt, notes) — see
+"Cross-check" at the bottom for the verification method.
 
 ---
 
@@ -132,9 +133,47 @@ them `MultiPolygon`). `id` = `CU20_COD` (cast to string); `name` =
 all 147 rows with zero exceptions, and cross-checked against the official
 28-circoscrizione list from D.Lgs. 177/2020 (not assumed; see
 [`docs/v2/03-linkage-report.md`](v2/03-linkage-report.md)). This dataset
-covers **Camera uninominali only** — Senato boundaries and Camera
-plurinominali boundaries are out of scope for v2 (see the README's "Known
-limitations" and "v3 roadmap").
+covers **Camera uninominali only** — Senato boundaries are documented as
+their own separate source below (added in v3 Phase 16); Camera
+plurinominali boundaries remain out of scope (see the README's "Known
+limitations").
+
+---
+
+## ISTAT — Basi geografiche dei collegi elettorali (Senato, uninominali)
+
+| | |
+|---|---|
+| **Portal** | [istat.it](https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2) |
+| **Dataset** | Basi geografiche dei collegi elettorali, Senato della Repubblica — collegi uninominali (D.Lgs. 177/2020) |
+| **Access method** | Shapefile download (manual — not SPARQL; same release as the Camera entry above, downloaded in the same batch — see `tools/SOURCES.md`) |
+| **License** | CC BY 4.0 — verified at [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/) |
+| **Retrieved** | 2026-07-18 (same download event as the Camera ISTAT entry — one manual `tools/raw/collegi/` acquisition covered both layers) |
+| **Build script** | `tools/build_boundaries.sh senato` (`ogr2ogr` reprojection + simplification) → `tools/import_boundaries.py --chamber senato` |
+
+**Transformation summary** (v3 Phase 16; exploration in
+[`docs/v3/15-senato-exploration.md`](v3/15-senato-exploration.md), full
+measurements in [`docs/v3/16-senato-boundaries.md`](v3/16-senato-boundaries.md)):
+source shapefile is EPSG:32632, same CRS as Camera's; reprojected to
+EPSG:4326 and simplified at the same 1000m tolerance as Camera (measured
+to clear both the byte and per-feature-vertex gates with wide margin, no
+retuning needed) — **74 features, ~847KB, 34 of them `MultiPolygon`**. `id`
+= `"S"` + `SU20_COD` (cast to string) — the plain numeric code collides
+with 32 of the 147 Camera ids, so the `"S"` prefix is applied
+unconditionally to every Senato id, never just the colliding ones; Camera
+ids are never modified. `name` = `SU20_DEN`; `subCode` is derived the same
+way as Camera's. **`regione`** (not `circoscrizione`) is derived by
+parsing `SU20_DEN`'s `"{regione} - {subCode}"` structure: Senato's
+grouping is one of Italy's 20 *unsplit* administrative regions, a
+genuinely different concept from Camera's 28 circoscrizioni (which split
+several larger regions into multiple electoral groupings) — reusing
+`circoscrizione` for Senato would misrepresent that structural difference,
+so Senato features carry `regione` and leave `circoscrizione` absent, and
+vice versa for Camera. **No senator-to-collegio linkage exists** — Phase
+15's source exploration found no collegio-shaped predicate anywhere in the
+Senato SPARQL cache; every senator's `districtId` stays `null` regardless
+of this boundaries source (see the Senato Open Data entry above and
+`docs/v3/15-senato-exploration.md`'s GO/NO-GO(LINK) finding).
 
 ---
 
@@ -174,13 +213,16 @@ not a SPARQL endpoint — see step 3):
    output written) if the raw cache is missing or referential integrity
    would break (e.g. a vote referencing a deputy not in
    `representatives.json`).
-3. **`make boundaries`** — offline, only needed if the ISTAT shapefile
-   itself changed (re-download it manually into
-   `tools/raw/collegi/CAMERA_CollegiUNINOMINALI_2020/` first — this step
-   doesn't fetch it). Rebuilds `Data/districts.geojson`.
+3. **`make boundaries`** / **`make boundaries-senato`** — offline, only
+   needed if the ISTAT shapefile itself changed (re-download it manually
+   into `tools/raw/collegi/CAMERA_CollegiUNINOMINALI_2020/` /
+   `tools/raw/collegi/SENATO_CollegiUNINOMINALI_2020/` first — neither step
+   fetches it). Rebuild `Data/districts.geojson` / `Data/districts_senato.geojson`
+   respectively.
 4. **`make validate`** — offline. Re-checks every file's structure and
    cross-references from scratch (not trusting that import already got it
-   right) — exits non-zero with a specific diagnostic on any violation.
+   right), including cross-file id uniqueness between the two boundary
+   files — exits non-zero with a specific diagnostic on any violation.
 5. **`make manifest`** — offline. Regenerates `Data/sources.json` from the
    real fetch timestamps in `.fetch_metadata.json` (not "whenever this
    script happens to run"). **After this step, re-verify this file
@@ -190,20 +232,22 @@ not a SPARQL endpoint — see step 3):
 
 Shorthand for steps 1–2 + 4–5 in one line (boundaries excluded, since it
 needs a manual shapefile re-download first): `make fetch && make import
-&& make validate && make manifest` — or use `make all`, which also runs
-`make boundaries` (safe to run even without a shapefile update; it's
-idempotent against the same source file).
+&& make validate && make manifest` — or use `make refresh` (fetch, then
+the fully offline `make all`, which runs `make boundaries` and `make
+boundaries-senato` too — both safe to run even without a shapefile
+update; they're idempotent against the same source files).
 
 ## Cross-check
 
 Every field above (`name`, `url`, `license`, `retrievedAt`, and the
 `notes` summarized into "Transformation summary") was compared 1:1 against
-the live `Politici/Data/sources.json` on 2026-07-18, by id:
+the live `Politici/Data/sources.json` on 2026-07-20 (v3 Phase 16), by id:
 
 - `camera-dei-deputati-xix-legislatura` ✓
 - `camera-dei-deputati-votazioni-xix-legislatura` ✓
 - `senato-della-repubblica-xix-legislatura` ✓
 - `istat-collegi-elettorali-camera-uninominali` ✓
+- `istat-collegi-elettorali-senato-uninominali` ✓ (new in v3 Phase 16)
 - `prototipo-dati-dimostrativi` ✓
 
 No mismatches found. If a future `make fetch && make manifest` run changes
