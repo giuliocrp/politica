@@ -61,6 +61,16 @@ VALID_PROVENANCE = {"sample", "official"}
 EXPECTED_CAMERA_REPRESENTATIVE_COUNT = 400
 EXPECTED_SENATO_REPRESENTATIVE_COUNT = 201
 
+# The three verbatim osr:tipoMandato literals (Phase 17 — see
+# docs/v3/15-senato-exploration.md §7a and tools/import_representatives.py's
+# KNOWN_TIPO_MANDATO). "mandate" is a Senato-only key: required on every
+# senator record, forbidden on Camera records (chamber-conditional-key
+# convention, like districts' circoscrizione/regione).
+MANDATE_ELETTIVO = "elettivo"
+MANDATE_A_VITA = "a vita, di nomina del Presidente della Repubblica"
+MANDATE_EMERITO = "di diritto e a vita, Presidente emerito della Repubblica"
+VALID_MANDATE_TYPES = {MANDATE_ELETTIVO, MANDATE_A_VITA, MANDATE_EMERITO}
+
 # "circoscrizione"/"regione" are deliberately NOT in this base set: Camera
 # features carry "circoscrizione" and Senato features carry "regione", never
 # both (see tools/import_boundaries.py) — checked separately, per chamber,
@@ -145,6 +155,17 @@ def validate_representatives():
         if record["chamber"] not in VALID_CHAMBERS:
             errors.append(f"{label}: 'chamber' non valido: {record['chamber']!r}")
 
+        # "mandate" is chamber-conditional (Phase 17): required verbatim
+        # vocabulary on every senator, forbidden (absent, not null) on
+        # every deputy.
+        if record["chamber"] == "Senato":
+            if "mandate" not in record:
+                errors.append(f"{label}: chiave 'mandate' mancante (obbligatoria per i senatori)")
+            elif record["mandate"] not in VALID_MANDATE_TYPES:
+                errors.append(f"{label}: 'mandate' non valido: {record['mandate']!r}")
+        elif record["chamber"] == "Camera" and "mandate" in record:
+            errors.append(f"{label}: chiave 'mandate' presente su un record Camera — deve essere assente")
+
         if record["provenance"] not in VALID_PROVENANCE:
             errors.append(f"{label}: 'provenance' non valido: {record['provenance']!r}")
 
@@ -180,6 +201,28 @@ def validate_representatives():
             f"{EXPECTED_SENATO_REPRESENTATIVE_COUNT} (vedi docs/v2/02-post-import-audit.md)"
         )
 
+    # Mandate arithmetic (Phase 17 — docs/v3/17-senato-mandates.md): the
+    # three-term sum must account for every senator (robust against a new
+    # vocabulary term slipping in as an untyped extra), and a serving
+    # Presidente-emerito mandate would mean the source's data moved in a way
+    # that needs human review, not a silent pass — its only known bearer's
+    # mandate is ended, so serving count must be exactly 0.
+    senato_records = [r for r in records if r["chamber"] == "Senato"]
+    elettivo_count = sum(1 for r in senato_records if r.get("mandate") == MANDATE_ELETTIVO)
+    a_vita_count = sum(1 for r in senato_records if r.get("mandate") == MANDATE_A_VITA)
+    emerito_count = sum(1 for r in senato_records if r.get("mandate") == MANDATE_EMERITO)
+    if elettivo_count + a_vita_count + emerito_count != senato_count:
+        errors.append(
+            f"representatives.json: mandati Senato {elettivo_count} elettivo + "
+            f"{a_vita_count} a vita + {emerito_count} emerito != {senato_count} senatori totali"
+        )
+    if emerito_count != 0:
+        errors.append(
+            f"representatives.json: {emerito_count} senatori in carica con mandato "
+            "'di diritto e a vita, Presidente emerito della Repubblica' — atteso 0, "
+            "la sorgente è cambiata: rivedi prima di accettare"
+        )
+
     if not errors:
         official_count = sum(1 for r in records if r["provenance"] == "official")
         sample_count = sum(1 for r in records if r["provenance"] == "sample")
@@ -188,6 +231,7 @@ def validate_representatives():
         print(f"  Camera: {camera_count}  Senato: {senato_count}")
         print(f"  provenance official: {official_count}  sample: {sample_count}")
         print(f"  con districtId assegnato: {with_district}")
+        print(f"  mandati Senato: elettivo {elettivo_count}  a vita {a_vita_count}  emerito {emerito_count}")
 
     return errors
 
@@ -312,43 +356,54 @@ def validate_districts():
 
 
 def validate_linkage():
-    """Cross-references representatives.json's districtId against
-    districts.geojson's shipping Camera uninominale ids. Only meaningful if
-    both files already passed their own structural checks, so main() only
-    calls this when validate_representatives()/validate_districts() were
-    both clean."""
+    """Cross-references representatives.json's districtId against the
+    shipping uninominale collegio ids, per chamber (Phase 17): a deputy's
+    districtId must be a Camera collegio, a senator's a Senato one — a
+    cross-chamber assignment would be a real defect even though the ids
+    can't collide (S-prefix). Only meaningful if the files already passed
+    their own structural checks, so main() only calls this when
+    validate_representatives()/validate_districts() were both clean."""
     errors = []
 
     records = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
-    collection = json.loads(DISTRICTS_PATH.read_text(encoding="utf-8"))
-    uninominale_ids = {
-        f["properties"]["id"]
-        for f in collection["features"]
-        if f["properties"]["chamber"] == "Camera" and f["properties"]["collegioType"] == "uninominale"
-    }
+    uninominale_ids_by_chamber = {}
+    for chamber, path in (("Camera", DISTRICTS_PATH), ("Senato", DISTRICTS_SENATO_PATH)):
+        collection = json.loads(path.read_text(encoding="utf-8"))
+        uninominale_ids_by_chamber[chamber] = {
+            f["properties"]["id"]
+            for f in collection["features"]
+            if f["properties"]["chamber"] == chamber and f["properties"]["collegioType"] == "uninominale"
+        }
 
-    district_of_deputy = {}
+    district_of_member = {"Camera": {}, "Senato": {}}
     for record in records:
         district_id = record["districtId"]
         if district_id is None:
             continue
+        chamber = record["chamber"]
         label = f"representatives.json id={record['id']}"
-        if district_id not in uninominale_ids:
-            errors.append(f"{label}: districtId {district_id!r} non corrisponde a nessun collegio uninominale Camera")
+        if district_id not in uninominale_ids_by_chamber[chamber]:
+            errors.append(
+                f"{label}: districtId {district_id!r} non corrisponde a nessun "
+                f"collegio uninominale {chamber}"
+            )
             continue
-        if district_id in district_of_deputy:
+        claimed = district_of_member[chamber]
+        if district_id in claimed:
             errors.append(
                 f"{label}: collegio {district_id} già assegnato a "
-                f"{district_of_deputy[district_id]!r} — più di un deputato corrente per lo stesso collegio"
+                f"{claimed[district_id]!r} — più di un rappresentante corrente per lo stesso collegio"
             )
         else:
-            district_of_deputy[district_id] = record["id"]
+            claimed[district_id] = record["id"]
 
     if not errors:
-        print(
-            f"OK: collegamento coerente — {len(district_of_deputy)}/{len(uninominale_ids)} "
-            "collegi uninominali Camera con un deputato corrente"
-        )
+        for chamber, member_noun in (("Camera", "deputato"), ("Senato", "senatore")):
+            print(
+                f"OK: collegamento coerente — {len(district_of_member[chamber])}/"
+                f"{len(uninominale_ids_by_chamber[chamber])} "
+                f"collegi uninominali {chamber} con un {member_noun} corrente"
+            )
 
     return errors
 

@@ -70,11 +70,10 @@ final class ServiceLookupTests: XCTestCase {
     // MARK: - representatives(for:)
 
     func testRepresentativesForDistrictOnlyReturnsMatchingIds() {
-        // Real representatives (imported from open data) don't carry a
-        // districtId yet — see tools/import_representatives.py — so this
-        // currently, correctly, returns empty for every sample district.
-        // The assertion below still exercises the actual filter predicate
-        // rather than a hardcoded expectation about today's data shape.
+        // "IT-RM-C01" is a fictional sample id, so against the shipping
+        // data this correctly returns empty — the assertion exercises the
+        // actual filter predicate rather than a hardcoded expectation
+        // about today's data shape.
         let representatives = representativeService.representatives(for: "IT-RM-C01")
         XCTAssertTrue(representatives.allSatisfy { $0.districtId == "IT-RM-C01" })
     }
@@ -87,6 +86,17 @@ final class ServiceLookupTests: XCTestCase {
         let representatives = sampleService.representatives(for: "IT-RM-C01")
         XCTAssertFalse(representatives.isEmpty)
         XCTAssertTrue(representatives.allSatisfy { $0.districtId == "IT-RM-C01" })
+    }
+
+    func testRepresentativesForSenatoDistrictInSampleFixtureIsNonEmpty() {
+        // Phase 17's Senato linkage surfaces senators through the very same
+        // representatives(for:) path DistrictDetailView already uses for
+        // deputies — exercised here on the fixture's fictional Senato
+        // district, whose membership is hand-known.
+        let sampleService = RepresentativeService(resource: "representatives.sample")
+        let representatives = sampleService.representatives(for: "IT-TO-S01")
+        XCTAssertFalse(representatives.isEmpty)
+        XCTAssertTrue(representatives.allSatisfy { $0.districtId == "IT-TO-S01" && $0.chamber == .senato })
     }
 
     func testRepresentativesForUnknownDistrictIsEmpty() {

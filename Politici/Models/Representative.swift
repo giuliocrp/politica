@@ -20,6 +20,39 @@ extension ElectionType: Codable {
     }
 }
 
+/// Senato mandate category, decoded from the source's verbatim
+/// `osr:tipoMandato` literals (see docs/v3/15-senato-exploration.md §7a for
+/// the vocabulary audit and docs/v3/17-senato-mandates.md for the import).
+/// The raw values are deliberately the source's own strings, not invented
+/// slugs — `.diDirittoEAVita` (Presidente emerito) exists in the vocabulary
+/// but is never expected on a currently-serving senator (its only known
+/// bearer's mandate has ended); the pipeline validator asserts that stays
+/// true. `.sconosciuto` is a decode-time fallback only — the importer fails
+/// loudly on unknown raw values rather than ever writing it.
+enum MandateType: String, TolerantStringEnum, Hashable {
+    case elettivo
+    case nominaAVita = "a vita, di nomina del Presidente della Repubblica"
+    case diDirittoEAVita = "di diritto e a vita, Presidente emerito della Repubblica"
+    case sconosciuto
+
+    static var unknownCase: MandateType { .sconosciuto }
+
+    /// Profile badge text — non-nil only for the life-senator-by-appointment
+    /// category. The wording reuses the source's own gender-neutral category
+    /// phrasing verbatim (initial capital aside): the Senato data provides no
+    /// gender field, and "Senatore/Senatrice a vita" would require inferring
+    /// gender from the name, which this project never does.
+    var profileBadgeLabel: String? {
+        self == .nominaAVita ? "A vita, di nomina del Presidente della Repubblica" : nil
+    }
+}
+
+extension MandateType: Codable {
+    init(from decoder: Decoder) throws {
+        self = try Self.decodeTolerant(from: decoder)
+    }
+}
+
 struct Representative: Identifiable, Hashable {
     let id: String
     let name: String
@@ -39,6 +72,11 @@ struct Representative: Identifiable, Hashable {
     let provenance: DataProvenance
     let legislature: String?
     let electionType: ElectionType
+    /// Present only for senators (Phase 17): the Senato source's mandate
+    /// category. Camera records omit the key entirely — the Camera source
+    /// has no equivalent concept, so absence (nil) is honest there rather
+    /// than a `.sconosciuto` default.
+    let mandate: MandateType?
     let stableSourceId: String?
     let sourceUrl: URL?
 }
@@ -50,7 +88,7 @@ extension Representative: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, name, chamber, districtId, party, parliamentaryGroup, committees
         case attendanceRate, photoName, provenance, legislature, electionType
-        case stableSourceId, sourceUrl
+        case mandate, stableSourceId, sourceUrl
     }
 
     init(from decoder: Decoder) throws {
@@ -67,6 +105,7 @@ extension Representative: Codable {
         provenance = try container.decodeIfPresent(DataProvenance.self, forKey: .provenance) ?? .sample
         legislature = try container.decodeIfPresent(String.self, forKey: .legislature)
         electionType = try container.decodeIfPresent(ElectionType.self, forKey: .electionType) ?? .sconosciuto
+        mandate = try container.decodeIfPresent(MandateType.self, forKey: .mandate)
         stableSourceId = try container.decodeIfPresent(String.self, forKey: .stableSourceId)
         sourceUrl = try container.decodeIfPresent(URL.self, forKey: .sourceUrl)
     }
@@ -85,6 +124,7 @@ extension Representative: Codable {
         try container.encode(provenance, forKey: .provenance)
         try container.encodeIfPresent(legislature, forKey: .legislature)
         try container.encode(electionType, forKey: .electionType)
+        try container.encodeIfPresent(mandate, forKey: .mandate)
         try container.encodeIfPresent(stableSourceId, forKey: .stableSourceId)
         try container.encodeIfPresent(sourceUrl, forKey: .sourceUrl)
     }

@@ -41,8 +41,8 @@ URL: https://dati.senato.it/sparql
 Endpoint: http://dati.senato.it/sparql
 License: CC BY 3.0
 LicenseURL: https://creativecommons.org/licenses/by/3.0/
-RetrievedAt: 2026-07-18
-Notes: Queried via SPARQL for XIX Legislature. Filter uses FILTER(?legislatura=19) on the mandate resource. Three separate queries needed: senators, group memberships (ocd:aderisce), committees (osr:afferisce). Merged locally by senator URI.
+RetrievedAt: 2026-07-21
+Notes: Queried via SPARQL for XIX Legislature. Filter uses FILTER(?legislatura=19) on the mandate resource. Three separate queries needed: senators, group memberships (ocd:aderisce), committees (osr:afferisce). Merged locally by senator URI. 2026-07-21 (v3 Phase 17): senatori query extended with OPTIONAL osr:tipoElezione / osr:regioneElezione / osr:collegioElezione for the collegio-uninominale linkage; Senato-only refetch (Camera and votes caches untouched).
 
 # ISTAT — Collegi Elettorali
 Name: Basi geografiche dei collegi elettorali (D.Lgs. 177/2020)

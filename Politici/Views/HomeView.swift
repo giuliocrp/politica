@@ -118,7 +118,7 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 10) {
                 BulletRow(text: "Alla Camera, 147 deputati sono eletti direttamente in un collegio uninominale: il loro nome è associato al collegio geografico che rappresentano, visibile sulla mappa.")
                 BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale (collegi plurinominali) o nella circoscrizione Estero: sono consultabili nell'elenco dei rappresentanti, ma non sono associati a un collegio geografico specifico.")
-                BulletRow(text: "I 74 collegi uninominali del Senato sono visibili sulla mappa (seleziona \"Senato\" nel selettore), ma nessun senatore è ancora collegato al proprio collegio in questo prototipo: i senatori sono consultabili nell'elenco dei rappresentanti, senza un'area specifica sulla mappa.")
+                BulletRow(text: "Al Senato, 73 dei 74 collegi uninominali mostrano il senatore eletto direttamente nel collegio (seleziona \"Senato\" nel selettore della mappa); un collegio è attualmente privo di senatore in carica nei dati ufficiali. Gli altri senatori — eletti con il sistema proporzionale, nella circoscrizione Estero o nominati a vita — sono consultabili nell'elenco dei rappresentanti, senza un'area specifica sulla mappa.")
             }
             .padding(.top, 8)
         }

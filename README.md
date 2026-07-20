@@ -57,8 +57,8 @@ narrow exception:
   `Data/sources.json` — every source's name, license, and retrieval date,
   with a link to the original.
 - **"Come funziona l'elezione"** explainer on Home, stating plainly which
-  deputies are mapped to geography (uninominale) and which aren't
-  (plurinominale/estero/Senato).
+  representatives are mapped to geography (both chambers' uninominale
+  winners) and which aren't (plurinominale/estero, life senators).
 - **Accessibility**: non-color-only vote-outcome badges (icon + text +
   distinct VoiceOver label for every case), VoiceOver labels/hints across
   every interactive flow, Dynamic Type support (no truncating
@@ -216,9 +216,16 @@ after the fact:
   have a real collegio to point to; proportional-list and overseas-district
   deputies are visible in the representative list/profile but never plotted
   on the map, exactly as the "Come funziona l'elezione" explainer states.
-- **Senato collegi are not rendered at all** — no Senato boundary data has
-  been imported in v2 (Camera-only per the boundaries phase's explicit
-  scope). All 201 senators are listed and searchable but never mapped.
+- **128 of 201 senators are listed but not mapped to geography.** Since v3
+  Phases 16–17 the map renders both chambers' uninominale collegi (147
+  Camera + 74 Senato) and 73 currently-serving senators are linked to the
+  real Senato collegio that elected them, the same way deputies are; the
+  senators elected via proportional lists (121), the two overseas
+  constituencies, and the 5 life senators have no uninominale collegio to
+  map — exactly like Camera's plurinominale/estero deputies. One Senato
+  collegio (Lazio - U02) has no currently-serving senator in the source
+  data at all and shows an honest empty state (see
+  [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)).
 - **Votes cover 12 curated Camera roll calls, not the full record.**
   Secret-ballot votes are excluded by design — the source data only
   discloses a generic "voted" flag for them, never an actual position, so
@@ -261,9 +268,11 @@ after the fact:
 Not started, not promised on any timeline — captured here so future work
 has a documented starting point rather than a blank slate:
 
-- **Senato collegio boundaries** — extend the boundaries pipeline to the
-  Senato uninominali layer (ISTAT publishes it alongside Camera's) and
-  link current senators the same way Camera deputies are linked now.
+- **Senato collegio boundaries** — **shipped in v3** (Phases 16–17): the
+  Senato uninominali layer is imported and rendered, and current
+  uninominale-elected senators are linked to their collegi (see
+  [`docs/v3/16-senato-boundaries.md`](docs/v3/16-senato-boundaries.md) and
+  [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)).
 - **A plurinominale representation layer** — some UI treatment for the
   ~253 currently-unmapped deputies beyond "visible in the list," e.g.
   grouping by circoscrizione even without a precise polygon.

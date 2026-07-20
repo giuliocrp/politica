@@ -92,7 +92,7 @@ never constructed.
 | **Dataset** | Senatori, gruppi parlamentari e commissioni — XIX Legislatura |
 | **Access method** | SPARQL endpoint, `https://dati.senato.it/sparql` |
 | **License** | CC BY 3.0 — verified at [creativecommons.org/licenses/by/3.0](https://creativecommons.org/licenses/by/3.0/) |
-| **Retrieved** | 2026-07-18 |
+| **Retrieved** | 2026-07-21 (v3 Phase 17 — a Senato-only refetch after extending `senato_senatori.rq` with the three election predicates; Camera and votes caches untouched) |
 | **Queries** | `tools/queries/senato_senatori.rq`, `senato_gruppi.rq`, `senato_commissioni.rq` (three separate queries, merged locally by senator URI) |
 | **Fetch script** | `tools/fetch_senato.py` → `tools/raw/senato_*_sparql.json` (gitignored cache) |
 | **Import script** | `tools/import_representatives.py` |
@@ -107,8 +107,16 @@ September 2023) — verified directly against the raw SPARQL cache, not
 assumed; see [`docs/v2/02-post-import-audit.md`](v2/02-post-import-audit.md)
 for the full breakdown. `party`/`parliamentaryGroup` both use the raw group
 name (`?nomeGruppo`) — the Senato `gruppi` query has no sigla field at all,
-so there's nothing shorter to prefer. No `districtId`/`electionType`
-derivation exists for Senato in v2 — see "Known limitations" in the README.
+so there's nothing shorter to prefer. Since v3 Phase 17, every senator
+carries `mandate` = the verbatim `osr:tipoMandato` literal, and the 73
+senators whose `osr:tipoElezione` starts with `"Eletto uninominale"` carry
+the `districtId` of their real Senato collegio, joined on
+`osr:collegioElezione` against the ISTAT Senato boundaries (parse rule and
+the single Valle d'Aosta naming alias documented in
+[`docs/v3/15b-senato-link-probe.md`](v3/15b-senato-link-probe.md) and
+[`docs/v3/17-senato-mandates.md`](v3/17-senato-mandates.md)).
+`electionType` stays null for senators — `tipoElezione` is consumed at
+import time for linkage eligibility only.
 
 ---
 
@@ -254,3 +262,9 @@ No mismatches found. If a future `make fetch && make manifest` run changes
 any `retrievedAt` date or `notes` text (e.g. the votes count changes
 because the underlying vote scope shifted), this file needs a matching
 update — it is not auto-generated.
+
+Re-checked on 2026-07-21 (v3 Phase 17): the Senato-only refetch moved
+`senato-della-repubblica-xix-legislatura`'s `retrievedAt` to `2026-07-21`;
+this file's Senato entry was updated to match in the same commit. The
+other five entries are unchanged (the refetch deliberately touched no
+other source's cache).

@@ -66,6 +66,10 @@ struct RepresentativeProfileView: View {
 
             provenanceBadge(representative.provenance)
 
+            if let mandateBadgeLabel = representative.mandate?.profileBadgeLabel {
+                mandateBadge(mandateBadgeLabel)
+            }
+
             if let attendanceRate = representative.attendanceRate {
                 attendanceBadge(rate: attendanceRate)
             }
@@ -87,6 +91,16 @@ struct RepresentativeProfileView: View {
             .padding(.vertical, 6)
             .background(color.opacity(0.15), in: Capsule())
             .foregroundStyle(color)
+    }
+
+    private func mandateBadge(_ text: String) -> some View {
+        Label(text, systemImage: "star.circle.fill")
+            .font(.caption.weight(.semibold))
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(Color.purple.opacity(0.15), in: Capsule())
+            .foregroundStyle(.purple)
     }
 
     private func attendanceBadge(rate: Double) -> some View {

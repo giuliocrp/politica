@@ -9,12 +9,20 @@
 # excludes any binding with a non-null fineMandato — see
 # docs/v2/02-post-import-audit.md for why, and confirmation that this
 # correctly includes active life senators (senatori a vita).
+#
+# Phase 17 extension (docs/v3/15b-senato-link-probe.md §4): three OPTIONAL
+# election predicates for the collegio-uninominale linkage. OPTIONAL because
+# they're structurally absent for life senators (all three) and for
+# proporzionale/estero mandates (collegioElezione). Plain OPTIONAL triples
+# only — this endpoint rejects aggregate constructs (GROUP BY/COUNT/SAMPLE)
+# with HTTP 403/400, see the 15b report.
 PREFIX osr:  <http://dati.senato.it/osr/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 SELECT DISTINCT ?senatore ?foto ?nome ?cognome ?legislatura
                 ?inizioMandato ?fineMandato ?tipoMandato
                 ?tipoFineMandato ?dataNascita ?cittaNascita
                 ?provinciaNascita ?nazioneNascita
+                ?tipoElezione ?regioneElezione ?collegioElezione
 WHERE {
   ?senatore a osr:Senatore ;
             foaf:firstName ?nome ;
@@ -30,5 +38,8 @@ WHERE {
            osr:legislatura ?legislatura .
   OPTIONAL { ?mandato osr:fine ?fineMandato. }
   OPTIONAL { ?mandato osr:tipoFineMandato ?tipoFineMandato. }
+  OPTIONAL { ?mandato osr:tipoElezione ?tipoElezione. }
+  OPTIONAL { ?mandato osr:regioneElezione ?regioneElezione. }
+  OPTIONAL { ?mandato osr:collegioElezione ?collegioElezione. }
   FILTER(?legislatura = 19)
 } ORDER BY ?cognome ?nome

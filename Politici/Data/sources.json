@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20",
+  "generatedAt": "2026-07-21",
   "schemaVersion": 2,
   "sources": [
     {
@@ -47,7 +47,7 @@
       "license": "CC BY 3.0",
       "name": "Senato della Repubblica — Open Data (XIX Legislatura)",
       "notes": "Dati su senatori, gruppi parlamentari e commissioni della XIX Legislatura, ottenuti tramite tre interrogazioni SPARQL all'endpoint ufficiale dati.senato.it. Il collegio elettorale non è ancora associato ai collegi campione di questo prototipo (districtId è null).",
-      "retrievedAt": "2026-07-18",
+      "retrievedAt": "2026-07-21",
       "url": "https://dati.senato.it/sparql"
     }
   ]

@@ -110,13 +110,14 @@ final class DecodingTests: XCTestCase {
     }
 
     func testEveryNonNilRepresentativeDistrictReferencesAKnownDistrict() throws {
-        // districtId is nil for every representative imported from real open
-        // data (not yet mapped to a sample district) and non-nil for the
-        // fictional sample dataset. Only the non-nil case should be checked
-        // against districts.geojson.
-        let districts = try GeoJSONLoader.loadDistricts()
+        // Non-nil districtIds now span both chambers: uninominale deputies
+        // reference districts.geojson (Phase 8) and the 73 linked senators
+        // districts_senato.geojson (Phase 17); nil stays legitimate for
+        // plurinominale/estero deputies and unlinked senators.
+        let cameraDistricts = try GeoJSONLoader.loadDistricts()
+        let senatoDistricts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let districtIds = Set(districts.map(\.id))
+        let districtIds = Set((cameraDistricts + senatoDistricts).map(\.id))
         XCTAssertTrue(representatives.allSatisfy { representative in
             guard let districtId = representative.districtId else { return true }
             return districtIds.contains(districtId)
