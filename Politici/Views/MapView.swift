@@ -91,7 +91,6 @@ struct MapView: View {
     private var legend: some View {
         HStack(spacing: 16) {
             legendItem(color: .blue, label: "Camera dei Deputati")
-            legendItem(color: .purple, label: "Senato della Repubblica")
         }
         .font(.caption)
         .padding(.horizontal, 12)

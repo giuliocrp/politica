@@ -24,10 +24,12 @@ struct Representative: Identifiable, Hashable {
     let id: String
     let name: String
     let chamber: Chamber
-    /// Nil for representatives imported from real open data whose electoral
-    /// college hasn't been mapped to one of this app's sample districts yet
-    /// (see tools/import_representatives.py). Always non-nil for the
-    /// fictional sample dataset.
+    /// In the current shipping data, only Camera deputies elected in a
+    /// collegio uninominale carry a districtId (see the Phase 8 uninominale
+    /// linkage in tools/import_representatives.py); it is nil for deputies
+    /// elected via the plurinominale/estero routes and always nil for
+    /// senators, since Senato collegio boundaries aren't part of this
+    /// dataset. Always non-nil for the fictional sample dataset.
     let districtId: String?
     let party: String
     let parliamentaryGroup: String
