@@ -37,3 +37,20 @@ same way.
   asserting permanently, it still belongs in a real `PoliticiTests` test
   or a pipeline validation check (`tools/validate_data.py`) — the probe
   is what got you there, not a replacement for it.
+
+## Running a SPARQL probe (network-touching — deliberate only)
+
+`run_probe.py <probe.rq> <endpoint_url> [output_name.json]` runs a probe
+query through the same shared fetch machinery `tools/sparql_client.py`
+gives the real `fetch_*.py` scripts (retry/backoff, descriptive
+User-Agent, 4xx never retried) and saves the raw response under
+`output/`. Never invoked automatically — always a specific, deliberate,
+approved decision to query a live endpoint (see `docs/v3/15b-senato-link-probe.md`
+for a worked example, including two real lessons from that run: aggregate
+queries — `GROUP BY`/`SAMPLE`/`COUNT`/`IF` — got HTTP 400/403 from
+`dati.senato.it`, so probes there stick to plain `SELECT`/`SELECT DISTINCT`;
+and an unscoped `(?predicate, ?value)` enumeration hit the endpoint's
+apparent ~10,000-row cap almost entirely on one high-cardinality predicate,
+so a two-step approach — `SELECT DISTINCT ?predicate` first, then
+targeted follow-up queries per predicate of interest — is safer than one
+broad query).

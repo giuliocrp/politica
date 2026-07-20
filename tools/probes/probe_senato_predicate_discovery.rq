@@ -1,51 +1,47 @@
-# Phase 15 probe — NOT a pinned production query, NOT run in this phase.
+# Phase 15 design / Phase 15b run — see docs/v3/15-senato-exploration.md
+# (design) and docs/v3/15b-senato-link-probe.md (actual run + results).
 #
 # Purpose: discover what predicates the dati.senato.it osr: ontology
 # actually exposes on a ?senatore/?mandato resource beyond the ones
-# tools/queries/senato_senatori.rq already asks for (nome, cognome, foto,
-# cittaNascita, provinciaNascita, nazioneNascita, dataNascita, tipoMandato,
-# inizio/fineMandato) — specifically, whether anything resembling an
-# elected-collegio reference exists at all.
+# tools/queries/senato_senatori.rq already asks for — specifically,
+# whether anything resembling an elected-collegio reference exists at all.
 #
 # Why this is needed before writing a real collegio-join query: v2 Phase 8
 # hit the exact same problem on the Camera side — the obvious-looking
 # `?collegio` variable in the original query turned out to be the wrong
-# granularity (plurinominale, not uninominale), and the correct field
-# (dcterms:spatial on the election resource) was only found by running a
-# live predicate-enumeration query against the graph, not by guessing from
-# the ontology's naming conventions. See docs/v2/03-linkage-report.md and
-# CLAUDE.md's "Audit/verify before implementing" methodology note, which
-# cites that exact episode.
+# granularity, and the correct field (dcterms:spatial) was only found by
+# running a live predicate-enumeration query against the graph, not by
+# guessing from the ontology's naming conventions. See
+# docs/v2/03-linkage-report.md and CLAUDE.md's "Audit/verify before
+# implementing" methodology note.
 #
-# This phase (15) is read-only / offline-only by its own scope — it must
-# not touch the network, so this query is a DESIGN artifact only. Running
-# it is a deliberate, separate later step under the project's refetch
-# protocol (a human- or phase-approved decision to query
-# https://dati.senato.it/sparql), not something to run automatically.
+# Deliberately NOT aggregated (no GROUP BY/SAMPLE/COUNT) and deliberately
+# NOT selecting ?value alongside ?predicate: an aggregated form got
+# HTTP 400/403 from this endpoint, and a raw (?predicate, ?value) form hit
+# the endpoint's apparent ~10,000-row cap almost entirely on
+# osr:interviene (floor-speech records — thousands per senator), crowding
+# out the low-cardinality predicates before most senators were even
+# reached. SELECT DISTINCT ?predicate alone can never be truncated below
+# the true distinct-predicate count (there are only ~20, nowhere near
+# 10,000), so it safely enumerates the complete predicate set; per-predicate
+# SAMPLE values are then fetched by a small number of separate, predicate-
+# scoped follow-up queries (see docs/v3/15b-senato-link-probe.md), each
+# small enough to stay well under the row cap.
 #
-# Run manually (when that later step is approved) via:
-#   python3 -c "from tools.sparql_client import run_query; ..." — or
-#   any SPARQL client — against https://dati.senato.it/sparql, then read
-#   the ?p / sample ?o values back to identify the real collegio predicate
-#   (if one exists at all — it may simply not, since Senato's electoral
-#   system pre-2022 didn't use uninominale/plurinominale the same way
-#   Camera's did in every legislature, and this graph may not track it per
-#   senator regardless of what the ISTAT boundary layer separately knows).
+# Run only under an explicit, deliberate refetch-protocol approval — see
+# docs/v3/15-senato-exploration.md §7b for why this must never be guessed
+# from the ontology's naming conventions or run automatically.
 
 PREFIX osr:  <http://dati.senato.it/osr/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
-# Enumerate every distinct predicate used directly on a Senatore resource,
-# for the current legislature's mandates, with one sample object value per
-# predicate so a human can eyeball which one (if any) looks collegio-shaped.
-SELECT ?predicate (SAMPLE(?value) AS ?sampleValue) (COUNT(?value) AS ?occurrences)
+SELECT DISTINCT ?predicate
 WHERE {
   ?senatore a osr:Senatore ;
             osr:mandato ?mandato .
-  ?mandato osr:legislatura 19 .
+  ?mandato osr:legislatura ?legislatura .
+  FILTER(?legislatura = 19)
   { ?senatore ?predicate ?value }
   UNION
   { ?mandato ?predicate ?value }
 }
-GROUP BY ?predicate
-ORDER BY ?predicate

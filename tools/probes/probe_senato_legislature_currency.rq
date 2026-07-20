@@ -1,0 +1,31 @@
+# Phase 15b probe — run once, deliberately, under the refetch protocol
+# (not part of the normal offline pipeline).
+#
+# Purpose: verify Legislature XIX (19) is still the current legislature
+# before trusting any Phase 15b predicate-discovery result — if a later
+# legislature integer appears in the graph, Legislature XIX is no longer
+# current and everything downstream (including senato_senatori.rq's own
+# FILTER(?legislatura = 19)) would be querying a superseded legislature.
+#
+# Enumerates every distinct ?legislatura value reachable from a Senatore's
+# ?mandato. If the highest integer value present is 19, with nothing
+# beyond it, XIX is confirmed current.
+#
+# NOTE: an earlier draft of this probe used GROUP BY/COUNT/SUM(IF(...))
+# to also report per-legislature current-mandate counts in one query —
+# that aggregate form gets HTTP 403 from this endpoint (confirmed live;
+# not a generic block, since this plain SELECT DISTINCT and the existing
+# tools/queries/senato_senatori.rq both succeed against the same
+# endpoint/User-Agent). Simplified to what the endpoint actually accepts;
+# the plain distinct-value enumeration is sufficient to answer "is a later
+# legislature present" without needing per-legislature counts.
+
+PREFIX osr: <http://dati.senato.it/osr/>
+
+SELECT DISTINCT ?legislatura
+WHERE {
+  ?senatore a osr:Senatore ;
+            osr:mandato ?mandato .
+  ?mandato osr:legislatura ?legislatura .
+}
+ORDER BY ?legislatura
