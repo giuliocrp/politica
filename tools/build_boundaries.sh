@@ -2,7 +2,9 @@
 # Builds Politici/Data/districts.geojson from the official ISTAT Camera
 # collegi-uninominali shapefile: reproject EPSG:32632 -> EPSG:4326, simplify
 # for mobile, convert to GeoJSON via ogr2ogr, then hand off to
-# tools/import_boundaries.py to emit the final schema-v2 file.
+# tools/import_boundaries.py to emit the final schema-v2 file — which also
+# prints a per-feature vertex report and enforces the vertex/byte budgets
+# (see MAX_VERTICES_PER_FEATURE / MAX_OUTPUT_BYTES there).
 #
 # Offline — processes an already-downloaded local shapefile, no network.
 # Run via `make boundaries`.

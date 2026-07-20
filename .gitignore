@@ -17,6 +17,10 @@ DerivedData/
 Packages/
 tools/raw/
 
+# Probe outputs (scripts under tools/probes/ are committed; their disposable
+# output is not — see tools/probes/README.md)
+tools/probes/output/
+
 # Python
 __pycache__/
 *.pyc

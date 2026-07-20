@@ -52,10 +52,12 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project Pol
 `Politici/Data/districts.geojson`, `Politici/Data/representatives.json`,
 `Politici/Data/votes.json`, `Politici/Data/parties.json`, and
 `Politici/Data/sources.json` are **generated artifacts** — never
-hand-edit them. They're produced by the `tools/` pipeline (`make fetch`,
-`make import`, `make boundaries`, `make validate`, `make manifest` — see
+hand-edit them. They're produced by the `tools/` pipeline: `make import`,
+`make boundaries`, `make manifest`, `make validate` — bundled as the fully
+offline `make all` — or `make refresh` (network-touching `make fetch`
+followed by `make all`) to pull fresh source data first. See
 `README.md`'s "Data pipeline" section and `docs/DATA_SOURCES.md` for the
-full per-source detail and refresh procedure). If a value in one of these
+full per-source detail and refresh procedure. If a value in one of these
 files looks wrong, fix the pipeline script that produced it and
 re-run — don't patch the JSON/GeoJSON directly.
 

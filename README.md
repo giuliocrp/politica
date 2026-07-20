@@ -113,17 +113,28 @@ make fetch       # network required — SPARQL queries against dati.camera.it /
 make import       # offline — merges tools/raw/*.json into Data/*.json
 make boundaries   # offline — rebuilds districts.geojson from the local
                   # ISTAT shapefile (tools/raw/collegi/, not fetched by
-                  # `make fetch`; see docs/v2/03-boundaries-audit.md)
-make validate     # offline — structural + referential-integrity checks
+                  # `make fetch`; see docs/v2/03-boundaries-audit.md), and
+                  # prints a per-feature vertex report against a 1500-vertex
+                  # gate (see docs/v3/14-pipeline-hardening.md)
 make manifest     # offline — regenerates Data/sources.json
-make all          # fetch + import + validate + manifest + boundaries
+make validate     # offline — structural + referential-integrity checks;
+                  # runs last so it checks the final state of everything
+                  # the steps above produce
+make all          # offline — import + boundaries + manifest + validate,
+                  # against whatever is already cached under tools/raw/
+                  # (never fetches — see `make refresh` below)
 ```
 
-One-command refresh of the SPARQL-derived data (representatives + votes):
+One-command refresh of the SPARQL-derived data (fetch, then rebuild
+everything from it):
 
 ```bash
-make fetch && make all
+make refresh
 ```
+
+`make refresh` (`fetch` + `all`) and `make fetch` are the only two targets
+that touch the network — every other target, including `all`, is fully
+offline against the `tools/raw/` cache left by a previous fetch.
 
 Every SPARQL query is a pinned, versioned `.rq` file under `tools/queries/`
 (never an inline string) — see `tools/sparql_client.py` for the shared
@@ -233,17 +244,17 @@ after the fact:
   is correctly excluded.
 - **All data is a snapshot** as of each source's `retrievedAt` date in
   `Data/sources.json` / the in-app "Informazioni e fonti" screen — nothing
-  refreshes automatically; re-running `make fetch && make all` is required
-  to update it, and the app has no way to know it's stale beyond the
-  displayed date.
+  refreshes automatically; re-running `make refresh` is required to update
+  it, and the app has no way to know it's stale beyond the displayed date.
 - **`PoliticiUITests` is still unmodified Xcode template boilerplate** — no
   real UI-automation test coverage exists; all verification during v2 was
   either `PoliticiTests` unit coverage or manual simulator/screenshot
   checks (documented per-phase in `docs/v2/*.md`).
-- **`IPHONEOS_DEPLOYMENT_TARGET` is 26.5**, inherited from the Xcode
-  project template at creation time — the app uses no API newer than iOS
-  17, but the deployment target was never explicitly lowered (flagged,
-  never actioned, since `docs/v2/00-audit.md`).
+- **`IPHONEOS_DEPLOYMENT_TARGET` is 17.0** — the app's real technical
+  floor (no API newer than iOS 17 is used). It was audited and lowered
+  from 26.5, the Xcode template default it had inherited since creation,
+  in v3 Phases 13/13B (`docs/v3/13-baseline-audit.md`,
+  `docs/v3/13b-deployment-target.md`).
 
 ## v3 roadmap
 

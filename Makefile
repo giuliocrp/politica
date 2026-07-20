@@ -1,9 +1,11 @@
-.PHONY: fetch import validate manifest boundaries all
+.PHONY: fetch import validate manifest boundaries all refresh
 
 PYTHON := python3
 
 # Fetches raw SPARQL data from dati.camera.it and dati.senato.it.
-# Requires network access. Writes only under tools/raw/.
+# Requires network access. Writes only under tools/raw/. This is the only
+# target in this Makefile that touches the network — `all` never depends
+# on it (see below); use `refresh` when you deliberately want a re-fetch.
 fetch:
 	$(PYTHON) tools/fetch_camera.py
 	$(PYTHON) tools/fetch_senato.py
@@ -15,8 +17,11 @@ import:
 	$(PYTHON) tools/import_representatives.py
 	$(PYTHON) tools/import_votes.py
 
-# Structural validation of Politici/Data/representatives.json and
-# Politici/Data/districts.geojson.
+# Structural + referential-integrity validation of everything the steps
+# above produce (representatives.json, districts.geojson, votes.json).
+# Run last in `all` so it checks the final state of every generated file,
+# not a stale one from before this run. Exits non-zero on any violation,
+# which fails the `make all`/`make refresh` run.
 validate:
 	$(PYTHON) tools/validate_data.py
 
@@ -31,4 +36,13 @@ manifest:
 boundaries:
 	./tools/build_boundaries.sh
 
-all: fetch import validate manifest boundaries
+# Fully offline: rebuilds every generated Data/*.json(.geojson) file from
+# the tools/raw/ cache left by a previous `make fetch`, in dependency
+# order, with validate last so it checks this run's actual final output.
+# Does NOT fetch — see `refresh` for that.
+all: import boundaries manifest validate
+
+# Deliberate, network-touching refresh: fetch fresh data, then rebuild
+# everything from it. This is the only target besides `fetch` itself that
+# reaches the network.
+refresh: fetch all
