@@ -91,18 +91,26 @@ a measured early exit). See `README.md` for the shipped state and
   verification (`docs/v3/22-release.md`). Tagging and pushing are
   deferred to Phase 22B pending the release actions below.
 
-### Release actions (status as of Phase 22B, 2026-07-21)
+### Release actions (status as of the post-22B record, 2026-07-21)
 
 - [x] **Tag `v3.0-prototype`**: approved ("Proceed with Phase 22B." in
       response to the pending-decisions block — quoted in
-      `docs/v3/22-release.md`) and created **locally** by Phase 22B at
-      the decisions commit. Not pushed; push commands printed in the
-      22B record, not executed.
-- [ ] **Repository visibility / GitHub Release**: *pending user
-      decision* — release URL placeholder: `<github-release-url>`.
-- [ ] **Retrospective `v1.0.0` tag** at the v1 close: **not created** —
-      requires a separate explicit instruction that was not given;
-      deliberately not re-asked.
+      `docs/v3/22-release.md`), created locally by Phase 22B at the
+      decisions commit, then **pushed by the user** together with the
+      branch; `v3` was merged to `main` via PR #2 (`0baedaa`).
+- [x] **GitHub Release**: **published by the user directly on GitHub**
+      (2026-07-21, reported in-session). The release URL was not
+      reachable unauthenticated at check time (HTTP 404 — consistent
+      with a private repository), so no link is asserted here:
+      placeholder `<github-release-url>` stands until a public URL
+      exists or is provided. Repository visibility itself therefore also
+      remains unstated rather than guessed.
+- [x] **Retrospective `v1.0.0` tag**: **created by the user directly**
+      (lightweight tag at `6d3b866`, "Complete Prototype v1"), observed
+      on the remote post-22B. Phase 22B itself created no such tag — the
+      plan's create-only-on-separate-instruction constraint bound the
+      assistant's actions, and the user exercised the decision
+      personally instead.
 - [ ] **V3 commissioning brief archival** (open since Phase 13): still
       pending — the brief was never provided; archive under
       `docs/history/` if/when it surfaces.

@@ -163,3 +163,28 @@ commit): the verification trio was re-run on the exact committed state
 the tag points at; `git tag --points-at HEAD` lists `v3.0-prototype`;
 `v2.0-prototype` untouched; no `v1.0.0`; working tree clean; nothing
 pushed.
+
+## Post-22B addendum (2026-07-21, same day)
+
+The user then executed the release actions personally, and reported so
+in-session; verified from the repository state afterwards:
+
+- `origin/v3` == local `v3` (`f90f194`) and `v3.0-prototype` is on the
+  remote — the printed push commands were effectively executed by the
+  user.
+- `v3` was merged to `main` via **PR #2** (`0baedaa`) — the full v3 line
+  (13 → 22B) is now on the default branch.
+- A **GitHub Release was published by the user** for the new tag
+  (user-reported). An unauthenticated fetch of the canonical release URL
+  returned HTTP 404 — consistent with a private repository — so the
+  release's existence is recorded on the user's word and the remote tag
+  evidence, without asserting a link this session couldn't verify.
+- A **`v1.0.0` tag now exists on the remote**, created by the user
+  directly: lightweight (not annotated), at `6d3b866` ("Complete
+  Prototype v1: all phases, icon, display name rename") — precisely the
+  commit the plan had named for the hypothetical retrospective tag. 22B
+  itself created no `v1.0.0` (see above); the constraint governed this
+  assistant's actions, not the repository owner's own.
+
+With this, every release action except the commissioning-brief archival
+is closed. V3 is complete.
