@@ -57,6 +57,7 @@ struct RepresentativeProfileView: View {
         .contentShape(Rectangle())
         .accessibilityLabel(isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti")
         .accessibilityAddTraits(isFavorite ? .isSelected : [])
+        .accessibilityIdentifier("profile.favorite")
     }
 
     @ViewBuilder
@@ -106,6 +107,7 @@ struct RepresentativeProfileView: View {
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("profile.header")
     }
 
     private func provenanceBadge(_ provenance: DataProvenance) -> some View {
@@ -178,6 +180,7 @@ struct RepresentativeProfileView: View {
             }
             .buttonStyle(.bordered)
             .accessibilityHint("Apre l'elenco completo delle votazioni")
+            .accessibilityIdentifier("profile.cta.voteHistory")
         }
     }
 }

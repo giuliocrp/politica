@@ -39,6 +39,7 @@ struct PreferitiView: View {
                             RepresentativeRow(representative: representative)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityIdentifier("representative.row.\(representative.id)")
                     }
                 }
                 .padding()

@@ -24,7 +24,7 @@ struct ServiceContainer {
         geocodingService: .shared,
         manifestService: .shared,
         partyStyleService: .shared,
-        favoritesStore: UserDefaultsFavoritesStore.shared
+        favoritesStore: UserDefaultsFavoritesStore.live
     )
 }
 

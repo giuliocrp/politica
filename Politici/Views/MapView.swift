@@ -164,6 +164,7 @@ struct ChamberPicker: View {
         }
         .pickerStyle(.segmented)
         .labelsHidden()
+        .accessibilityIdentifier("chamber.picker")
     }
 }
 

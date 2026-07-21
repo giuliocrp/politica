@@ -51,6 +51,7 @@ struct AddressSearchView: View {
                         .submitLabel(.search)
                         .onSubmit(search)
                         .accessibilityHint("Inserisci un indirizzo o una città per trovare il collegio")
+                        .accessibilityIdentifier("addressSearch.field")
                 }
                 .padding(12)
                 .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
@@ -74,6 +75,7 @@ struct AddressSearchView: View {
                             .controlSize(.small)
                             .frame(minHeight: 44)
                             .contentShape(Rectangle())
+                            .accessibilityIdentifier("addressSearch.city.\(city)")
                         }
                     }
                 }
@@ -95,6 +97,7 @@ struct AddressSearchView: View {
             }
             .buttonStyle(.borderedProminent)
             .disabled(query.trimmingCharacters(in: .whitespaces).isEmpty || isSearching)
+            .accessibilityIdentifier("addressSearch.submit")
 
             if let errorMessage {
                 // `Label` already presents icon+text as one accessibility
@@ -241,6 +244,7 @@ struct AddressSearchView: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Collegio trovato")
                 .font(.headline)
+                .accessibilityIdentifier("addressSearch.results.header")
             ChamberResultRow(chamber: .camera, district: matches[.camera]) {
                 if let district = matches[.camera] {
                     path.append(.districtDetail(districtId: district.id))
@@ -273,6 +277,12 @@ private struct ChamberResultRow: View {
         chamber == .camera ? "Camera" : "Senato"
     }
 
+    /// Stable across both branches below, so a test can assert the dual
+    /// structure regardless of which chambers actually matched.
+    private var identifier: String {
+        "addressSearch.result.\(chamber == .camera ? "camera" : "senato")"
+    }
+
     var body: some View {
         if let district {
             Button(action: onSelect) {
@@ -297,11 +307,13 @@ private struct ChamberResultRow: View {
             .buttonStyle(.plain)
             .accessibilityElement(children: .combine)
             .accessibilityHint("Apre i dettagli del collegio")
+            .accessibilityIdentifier(identifier)
         } else {
             Text("Collegio \(chamberLabel): indirizzo non coperto dal prototipo per questa camera.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .frame(minHeight: 44, alignment: .leading)
+                .accessibilityIdentifier(identifier)
         }
     }
 }

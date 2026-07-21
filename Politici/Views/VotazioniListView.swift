@@ -37,6 +37,7 @@ struct VotazioniListView: View {
                         Text("Campione di \(events.count) votazioni importate — non l'archivio completo")
                             .font(.footnote)
                             .textCase(nil)
+                            .accessibilityIdentifier("votazioni.scope")
                     }
                 }
                 .listStyle(.plain)
@@ -78,6 +79,7 @@ struct VoteEventRow: View {
                 tallyRow
             }
             .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("vote.event.\(event.id)")
 
             if let sourceUrl = event.sourceUrl, let url = URL(string: sourceUrl) {
                 Link(destination: url) {
@@ -89,6 +91,7 @@ struct VoteEventRow: View {
                 .contentShape(Rectangle())
                 .accessibilityLabel("Fonte ufficiale")
                 .accessibilityHint("Apre la scheda della votazione sul sito della Camera dei Deputati")
+                .accessibilityIdentifier("vote.event.source.\(event.id)")
             }
         }
         .padding(12)

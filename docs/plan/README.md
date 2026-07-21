@@ -15,7 +15,7 @@ phase's report. Statuses: `pending` / `in progress` / `done` /
 | Phase | Title | Gate / network | Status |
 |---|---|---|---|
 | [23](phase-23.md) | Baseline audit & hygiene | — | [done](../v4/23-baseline-audit.md) |
-| [24](phase-24.md) | Real UI tests + a11y audits | — | pending |
+| [24](phase-24.md) | Real UI tests + a11y audits | — | [done](../v4/24-ui-tests.md) |
 | [25](phase-25.md) | Plurinominale geography | GO-PLURI | pending |
 | [26](phase-26.md) | Senato regione + electionType | GO-REG | pending |
 | [27](phase-27.md) | Stratified votes + lazy loading | **USER-GATED network** | pending |

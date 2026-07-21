@@ -53,6 +53,7 @@ struct DistrictDetailView: View {
             }
         }
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("district.header")
     }
 
     private func representativesSection(for district: District) -> some View {
@@ -61,6 +62,7 @@ struct DistrictDetailView: View {
             // (Phase 18); Senato pages keep the Phase 16 title.
             Text(district.chamber == .camera ? "Eletto nel collegio uninominale" : "Rappresentanti eletti")
                 .font(.headline)
+                .accessibilityIdentifier("district.section.uninominale")
 
             if representatives.isEmpty {
                 Text("Nessun rappresentante collegato in questa versione del prototipo.")
@@ -73,6 +75,7 @@ struct DistrictDetailView: View {
                         RepresentativeRow(representative: representative)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("representative.row.\(representative.id)")
                 }
             }
         }
@@ -91,6 +94,7 @@ struct DistrictDetailView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Rappresentanti plurinominali della circoscrizione \(circoscrizione)")
                     .font(.headline)
+                    .accessibilityIdentifier("district.section.plurinominale")
                 Text("Eletti con il sistema proporzionale nei collegi plurinominali della circoscrizione: rappresentano l'intera circoscrizione, non questo specifico collegio uninominale.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
@@ -106,6 +110,7 @@ struct DistrictDetailView: View {
                             RepresentativeRow(representative: deputy)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityIdentifier("representative.row.\(deputy.id)")
                     }
                 }
             }

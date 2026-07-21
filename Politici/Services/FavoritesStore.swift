@@ -34,6 +34,39 @@ protocol FavoritesStore: AnyObject {
 final class UserDefaultsFavoritesStore: FavoritesStore {
     static let shared = UserDefaultsFavoritesStore()
 
+    /// The store the app actually runs with (see `ServiceContainer.live`).
+    /// In release builds this is always `shared`, i.e. `.standard`-backed.
+    /// In DEBUG it additionally honors the Phase 24 UI-test launch argument
+    /// — see `uiTestSuite()`.
+    static var live: UserDefaultsFavoritesStore {
+        #if DEBUG
+        if let suite = uiTestSuite() {
+            return UserDefaultsFavoritesStore(defaults: suite)
+        }
+        #endif
+        return shared
+    }
+
+    #if DEBUG
+    /// UI-test seam (Phase 24): launching the app with
+    /// `-favoritesSuite <name>` makes favorites persist in that named
+    /// `UserDefaults` suite instead of `.standard`, and wipes the suite at
+    /// launch so every UI test starts from a known-empty store without ever
+    /// touching a real user's favorites. Reuses the store's existing
+    /// `init(defaults:)` injection seam rather than adding a second one;
+    /// reads the value through `.standard` because `-key value` launch
+    /// arguments land in `UserDefaults`' argument domain. Compiled out of
+    /// release builds entirely, and inert in DEBUG unless the argument is
+    /// passed — the shipping app's behavior is unchanged either way.
+    static func uiTestSuite() -> UserDefaults? {
+        guard let name = UserDefaults.standard.string(forKey: "favoritesSuite"),
+              !name.isEmpty,
+              let suite = UserDefaults(suiteName: name) else { return nil }
+        suite.removePersistentDomain(forName: name)
+        return suite
+    }
+    #endif
+
     private static let storageKey = "favorites.v1"
     private static let schemaVersion = 1
 

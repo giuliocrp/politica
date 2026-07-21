@@ -46,6 +46,7 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Politica Italia")
                 .font(.largeTitle.bold())
+                .accessibilityIdentifier("home.title")
             Text("Scopri il tuo collegio elettorale, i rappresentanti in Parlamento e il loro operato — un prototipo locale, senza account né connessione a Internet.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
@@ -65,6 +66,7 @@ struct HomeView: View {
                     .submitLabel(.search)
                     .onSubmit(navigateToSearch)
                     .accessibilityHint("Cerca il collegio elettorale per indirizzo o città")
+                    .accessibilityIdentifier("home.search.field")
                 Button(action: navigateToSearch) {
                     Image(systemName: "arrow.right.circle.fill")
                         .font(.title3)
@@ -73,6 +75,7 @@ struct HomeView: View {
                 .contentShape(Rectangle())
                 .disabled(addressQuery.trimmingCharacters(in: .whitespaces).isEmpty)
                 .accessibilityLabel("Cerca")
+                .accessibilityIdentifier("home.search.submit")
             }
             .padding(12)
             .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
@@ -90,6 +93,7 @@ struct HomeView: View {
         }
         .buttonStyle(.borderedProminent)
         .tint(.blue)
+        .accessibilityIdentifier("home.cta.map")
     }
 
     private var statsSection: some View {
@@ -103,6 +107,7 @@ struct HomeView: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco completo dei collegi")
+            .accessibilityIdentifier("home.stat.collegi")
 
             Button {
                 path.append(.representativeList)
@@ -111,8 +116,10 @@ struct HomeView: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco completo dei rappresentanti")
+            .accessibilityIdentifier("home.stat.rappresentanti")
 
             StatCard(value: "2", label: "Camere del Parlamento")
+                .accessibilityIdentifier("home.stat.camere")
 
             Button {
                 path.append(.preferiti)
@@ -121,6 +128,7 @@ struct HomeView: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco dei preferiti")
+            .accessibilityIdentifier("home.stat.preferiti")
         }
     }
 
@@ -135,6 +143,7 @@ struct HomeView: View {
         }
         .buttonStyle(.bordered)
         .accessibilityHint("Apre l'elenco delle votazioni importate")
+        .accessibilityIdentifier("home.cta.votazioni")
     }
 
     private var comeFunzionaSection: some View {
@@ -172,6 +181,7 @@ struct HomeView: View {
                     RepresentativeRow(representative: representative)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier("representative.row.\(representative.id)")
             }
         }
     }

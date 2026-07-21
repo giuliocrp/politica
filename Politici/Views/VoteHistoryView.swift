@@ -39,6 +39,7 @@ struct VoteHistoryView: View {
                             // distinct from the no-data case above.
                             Text("Nessuna votazione corrisponde ai filtri selezionati.")
                                 .foregroundStyle(.secondary)
+                                .accessibilityIdentifier("voteHistory.emptyFilter")
                                 .listRowSeparator(.hidden)
                         } else {
                             ForEach(filteredVotes) { vote in
@@ -93,6 +94,7 @@ struct VoteHistoryView: View {
         .contentShape(Rectangle())
         .accessibilityLabel(choice == nil ? "Tutte le votazioni" : "Filtra per \(title)")
         .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier("voteHistory.chip.\(choice?.rawValue ?? "tutte")")
     }
 
     /// Pure filter (unit-tested as such): outcome chip and title search
@@ -148,6 +150,7 @@ struct VoteRow: View {
                 }
             }
             .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("vote.row.\(vote.id)")
 
             if let sourceUrl = vote.sourceUrl, let url = URL(string: sourceUrl) {
                 Link(destination: url) {
