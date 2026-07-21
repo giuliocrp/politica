@@ -81,7 +81,9 @@ extension Vote: Codable {
         case id, representativeId, title, date, vote, result, sourceUrl, provenance
     }
 
-    private static let dateFormatter: DateFormatter = {
+    /// Shared with `VoteEventRecord` (Phase 20), which stores the same
+    /// `yyyy-MM-dd` strings.
+    static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -122,4 +124,82 @@ extension Vote: Codable {
         try container.encodeIfPresent(sourceUrl, forKey: .sourceUrl)
         try container.encode(provenance, forKey: .provenance)
     }
+}
+
+// MARK: - Normalized shipping schema (Phase 20 — docs/v3/20-vote-browsing.md)
+
+/// `votes.json`'s on-disk shape since Phase 20:
+/// `{"events":[...],"positions":[...]}` — the once-per-event fields live on
+/// `VoteEventRecord`, each position references its event via the
+/// source-backed `voteEventId` (the ocd:votazione URI slug, e.g.
+/// `"vs19_690_076"` — never minted). The frozen `votes.sample.json` fixture
+/// keeps the older flat `[Vote]` shape; `VoteService` decodes either.
+struct VotesFile: Codable {
+    let events: [VoteEventRecord]
+    let positions: [VotePositionRecord]
+}
+
+struct VoteEventRecord: Identifiable, Hashable {
+    let id: String
+    let title: String
+    let date: Date
+    let result: VoteResult
+    let sourceUrl: String?
+    let provenance: DataProvenance
+}
+
+extension VoteEventRecord: Codable {
+    private enum CodingKeys: String, CodingKey {
+        case id, title, date, result, sourceUrl, provenance
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        result = try container.decode(VoteResult.self, forKey: .result)
+        sourceUrl = try container.decodeIfPresent(String.self, forKey: .sourceUrl)
+        provenance = try container.decodeIfPresent(DataProvenance.self, forKey: .provenance) ?? .sample
+
+        let dateString = try container.decode(String.self, forKey: .date)
+        guard let parsedDate = Vote.dateFormatter.date(from: dateString) else {
+            throw DecodingError.dataCorruptedError(
+                forKey: .date,
+                in: container,
+                debugDescription: "Formato data non valido: \(dateString)"
+            )
+        }
+        date = parsedDate
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(title, forKey: .title)
+        try container.encode(Vote.dateFormatter.string(from: date), forKey: .date)
+        try container.encode(result, forKey: .result)
+        try container.encodeIfPresent(sourceUrl, forKey: .sourceUrl)
+        try container.encode(provenance, forKey: .provenance)
+    }
+}
+
+struct VotePositionRecord: Identifiable, Hashable, Codable {
+    let id: String
+    let voteEventId: String
+    let representativeId: String
+    let vote: VoteChoice
+}
+
+/// One votazione aggregated for the Votazioni screen — counts keyed
+/// strictly by `voteEventId` (see `VoteService.aggregateEvents`). Not a
+/// decoded type: always derived from the records above.
+struct VoteEvent: Identifiable, Hashable {
+    let id: String
+    let title: String
+    let date: Date
+    let result: VoteResult
+    let counts: [VoteChoice: Int]
+    let sourceUrl: String?
+
+    var totalPositions: Int { counts.values.reduce(0, +) }
 }

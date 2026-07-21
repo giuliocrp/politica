@@ -21,15 +21,23 @@ DISTRICTS_PATH = ROOT / "Politici" / "Data" / "districts.geojson"
 DISTRICTS_SENATO_PATH = ROOT / "Politici" / "Data" / "districts_senato.geojson"
 VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
 
-REQUIRED_VOTE_KEYS = {
+# Phase 20 normalized schema (docs/v3/20-vote-browsing.md): votes.json is
+# {"events":[...],"positions":[...]} — event fields live once per event,
+# positions reference their event via the source-backed voteEventId (the
+# votazione URI slug, e.g. "vs19_690_076").
+REQUIRED_VOTE_EVENT_KEYS = {
     "id",
-    "representativeId",
     "title",
     "date",
-    "vote",
     "result",
     "sourceUrl",
     "provenance",
+}
+REQUIRED_VOTE_POSITION_KEYS = {
+    "id",
+    "voteEventId",
+    "representativeId",
+    "vote",
 }
 VALID_VOTE_CHOICES = {"Favorevole", "Contrario", "Astenuto", "Assente", "Sconosciuto"}
 VALID_VOTE_RESULTS = {"Approvato", "Respinto", "Sconosciuto"}
@@ -521,58 +529,100 @@ def validate_votes():
         )
 
     try:
-        records = json.loads(VOTES_PATH.read_text(encoding="utf-8"))
+        payload = json.loads(VOTES_PATH.read_text(encoding="utf-8"))
     except json.JSONDecodeError as error:
         return errors + [f"{VOTES_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
 
-    if not isinstance(records, list):
-        return errors + [f"{VOTES_PATH.relative_to(ROOT)}: il contenuto non è un array JSON"]
+    if not isinstance(payload, dict) or set(payload.keys()) != {"events", "positions"}:
+        return errors + [
+            f"{VOTES_PATH.relative_to(ROOT)}: atteso un oggetto con esattamente le chiavi "
+            "'events' e 'positions' (schema Fase 20)"
+        ]
 
-    seen_ids = set()
-    for index, record in enumerate(records):
-        label = f"votes.json record #{index} (id={record.get('id', '?')})"
+    events = payload["events"]
+    positions = payload["positions"]
+    if not isinstance(events, list) or not events:
+        errors.append(f"{VOTES_PATH.relative_to(ROOT)}: 'events' deve essere un array non vuoto")
+        return errors
+    if not isinstance(positions, list) or not positions:
+        errors.append(f"{VOTES_PATH.relative_to(ROOT)}: 'positions' deve essere un array non vuoto")
+        return errors
 
-        if not isinstance(record, dict):
+    seen_event_ids = set()
+    for index, event in enumerate(events):
+        label = f"votes.json event #{index} (id={event.get('id', '?') if isinstance(event, dict) else '?'})"
+        if not isinstance(event, dict):
             errors.append(f"{label}: non è un oggetto JSON")
             continue
-
-        missing = REQUIRED_VOTE_KEYS - record.keys()
+        missing = REQUIRED_VOTE_EVENT_KEYS - event.keys()
         if missing:
             errors.append(f"{label}: chiavi mancanti: {sorted(missing)}")
             continue
-
-        vote_id = record["id"]
-        if not isinstance(vote_id, str) or not vote_id:
+        event_id = event["id"]
+        if not isinstance(event_id, str) or not event_id:
             errors.append(f"{label}: 'id' deve essere una stringa non vuota")
-        elif vote_id in seen_ids:
-            errors.append(f"{label}: id duplicato")
+        elif event_id in seen_event_ids:
+            errors.append(f"{label}: id evento duplicato")
         else:
-            seen_ids.add(vote_id)
-
-        if not isinstance(record["representativeId"], str) or not record["representativeId"]:
-            errors.append(f"{label}: 'representativeId' deve essere una stringa non vuota")
-
-        if not isinstance(record["title"], str) or not record["title"].strip():
+            seen_event_ids.add(event_id)
+        if not isinstance(event["title"], str) or not event["title"].strip():
             errors.append(f"{label}: 'title' deve essere una stringa non vuota")
-
-        if not isinstance(record["date"], str) or not DATE_RE.fullmatch(record["date"]):
-            errors.append(f"{label}: 'date' deve essere nel formato yyyy-MM-dd, trovato {record['date']!r}")
-
-        if record["vote"] not in VALID_VOTE_CHOICES:
-            errors.append(f"{label}: 'vote' non valido: {record['vote']!r}")
-
-        if record["result"] not in VALID_VOTE_RESULTS:
-            errors.append(f"{label}: 'result' non valido: {record['result']!r}")
-
-        source_url = record["sourceUrl"]
+        if not isinstance(event["date"], str) or not DATE_RE.fullmatch(event["date"]):
+            errors.append(f"{label}: 'date' deve essere nel formato yyyy-MM-dd, trovato {event.get('date')!r}")
+        if event["result"] not in VALID_VOTE_RESULTS:
+            errors.append(f"{label}: 'result' non valido: {event['result']!r}")
+        source_url = event["sourceUrl"]
         if source_url is not None and not (isinstance(source_url, str) and source_url.startswith("http")):
             errors.append(f"{label}: 'sourceUrl' deve essere null o un URL http(s)")
+        if event["provenance"] not in VALID_PROVENANCE:
+            errors.append(f"{label}: 'provenance' non valido: {event['provenance']!r}")
 
-        if record["provenance"] not in VALID_PROVENANCE:
-            errors.append(f"{label}: 'provenance' non valido: {record['provenance']!r}")
+    seen_position_ids = set()
+    position_event_ids = set()
+    for index, position in enumerate(positions):
+        label = f"votes.json position #{index} (id={position.get('id', '?') if isinstance(position, dict) else '?'})"
+        if not isinstance(position, dict):
+            errors.append(f"{label}: non è un oggetto JSON")
+            continue
+        missing = REQUIRED_VOTE_POSITION_KEYS - position.keys()
+        if missing:
+            errors.append(f"{label}: chiavi mancanti: {sorted(missing)}")
+            continue
+        position_id = position["id"]
+        if not isinstance(position_id, str) or not position_id:
+            errors.append(f"{label}: 'id' deve essere una stringa non vuota")
+        elif position_id in seen_position_ids:
+            errors.append(f"{label}: id posizione duplicato")
+        else:
+            seen_position_ids.add(position_id)
+        event_ref = position["voteEventId"]
+        if not isinstance(event_ref, str) or not event_ref:
+            errors.append(f"{label}: 'voteEventId' deve essere una stringa non vuota")
+        else:
+            position_event_ids.add(event_ref)
+        if not isinstance(position["representativeId"], str) or not position["representativeId"]:
+            errors.append(f"{label}: 'representativeId' deve essere una stringa non vuota")
+        if position["vote"] not in VALID_VOTE_CHOICES:
+            errors.append(f"{label}: 'vote' non valido: {position['vote']!r}")
+
+    # Phase 20 invariants: every position references an existing event and
+    # every event has at least one position — the distinct voteEventId set
+    # must be exactly the event-id set. (Each id mapping to exactly one
+    # (date, title, result, sourceUrl) tuple is structural in this schema:
+    # the tuple lives once, on the event record, and event ids are unique.)
+    if not errors:
+        orphaned = position_event_ids - seen_event_ids
+        if orphaned:
+            errors.append(f"votes.json: voteEventId senza evento corrispondente: {sorted(orphaned)}")
+        unreferenced = seen_event_ids - position_event_ids
+        if unreferenced:
+            errors.append(f"votes.json: eventi senza alcuna posizione: {sorted(unreferenced)}")
 
     if not errors:
-        print(f"OK: {len(records)} posizioni valide in {VOTES_PATH.relative_to(ROOT)} ({file_size / 1024:.0f} KB)")
+        print(
+            f"OK: {len(positions)} posizioni in {len(events)} votazioni valide in "
+            f"{VOTES_PATH.relative_to(ROOT)} ({file_size / 1024:.0f} KB)"
+        )
 
     return errors
 
@@ -584,16 +634,16 @@ def validate_votes_reference_representatives():
     Only meaningful once both files already passed their own structural
     checks, so main() only calls this when they were both clean."""
     representatives = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
-    votes = json.loads(VOTES_PATH.read_text(encoding="utf-8"))
+    positions = json.loads(VOTES_PATH.read_text(encoding="utf-8"))["positions"]
     representative_ids = {r["id"] for r in representatives}
 
-    unresolved = sorted({v["representativeId"] for v in votes} - representative_ids)
+    unresolved = sorted({p["representativeId"] for p in positions} - representative_ids)
     if unresolved:
         return [f"votes.json: representativeId non trovati in representatives.json: {unresolved}"]
 
-    distinct_representatives_with_votes = {v["representativeId"] for v in votes}
+    distinct_representatives_with_votes = {p["representativeId"] for p in positions}
     print(
-        f"OK: integrità referenziale voti coerente — {len(votes)} posizioni, "
+        f"OK: integrità referenziale voti coerente — {len(positions)} posizioni, "
         f"{len(distinct_representatives_with_votes)} rappresentanti coinvolti"
     )
     return []

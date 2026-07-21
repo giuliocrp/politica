@@ -40,6 +40,19 @@ SPARQL schema investigation this is based on):
 - Only Camera is in scope. Senato votes are explicitly out of scope for
   this phase (see the phase brief) — votes.json carries no Senato records
   either way, matching the existing empty-file state this replaces.
+
+Phase 20 (docs/v3/20-vote-browsing.md) — normalized output schema:
+
+- votes.json is now {"events":[...],"positions":[...]} instead of a flat
+  position array. Each event carries the source's own votazione URI slug
+  as its id (e.g. "vs19_690_076" — the very key this script always grouped
+  by internally, now carried into the output instead of dropped), plus the
+  once-per-event fields (title/date/result/sourceUrl/provenance); each
+  position carries only {id, voteEventId, representativeId, vote}. Chosen
+  by measurement, not preference: adding voteEventId to the flat shape
+  measured 2,045,946 B (97.6% of the 2 MiB gate — inside the plan's
+  "<~5% headroom" trigger), the normalized shape 711,439 B (33.9%).
+  The included-event scope is unchanged — this is a shape change only.
 """
 
 import html
@@ -188,6 +201,7 @@ def main():
 
     included = []
     all_records = []
+    event_records = []
     skipped_over_max_votes = []
     skipped_over_budget = []
     dropped_unmapped_deputy = 0
@@ -220,13 +234,9 @@ def main():
             records.append(
                 {
                     "id": position["votoId"],
+                    "voteEventId": votazione["voteId"],
                     "representativeId": f"p{numeric_id}",
-                    "title": votazione["title"],
-                    "date": votazione["date"],
                     "vote": choice,
-                    "result": result,
-                    "sourceUrl": votazione["sourceUrl"],
-                    "provenance": "official",
                 }
             )
 
@@ -241,23 +251,43 @@ def main():
         included.append(votazione["voteId"])
         total_written += len(records)
         all_records.extend(records)
+        event_records.append(
+            {
+                "id": votazione["voteId"],
+                "title": votazione["title"],
+                "date": votazione["date"],
+                "result": result,
+                "sourceUrl": votazione["sourceUrl"],
+                "provenance": "official",
+            }
+        )
 
     if not included:
         fail("nessuna votazione rientra nei limiti configurati (maxVotes/maxPositionRecords) — nessun file scritto")
 
-    all_records.sort(key=lambda r: (r["date"], r["id"], r["representativeId"]), reverse=True)
+    all_records.sort(key=lambda r: (r["voteEventId"], r["id"]))
 
     ids = [r["id"] for r in all_records]
     if len(ids) != len(set(ids)):
         duplicates = sorted({i for i in ids if ids.count(i) > 1})
         fail(f"id voto duplicati: {duplicates}")
 
+    # Phase 20 invariants, importer-side (the validator re-checks the
+    # written file): unique event ids, and the positions' distinct
+    # voteEventId set must be exactly the event-id set.
+    event_ids = [e["id"] for e in event_records]
+    if len(event_ids) != len(set(event_ids)):
+        fail(f"id votazione duplicati: {sorted({i for i in event_ids if event_ids.count(i) > 1})}")
+    if {r["voteEventId"] for r in all_records} != set(event_ids):
+        fail("insieme voteEventId delle posizioni != insieme id degli eventi — incoerenza interna")
+
     all_known_representative_ids = {r["id"] for r in json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))}
     unresolved = sorted({r["representativeId"] for r in all_records} - all_known_representative_ids)
     if unresolved:
         fail(f"referential integrity: representativeId non presenti in representatives.json: {unresolved}")
 
-    serialized = json.dumps(all_records, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    output = {"events": event_records, "positions": all_records}
+    serialized = json.dumps(output, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     serialized_bytes = serialized.encode("utf-8")
 
     if len(serialized_bytes) > MAX_OUTPUT_BYTES:
@@ -275,7 +305,7 @@ def main():
     OUTPUT_PATH.write_bytes(serialized_bytes)
 
     size_kb = len(serialized_bytes) / 1024
-    print(f"OK: {len(all_records)} posizioni ({len(included)} votazioni) scritte in {OUTPUT_PATH.relative_to(ROOT)} ({size_kb:.0f} KB)")
+    print(f"OK: {len(all_records)} posizioni + {len(event_records)} eventi scritti in {OUTPUT_PATH.relative_to(ROOT)} ({size_kb:.0f} KB)")
     print(f"  votazioni incluse: {len(included)}/{len(ordered)} candidate (maxVotes={max_votes}, maxPositionRecords={max_positions})")
     if skipped_over_max_votes:
         print(f"  votazioni escluse oltre maxVotes: {len(skipped_over_max_votes)}: {skipped_over_max_votes}")

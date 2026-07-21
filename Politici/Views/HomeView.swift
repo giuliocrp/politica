@@ -21,6 +21,7 @@ struct HomeView: View {
                 searchSection
                 mapCTA
                 statsSection
+                votazioniCTA
                 comeFunzionaSection
                 featuredSection
                 footer
@@ -121,6 +122,19 @@ struct HomeView: View {
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco dei preferiti")
         }
+    }
+
+    private var votazioniCTA: some View {
+        Button {
+            path.append(.votazioniList)
+        } label: {
+            Label("Votazioni in Aula (campione)", systemImage: "checklist")
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 6)
+        }
+        .buttonStyle(.bordered)
+        .accessibilityHint("Apre l'elenco delle votazioni importate")
     }
 
     private var comeFunzionaSection: some View {

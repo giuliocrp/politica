@@ -121,36 +121,41 @@ final class SchemaV2Tests: XCTestCase {
     // representatives.json.
 
     func testShippingDataIdsAreUnique() throws {
+        // votes.json is the normalized Phase 20 schema now — both the
+        // event ids and the position ids must be unique.
         let districts = try GeoJSONLoader.loadDistricts()
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
 
         let districtIds = districts.map(\.id)
         let representativeIds = representatives.map(\.id)
-        let voteIds = votes.map(\.id)
+        let voteEventIds = votesFile.events.map(\.id)
+        let positionIds = votesFile.positions.map(\.id)
 
         XCTAssertEqual(districtIds.count, Set(districtIds).count, "district ids must be unique")
         XCTAssertEqual(representativeIds.count, Set(representativeIds).count, "representative ids must be unique")
-        XCTAssertEqual(voteIds.count, Set(voteIds).count, "vote ids must be unique")
+        XCTAssertEqual(voteEventIds.count, Set(voteEventIds).count, "vote event ids must be unique")
+        XCTAssertEqual(positionIds.count, Set(positionIds).count, "vote position ids must be unique")
     }
 
     func testShippingVotesReferenceKnownRepresentatives() throws {
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
         let representativeIds = Set(representatives.map(\.id))
 
         XCTAssertTrue(
-            votes.allSatisfy { representativeIds.contains($0.representativeId) },
-            "every shipping vote.representativeId must reference a real representative"
+            votesFile.positions.allSatisfy { representativeIds.contains($0.representativeId) },
+            "every shipping position.representativeId must reference a real representative"
         )
     }
 
     // MARK: - Votes import (Phase 9 — see docs/v2/04-votes-import.md)
 
     func testShippingVotesAreAllOfficialProvenance() throws {
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
-        XCTAssertFalse(votes.isEmpty)
-        XCTAssertTrue(votes.allSatisfy { $0.provenance == .official })
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
+        XCTAssertFalse(votesFile.events.isEmpty)
+        XCTAssertFalse(votesFile.positions.isEmpty)
+        XCTAssertTrue(votesFile.events.allSatisfy { $0.provenance == .official })
     }
 
     func testShippingVotesHaveNoUnmappedVoteOrResultVocabulary() throws {
@@ -159,9 +164,9 @@ final class SchemaV2Tests: XCTestCase {
         // tools/import_votes.py's RAW_VOTE_CHOICE/RAW_VOTE_RESULT tables —
         // a .sconosciuto in shipping data would mean a new, unmapped raw
         // value slipped through unnoticed on some future re-fetch.
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
-        XCTAssertTrue(votes.allSatisfy { $0.vote != .sconosciuto })
-        XCTAssertTrue(votes.allSatisfy { $0.result != .sconosciuto })
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
+        XCTAssertTrue(votesFile.positions.allSatisfy { $0.vote != .sconosciuto })
+        XCTAssertTrue(votesFile.events.allSatisfy { $0.result != .sconosciuto })
     }
 
     func testVoteServiceSortsRealVotesNewestFirst() throws {

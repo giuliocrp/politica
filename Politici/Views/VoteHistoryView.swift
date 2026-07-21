@@ -8,6 +8,8 @@ import SwiftUI
 struct VoteHistoryView: View {
     let representativeId: String
     @Environment(\.services) private var services
+    @State private var selectedChoice: VoteChoice?
+    @State private var searchText = ""
 
     private var representative: Representative? {
         services.representativeService.representative(withId: representativeId)
@@ -15,6 +17,10 @@ struct VoteHistoryView: View {
 
     private var votes: [Vote] {
         services.voteService.votes(for: representativeId)
+    }
+
+    private var filteredVotes: [Vote] {
+        Self.filtered(votes, choice: selectedChoice, searchText: searchText)
     }
 
     var body: some View {
@@ -26,16 +32,78 @@ struct VoteHistoryView: View {
                     description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
                 )
             } else {
-                List(votes) { vote in
-                    VoteRow(vote: vote)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                List {
+                    Section {
+                        if filteredVotes.isEmpty {
+                            // Honest empty state for an over-narrow filter —
+                            // distinct from the no-data case above.
+                            Text("Nessuna votazione corrisponde ai filtri selezionati.")
+                                .foregroundStyle(.secondary)
+                                .listRowSeparator(.hidden)
+                        } else {
+                            ForEach(filteredVotes) { vote in
+                                VoteRow(vote: vote)
+                                    .listRowSeparator(.hidden)
+                                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            }
+                        }
+                    } header: {
+                        choiceFilterChips
+                            .textCase(nil)
+                    }
                 }
                 .listStyle(.plain)
+                .searchable(text: $searchText, prompt: "Cerca nel titolo")
             }
         }
         .navigationTitle(representative.map { "Voti di \($0.name)" } ?? "Cronologia Voti")
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// Chip row: "Tutte" plus the four real outcomes. A `.sconosciuto`
+    /// position (none in shipping data) stays reachable via "Tutte".
+    private var choiceFilterChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                filterChip(title: "Tutte", choice: nil)
+                ForEach([VoteChoice.favorevole, .contrario, .astenuto, .assente], id: \.self) { choice in
+                    filterChip(title: choice.rawValue, choice: choice)
+                }
+            }
+        }
+    }
+
+    private func filterChip(title: String, choice: VoteChoice?) -> some View {
+        let isSelected = selectedChoice == choice
+        return Button {
+            selectedChoice = choice
+        } label: {
+            Text(title)
+                .font(.caption.weight(.semibold))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(
+                    isSelected ? Color.accentColor.opacity(0.2) : Color.gray.opacity(0.12),
+                    in: Capsule()
+                )
+                .foregroundStyle(isSelected ? Color.accentColor : Color.primary)
+        }
+        .buttonStyle(.plain)
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
+        .accessibilityLabel(choice == nil ? "Tutte le votazioni" : "Filtra per \(title)")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+
+    /// Pure filter (unit-tested as such): outcome chip and title search
+    /// compose with AND; the search is case- and diacritic-insensitive via
+    /// `localizedStandardContains`, and blank search text matches all.
+    static func filtered(_ votes: [Vote], choice: VoteChoice?, searchText: String) -> [Vote] {
+        votes.filter { vote in
+            if let choice, vote.vote != choice { return false }
+            let query = searchText.trimmingCharacters(in: .whitespaces)
+            return query.isEmpty || vote.title.localizedStandardContains(query)
+        }
     }
 }
 

@@ -43,14 +43,15 @@ final class DecodingTests: XCTestCase {
 
     func testShippingVotesAreNonEmptyAndWithinBudget() throws {
         // Real votazioni positions imported from dati.camera.it (see
-        // docs/v2/04-votes-import.md). Exact count depends on which votes
+        // docs/v2/04-votes-import.md; normalized schema since Phase 20 —
+        // docs/v3/20-vote-browsing.md). Exact count depends on which votes
         // were most recent when 'make fetch' last ran and how many fit
         // under tools/config/votes_scope.json's maxPositionRecords budget,
         // so it isn't asserted exactly here — just that it's non-empty and
         // stays within the budget tools/import_votes.py enforces.
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
-        XCTAssertFalse(votes.isEmpty)
-        XCTAssertLessThanOrEqual(votes.count, 5000)
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
+        XCTAssertFalse(votesFile.positions.isEmpty)
+        XCTAssertLessThanOrEqual(votesFile.positions.count, 5000)
     }
 
     func testSampleVotesDecodeWithExpectedCount() throws {
