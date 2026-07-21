@@ -77,6 +77,12 @@ struct RepresentativeProfileView: View {
             Text(representative.chamber == .camera ? "Camera dei Deputati" : "Senato della Repubblica")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
+
+            if let circoscrizione = representative.circoscrizione {
+                Text("Circoscrizione: \(circoscrizione)")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)

@@ -71,6 +71,19 @@ MANDATE_A_VITA = "a vita, di nomina del Presidente della Repubblica"
 MANDATE_EMERITO = "di diritto e a vita, Presidente emerito della Repubblica"
 VALID_MANDATE_TYPES = {MANDATE_ELETTIVO, MANDATE_A_VITA, MANDATE_EMERITO}
 
+# Phase 18 (docs/v3/18-plurinominale-context.md): "circoscrizione" is a
+# Camera-only key — required on every deputy, forbidden on senators. The
+# measured electionType distribution of the current import (147 uninominale
+# = 145 maggioritario + 2 suppletiva; 253 proporzionale = 245 plurinominale
+# + 8 estero, per the GO-CIRC gate evidence). "Estero" is the pinned
+# circoscrizione value for estero deputies; domestic values are checked
+# against districts.geojson's own circoscrizione set in
+# validate_circoscrizione() rather than a hardcoded list.
+EXPECTED_CAMERA_UNINOMINALE = 147
+EXPECTED_CAMERA_PLURINOMINALE = 245
+EXPECTED_CAMERA_ESTERO = 8
+CIRCOSCRIZIONE_ESTERO = "Estero"
+
 # "circoscrizione"/"regione" are deliberately NOT in this base set: Camera
 # features carry "circoscrizione" and Senato features carry "regione", never
 # both (see tools/import_boundaries.py) — checked separately, per chamber,
@@ -157,14 +170,23 @@ def validate_representatives():
 
         # "mandate" is chamber-conditional (Phase 17): required verbatim
         # vocabulary on every senator, forbidden (absent, not null) on
-        # every deputy.
+        # every deputy. "circoscrizione" is its Camera-side mirror
+        # (Phase 18): required non-empty on every deputy, forbidden on
+        # every senator.
         if record["chamber"] == "Senato":
             if "mandate" not in record:
                 errors.append(f"{label}: chiave 'mandate' mancante (obbligatoria per i senatori)")
             elif record["mandate"] not in VALID_MANDATE_TYPES:
                 errors.append(f"{label}: 'mandate' non valido: {record['mandate']!r}")
-        elif record["chamber"] == "Camera" and "mandate" in record:
-            errors.append(f"{label}: chiave 'mandate' presente su un record Camera — deve essere assente")
+            if "circoscrizione" in record:
+                errors.append(f"{label}: chiave 'circoscrizione' presente su un record Senato — deve essere assente")
+        elif record["chamber"] == "Camera":
+            if "mandate" in record:
+                errors.append(f"{label}: chiave 'mandate' presente su un record Camera — deve essere assente")
+            if "circoscrizione" not in record:
+                errors.append(f"{label}: chiave 'circoscrizione' mancante (obbligatoria per i deputati)")
+            elif not isinstance(record["circoscrizione"], str) or not record["circoscrizione"].strip():
+                errors.append(f"{label}: 'circoscrizione' deve essere una stringa non vuota")
 
         if record["provenance"] not in VALID_PROVENANCE:
             errors.append(f"{label}: 'provenance' non valido: {record['provenance']!r}")
@@ -223,6 +245,33 @@ def validate_representatives():
             "la sorgente è cambiata: rivedi prima di accettare"
         )
 
+    # Phase 18: the measured electionType distribution and the
+    # estero<->"Estero" correspondence — the set of deputies whose
+    # circoscrizione is "Estero" must be exactly the set with
+    # electionType "estero" (each identifies the other, no drift).
+    camera_records = [r for r in records if r["chamber"] == "Camera"]
+    uninominale_count = sum(1 for r in camera_records if r["electionType"] == "uninominale")
+    plurinominale_count = sum(1 for r in camera_records if r["electionType"] == "plurinominale")
+    estero_count = sum(1 for r in camera_records if r["electionType"] == "estero")
+    for expected, actual, label_name in (
+        (EXPECTED_CAMERA_UNINOMINALE, uninominale_count, "uninominale"),
+        (EXPECTED_CAMERA_PLURINOMINALE, plurinominale_count, "plurinominale"),
+        (EXPECTED_CAMERA_ESTERO, estero_count, "estero"),
+    ):
+        if actual != expected:
+            errors.append(
+                f"representatives.json: deputati {label_name} = {actual}, atteso {expected} "
+                "(vedi docs/v3/18-plurinominale-context.md)"
+            )
+    estero_circ_ids = {r["id"] for r in camera_records if r.get("circoscrizione") == CIRCOSCRIZIONE_ESTERO}
+    estero_type_ids = {r["id"] for r in camera_records if r["electionType"] == "estero"}
+    if estero_circ_ids != estero_type_ids:
+        errors.append(
+            "representatives.json: insieme circoscrizione='Estero' != insieme electionType='estero' "
+            f"(solo circ: {sorted(estero_circ_ids - estero_type_ids)}, "
+            f"solo tipo: {sorted(estero_type_ids - estero_circ_ids)})"
+        )
+
     if not errors:
         official_count = sum(1 for r in records if r["provenance"] == "official")
         sample_count = sum(1 for r in records if r["provenance"] == "sample")
@@ -232,6 +281,10 @@ def validate_representatives():
         print(f"  provenance official: {official_count}  sample: {sample_count}")
         print(f"  con districtId assegnato: {with_district}")
         print(f"  mandati Senato: elettivo {elettivo_count}  a vita {a_vita_count}  emerito {emerito_count}")
+        print(
+            f"  deputati per tipo: uninominale {uninominale_count}  "
+            f"plurinominale {plurinominale_count}  estero {estero_count}"
+        )
 
     return errors
 
@@ -408,6 +461,52 @@ def validate_linkage():
     return errors
 
 
+def validate_circoscrizione():
+    """Phase 18 cross-file checks: every deputy's circoscrizione is either
+    "Estero" or one of districts.geojson's own shipped circoscrizione
+    values (the reference set is the real data, not a hardcoded list), and
+    every *linked* uninominale deputy's circoscrizione equals their
+    collegio's shipped property exactly. Only meaningful once both files
+    passed their own structural checks, so main() gates the call."""
+    errors = []
+
+    records = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    collection = json.loads(DISTRICTS_PATH.read_text(encoding="utf-8"))
+    circoscrizione_of_district = {
+        f["properties"]["id"]: f["properties"]["circoscrizione"]
+        for f in collection["features"]
+        if f["properties"]["chamber"] == "Camera" and f["properties"]["collegioType"] == "uninominale"
+    }
+    valid_values = set(circoscrizione_of_district.values()) | {CIRCOSCRIZIONE_ESTERO}
+
+    observed = set()
+    for record in records:
+        if record["chamber"] != "Camera":
+            continue
+        label = f"representatives.json id={record['id']}"
+        circoscrizione = record.get("circoscrizione")
+        observed.add(circoscrizione)
+        if circoscrizione not in valid_values:
+            errors.append(
+                f"{label}: circoscrizione {circoscrizione!r} non è né 'Estero' né una "
+                "circoscrizione di districts.geojson"
+            )
+        district_id = record["districtId"]
+        if district_id is not None and circoscrizione != circoscrizione_of_district.get(district_id):
+            errors.append(
+                f"{label}: circoscrizione {circoscrizione!r} != "
+                f"{circoscrizione_of_district.get(district_id)!r} del collegio {district_id}"
+            )
+
+    if not errors:
+        print(
+            f"OK: circoscrizioni deputati coerenti — {len(observed)} valori osservati "
+            f"({len(valid_values)} ammessi: {len(valid_values) - 1} da districts.geojson + 'Estero')"
+        )
+
+    return errors
+
+
 def validate_votes():
     errors = []
 
@@ -508,6 +607,7 @@ def main():
 
     if not representative_errors and not district_errors:
         all_errors += validate_linkage()
+        all_errors += validate_circoscrizione()
 
     if not representative_errors and not vote_errors:
         all_errors += validate_votes_reference_representatives()

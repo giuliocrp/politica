@@ -77,6 +77,13 @@ struct Representative: Identifiable, Hashable {
     /// has no equivalent concept, so absence (nil) is honest there rather
     /// than a `.sconosciuto` default.
     let mandate: MandateType?
+    /// Present only for deputies (Phase 18): the Camera circoscrizione the
+    /// deputy was elected in, stored in districts.geojson's own canonical
+    /// casing so it compares/display-matches the district pages exactly;
+    /// `"Estero"` for the overseas constituencies. The name deliberately
+    /// matches `District.circoscrizione` (and is never `regione`, which is
+    /// Senato's distinct grouping concept). Senato records omit the key.
+    let circoscrizione: String?
     let stableSourceId: String?
     let sourceUrl: URL?
 }
@@ -88,7 +95,7 @@ extension Representative: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, name, chamber, districtId, party, parliamentaryGroup, committees
         case attendanceRate, photoName, provenance, legislature, electionType
-        case mandate, stableSourceId, sourceUrl
+        case mandate, circoscrizione, stableSourceId, sourceUrl
     }
 
     init(from decoder: Decoder) throws {
@@ -106,6 +113,7 @@ extension Representative: Codable {
         legislature = try container.decodeIfPresent(String.self, forKey: .legislature)
         electionType = try container.decodeIfPresent(ElectionType.self, forKey: .electionType) ?? .sconosciuto
         mandate = try container.decodeIfPresent(MandateType.self, forKey: .mandate)
+        circoscrizione = try container.decodeIfPresent(String.self, forKey: .circoscrizione)
         stableSourceId = try container.decodeIfPresent(String.self, forKey: .stableSourceId)
         sourceUrl = try container.decodeIfPresent(URL.self, forKey: .sourceUrl)
     }
@@ -125,6 +133,7 @@ extension Representative: Codable {
         try container.encodeIfPresent(legislature, forKey: .legislature)
         try container.encode(electionType, forKey: .electionType)
         try container.encodeIfPresent(mandate, forKey: .mandate)
+        try container.encodeIfPresent(circoscrizione, forKey: .circoscrizione)
         try container.encodeIfPresent(stableSourceId, forKey: .stableSourceId)
         try container.encodeIfPresent(sourceUrl, forKey: .sourceUrl)
     }

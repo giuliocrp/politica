@@ -18,7 +18,8 @@ struct DistrictDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 if let district {
                     header(for: district)
-                    representativesSection
+                    representativesSection(for: district)
+                    plurinominaleSection(for: district)
                 } else {
                     ContentUnavailableView(
                         "Collegio non trovato",
@@ -54,9 +55,11 @@ struct DistrictDetailView: View {
         .accessibilityElement(children: .combine)
     }
 
-    private var representativesSection: some View {
+    private func representativesSection(for district: District) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Rappresentanti eletti")
+            // Camera pages name the seat's electoral nature explicitly
+            // (Phase 18); Senato pages keep the Phase 16 title.
+            Text(district.chamber == .camera ? "Eletto nel collegio uninominale" : "Rappresentanti eletti")
                 .font(.headline)
 
             if representatives.isEmpty {
@@ -70,6 +73,40 @@ struct DistrictDetailView: View {
                         RepresentativeRow(representative: representative)
                     }
                     .buttonStyle(.plain)
+                }
+            }
+        }
+    }
+
+    /// Camera only (Phase 18): the plurinominale deputies of this
+    /// collegio's circoscrizione. Estero deputies never appear here — the
+    /// service filter excludes them by electionType, and "Estero" is never
+    /// a district's circoscrizione.
+    @ViewBuilder
+    private func plurinominaleSection(for district: District) -> some View {
+        if district.chamber == .camera, let circoscrizione = district.circoscrizione {
+            let deputies = services.representativeService.plurinominaleRepresentatives(
+                inCircoscrizione: circoscrizione
+            )
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Rappresentanti plurinominali della circoscrizione \(circoscrizione)")
+                    .font(.headline)
+                Text("Eletti con il sistema proporzionale nei collegi plurinominali della circoscrizione: rappresentano l'intera circoscrizione, non questo specifico collegio uninominale.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+
+                if deputies.isEmpty {
+                    Text("Nessun deputato plurinominale in questa circoscrizione.")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(deputies) { deputy in
+                        Button {
+                            path.append(.representativeProfile(representativeId: deputy.id))
+                        } label: {
+                            RepresentativeRow(representative: deputy)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
             }
         }

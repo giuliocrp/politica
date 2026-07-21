@@ -289,6 +289,43 @@ final class SchemaV2Tests: XCTestCase {
         )
     }
 
+    // MARK: - Deputy circoscrizioni (Phase 18 — see docs/v3/18-plurinominale-context.md)
+
+    func testShippingDeputiesCarryCanonicalCircoscrizioni() throws {
+        // The GO-CIRC gate's conditions, re-asserted on the shipped bundle:
+        // complete deputy coverage, values within districts.geojson's own
+        // 28 circoscrizioni ∪ {"Estero"}, exact equality with the linked
+        // collegio's property for every uninominale deputy, estero <->
+        // "Estero" correspondence (8 deputies), senators key-free, and the
+        // measured 147/245/8 electionType distribution.
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let districts = try GeoJSONLoader.loadDistricts()
+
+        let deputies = representatives.filter { $0.chamber == .camera }
+        XCTAssertTrue(deputies.allSatisfy { $0.circoscrizione?.isEmpty == false })
+
+        let validValues = Set(districts.compactMap(\.circoscrizione)).union(["Estero"])
+        XCTAssertTrue(Set(deputies.compactMap(\.circoscrizione)).isSubset(of: validValues))
+
+        let circoscrizioneByDistrict = Dictionary(
+            uniqueKeysWithValues: districts.map { ($0.id, $0.circoscrizione) }
+        )
+        let linked = deputies.filter { $0.districtId != nil }
+        XCTAssertTrue(linked.allSatisfy { $0.circoscrizione == circoscrizioneByDistrict[$0.districtId!] })
+
+        XCTAssertEqual(deputies.filter { $0.electionType == .uninominale }.count, 147)
+        XCTAssertEqual(deputies.filter { $0.electionType == .plurinominale }.count, 245)
+        let esteroDeputies = deputies.filter { $0.electionType == .estero }
+        XCTAssertEqual(esteroDeputies.count, 8)
+        XCTAssertEqual(
+            Set(esteroDeputies.map(\.id)),
+            Set(deputies.filter { $0.circoscrizione == "Estero" }.map(\.id))
+        )
+
+        let senators = representatives.filter { $0.chamber == .senato }
+        XCTAssertTrue(senators.allSatisfy { $0.circoscrizione == nil })
+    }
+
     // MARK: - Senato mandates (Phase 17 — see docs/v3/17-senato-mandates.md)
 
     func testShippingSenatorsCarryVerbatimMandates() throws {

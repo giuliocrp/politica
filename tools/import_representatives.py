@@ -119,6 +119,17 @@ ESTERO_COVERAGE_VALUES = {
 # replacement — both represent the same collegio going forward).
 UNINOMINALE_TIPO_ELEZIONE = {"maggioritario", "maggioritario suppletiva"}
 
+# Phase 18 (docs/v3/18-plurinominale-context.md, GO-CIRC): every deputy's
+# dc:coverage parses as either "{CIRCOSCRIZIONE} - P0N" (the plurinominale
+# collegio it names), one of the 4 estero constituency names above, or a
+# bare circoscrizione — the bare form is structurally legitimate in exactly
+# two situations, both verified against the cache: Valle d'Aosta (the one
+# circoscrizione with no plurinominale collegio at all) and "maggioritario
+# suppletiva" records (by-election mandates carry no P-collegio). Any other
+# bare value is a new source pattern and fails the import for review.
+PLURINOMINALE_COVERAGE_RE = re.compile(r"^(?P<circ>.+) - P\d+$")
+BARE_COVERAGE_CIRCOSCRIZIONI = {"VALLE D'AOSTA"}
+
 MIN_LINKED_COLLEGI = 133  # 90% of 147 — see docs/v2/03-linkage-report.md
 
 # Phase 17 Senato collegio linkage (docs/v3/15b-senato-link-probe.md §4):
@@ -172,16 +183,23 @@ def normalize_circoscrizione(name):
 
 
 def load_uninominale_index():
-    """(circoscrizione_norm, subCode) -> CU20_COD for every shipping Camera
-    uninominale collegio. Fails loudly if districts.geojson is missing or
-    doesn't carry the Phase 8 circoscrizione/subCode properties — run
-    'make boundaries' first."""
+    """Camera lookup structures from districts.geojson (fails loudly if it's
+    missing or lacks the Phase 8 circoscrizione/subCode properties — run
+    'make boundaries' first):
+    - (circoscrizione_norm, subCode) -> district id (the Phase 8 linkage join)
+    - the set of all Camera uninominale ids
+    - normalize(circoscrizione) -> canonical shipped circoscrizione string
+      (Phase 18 — deputies' derived circoscrizione is stored in the shipped
+      districts.geojson casing so the (c) cross-check is exact equality)
+    - district id -> its shipped circoscrizione (Phase 18 cross-check)."""
     if not DISTRICTS_PATH.exists():
         fail(f"manca {DISTRICTS_PATH.relative_to(ROOT)} — esegui prima 'make boundaries'")
 
     collection = json.loads(DISTRICTS_PATH.read_text(encoding="utf-8"))
     index = {}
     all_ids = set()
+    canonical_circoscrizioni = {}
+    circoscrizione_of_district = {}
     for feature in collection.get("features", []):
         props = feature.get("properties", {})
         if props.get("chamber") != "Camera" or props.get("collegioType") != "uninominale":
@@ -199,7 +217,42 @@ def load_uninominale_index():
             fail(f"chiave (circoscrizione, subCode) duplicata dopo la normalizzazione: {key}")
         index[key] = district_id
         all_ids.add(district_id)
-    return index, all_ids
+        canonical_circoscrizioni[normalize_circoscrizione(circoscrizione)] = circoscrizione
+        circoscrizione_of_district[district_id] = circoscrizione
+    return index, all_ids, canonical_circoscrizioni, circoscrizione_of_district
+
+
+def derive_circoscrizione(person_id, name, tipo_elezione, coverage, canonical_circoscrizioni):
+    """Phase 18: one deputy's dc:coverage -> canonical circoscrizione name
+    ("Estero" for the 4 overseas constituencies). Every branch that would
+    require guessing fails loudly instead — the GO-CIRC gate verified all
+    400 current literals parse cleanly, so any failure here means the
+    source moved."""
+    if not coverage:
+        fail(
+            f"deputato {person_id} ({name}): dc:coverage assente — il gate GO-CIRC "
+            "presupponeva copertura completa (docs/v3/18-plurinominale-context.md)"
+        )
+    if coverage.strip().upper() in ESTERO_COVERAGE_VALUES:
+        return "Estero"
+    match = PLURINOMINALE_COVERAGE_RE.match(coverage)
+    if match:
+        circ_name = match.group("circ")
+    elif coverage in BARE_COVERAGE_CIRCOSCRIZIONI or tipo_elezione == "maggioritario suppletiva":
+        circ_name = coverage
+    else:
+        fail(
+            f"deputato {person_id} ({name}): dc:coverage {coverage!r} senza suffisso "
+            "' - P0N' e fuori dai casi bare documentati (Valle d'Aosta / suppletiva) — "
+            "nuovo pattern nella sorgente, rivedi prima di importare"
+        )
+    canonical = canonical_circoscrizioni.get(normalize_circoscrizione(circ_name))
+    if canonical is None:
+        fail(
+            f"deputato {person_id} ({name}): circoscrizione derivata {circ_name!r} "
+            "non corrisponde a nessuna delle 28 circoscrizioni di districts.geojson"
+        )
+    return canonical
 
 
 def load_senato_uninominale_index():
@@ -274,7 +327,7 @@ def title_case_italian(name):
     return name.title() if name else name
 
 
-def import_camera(uninominale_index, all_uninominale_ids):
+def import_camera(uninominale_index, all_uninominale_ids, canonical_circoscrizioni, circoscrizione_of_district):
     payload = load_raw("camera_deputati_sparql.json")
     people = {}
     order = []
@@ -345,6 +398,17 @@ def import_camera(uninominale_index, all_uninominale_ids):
         # else: tipo is None (no ?el bound at all) — electionType stays None,
         # honestly reflecting "we don't know" (decodes to .sconosciuto).
 
+        # Phase 18: circoscrizione for every deputy, with the import-time
+        # (c) cross-check — a linked uninominale deputy's derived
+        # circoscrizione must equal their collegio's shipped property.
+        circoscrizione = derive_circoscrizione(person_id, full_name, tipo, p["collegio"], canonical_circoscrizioni)
+        if district_id is not None and circoscrizione != circoscrizione_of_district[district_id]:
+            fail(
+                f"deputato {person_id} ({full_name}): circoscrizione derivata "
+                f"{circoscrizione!r} != {circoscrizione_of_district[district_id]!r} "
+                f"del collegio collegato {district_id} — join incoerente, rivedi prima di importare"
+            )
+
         records.append(
             {
                 "id": person_id,
@@ -359,6 +423,11 @@ def import_camera(uninominale_index, all_uninominale_ids):
                 "provenance": "official",
                 "legislature": LEGISLATURE,
                 "electionType": election_type,
+                # Camera-only key (Phase 18): the canonical circoscrizione
+                # name ("Estero" for overseas deputies). Senato records omit
+                # the key entirely — same chamber-conditional convention as
+                # "mandate" (Senato-only) and districts' circoscrizione/regione.
+                "circoscrizione": circoscrizione,
                 "stableSourceId": person_id[1:],  # strip the leading "p"
                 "sourceUrl": p["sourceUrl"],
             }
@@ -524,8 +593,12 @@ def import_senato(uninominale_index, all_uninominale_ids):
 
 
 def main():
-    uninominale_index, all_uninominale_ids = load_uninominale_index()
-    camera_records, linkage_report = import_camera(uninominale_index, all_uninominale_ids)
+    uninominale_index, all_uninominale_ids, canonical_circoscrizioni, circoscrizione_of_district = (
+        load_uninominale_index()
+    )
+    camera_records, linkage_report = import_camera(
+        uninominale_index, all_uninominale_ids, canonical_circoscrizioni, circoscrizione_of_district
+    )
     senato_index, all_senato_ids = load_senato_uninominale_index()
     senato_records, senato_linkage = import_senato(senato_index, all_senato_ids)
     all_records = camera_records + senato_records
@@ -549,6 +622,15 @@ def main():
     print("Mandati Senato (tipoMandato, verbatim):")
     for tipo in sorted(mandate_counts):
         print(f"  {tipo!r}: {mandate_counts[tipo]}")
+
+    circoscrizione_counts = {}
+    for record in camera_records:
+        key = record["circoscrizione"]
+        circoscrizione_counts[key] = circoscrizione_counts.get(key, 0) + 1
+    print(
+        f"Circoscrizioni Camera derivate: {len(circoscrizione_counts)} valori distinti "
+        f"su {len(camera_records)} deputati (Estero: {circoscrizione_counts.get('Estero', 0)})"
+    )
 
     print(
         f"Collegamento collegio uninominale -> deputato: {linkage_report['linkedCount']}/"
