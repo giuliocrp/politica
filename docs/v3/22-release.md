@@ -1,4 +1,6 @@
-# V3 Phase 22A — Documentation, Accessibility Checklist, Release Prep
+# V3 Phase 22A/22B — Documentation, Accessibility Checklist, Release Prep
+
+> Phase 22B's "Decisions received" addendum is at the end of this file.
 
 Docs-only phase (one comment-string correction in
 `CollegiListView.swift` aside — a stale "Collegi campione" reference,
@@ -119,3 +121,45 @@ the decisions record FIRST, and only then tags:
   re-asked by 22B.
 - *(standing)* the V3 commissioning brief, if it surfaces, gets archived
   under `docs/history/`.
+
+---
+
+## Decisions received (Phase 22B, 2026-07-21)
+
+The Phase 22A handoff ended with the PENDING USER DECISIONS block above
+and the sentence "Answer the above whenever you're ready and I'll run
+Phase 22B." The user's reply, quoted verbatim:
+
+> **"Proceed with Phase 22B."**
+
+Recorded interpretation, per item:
+
+- **(a) Tag `v3.0-prototype`: APPROVED.** Phase 22B's defining act is
+  creating this tag, and the instruction to proceed was given in direct
+  response to the block asking exactly that — the same
+  approval-in-response-to-named-act pattern Phases 15b/17/21 recorded.
+  The local annotated tag is created at this phase's HEAD (the decisions
+  commit), referencing `docs/releases/v3.0-prototype.md`.
+- **(b) Repository visibility / GitHub Release: NOT ANSWERED — remains
+  explicitly *pending user decision***, with the `<github-release-url>`
+  placeholder kept in `CHANGELOG.md`. Nothing is pushed and no release
+  is drafted by this phase either way (pushing was never in 22B's remit;
+  the commands are printed below, not executed).
+- **(c) Retrospective `v1.0.0`: NOT CREATED.** No separate explicit
+  instruction was given, and per the plan it is not re-asked.
+- *(standing)* Commissioning brief: still unprovided, still pending.
+
+**Push commands — printed, deliberately not executed** (re-derived from
+actual repository state: `origin/v3` exists and tracks, so the plan's
+`-u` first-push form is not needed — see the Phase 17 report's note):
+
+```
+git push origin v3
+git push origin v3.0-prototype
+```
+
+Verification and tag evidence (recorded at execution time, below the
+commit): the verification trio was re-run on the exact committed state
+the tag points at; `git tag --points-at HEAD` lists `v3.0-prototype`;
+`v2.0-prototype` untouched; no `v1.0.0`; working tree clean; nothing
+pushed.

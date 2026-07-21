@@ -91,15 +91,18 @@ a measured early exit). See `README.md` for the shipped state and
   verification (`docs/v3/22-release.md`). Tagging and pushing are
   deferred to Phase 22B pending the release actions below.
 
-### Release actions (pending user decisions)
+### Release actions (status as of Phase 22B, 2026-07-21)
 
-- [ ] **Tag `v3.0-prototype`** (local, annotated, created by Phase 22B
-      only after explicit approval): *pending user decision*.
+- [x] **Tag `v3.0-prototype`**: approved ("Proceed with Phase 22B." in
+      response to the pending-decisions block — quoted in
+      `docs/v3/22-release.md`) and created **locally** by Phase 22B at
+      the decisions commit. Not pushed; push commands printed in the
+      22B record, not executed.
 - [ ] **Repository visibility / GitHub Release**: *pending user
       decision* — release URL placeholder: `<github-release-url>`.
-- [ ] **Retrospective `v1.0.0` tag** at the v1 close: created only under
-      a separate explicit instruction; deliberately **not** proposed as a
-      default.
+- [ ] **Retrospective `v1.0.0` tag** at the v1 close: **not created** —
+      requires a separate explicit instruction that was not given;
+      deliberately not re-asked.
 - [ ] **V3 commissioning brief archival** (open since Phase 13): still
       pending — the brief was never provided; archive under
       `docs/history/` if/when it surfaces.
