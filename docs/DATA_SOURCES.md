@@ -268,3 +268,8 @@ Re-checked on 2026-07-21 (v3 Phase 17): the Senato-only refetch moved
 this file's Senato entry was updated to match in the same commit. The
 other five entries are unchanged (the refetch deliberately touched no
 other source's cache).
+
+Full re-check on 2026-07-21 (v3 Phase 22A, release prep): all 6 manifest
+entries compared again against this file and `tools/SOURCES.md` — **no
+mismatches**; no fix needed. (Phase 21's probe fetched nothing into the
+import path, so no `retrievedAt` moved after Phase 17.)

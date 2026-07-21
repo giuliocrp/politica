@@ -10,7 +10,7 @@ import SwiftUI
 /// accessible way to discover or select an `MKPolygon` overlay, so this
 /// view provides the same destination (`DistrictDetailView`) through an
 /// ordinary list instead. Reachable from `MapView`'s "Sfoglia come elenco"
-/// toolbar button and `HomeView`'s "Collegi campione" stat card.
+/// toolbar button and `HomeView`'s "Collegi uninominali" stat card.
 struct CollegiListView: View {
     @Binding var path: [AppRoute]
     @Environment(\.services) private var services
