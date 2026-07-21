@@ -92,7 +92,9 @@ struct HomeView: View {
     }
 
     private var statsSection: some View {
-        HStack(spacing: 12) {
+        // 2×2 since Phase 19's Preferiti card joined the original three —
+        // four cards in one HStack would cramp on smaller widths.
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
             Button {
                 path.append(.collegiList)
             } label: {
@@ -110,6 +112,14 @@ struct HomeView: View {
             .accessibilityHint("Apre l'elenco completo dei rappresentanti")
 
             StatCard(value: "2", label: "Camere del Parlamento")
+
+            Button {
+                path.append(.preferiti)
+            } label: {
+                StatCard(value: "\(services.favoritesStore.favoriteIds.count)", label: "Preferiti")
+            }
+            .buttonStyle(.plain)
+            .accessibilityHint("Apre l'elenco dei preferiti")
         }
     }
 

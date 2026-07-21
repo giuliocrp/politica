@@ -37,6 +37,26 @@ struct RepresentativeProfileView: View {
         }
         .navigationTitle(representative?.name ?? "Profilo")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if representative != nil {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    favoriteButton
+                }
+            }
+        }
+    }
+
+    private var favoriteButton: some View {
+        let isFavorite = services.favoritesStore.isFavorite(representativeId)
+        return Button {
+            services.favoritesStore.toggle(representativeId)
+        } label: {
+            Image(systemName: isFavorite ? "star.fill" : "star")
+        }
+        .frame(minWidth: 44, minHeight: 44)
+        .contentShape(Rectangle())
+        .accessibilityLabel(isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti")
+        .accessibilityAddTraits(isFavorite ? .isSelected : [])
     }
 
     @ViewBuilder
