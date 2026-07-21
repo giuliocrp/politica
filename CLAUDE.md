@@ -41,11 +41,42 @@ These apply to this and all future phases of work on this repository:
    votato"` → `.assente` is disclosed as a best fit, not asserted as
    certain).
 
-## Build Command
+## Build & Test Commands
 
 ```bash
+# Build
 DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project Politici.xcodeproj -scheme Politici -destination 'generic/platform=iOS Simulator' build
+
+# Find an available simulator
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun simctl list devices available | grep iPhone
+
+# Full test suite (substitute a simulator name from the list above)
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project Politici.xcodeproj -scheme Politici -destination 'platform=iOS Simulator,name=<SimName>' test
 ```
+
+Note: xcodebuild's parallel test output occasionally truncates a
+passed-test log line mid-name (three documented v3 occurrences) — the
+authoritative signals are the exit code and the failed-line count, and a
+missing name must be verified in the log body before being called a
+failure. The template UI-test target has also flaked twice on
+simulator-clone infrastructure (Phase 17/18 reports) — re-run once and
+diagnose before suspecting the code.
+
+## The V4 plan & per-session workflow
+
+The V4 master plan lives in **`docs/plan/`** — one file per phase
+(`phase-23.md` … `phase-32b.md`), shared baseline/rules in
+`docs/plan/00-baseline-and-rules.md`, index + status table + the
+canonical per-session prompt in `docs/plan/README.md`. Phase reports go
+to `docs/v4/`, and the executing session flips the phase's status row in
+the same commit as its report.
+
+Standing execution rules (full list in `00-baseline-and-rules.md`):
+verify preconditions against actual repo state before writing anything;
+gates decided on quoted evidence with NO-GO/NOT-RUN as first-class
+outcomes; every network act user-gated with approval quoted verbatim in
+the report; **never push, tag (outside phase 32B), or touch GitHub — the
+user performs all remote actions personally; print commands instead.**
 
 ## Data Files
 
