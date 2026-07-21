@@ -110,24 +110,54 @@ def fetch_sparql(endpoint, query, label):
     )
 
 
+def _load_fetch_metadata():
+    if not FETCH_METADATA_PATH.exists():
+        return {}
+    try:
+        return json.loads(FETCH_METADATA_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+
+
+def _write_fetch_metadata(metadata):
+    RAW_DIR.mkdir(parents=True, exist_ok=True)
+    FETCH_METADATA_PATH.write_text(
+        json.dumps(metadata, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def stamp_fetch_metadata(source_key):
     """Records today's date as when `source_key` (e.g. "camera", "senato")
     was last successfully fetched, so tools/make_manifest.py can stamp
     sources.json's retrievedAt from the actual fetch time instead of
     whenever the manifest happens to be regenerated. Merges into the
     existing metadata file rather than overwriting other sources' entries.
+
+    Always overwrites — correct for the three fetch_*.py scripts, where
+    every call site follows a real, just-completed network fetch. Do not
+    use this for a source that isn't actually fetched by the call site
+    (e.g. ISTAT's manually-downloaded shapefile, processed but not
+    fetched by tools/import_boundaries.py) — use
+    stamp_fetch_metadata_if_absent instead, or the timestamp will silently
+    advance on every offline re-run.
     """
-    metadata = {}
-    if FETCH_METADATA_PATH.exists():
-        try:
-            metadata = json.loads(FETCH_METADATA_PATH.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            metadata = {}
-
+    metadata = _load_fetch_metadata()
     metadata[source_key] = {"fetchedAt": date.today().isoformat()}
+    _write_fetch_metadata(metadata)
 
-    RAW_DIR.mkdir(parents=True, exist_ok=True)
-    FETCH_METADATA_PATH.write_text(
-        json.dumps(metadata, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+
+def stamp_fetch_metadata_if_absent(source_key):
+    """Like stamp_fetch_metadata, but only writes if `source_key` has no
+    entry yet — for sources this pipeline doesn't actually fetch itself
+    (e.g. ISTAT's manually-downloaded shapefile: there is no fetch_istat.py,
+    so tools/import_boundaries.py calls this once the first time it finds
+    the shapefile already in place, and every later offline re-run leaves
+    the existing, human-meaningful date alone instead of overwriting it
+    with today's date on every `make boundaries`/`make all` run — a real
+    Phase 14 bug fix, see docs/v3/14-pipeline-hardening.md."""
+    metadata = _load_fetch_metadata()
+    if source_key in metadata and metadata[source_key].get("fetchedAt"):
+        return
+    metadata[source_key] = {"fetchedAt": date.today().isoformat()}
+    _write_fetch_metadata(metadata)

@@ -19,7 +19,7 @@ final class GeocodingProvidingTests: XCTestCase {
     // Data/districts.geojson ships real ISTAT geometry now; these tests
     // exercise the *.sample.* rectangles instead, since "IT-RM-C01" only
     // exists there (real ids are ISTAT numeric codes).
-    private let districtService = DistrictService(resource: "districts.sample")
+    private let districtService = DistrictService(resources: ["districts.sample"])
 
     // MARK: - Five-city offline fallback table (unchanged behavior behind the seam)
 
@@ -47,7 +47,7 @@ final class GeocodingProvidingTests: XCTestCase {
             result: .success(CLLocationCoordinate2D(latitude: 41.905, longitude: 12.49))
         )
         let coordinate = try await provider.geocode(address: "qualsiasi indirizzo di Roma")
-        XCTAssertEqual(districtService.district(for: coordinate)?.id, "IT-RM-C01")
+        XCTAssertEqual(districtService.district(for: coordinate, chamber: .camera)?.id, "IT-RM-C01")
     }
 
     func testFakeProviderResolvingOpenSeaCoordinateFindsNoDistrict() async throws {
@@ -56,7 +56,7 @@ final class GeocodingProvidingTests: XCTestCase {
             result: .success(CLLocationCoordinate2D(latitude: 40.0, longitude: 10.0))
         )
         let coordinate = try await provider.geocode(address: "in mezzo al mare")
-        XCTAssertNil(districtService.district(for: coordinate))
+        XCTAssertNil(districtService.district(for: coordinate, chamber: .camera))
     }
 
     func testFakeProviderPropagatesThrownErrors() async {

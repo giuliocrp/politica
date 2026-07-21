@@ -21,28 +21,42 @@ narrow exception:
 | Dataset | Status |
 |---|---|
 | 147 Camera dei Deputati collegi uninominali (boundaries) | Real — ISTAT, D.Lgs. 177/2020 |
+| 74 Senato della Repubblica collegi uninominali (boundaries) | Real — ISTAT, same release (v3 Phase 16) |
 | 601 representatives (400 deputies + 201 senators, XIX Legislature) | Real — dati.camera.it / dati.senato.it |
 | 147/147 uninominale-collegio → current-deputy linkage | Real, derived (see [`docs/v2/03-linkage-report.md`](docs/v2/03-linkage-report.md)) |
+| 73/74 Senato collegio → current-senator linkage | Real, derived (v3 Phase 17; the one uncovered collegio has no claimant in the source — see [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)) |
+| Senator mandate categories (196 elettivo + 5 a vita) and deputy circoscrizioni (28 + Estero) | Real, verbatim/derived from the sources (v3 Phases 17–18) |
 | 12 curated Camera roll-call votes, 4,788 per-deputy positions | Real — dati.camera.it |
 | The original 5 fictional sample districts / 14 sample representatives / 37 sample votes | Fictional, preserved at `*.sample.*` for tests only — never shown in the app UI |
 
 ## Features
 
-- **Interactive map** of all 147 real Camera dei Deputati collegi
-  uninominali, rendered as native `MKPolygon`/`MKMultiPolygon` overlays
-  (56 of the 147 are genuine multi-part geometries — mainland collegi that
-  include small offshore islands) — tap a collegio to see its detail.
+- **Chamber-aware interactive map** of all 221 real collegi uninominali —
+  147 Camera + 74 Senato, switchable via a segmented picker — rendered as
+  native `MKPolygon`/`MKMultiPolygon` overlays (90 of the 221 are genuine
+  multi-part geometries) — tap a collegio to see its detail.
 - **601 real representatives** — 400 Camera deputies + 201 Senato
-  senators, XIX Legislature, each with party, parliamentary group,
-  committee memberships, and (for deputies) how they were elected.
-- **147/147 collegio-uninominale ↔ current-deputy linkage** — every real
-  ISTAT collegio shows its actual current deputy, resolved from the
-  official Camera SPARQL graph (structural join on circoscrizione + collegio
-  sub-code, verified against by-elections and vacancies — see the linkage
-  report).
+  senators, XIX Legislature, each with party, parliamentary group, and
+  committee memberships; deputies carry how they were elected and their
+  circoscrizione, senators their verbatim mandate category (the 5 life
+  senators get a dedicated profile badge).
+- **147/147 Camera and 73/74 Senato collegio ↔ current-member linkage** —
+  every collegio page shows its actual directly-elected deputy or
+  senator, resolved by structural joins on the official SPARQL graphs
+  (verified against by-elections and vacancies; the one Senato collegio
+  with no serving senator in the source shows an honest empty state).
+- **Plurinominale context on Camera collegio pages** (v3 Phase 18): each
+  page also lists the proportional-list deputies of its circoscrizione,
+  with an explainer that they represent the whole circoscrizione.
 - **12 curated real Camera votes** with 4,788 individual per-deputy
   positions (favorevole/contrario/astenuto/assente), each traceable to its
-  official "scheda votazione" source page.
+  official "scheda votazione" source page — browsable per representative
+  (with outcome filters and title search) and per votazione (the
+  "Votazioni" screen with per-event tallies; v3 Phase 20). No derived
+  metric of any kind ships — see
+  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md).
+- **Preferiti** (v3 Phase 19) — star representatives from their profile
+  and find them again from Home; stored only on-device in `UserDefaults`.
 - **Address search with autocomplete** (`MKLocalSearchCompleter`) resolving
   any Italian address to its real collegio via point-in-polygon geometry,
   with an offline five-city fallback table when network geocoding isn't
@@ -50,21 +64,24 @@ narrow exception:
 - **Searchable representative list** (`RepresentativeListView`) — all 601
   representatives, filterable by party (12 deduplicated party chips merging
   Camera-sigla/Senato-full-name spelling variants of the same party).
-- **`CollegiListView`** — a fully searchable, VoiceOver-navigable list of
-  all 147 collegi, serving as the accessible alternative to tapping
-  polygons on the map (which VoiceOver cannot discover or select).
+- **`CollegiListView`** — a fully searchable, chamber-aware,
+  VoiceOver-navigable list of all 221 collegi, serving as the accessible
+  alternative to tapping polygons on the map (which VoiceOver cannot
+  discover or select).
 - **"Informazioni e fonti"** attribution screen, rendered live from
   `Data/sources.json` — every source's name, license, and retrieval date,
   with a link to the original.
 - **"Come funziona l'elezione"** explainer on Home, stating plainly which
-  deputies are mapped to geography (uninominale) and which aren't
-  (plurinominale/estero/Senato).
+  representatives are mapped to geography (both chambers' uninominale
+  winners) and which aren't (plurinominale/estero, life senators).
 - **Accessibility**: non-color-only vote-outcome badges (icon + text +
   distinct VoiceOver label for every case), VoiceOver labels/hints across
   every interactive flow, Dynamic Type support (no truncating
   `minimumScaleFactor` on real content), and ≥44×44pt hit targets — see
-  [`docs/v2/a11y-checklist.md`](docs/v2/a11y-checklist.md) for the full
-  audit and its disclosed limitations.
+  [`docs/v2/a11y-checklist.md`](docs/v2/a11y-checklist.md) for the v2
+  audit and [`docs/v3/a11y-checklist.md`](docs/v3/a11y-checklist.md) for
+  the v3 surfaces, each with its disclosed limitations and pending human
+  checks.
 
 ## Architecture
 
@@ -72,7 +89,8 @@ narrow exception:
   `MKGeoJSONDecoder`).
 - **Pattern:** MVVM/service pattern. A single `ServiceContainer`
   (`DistrictService`, `RepresentativeService`, `VoteService`,
-  `GeocodingService`, `ManifestService`, `PartyStyleService`) is built once
+  `GeocodingService`, `ManifestService`, `PartyStyleService`, and — since
+  v3 Phase 19 — the `@Observable` `FavoritesStore`) is built once
   at launch and injected into the view hierarchy via
   `.environment(\.services, services)`; views read it back with
   `@Environment(\.services) private var services` rather than reaching for
@@ -81,16 +99,20 @@ narrow exception:
   `MKPolygon`/`MKMultiPolygon` (with interior-ring holes handled
   natively). Point-in-collegio resolution first narrows to bounding-box
   candidates (`District.boundingMapRect`), then runs exact even-odd
-  ray-casting only on those candidates — measured at ~0.07s for 1,000
-  random Italian coordinates against all 147 real collegi (see
+  ray-casting only on those candidates — measured well under 1s for 1,000
+  random Italian coordinates per chamber (see
   `PoliticiTests/DistrictBoundariesTests.swift`).
 - **Schema v2**: every model carries a `provenance` field
   (`.official`/`.sample`, defaulting to `.sample` when absent so old
   fixtures keep decoding), and enums that model external vocabulary
-  (`VoteChoice`, `VoteResult`, `CollegioType`, `ElectionType`) decode
-  *tolerantly* — an unrecognized raw value becomes an explicit
-  `.sconosciuto` case rather than throwing and blanking the whole file
-  (`TolerantStringEnum`, `Politici/Models/TolerantDecoding.swift`).
+  (`VoteChoice`, `VoteResult`, `CollegioType`, `ElectionType`,
+  `MandateType`) decode *tolerantly* — an unrecognized raw value becomes
+  an explicit `.sconosciuto` case rather than throwing and blanking the
+  whole file (`TolerantStringEnum`,
+  `Politici/Models/TolerantDecoding.swift`). Since v3 Phase 20,
+  `votes.json` uses a normalized `{"events":[...],"positions":[...]}`
+  schema keyed on the source-backed `voteEventId` (the frozen flat
+  `votes.sample.json` fixture still decodes via a fallback path).
 - **Local-first at runtime, no exceptions**: the app itself makes no
   network calls — no backend, no analytics, no remote image fetching
   (representative "photos" are locally-generated initials avatars, never a
@@ -101,29 +123,42 @@ narrow exception:
 
 ## Data pipeline
 
-`Data/districts.geojson`, `Data/representatives.json`, and `Data/votes.json`
-are **generated artifacts** — never hand-edited. They're produced by a
-`tools/` pipeline that deliberately separates the one network-touching step
-from everything else, so every other step is reproducible offline from a
-cache:
+`Data/districts.geojson`, `Data/districts_senato.geojson`,
+`Data/representatives.json`, and `Data/votes.json` are **generated
+artifacts** — never hand-edited. They're produced by a `tools/` pipeline
+that deliberately separates the one network-touching step from everything
+else, so every other step is reproducible offline from a cache:
 
 ```
-make fetch       # network required — SPARQL queries against dati.camera.it /
-                  # dati.senato.it, writes only to tools/raw/ (gitignored)
-make import       # offline — merges tools/raw/*.json into Data/*.json
-make boundaries   # offline — rebuilds districts.geojson from the local
-                  # ISTAT shapefile (tools/raw/collegi/, not fetched by
-                  # `make fetch`; see docs/v2/03-boundaries-audit.md)
-make validate     # offline — structural + referential-integrity checks
-make manifest     # offline — regenerates Data/sources.json
-make all          # fetch + import + validate + manifest + boundaries
+make fetch            # network required — SPARQL queries against dati.camera.it /
+                       # dati.senato.it, writes only to tools/raw/ (gitignored)
+make import            # offline — merges tools/raw/*.json into Data/*.json
+make boundaries        # offline — rebuilds districts.geojson (Camera) from the
+                       # local ISTAT shapefile (tools/raw/collegi/, not fetched
+                       # by `make fetch`; see docs/v2/03-boundaries-audit.md),
+                       # with a per-feature vertex report against a 1500-vertex
+                       # gate (see docs/v3/14-pipeline-hardening.md)
+make boundaries-senato # offline — same pipeline, Senato layer →
+                       # districts_senato.geojson (v3 Phase 16)
+make manifest          # offline — regenerates Data/sources.json
+make validate          # offline — structural + referential-integrity checks;
+                       # runs last so it checks the final state of everything
+                       # the steps above produce
+make all               # offline — import + boundaries + boundaries-senato +
+                       # manifest + validate, against whatever is already
+                       # cached under tools/raw/ (never fetches — see below)
 ```
 
-One-command refresh of the SPARQL-derived data (representatives + votes):
+One-command refresh of the SPARQL-derived data (fetch, then rebuild
+everything from it):
 
 ```bash
-make fetch && make all
+make refresh
 ```
+
+`make refresh` (`fetch` + `all`) and `make fetch` are the only two targets
+that touch the network — every other target, including `all`, is fully
+offline against the `tools/raw/` cache left by a previous fetch.
 
 Every SPARQL query is a pinned, versioned `.rq` file under `tools/queries/`
 (never an inline string) — see `tools/sparql_client.py` for the shared
@@ -164,10 +199,13 @@ Politici/
 tools/               — the offline-first-except-fetch data pipeline (see "Data pipeline")
 ├── queries/          — pinned .rq SPARQL query files
 ├── config/           — pipeline scope/budget config (e.g. votes_scope.json)
+├── probes/           — committed one-off verification scripts; their output/ is gitignored
 └── raw/              — gitignored fetch cache, never committed
 
 PoliticiTests/        — unit tests: decoding, geometry, services, accessibility invariants
 docs/v2/               — phase-by-phase design notes and verification reports for the v2 rewrite
+docs/v3/               — phase-by-phase reports for the v3 work (Senato, context, favorites, votes)
+docs/history/          — frozen, audited v1–v2 implementation record (never edited)
 docs/DATA_SOURCES.md   — canonical per-source license/attribution reference
 ```
 
@@ -191,8 +229,9 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild \
 Or, in Xcode: open `Politici.xcodeproj`, select the **Politici** scheme, pick
 any iOS 17+ simulator, and Build & Run (`⌘R`). From Home: type an address or
 tap a sample city to search, tap "Esplora la Mappa Interattiva" to browse
-the map, or tap either stat card ("Collegi campione" / "Rappresentanti") to
-browse the full searchable lists.
+the map (switch chamber with the Camera/Senato picker), tap the "Collegi
+uninominali" / "Rappresentanti" / "Preferiti" stat cards for the searchable
+lists, or "Votazioni in Aula (campione)" for the imported roll-call votes.
 
 ## Known limitations
 
@@ -200,23 +239,40 @@ Disclosed deliberately, not silently — each of these is a scoping decision
 made and documented during v2 development, not an oversight discovered
 after the fact:
 
-- **~253 Camera deputies (245 plurinominale + 8 estero) are listed but not
-  mapped to geography.** Only the 147 uninominale (majoritarian) winners
-  have a real collegio to point to; proportional-list and overseas-district
-  deputies are visible in the representative list/profile but never plotted
-  on the map, exactly as the "Come funziona l'elezione" explainer states.
-- **Senato collegi are not rendered at all** — no Senato boundary data has
-  been imported in v2 (Camera-only per the boundaries phase's explicit
-  scope). All 201 senators are listed and searchable but never mapped.
-- **Votes cover 12 curated Camera roll calls, not the full record.**
-  Secret-ballot votes are excluded by design — the source data only
-  discloses a generic "voted" flag for them, never an actual position, so
-  including them would misrepresent "unattributable by law" as "unknown by
-  omission." The set is also budget-constrained: the nominal scope target
-  is the 25 most recent qualifying votes, but a ~2MB bundle-size budget
-  capped the actual import at 12 (see
-  [`docs/v2/04-votes-import.md`](docs/v2/04-votes-import.md) for the exact
-  math). Senato votes are out of scope entirely.
+- **253 Camera deputies (245 plurinominale + 8 estero) have no collegio
+  polygon of their own.** Only the 147 uninominale (majoritarian) winners
+  have a precise collegio to point to. Since v3 Phase 18 the
+  plurinominale deputies do appear on every Camera collegio page of their
+  circoscrizione (with an explainer that they represent the whole
+  circoscrizione, not that collegio) and their profiles show
+  "Circoscrizione: {name}"; estero deputies remain list-only by design.
+- **128 of 201 senators are listed but not mapped to geography.** Since v3
+  Phases 16–17 the map renders both chambers' uninominale collegi (147
+  Camera + 74 Senato) and 73 currently-serving senators are linked to the
+  real Senato collegio that elected them, the same way deputies are; the
+  senators elected via proportional lists (121), the two overseas
+  constituencies, and the 5 life senators have no uninominale collegio to
+  map — exactly like Camera's plurinominale/estero deputies. One Senato
+  collegio (Lazio - U02) has no currently-serving senator in the source
+  data at all and shows an honest empty state (see
+  [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)).
+- **Votes cover 12 curated Camera roll calls, not the full record — and
+  all 12 are from a single sitting day.** Secret-ballot votes are
+  excluded by design — the source data only discloses a generic "voted"
+  flag for them, never an actual position, so including them would
+  misrepresent "unattributable by law" as "unknown by omission." The set
+  is budget-constrained (a 2 MiB per-file gate; see
+  [`docs/v2/04-votes-import.md`](docs/v2/04-votes-import.md)); a v3
+  expansion was probed and **measurably exited**: the Camera votes in
+  same-day bursts, so no "most recent N" scope that fits the gate can
+  span more than one sitting (see
+  [`docs/v3/21-votes-expansion.md`](docs/v3/21-votes-expansion.md)).
+  Senato votes are out of scope entirely.
+- **No vote-derived metric ships — browsing only.** Alignment/discipline
+  numbers computed over 12 same-day votes would be misleading by
+  construction; the six-line gate any future metric must pass (and
+  currently fails, 1 of 6) is
+  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md).
 - **`attendanceRate` is not populated** for any real representative — no
   source in this pipeline publishes a documented, reproducible attendance
   methodology, and inventing one would be fabrication.
@@ -233,47 +289,58 @@ after the fact:
   is correctly excluded.
 - **All data is a snapshot** as of each source's `retrievedAt` date in
   `Data/sources.json` / the in-app "Informazioni e fonti" screen — nothing
-  refreshes automatically; re-running `make fetch && make all` is required
-  to update it, and the app has no way to know it's stale beyond the
-  displayed date.
+  refreshes automatically; re-running `make refresh` is required to update
+  it, and the app has no way to know it's stale beyond the displayed date.
 - **`PoliticiUITests` is still unmodified Xcode template boilerplate** — no
-  real UI-automation test coverage exists; all verification during v2 was
-  either `PoliticiTests` unit coverage or manual simulator/screenshot
-  checks (documented per-phase in `docs/v2/*.md`).
-- **`IPHONEOS_DEPLOYMENT_TARGET` is 26.5**, inherited from the Xcode
-  project template at creation time — the app uses no API newer than iOS
-  17, but the deployment target was never explicitly lowered (flagged,
-  never actioned, since `docs/v2/00-audit.md`).
+  real UI-automation test coverage exists; all verification during v2 and
+  v3 was `PoliticiTests` unit coverage plus per-phase code-inspection
+  reports (`docs/v2/*.md`, `docs/v3/*.md`). The template target also
+  showed environment-driven flakiness twice during v3 (documented in the
+  Phase 17/18 reports) — its marginal value is a known open question.
+- **`IPHONEOS_DEPLOYMENT_TARGET` is 17.0** — the app's real technical
+  floor (no API newer than iOS 17 is used). It was audited and lowered
+  from 26.5, the Xcode template default it had inherited since creation,
+  in v3 Phases 13/13B (`docs/v3/13-baseline-audit.md`,
+  `docs/v3/13b-deployment-target.md`).
 
-## v3 roadmap
+## Roadmap (post-v3)
 
-Not started, not promised on any timeline — captured here so future work
-has a documented starting point rather than a blank slate:
+What v3 actually did to the old roadmap, stated plainly, plus what remains
+— not promised on any timeline:
 
-- **Senato collegio boundaries** — extend the boundaries pipeline to the
-  Senato uninominali layer (ISTAT publishes it alongside Camera's) and
-  link current senators the same way Camera deputies are linked now.
-- **A plurinominale representation layer** — some UI treatment for the
-  ~253 currently-unmapped deputies beyond "visible in the list," e.g.
-  grouping by circoscrizione even without a precise polygon.
-- **Expanded votes coverage** — either a materially larger curated set (if
-  bundle size allows a redesign, e.g. per-collegio or per-representative
-  lazy loading instead of one bundled file) or a documented on-demand fetch
-  path that stays consistent with the local-first *runtime* constraint.
-- **Offline geocoding beyond the five-city fallback** — a bundled
-  comuni-centroid table so every Italian comune resolves to *a* coordinate
-  without depending on live `CLGeocoder` network access.
-- **Possible live data refresh** — explicitly deferred pending a decision
-  on whether that's compatible with "local-first" at all, or whether it
-  would need to become an explicit, user-initiated, clearly-labeled
-  exception.
-- **Push notifications for new votes** — explicitly deferred: this needs a
-  backend (something to push *from*), which doesn't exist and isn't
-  planned; listed here only so it isn't quietly forgotten as a future
-  option, not as a near-term item.
-- **SwiftData (or similar) persistence** — only if/when the app grows
-  actual user state (follows, bookmarks, preferences) to persist; nothing
-  in the current app needs it, so it hasn't been added speculatively.
+**Shipped in v3** (see `docs/v3/*.md` and `CHANGELOG.md`):
+- Senato collegio boundaries + senator linkage (Phases 16–17).
+- The plurinominale representation layer, as per-circoscrizione grouping
+  on Camera collegio pages (Phase 18).
+- Local favorites (Phase 19) — via `UserDefaults`, which settled the old
+  "SwiftData persistence" question for the current scale: nothing yet
+  needs more than that.
+- Per-event vote browsing on a source-backed event identity (Phase 20).
+
+**Attempted in v3, measurably exited**:
+- Expanded votes coverage — the Phase 21 scope probe showed no
+  "most recent N" scope that fits the 2 MiB gate can span more than one
+  sitting day; the recorded path forward is a *stratified* selection
+  design (per-sitting caps, or hand-curated atto-bearing votes via the
+  existing `"explicit"` scope mode), which needs its own probe
+  ([`docs/v3/21-votes-expansion.md`](docs/v3/21-votes-expansion.md)).
+
+**Open (V4 candidates)**:
+- The stratified votes-scope redesign above, and with it the lazy
+  vote-loading work its file growth would trigger.
+- Any vote-derived metric — strictly behind the six-line gate in
+  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md), which
+  also requires a group-membership-history import that doesn't exist yet.
+- Populating senators' `electionType` from `osr:tipoElezione` — the data
+  now exists in the cache, but mapping the Senato vocabulary onto
+  Camera's cases is a semantic decision deliberately not taken in v3
+  (flagged in [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)).
+- Offline geocoding beyond the five-city fallback (bundled
+  comuni-centroid table).
+- Possible live data refresh — still deferred pending the "is that
+  compatible with local-first at all" decision.
+- Push notifications for new votes — still deferred (needs a backend that
+  doesn't exist and isn't planned); listed so it isn't quietly forgotten.
 
 ## License & attribution
 

@@ -26,6 +26,14 @@ final class DecodingTests: XCTestCase {
         XCTAssertEqual(districts.count, 5)
     }
 
+    func testSenatoDistrictsDecodeWithExpectedCount() throws {
+        // 74 real Senato collegi uninominali (ISTAT) — Phase 16, see
+        // docs/v3/16-senato-boundaries.md. Verified via ogrinfo in
+        // docs/v3/15-senato-exploration.md's source exploration.
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
+        XCTAssertEqual(districts.count, 74)
+    }
+
     func testRepresentativesDecodeWithExpectedCount() throws {
         // 400 Camera deputies + 201 Senato senators with an active mandate,
         // imported from real open data (tools/import_representatives.py).
@@ -35,14 +43,15 @@ final class DecodingTests: XCTestCase {
 
     func testShippingVotesAreNonEmptyAndWithinBudget() throws {
         // Real votazioni positions imported from dati.camera.it (see
-        // docs/v2/04-votes-import.md). Exact count depends on which votes
+        // docs/v2/04-votes-import.md; normalized schema since Phase 20 —
+        // docs/v3/20-vote-browsing.md). Exact count depends on which votes
         // were most recent when 'make fetch' last ran and how many fit
         // under tools/config/votes_scope.json's maxPositionRecords budget,
         // so it isn't asserted exactly here — just that it's non-empty and
         // stays within the budget tools/import_votes.py enforces.
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
-        XCTAssertFalse(votes.isEmpty)
-        XCTAssertLessThanOrEqual(votes.count, 5000)
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
+        XCTAssertFalse(votesFile.positions.isEmpty)
+        XCTAssertLessThanOrEqual(votesFile.positions.count, 5000)
     }
 
     func testSampleVotesDecodeWithExpectedCount() throws {
@@ -56,22 +65,60 @@ final class DecodingTests: XCTestCase {
         XCTAssertEqual(chambers, [.camera, .senato])
     }
 
-    /// Senato boundaries are explicitly out of scope for this phase — see
-    /// docs/v2/03-boundaries-audit.md. The shipping file should only ever
-    /// contain Camera collegi until a future phase adds Senato geometry.
+    /// districts.geojson (the default "districts" resource) is Camera's own
+    /// dedicated boundary file — Senato boundaries were explicitly out of
+    /// scope when this file was built (docs/v2/03-boundaries-audit.md) and
+    /// still ship in a SEPARATE file (districts_senato.geojson, Phase 16 —
+    /// see testSenatoDistrictsAreSenatoOnly below) rather than being merged
+    /// in here, so this file should stay Camera-only indefinitely.
     func testShippingDistrictsAreCameraOnly() throws {
         let districts = try GeoJSONLoader.loadDistricts()
         XCTAssertTrue(districts.allSatisfy { $0.chamber == .camera })
     }
 
-    func testEveryNonNilRepresentativeDistrictReferencesAKnownDistrict() throws {
-        // districtId is nil for every representative imported from real open
-        // data (not yet mapped to a sample district) and non-nil for the
-        // fictional sample dataset. Only the non-nil case should be checked
-        // against districts.geojson.
+    func testSenatoDistrictsAreSenatoOnly() throws {
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
+        XCTAssertTrue(districts.allSatisfy { $0.chamber == .senato })
+    }
+
+    func testSenatoDistrictIdsAreSPrefixedWithRegioneAndNoCircoscrizione() throws {
+        // "S" prefix applied unconditionally at import time (32/74 ids
+        // would otherwise collide with real Camera ids — see
+        // docs/v3/15-senato-exploration.md's collision check); regione
+        // (not circoscrizione) is Senato's grouping property — see
+        // District.swift and docs/v3/16-senato-boundaries.md.
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
+        XCTAssertTrue(districts.allSatisfy { $0.id.hasPrefix("S") })
+        XCTAssertTrue(districts.allSatisfy { ($0.regione?.isEmpty == false) })
+        XCTAssertTrue(districts.allSatisfy { ($0.subCode?.isEmpty == false) })
+        XCTAssertTrue(districts.allSatisfy { $0.circoscrizione == nil })
+    }
+
+    func testCameraDistrictsHaveNoRegione() throws {
         let districts = try GeoJSONLoader.loadDistricts()
+        XCTAssertTrue(districts.allSatisfy { $0.regione == nil })
+    }
+
+    func testCameraAndSenatoDistrictIdsAreAllUnique() throws {
+        // 147 + 74 = 221 unique ids across the two boundary files — the
+        // Swift-side twin of tools/validate_data.py's cross-file id
+        // uniqueness check (Phase 16).
+        let camera = try GeoJSONLoader.loadDistricts()
+        let senato = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
+        let allIds = camera.map(\.id) + senato.map(\.id)
+        XCTAssertEqual(allIds.count, 221)
+        XCTAssertEqual(Set(allIds).count, 221, "no id should be shared between districts.geojson and districts_senato.geojson")
+    }
+
+    func testEveryNonNilRepresentativeDistrictReferencesAKnownDistrict() throws {
+        // Non-nil districtIds now span both chambers: uninominale deputies
+        // reference districts.geojson (Phase 8) and the 73 linked senators
+        // districts_senato.geojson (Phase 17); nil stays legitimate for
+        // plurinominale/estero deputies and unlinked senators.
+        let cameraDistricts = try GeoJSONLoader.loadDistricts()
+        let senatoDistricts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let districtIds = Set(districts.map(\.id))
+        let districtIds = Set((cameraDistricts + senatoDistricts).map(\.id))
         XCTAssertTrue(representatives.allSatisfy { representative in
             guard let districtId = representative.districtId else { return true }
             return districtIds.contains(districtId)

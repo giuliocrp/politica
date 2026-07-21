@@ -30,6 +30,17 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertTrue(districts.allSatisfy { $0.sourceName == "ISTAT" })
     }
 
+    func testShippingSenatoDistrictsAreOfficialProvenance() throws {
+        // Same ISTAT release as Camera's (Phase 16 — see
+        // docs/v3/16-senato-boundaries.md), same provenance/collegioType/
+        // sourceName shape.
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
+        XCTAssertFalse(districts.isEmpty)
+        XCTAssertTrue(districts.allSatisfy { $0.provenance == .official })
+        XCTAssertTrue(districts.allSatisfy { $0.collegioType == .uninominale })
+        XCTAssertTrue(districts.allSatisfy { $0.sourceName == "ISTAT" })
+    }
+
     /// Data/representatives.json now ships real, officially-sourced records
     /// (see tools/import_representatives.py), so it always has explicit
     /// `"provenance": "official"` and no longer exercises the decode-default
@@ -110,36 +121,41 @@ final class SchemaV2Tests: XCTestCase {
     // representatives.json.
 
     func testShippingDataIdsAreUnique() throws {
+        // votes.json is the normalized Phase 20 schema now — both the
+        // event ids and the position ids must be unique.
         let districts = try GeoJSONLoader.loadDistricts()
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
 
         let districtIds = districts.map(\.id)
         let representativeIds = representatives.map(\.id)
-        let voteIds = votes.map(\.id)
+        let voteEventIds = votesFile.events.map(\.id)
+        let positionIds = votesFile.positions.map(\.id)
 
         XCTAssertEqual(districtIds.count, Set(districtIds).count, "district ids must be unique")
         XCTAssertEqual(representativeIds.count, Set(representativeIds).count, "representative ids must be unique")
-        XCTAssertEqual(voteIds.count, Set(voteIds).count, "vote ids must be unique")
+        XCTAssertEqual(voteEventIds.count, Set(voteEventIds).count, "vote event ids must be unique")
+        XCTAssertEqual(positionIds.count, Set(positionIds).count, "vote position ids must be unique")
     }
 
     func testShippingVotesReferenceKnownRepresentatives() throws {
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
         let representativeIds = Set(representatives.map(\.id))
 
         XCTAssertTrue(
-            votes.allSatisfy { representativeIds.contains($0.representativeId) },
-            "every shipping vote.representativeId must reference a real representative"
+            votesFile.positions.allSatisfy { representativeIds.contains($0.representativeId) },
+            "every shipping position.representativeId must reference a real representative"
         )
     }
 
     // MARK: - Votes import (Phase 9 — see docs/v2/04-votes-import.md)
 
     func testShippingVotesAreAllOfficialProvenance() throws {
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
-        XCTAssertFalse(votes.isEmpty)
-        XCTAssertTrue(votes.allSatisfy { $0.provenance == .official })
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
+        XCTAssertFalse(votesFile.events.isEmpty)
+        XCTAssertFalse(votesFile.positions.isEmpty)
+        XCTAssertTrue(votesFile.events.allSatisfy { $0.provenance == .official })
     }
 
     func testShippingVotesHaveNoUnmappedVoteOrResultVocabulary() throws {
@@ -148,9 +164,9 @@ final class SchemaV2Tests: XCTestCase {
         // tools/import_votes.py's RAW_VOTE_CHOICE/RAW_VOTE_RESULT tables —
         // a .sconosciuto in shipping data would mean a new, unmapped raw
         // value slipped through unnoticed on some future re-fetch.
-        let votes = try LocalJSONLoader.decode([Vote].self, fromResource: "votes")
-        XCTAssertTrue(votes.allSatisfy { $0.vote != .sconosciuto })
-        XCTAssertTrue(votes.allSatisfy { $0.result != .sconosciuto })
+        let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
+        XCTAssertTrue(votesFile.positions.allSatisfy { $0.vote != .sconosciuto })
+        XCTAssertTrue(votesFile.events.allSatisfy { $0.result != .sconosciuto })
     }
 
     func testVoteServiceSortsRealVotesNewestFirst() throws {
@@ -162,9 +178,13 @@ final class SchemaV2Tests: XCTestCase {
     }
 
     func testEveryNonNilShippingRepresentativeDistrictIsKnown() throws {
-        let districts = try GeoJSONLoader.loadDistricts()
+        // Both chambers' boundary files since Phase 17: deputies reference
+        // districts.geojson ids, linked senators districts_senato.geojson's
+        // "S"-prefixed ids.
+        let cameraDistricts = try GeoJSONLoader.loadDistricts()
+        let senatoDistricts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let districtIdSet = Set(districts.map(\.id))
+        let districtIdSet = Set((cameraDistricts + senatoDistricts).map(\.id))
 
         XCTAssertTrue(
             representatives.allSatisfy { representative in
@@ -246,11 +266,89 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertTrue(cameraNonUninominale.allSatisfy { $0.districtId == nil })
     }
 
-    func testSenatoRepresentativesAreUntouchedByLinkage() throws {
+    func testSenatoLinkageMatchesPhase17Import() throws {
+        // Phase 17 (docs/v3/17-senato-mandates.md) superseded the v2-era
+        // "senators are untouched by linkage" invariant: the 73
+        // uninominale-elected serving senators now carry their real
+        // "S"-prefixed Senato collegio id, leaving exactly one of the 74
+        // collegi without a serving senator (no XIX binding claims it in
+        // the source). The other 128 senators (proporzionale/estero/life)
+        // stay nil, mirroring Camera's plurinominale/estero pattern, and
+        // electionType stays .sconosciuto for every senator — tipoElezione
+        // is consumed at import time for linkage eligibility only.
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let senatoDistricts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
         let senators = representatives.filter { $0.chamber == .senato }
         XCTAssertEqual(senators.count, 201)
-        XCTAssertTrue(senators.allSatisfy { $0.districtId == nil && $0.electionType == .sconosciuto })
+
+        let linkedIds = Set(senators.compactMap(\.districtId))
+        XCTAssertEqual(linkedIds.count, 73)
+        XCTAssertTrue(linkedIds.allSatisfy { $0.hasPrefix("S") })
+        XCTAssertTrue(linkedIds.isSubset(of: Set(senatoDistricts.map(\.id))))
+        XCTAssertEqual(Set(senatoDistricts.map(\.id)).subtracting(linkedIds).count, 1)
+
+        XCTAssertTrue(senators.allSatisfy { $0.electionType == .sconosciuto })
+        XCTAssertTrue(
+            senators.filter { $0.mandate == .nominaAVita }.allSatisfy { $0.districtId == nil },
+            "life senators have no collegio and must never be linked to one"
+        )
+    }
+
+    // MARK: - Deputy circoscrizioni (Phase 18 — see docs/v3/18-plurinominale-context.md)
+
+    func testShippingDeputiesCarryCanonicalCircoscrizioni() throws {
+        // The GO-CIRC gate's conditions, re-asserted on the shipped bundle:
+        // complete deputy coverage, values within districts.geojson's own
+        // 28 circoscrizioni ∪ {"Estero"}, exact equality with the linked
+        // collegio's property for every uninominale deputy, estero <->
+        // "Estero" correspondence (8 deputies), senators key-free, and the
+        // measured 147/245/8 electionType distribution.
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let districts = try GeoJSONLoader.loadDistricts()
+
+        let deputies = representatives.filter { $0.chamber == .camera }
+        XCTAssertTrue(deputies.allSatisfy { $0.circoscrizione?.isEmpty == false })
+
+        let validValues = Set(districts.compactMap(\.circoscrizione)).union(["Estero"])
+        XCTAssertTrue(Set(deputies.compactMap(\.circoscrizione)).isSubset(of: validValues))
+
+        let circoscrizioneByDistrict = Dictionary(
+            uniqueKeysWithValues: districts.map { ($0.id, $0.circoscrizione) }
+        )
+        let linked = deputies.filter { $0.districtId != nil }
+        XCTAssertTrue(linked.allSatisfy { $0.circoscrizione == circoscrizioneByDistrict[$0.districtId!] })
+
+        XCTAssertEqual(deputies.filter { $0.electionType == .uninominale }.count, 147)
+        XCTAssertEqual(deputies.filter { $0.electionType == .plurinominale }.count, 245)
+        let esteroDeputies = deputies.filter { $0.electionType == .estero }
+        XCTAssertEqual(esteroDeputies.count, 8)
+        XCTAssertEqual(
+            Set(esteroDeputies.map(\.id)),
+            Set(deputies.filter { $0.circoscrizione == "Estero" }.map(\.id))
+        )
+
+        let senators = representatives.filter { $0.chamber == .senato }
+        XCTAssertTrue(senators.allSatisfy { $0.circoscrizione == nil })
+    }
+
+    // MARK: - Senato mandates (Phase 17 — see docs/v3/17-senato-mandates.md)
+
+    func testShippingSenatorsCarryVerbatimMandates() throws {
+        // Snapshot invariants of the current import: 201 serving senators =
+        // 196 elettivo + 5 a-vita, zero Presidente-emerito (its one known
+        // bearer's mandate is ended and is excluded by the fineMandato rule),
+        // zero .sconosciuto (the importer fails loudly on unknown vocabulary
+        // instead of ever writing it). Deputies carry no mandate at all.
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+
+        let senators = representatives.filter { $0.chamber == .senato }
+        XCTAssertEqual(senators.filter { $0.mandate == .elettivo }.count, 196)
+        XCTAssertEqual(senators.filter { $0.mandate == .nominaAVita }.count, 5)
+        XCTAssertEqual(senators.filter { $0.mandate == .diDirittoEAVita }.count, 0)
+        XCTAssertTrue(senators.allSatisfy { $0.mandate != nil && $0.mandate != .sconosciuto })
+
+        let deputies = representatives.filter { $0.chamber == .camera }
+        XCTAssertTrue(deputies.allSatisfy { $0.mandate == nil })
     }
 
     // MARK: - Sources manifest

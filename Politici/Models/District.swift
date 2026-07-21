@@ -43,11 +43,20 @@ struct District: Identifiable {
     /// The official Camera electoral circoscrizione (e.g. "Piemonte 1",
     /// "Lazio 2", "Sardegna") — one of the 28 established by D.Lgs.
     /// 177/2020. Derived from the source `CU20_DEN` prefix; see
-    /// docs/v2/03-linkage-report.md. `nil` for fixtures that don't carry it
-    /// (e.g. the sample rectangles).
+    /// docs/v2/03-linkage-report.md. `nil` for Senato districts and for
+    /// fixtures that don't carry it (e.g. the sample rectangles).
     let circoscrizione: String?
-    /// The within-circoscrizione uninominale sequence suffix (e.g. "U01"),
-    /// sourced from `CU20_C1`.
+    /// The official Senato electoral region (e.g. "Piemonte", "Lombardia",
+    /// "Sardegna") — one of Italy's 20 UNSPLIT administrative regions,
+    /// deliberately not called `circoscrizione`: Senato's grouping is a
+    /// genuinely different concept from Camera's (which splits several
+    /// larger regions into multiple circoscrizioni) — see
+    /// docs/v3/15-senato-exploration.md. Derived from the source `SU20_DEN`
+    /// prefix. `nil` for Camera districts and for fixtures that don't carry
+    /// it.
+    let regione: String?
+    /// The within-circoscrizione/region uninominale sequence suffix (e.g.
+    /// "U01"), sourced from `CU20_C1` (Camera) or `SU20_C1` (Senato).
     let subCode: String?
     let sourceName: String?
 

@@ -15,6 +15,7 @@ struct AddressSearchView: View {
     @State private var query: String
     @State private var isSearching = false
     @State private var errorMessage: String?
+    @State private var resolvedMatches: [Chamber: District]?
     @State private var hasAutoSearched = false
     @State private var suggestionsVisible = true
     @State private var suppressNextQueryChange = false
@@ -107,6 +108,10 @@ struct AddressSearchView: View {
                     .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
             }
 
+            if let resolvedMatches {
+                resultsSection(resolvedMatches)
+            }
+
             Spacer()
         }
         .padding()
@@ -177,6 +182,7 @@ struct AddressSearchView: View {
         autocomplete.clear()
 
         errorMessage = nil
+        resolvedMatches = nil
         isSearching = true
 
         Task {
@@ -203,6 +209,7 @@ struct AddressSearchView: View {
 
         suggestionsVisible = false
         errorMessage = nil
+        resolvedMatches = nil
         isSearching = true
 
         Task {
@@ -216,11 +223,85 @@ struct AddressSearchView: View {
         }
     }
 
+    /// Resolves against BOTH chambers independently — an address may fall
+    /// inside a Camera collegio, a Senato collegio, both, or neither, and
+    /// each is reported on its own line rather than silently preferring
+    /// one chamber (see `resultsSection`).
     private func resolveCoordinate(_ coordinate: CLLocationCoordinate2D) {
-        if let district = services.districtService.district(for: coordinate) {
-            path.append(.districtDetail(districtId: district.id))
-        } else {
+        let matches = services.districtService.districts(containing: coordinate)
+        if matches.isEmpty {
             errorMessage = "Indirizzo non coperto dal prototipo. Prova con una città campione come Roma, Milano o Torino."
+        } else {
+            resolvedMatches = matches
+        }
+    }
+
+    @ViewBuilder
+    private func resultsSection(_ matches: [Chamber: District]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Collegio trovato")
+                .font(.headline)
+            ChamberResultRow(chamber: .camera, district: matches[.camera]) {
+                if let district = matches[.camera] {
+                    path.append(.districtDetail(districtId: district.id))
+                }
+            }
+            ChamberResultRow(chamber: .senato, district: matches[.senato]) {
+                if let district = matches[.senato] {
+                    path.append(.districtDetail(districtId: district.id))
+                }
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+    }
+}
+
+/// One line of `AddressSearchView`'s dual-chamber result: a tappable
+/// "Collegio Camera: {name}"/"Collegio Senato: {name}" row when that
+/// chamber has a containing district, or the same honest not-covered
+/// copy `resolveCoordinate` used to show for the whole search — now
+/// scoped to just this chamber, since the other one may still have
+/// resolved.
+private struct ChamberResultRow: View {
+    let chamber: Chamber
+    let district: District?
+    let onSelect: () -> Void
+
+    private var chamberLabel: String {
+        chamber == .camera ? "Camera" : "Senato"
+    }
+
+    var body: some View {
+        if let district {
+            Button(action: onSelect) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Collegio \(chamberLabel)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        Text(district.name)
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.primary)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundStyle(.tertiary)
+                        .accessibilityHidden(true)
+                }
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .combine)
+            .accessibilityHint("Apre i dettagli del collegio")
+        } else {
+            Text("Collegio \(chamberLabel): indirizzo non coperto dal prototipo per questa camera.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .frame(minHeight: 44, alignment: .leading)
         }
     }
 }

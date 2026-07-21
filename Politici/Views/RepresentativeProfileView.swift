@@ -37,6 +37,26 @@ struct RepresentativeProfileView: View {
         }
         .navigationTitle(representative?.name ?? "Profilo")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            if representative != nil {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    favoriteButton
+                }
+            }
+        }
+    }
+
+    private var favoriteButton: some View {
+        let isFavorite = services.favoritesStore.isFavorite(representativeId)
+        return Button {
+            services.favoritesStore.toggle(representativeId)
+        } label: {
+            Image(systemName: isFavorite ? "star.fill" : "star")
+        }
+        .frame(minWidth: 44, minHeight: 44)
+        .contentShape(Rectangle())
+        .accessibilityLabel(isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti")
+        .accessibilityAddTraits(isFavorite ? .isSelected : [])
     }
 
     @ViewBuilder
@@ -66,6 +86,10 @@ struct RepresentativeProfileView: View {
 
             provenanceBadge(representative.provenance)
 
+            if let mandateBadgeLabel = representative.mandate?.profileBadgeLabel {
+                mandateBadge(mandateBadgeLabel)
+            }
+
             if let attendanceRate = representative.attendanceRate {
                 attendanceBadge(rate: attendanceRate)
             }
@@ -73,6 +97,12 @@ struct RepresentativeProfileView: View {
             Text(representative.chamber == .camera ? "Camera dei Deputati" : "Senato della Repubblica")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
+
+            if let circoscrizione = representative.circoscrizione {
+                Text("Circoscrizione: \(circoscrizione)")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)
@@ -87,6 +117,16 @@ struct RepresentativeProfileView: View {
             .padding(.vertical, 6)
             .background(color.opacity(0.15), in: Capsule())
             .foregroundStyle(color)
+    }
+
+    private func mandateBadge(_ text: String) -> some View {
+        Label(text, systemImage: "star.circle.fill")
+            .font(.caption.weight(.semibold))
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .background(Color.purple.opacity(0.15), in: Capsule())
+            .foregroundStyle(.purple)
     }
 
     private func attendanceBadge(rate: Double) -> some View {

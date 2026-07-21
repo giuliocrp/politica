@@ -115,8 +115,24 @@ def real_sources(fetch_metadata):
             "notes": (
                 "Confini geografici dei 147 collegi uninominali della Camera "
                 "(D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e "
-                "semplificati per l'uso su mobile. I confini del Senato non "
-                "sono ancora inclusi in questo prototipo."
+                "semplificati per l'uso su mobile."
+            ),
+        },
+        {
+            "id": "istat-collegi-elettorali-senato-uninominali",
+            "name": "ISTAT — Basi geografiche dei collegi elettorali (Senato, uninominali)",
+            "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2",
+            "license": "CC BY 4.0",
+            "retrievedAt": retrieved_at("istat", fetch_metadata),
+            "notes": (
+                "Confini geografici dei 74 collegi uninominali del Senato "
+                "(D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e "
+                "semplificati per l'uso su mobile. Stesso rilascio ISTAT dei "
+                "confini della Camera (vedi la fonte "
+                "istat-collegi-elettorali-camera-uninominali), scaricato "
+                "nello stesso momento. Nessun senatore è ancora collegato al "
+                "proprio collegio in questo prototipo (vedi "
+                "docs/v3/15-senato-exploration.md)."
             ),
         },
         {

@@ -1,0 +1,39 @@
+# Phase 15b follow-up probe (v2) — mirrors tools/queries/senato_senatori.rq's
+# exact join pattern (same mandatory triples: tipoMandato, inizio,
+# cittaNascita, provinciaNascita, nazioneNascita, dataNascita, depiction)
+# so the senator set matches the known-good 208-binding production query
+# exactly, then adds the three collegio-shaped predicates
+# probe_senato_predicate_discovery.rq surfaced (osr:tipoElezione,
+# osr:regioneElezione, osr:collegioElezione) as OPTIONAL.
+#
+# v1 of this probe used a looser join (no dataNascita/cittaNascita/etc.
+# requirement) and picked up 46 extra senatore URIs beyond the
+# known-good 208 — confirmed by diffing against a fresh run of the actual
+# senato_senatori.rq. This version fixes that by matching the production
+# query's join shape exactly.
+
+PREFIX osr:  <http://dati.senato.it/osr/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT DISTINCT ?senatore ?nome ?cognome ?legislatura ?fineMandato
+                ?tipoElezione ?regioneElezione ?collegioElezione
+WHERE {
+  ?senatore a osr:Senatore ;
+            foaf:firstName ?nome ;
+            foaf:lastName  ?cognome ;
+            foaf:depiction ?foto ;
+            osr:cittaNascita ?cittaNascita ;
+            osr:provinciaNascita ?provinciaNascita ;
+            osr:nazioneNascita ?nazioneNascita ;
+            osr:dataNascita ?dataNascita ;
+            osr:mandato ?mandato .
+  ?mandato osr:tipoMandato ?tipoMandato ;
+           osr:inizio ?inizioMandato ;
+           osr:legislatura ?legislatura .
+  OPTIONAL { ?mandato osr:fine ?fineMandato. }
+  OPTIONAL { ?mandato osr:tipoElezione ?tipoElezione. }
+  OPTIONAL { ?mandato osr:regioneElezione ?regioneElezione. }
+  OPTIONAL { ?mandato osr:collegioElezione ?collegioElezione. }
+  FILTER(?legislatura = 19)
+}
+ORDER BY ?cognome ?nome

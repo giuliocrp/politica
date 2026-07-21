@@ -15,5 +15,7 @@ enum AppRoute: Hashable {
     case representativeList
     case representativeProfile(representativeId: String)
     case voteHistory(representativeId: String)
+    case votazioniList
+    case preferiti
     case fontiEDati
 }

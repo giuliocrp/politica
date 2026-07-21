@@ -49,15 +49,45 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project Pol
 
 ## Data Files
 
-`Politici/Data/districts.geojson`, `Politici/Data/representatives.json`,
-`Politici/Data/votes.json`, `Politici/Data/parties.json`, and
-`Politici/Data/sources.json` are **generated artifacts** — never
-hand-edit them. They're produced by the `tools/` pipeline (`make fetch`,
-`make import`, `make boundaries`, `make validate`, `make manifest` — see
-`README.md`'s "Data pipeline" section and `docs/DATA_SOURCES.md` for the
-full per-source detail and refresh procedure). If a value in one of these
-files looks wrong, fix the pipeline script that produced it and
-re-run — don't patch the JSON/GeoJSON directly.
+`Politici/Data/districts.geojson`, `Politici/Data/districts_senato.geojson`,
+`Politici/Data/representatives.json`, `Politici/Data/votes.json`,
+`Politici/Data/parties.json`, and `Politici/Data/sources.json` are
+**generated artifacts** — never hand-edit them. They're produced by the
+`tools/` pipeline: `make import`, `make boundaries` (Camera),
+`make boundaries-senato`, `make manifest`, `make validate` — bundled as
+the fully offline `make all` (validate deliberately last) — or
+`make refresh` (network-touching `make fetch` followed by `make all`) to
+pull fresh source data first. See `README.md`'s "Data pipeline" section
+and `docs/DATA_SOURCES.md` for the full per-source detail and refresh
+procedure. If a value in one of these files looks wrong, fix the pipeline
+script that produced it and re-run — don't patch the JSON/GeoJSON
+directly. Since v3 Phase 20, `votes.json` is the normalized
+`{"events":[...],"positions":[...]}` schema keyed on the source-backed
+`voteEventId` (the ocd:votazione URI slug); the frozen `votes.sample.json`
+keeps the older flat shape and decodes via `VoteService`'s fallback path.
+
+### The generated-data change protocol
+
+After any pipeline run, inspect the `git diff` of every generated file
+and explain every change before committing: expected changes are
+committed with their explanation, unexpected ones are investigated and
+either fixed at the producing script or the file is restored. This
+protocol has caught real defects twice (a silently-advancing
+`retrievedAt` in Phase 14; a byte-identity break from a `"regione": null`
+key in Phase 16) — treat it as load-bearing, not ceremony.
+
+### The refetch protocol (any network fetch)
+
+Re-verify Legislature XIX is still current **at fetch time** (the
+aggregate-free `tools/probes/probe_senato_legislature_currency.rq` via
+`run_probe.py`); diff source counts before/after; on any drift, stop and
+update constants deliberately, never silently; re-sync
+`Data/sources.json`, `docs/DATA_SOURCES.md`, `tools/SOURCES.md`, and the
+gitignored `tools/raw/SOURCES.txt` in the same commit. **Minimal-scope
+fetches are preferred**: a single `fetch_*.py` script may run alone when
+only one source needs updating (Phase 17 ran only `fetch_senato.py`);
+`make refresh` is the all-sources form. User approval is required before
+any fetch, quoted verbatim in the phase report.
 
 ### The `*.sample.*` convention
 
@@ -77,13 +107,66 @@ a user as anything other than what `provenance: "sample"` says they are.
 When adding a new real dataset that replaces a fictional one, follow this
 same pattern rather than inventing a different fixture-naming scheme.
 
+## Domain conventions established in v3
+
+- **Chamber-conditional keys, absent not null.** A field that exists for
+  only one chamber is *omitted* from the other chamber's records, never
+  written as `null`: `mandate` (Senato-only, Phase 17) and
+  `circoscrizione` (Camera-only, Phase 18) on representatives;
+  `circoscrizione` (Camera) vs `regione` (Senato) on district features.
+  The validator enforces both directions.
+- **`regione` vs `circoscrizione` are different concepts — never
+  conflate.** Camera groups its 147 collegi into 28 `circoscrizione`
+  values; Senato's 74 collegi group by the 20 administrative regions,
+  unsplit, carried as `regione`. Reusing one name for the other would
+  misrepresent the source.
+- **Senato ids are unconditionally `"S"`-prefixed** (`S20001` form) — 32
+  of 74 raw ISTAT codes would collide with Camera ids otherwise; 221
+  unique combined ids are validator-enforced.
+- **`MandateType` semantics**: the three raw values are the source's
+  verbatim `osr:tipoMandato` literals (`"elettivo"`, the a-vita
+  appointment string, the Presidente-emerito string); `.sconosciuto` is a
+  decode-time fallback only — the importer fails loudly on unknown
+  vocabulary and never writes it. Serving Presidente-emerito count must
+  be 0 (validator drift detector). The a-vita badge wording is the
+  source's own gender-neutral category phrasing — the source has no
+  gender field and gender is never inferred from names.
+- **Senato linkage**: only senators whose `tipoElezione` starts with
+  `"Eletto uninominale"` link to a collegio (73 at import time); the one
+  alias (`"VALLE D'AOSTA"` → ISTAT's bilingual name) is the only
+  permitted fuzziness — any other join mismatch fails loudly and must be
+  verified and documented, never added ad hoc. Senators' `electionType`
+  stays null (an explicitly deferred decision — see
+  `docs/v3/17-senato-mandates.md`).
+- **Probes convention**: one-off verification scripts live committed
+  under `tools/probes/`, their `output/` is gitignored and is **never an
+  import source**; network probes run only under the refetch protocol
+  with user approval. Endpoint findings on record: `dati.senato.it`
+  rejects SPARQL aggregates (403/400 — use plain `SELECT`/`SELECT
+  DISTINCT` only) and caps results around ~10k rows; `dati.camera.it`
+  accepted plain SELECTs and 10-URI `VALUES` detail queries cleanly
+  (Phase 21) — chunk anything that could approach a cap.
+- **Favorites**: `UserDefaultsFavoritesStore` (seventh service,
+  `@Observable`) persists `{"schemaVersion":1,"representativeIds":[...]}`
+  under `"favorites.v1"`; corrupt payloads self-heal to empty with a
+  console warning; unresolvable ids are skipped at render but retained in
+  the store. Purely local, never leaves the device.
+- **No vote-derived metric ships** until every line of
+  `docs/v3/votes-methodology.md`'s six-line gate passes — that document
+  binds any future metric work.
+- **Frozen history**: `docs/v2/*`, `docs/history/*` (including
+  `backfills/`) are never edited. Corrections land in living documents or
+  new `docs/v3/*` reports; lettered sub-phases (13B, 15b) are the
+  accepted shape for user-gated inserts between planned phases, and user
+  decisions are quoted verbatim in the report that acts on them.
+
 ## Working methodology established across v2
 
 These aren't hard rules in the sense of #1–4 above, but they're the
-approach every v2 phase actually followed and that produced a working,
-reconciled result each time — deviating from them is more likely to
-produce fabricated-looking or silently-inconsistent work than a genuine
-shortcut:
+approach every v2 phase actually followed (and every v3 phase after it)
+that produced a working, reconciled result each time — deviating from
+them is more likely to produce fabricated-looking or
+silently-inconsistent work than a genuine shortcut:
 
 - **Audit/verify before implementing.** Before writing pipeline code
   against a new data source, inspect the *actual* raw data first (a live
@@ -131,9 +214,12 @@ Politici/
 tools/              — data pipeline: fetch (network) / import, boundaries, validate, manifest (all offline)
 ├── queries/         — pinned .rq SPARQL query files, never inline query strings
 ├── config/          — pipeline scope/budget config (e.g. votes_scope.json)
+├── probes/          — committed verification scripts; output/ gitignored, never an import source
 └── raw/             — gitignored fetch cache — never commit anything here
 
-docs/v2/            — phase-by-phase design notes and verification reports for the v2 rewrite
+docs/v2/            — phase-by-phase v2 reports (frozen — never edit)
+docs/v3/            — phase-by-phase v3 reports + votes-methodology.md + a11y-checklist.md
+docs/history/       — audited v1–v2 implementation record (frozen — never edit)
 docs/DATA_SOURCES.md — canonical, cross-checked per-source license/attribution reference
 ```
 

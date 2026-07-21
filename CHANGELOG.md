@@ -3,9 +3,109 @@
 This project doesn't follow strict [SemVer](https://semver.org/) yet (no
 public releases), but entries are grouped by tagged/named milestone, newest
 first, in the spirit of [Keep a Changelog](https://keepachangelog.com/).
-Each v2 entry corresponds to one phase's commit on `v2` — see
-`docs/v2/*.md` for the full investigation and verification behind the ones
-with a design-note counterpart.
+Each entry corresponds to one phase's commit on its branch (`v2`/`v3`) —
+see `docs/v2/*.md` / `docs/v3/*.md` for the full investigation and
+verification behind each.
+
+## v3.0-prototype (2026-07-21)
+
+Extended the v2 prototype to full dual-chamber geography, senator
+mandates and linkage, electoral context for proportional-list deputies,
+local favorites, and per-event vote browsing — every expansion gated on
+verified source evidence, with two gates deliberately concluding in
+documented non-shipping outcomes (a NO-GO later reversed by a probe, and
+a measured early exit). See `README.md` for the shipped state and
+`docs/v3/*.md` for the per-phase reports.
+
+- **Phase 13 — Baseline audit** (`1d2eba5`): `v3` branch from audited
+  `main`; established the canonical dual test-baseline definition (94
+  declared / 97 runtime, the ×4 `testLaunch` cause named); deployment-
+  target audit (real floor iOS 17.0); fixed a dead map legend and a stale
+  `districtId` comment; corrected a one-year `retrievedAt` typo (C5);
+  archived v2 backfills under `docs/history/backfills/`.
+- **Phase 13B — Deployment target 17.0** (`492152f`): user-approved drop
+  from the inherited 26.5 template default to the audited 17.0 floor,
+  applied across all targets with an exact-baseline test match.
+- **Phase 14 — Pipeline hardening** (`b371465`): made `make all` fully
+  offline with `validate` last (fixing a defect where validation ran
+  before boundaries/manifest), added `make refresh`; 1500-vertex
+  per-feature gate (measured max 695); probes convention
+  (`tools/probes/`, output gitignored); committed `tools/SOURCES.md`
+  provenance mirror; found and fixed fetch-metadata stamping that
+  silently advanced `retrievedAt` on offline runs.
+- **Phase 15 — Senato source exploration** (`a1cac30`): read-only
+  GO/NO-GO evidence — **GO(MAP)** (74 ISTAT Senato collegi verified, id
+  collisions found, `regione`-not-`circoscrizione` naming decided) and
+  **NO-GO(LINK)** on the then-existing cache (no joinable collegio key);
+  MandateType designed from the verbatim source vocabulary (196 elettivo
+  + 5 a-vita serving; Napolitano correctly excluded).
+- **Phase 15b — Linkage predicate probe** (`3828ebd`): user-approved live
+  introspection reversed the NO-GO: found `osr:tipoElezione`/
+  `osr:regioneElezione`/`osr:collegioElezione` (never in the cached
+  query), verified 73 linkable senators with 73/73 effective join match
+  (one disclosed Valle d'Aosta naming alias), set
+  `MIN_LINKED_SENATO = 66`; documented the endpoint's aggregate
+  rejection and ~10k-row cap.
+- **Phase 16 — Senato boundaries + chamber-aware map** (`5f6650a`):
+  shipped `districts_senato.geojson` (74 collegi, S-prefixed ids, 221
+  unique across chambers), chamber-aware `DistrictService`,
+  `ChamberPicker` on map and collegi list, dual-chamber address results;
+  Camera boundaries byte-identical; eager decode kept by explicit user
+  decision (13.1 ms measured).
+- **Phase 17 — Senator mandates + Senato linkage** (`c491548`): every
+  senator carries the verbatim mandate category (gender-neutral a-vita
+  badge on exactly 5 profiles); user-approved Senato-only refetch under
+  the full protocol (zero drift vs 15b); **73/74** collegi linked to
+  their serving senator — the uncovered `S120002` (Lazio - U02) has no
+  claimant in the source at all; retired the "no senator linked" copy.
+- **Phase 18 — Plurinominale/estero context** (`0d75506`): GO-CIRC gate
+  passed on all five conditions (55 coverage literals enumerated, 28/28
+  circoscrizioni matched, 147/147 cross-check); every deputy carries a
+  canonical `circoscrizione` ("Estero" for the 8 overseas); Camera
+  collegio pages gained the per-circoscrizione plurinominale section;
+  profiles the "Circoscrizione:" line.
+- **Phase 19 — Preferiti** (`873fc5f`): local favorites —
+  `UserDefaultsFavoritesStore` (`favorites.v1` payload, corrupt-payload
+  self-heal, dedup) as the seventh service, `@Observable` by recorded
+  decision; profile star toggle, Preferiti screen, dynamic Home count.
+  App-only; zero pipeline/data changes.
+- **Phase 20 — Vote browsing + methodology gate** (`89e0b16`):
+  GO-EVENT-ID (the source's own votazione URI slug, bijective with the
+  12 shipped events); `votes.json` normalized to
+  `{"events":[...],"positions":[...]}` by measurement (flat-plus-field
+  would crowd the 2 MiB gate at 97.6%; normalized is 33.9%, content
+  equivalence proven); Votazioni per-event screen with tallies and
+  source links; VoteHistory outcome chips + title search; wrote
+  `docs/v3/votes-methodology.md` — the six-line gate any future metric
+  must pass (current sample: 1 of 6) — **no metric ships**.
+- **Phase 21 — Votes expansion probe: measured early exit** (`9c7a436`):
+  the four-scope probe (20/30/40/50 recent events) found all 50 most
+  recent non-secret votes come from one sitting day; 40/50 breach the
+  2 MiB gate, 30 adds volume but zero diversity, and even 3 sitting days
+  would need 155% of the gate — **no expansion; data untouched**; the
+  stratified-selection redesign is the recorded V4 path.
+- **This phase — 22A: documentation, accessibility, release prep**:
+  v3 accessibility checklist (`docs/v3/a11y-checklist.md`), README/
+  `CLAUDE.md`/`docs/DATA_SOURCES.md` refreshed to the shipped state,
+  this changelog entry, `docs/releases/v3.0-prototype.md`, final
+  verification (`docs/v3/22-release.md`). Tagging and pushing are
+  deferred to Phase 22B pending the release actions below.
+
+### Release actions (status as of Phase 22B, 2026-07-21)
+
+- [x] **Tag `v3.0-prototype`**: approved ("Proceed with Phase 22B." in
+      response to the pending-decisions block — quoted in
+      `docs/v3/22-release.md`) and created **locally** by Phase 22B at
+      the decisions commit. Not pushed; push commands printed in the
+      22B record, not executed.
+- [ ] **Repository visibility / GitHub Release**: *pending user
+      decision* — release URL placeholder: `<github-release-url>`.
+- [ ] **Retrospective `v1.0.0` tag** at the v1 close: **not created** —
+      requires a separate explicit instruction that was not given;
+      deliberately not re-asked.
+- [ ] **V3 commissioning brief archival** (open since Phase 13): still
+      pending — the brief was never provided; archive under
+      `docs/history/` if/when it surfaces.
 
 ## v2.0-prototype (2026-07-18)
 

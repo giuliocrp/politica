@@ -21,6 +21,7 @@ struct HomeView: View {
                 searchSection
                 mapCTA
                 statsSection
+                votazioniCTA
                 comeFunzionaSection
                 featuredSection
                 footer
@@ -92,11 +93,13 @@ struct HomeView: View {
     }
 
     private var statsSection: some View {
-        HStack(spacing: 12) {
+        // 2×2 since Phase 19's Preferiti card joined the original three —
+        // four cards in one HStack would cramp on smaller widths.
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
             Button {
                 path.append(.collegiList)
             } label: {
-                StatCard(value: "\(services.districtService.allDistricts().count)", label: "Collegi campione")
+                StatCard(value: "\(services.districtService.allDistricts().count)", label: "Collegi uninominali")
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco completo dei collegi")
@@ -110,15 +113,36 @@ struct HomeView: View {
             .accessibilityHint("Apre l'elenco completo dei rappresentanti")
 
             StatCard(value: "2", label: "Camere del Parlamento")
+
+            Button {
+                path.append(.preferiti)
+            } label: {
+                StatCard(value: "\(services.favoritesStore.favoriteIds.count)", label: "Preferiti")
+            }
+            .buttonStyle(.plain)
+            .accessibilityHint("Apre l'elenco dei preferiti")
         }
+    }
+
+    private var votazioniCTA: some View {
+        Button {
+            path.append(.votazioniList)
+        } label: {
+            Label("Votazioni in Aula (campione)", systemImage: "checklist")
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 6)
+        }
+        .buttonStyle(.bordered)
+        .accessibilityHint("Apre l'elenco delle votazioni importate")
     }
 
     private var comeFunzionaSection: some View {
         DisclosureGroup("Come funziona l'elezione") {
             VStack(alignment: .leading, spacing: 10) {
                 BulletRow(text: "Alla Camera, 147 deputati sono eletti direttamente in un collegio uninominale: il loro nome è associato al collegio geografico che rappresentano, visibile sulla mappa.")
-                BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale (collegi plurinominali) o nella circoscrizione Estero: sono consultabili nell'elenco dei rappresentanti, ma non sono associati a un collegio geografico specifico.")
-                BulletRow(text: "I senatori del Senato della Repubblica sono anch'essi consultabili nell'elenco dei rappresentanti; i confini dei collegi del Senato non sono ancora inclusi in questo prototipo, quindi nessun senatore è associato a un'area sulla mappa.")
+                BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale (collegi plurinominali) o nella circoscrizione Estero: non sono associati a un singolo collegio uninominale, ma ogni pagina di collegio della Camera mostra anche i deputati plurinominali della sua circoscrizione. I deputati eletti all'Estero restano consultabili solo nell'elenco dei rappresentanti.")
+                BulletRow(text: "Al Senato, 73 dei 74 collegi uninominali mostrano il senatore eletto direttamente nel collegio (seleziona \"Senato\" nel selettore della mappa); un collegio è attualmente privo di senatore in carica nei dati ufficiali. Gli altri senatori — eletti con il sistema proporzionale, nella circoscrizione Estero o nominati a vita — sono consultabili nell'elenco dei rappresentanti, senza un'area specifica sulla mappa.")
             }
             .padding(.top, 8)
         }
