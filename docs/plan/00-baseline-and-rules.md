@@ -16,7 +16,7 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
 | Standing gates | 3 MB per boundaries file; 1500 vertices/feature; 2 MiB votes (import-side `MAX_OUTPUT_BYTES` + validator `MAX_VOTES_FILE_BYTES`) |
 | Shapefile package (already local under `tools/raw/collegi/`) | `CAMERA_CollegiPLURINOMINALI_2020` (**50 features**), `SENATO_CollegiPLURINOMINALI_2020` (**27**), `Circoscrizioni_Camera`, `Regioni_Senato`, `UT_Collegi2020` (last three: contents not yet inspected) |
 | Senato cache (`tools/raw/senato_senatori_sparql.json`) | `osr:regioneElezione` present for **all 196 elective serving senators** (121 proporzionale + 73 uninominale + 2 estere); absent only for the 5 a-vita |
-| Deputy coverage codes | 49 distinct `" - P0N"` plurinominale codes over 397/400 deputies; 3 structurally-bare records (Valle d'Aosta + 2 suppletiva) — Phase 18 gate evidence |
+| Deputy coverage codes | 49 distinct `" - P0N"` plurinominale codes over **389**/400 deputies; the other 11 carry none — 8 estero + 3 structurally-bare (Valle d'Aosta + 2 suppletiva) — Phase 18 gate evidence, count corrected by Phase 25's probe (see [`docs/v4/25-plurinominale-geography.md`](../v4/25-plurinominale-geography.md) §2; the 2026-07-21 figure of 397 had silently folded the 8 estero deputies into the covered side) |
 | Methodology gate | 1 of 6 lines passes (`docs/v3/votes-methodology.md`); blocked by sample shape (lines 1–4) and missing group-membership history (line 6) |
 | Camera votes cadence | Same-day bursts (51/3/109/77/43 non-secret votes on recent sitting days); ~399 positions/event; ~148.6 B/position all-in (normalized schema) — Phase 21 probe |
 | Known flake | Template `PoliticiUITests` failed twice in v3 on simulator-clone infrastructure (Phase 17/18 reports) |
@@ -66,6 +66,23 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
 7. Where any phase file conflicts with `CLAUDE.md`'s constraints,
    `CLAUDE.md` wins; where it conflicts with observed reality, reality
    wins and the deviation is documented in the report.
+8. **Side tasks** — work done outside a numbered phase (spawned or
+   background sessions, interstitial cleanup/fixes). *Output side:* must
+   end committed with a clean working tree, must never push or tag, and —
+   where it touches `tools/` or `Politici/Data/` — must be recorded under
+   `docs/v4/` and referenced from the next phase's report. *Input side:*
+   **before a spawned or background session's output is trusted or
+   applied, verify the commit it was based on against `v4`'s tip.** A
+   session forked from a stale base runs under whatever `CLAUDE.md`, plan
+   files, and generated data existed at that commit — so it can silently
+   duplicate, contradict, or regress work already on the branch. When the
+   base is stale, re-apply the result by hand on the current tip rather
+   than committing its diff. First instance:
+   [`docs/v4/25a-doc-sync.md`](../v4/25a-doc-sync.md) — a spawned doc-fix
+   session had been forked from the pre-v4 `3dc224e` (under a v3-era
+   `CLAUDE.md` that had never seen the plan files) and had re-derived a
+   fix Phase 25 already carried; its note edits were re-applied on
+   `15f3f95`, its diff discarded.
 
 ## Explicitly deferred from V4 (decisions, not omissions)
 
@@ -77,3 +94,5 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
 | SwiftData migration | Versioned `UserDefaults` favorites suffice; no new state needs more |
 | `attendanceRate` | Permanent absence (no source methodology; "no participation metric ever" standing rule); field kept for frozen-fixture compatibility |
 | Map-polygon VoiceOver discoverability | Platform limitation; `CollegiListView` (+ Phase 25's type filter) remains the accessible path |
+| Fixing the 62 `performAccessibilityAudit` findings (`.contrast` / `.dynamicType` / `.textClipped`) | Deferred *within* V4, not out of it: Phase 24 recorded rather than fixed them (see [`docs/v4/24-ui-tests.md`](../v4/24-ui-tests.md) §5) and handed them to **Phase 32A**, which triages each to a fix or a documented human-judgment deferral |
+| `make_manifest.py` fail-loud on an absent `.fetch_metadata.json` | Tooling-hardening backlog, not a shipping decision: the cache is gitignored, so a fresh-checkout/worktree `make manifest` silently rewrites every `retrievedAt` to today (see the `make manifest` caveat in `CLAUDE.md`). The script should refuse rather than fall back to `date.today()`. Pick up in a tooling-touching phase; do not implement as a side effect of unrelated work |

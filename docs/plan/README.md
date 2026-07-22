@@ -6,6 +6,10 @@ baseline, open questions Q1–Q7, plan-wide rules, deferred-scope list —
 **read it before any phase file**). Phase reports land in `docs/v4/`.
 Prepared 2026-07-21 from the shipped v3.0-prototype state.
 
+Out-of-phase side-task records also land in `docs/v4/` (baseline rule 8);
+the first is [`25a-doc-sync.md`](../v4/25a-doc-sync.md) — post-Phase-25
+generated-note and plan-baseline corrections.
+
 ## Status
 
 The session executing a phase flips its row in the same commit as the

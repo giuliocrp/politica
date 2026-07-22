@@ -19,7 +19,12 @@ Mirror of v3's 22A, adapted:
    and profile lines, vote loading states, the metric line (if shipped),
    comuni disambiguation UI, staleness footer — each checked, reconciled
    against Phase 24's automated audits, with the honest remaining
-   human-check list.
+   human-check list. **This includes the 62 `performAccessibilityAudit`
+   findings Phase 24 recorded rather than fixed** — all in exactly three
+   types (`.contrast`, `.dynamicType`, `.textClipped`), inventoried in
+   [`docs/v4/24-ui-tests.md`](../v4/24-ui-tests.md) §5 and explicitly
+   handed to this phase — each triaged here to a fix or a documented
+   human-judgment deferral.
 3. **README full refresh**: shipped state including every
    NO-GO/NOT-RUN/exit outcome stated plainly; stale-line sweep with the
    grep classes from 22A plus any new ones this cycle created.

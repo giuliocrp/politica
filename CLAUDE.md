@@ -62,6 +62,24 @@ failure. The template UI-test target has also flaked twice on
 simulator-clone infrastructure (Phase 17/18 reports) — re-run once and
 diagnose before suspecting the code.
 
+Note (`make manifest` in a fresh checkout or new worktree): in a normal
+working checkout `make manifest` is reproducible and safe — it reads each
+real source's `retrievedAt` from `tools/raw/.fetch_metadata.json`, so
+re-running it leaves those dates byte-identical. The one catch is that
+this cache is **gitignored** (it lives under `tools/raw/`), so in a
+**fresh checkout or a new git worktree** it is absent and
+`make_manifest.py` silently falls back to `date.today()`, rewriting
+**every** `retrievedAt` to the current date — a spurious change the scoped
+`sources.json` diff protocol would otherwise attribute to real work. So
+the precaution applies specifically when the cache might be absent (fresh
+checkout, new worktree): first confirm `tools/raw/.fetch_metadata.json`
+exists and holds the real committed fetch dates; if it is absent,
+reconstruct it from the `retrievedAt` values already in the committed
+`sources.json` (and say so in the report) before running `make manifest`.
+(A hardening candidate — making `make_manifest.py` fail loudly on an
+absent cache — is tracked in the deferred list in
+`docs/plan/00-baseline-and-rules.md`, not here.)
+
 ## The V4 plan & per-session workflow
 
 The V4 master plan lives in **`docs/plan/`** — one file per phase
