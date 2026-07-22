@@ -137,9 +137,10 @@ def real_sources(fetch_metadata):
                 "semplificati per l'uso su mobile. Stesso rilascio ISTAT dei "
                 "confini della Camera (vedi la fonte "
                 "istat-collegi-elettorali-camera-uninominali), scaricato "
-                "nello stesso momento. Nessun senatore è ancora collegato al "
-                "proprio collegio in questo prototipo (vedi "
-                "docs/v3/15-senato-exploration.md)."
+                "nello stesso momento. 73 dei 74 collegi sono collegati al "
+                "rispettivo senatore eletto in via uninominale (districtId "
+                "associato tramite osr:collegioElezione; vedi "
+                "docs/v3/17-senato-mandates.md)."
             ),
         },
         {

@@ -177,11 +177,13 @@ genuinely different concept from Camera's 28 circoscrizioni (which split
 several larger regions into multiple electoral groupings) — reusing
 `circoscrizione` for Senato would misrepresent that structural difference,
 so Senato features carry `regione` and leave `circoscrizione` absent, and
-vice versa for Camera. **No senator-to-collegio linkage exists** — Phase
-15's source exploration found no collegio-shaped predicate anywhere in the
-Senato SPARQL cache; every senator's `districtId` stays `null` regardless
-of this boundaries source (see the Senato Open Data entry above and
-`docs/v3/15-senato-exploration.md`'s GO/NO-GO(LINK) finding).
+vice versa for Camera. **73 of these 74 collegi are linked to a senator** —
+since v3 Phase 17 the 73 senators whose `osr:tipoElezione` starts with
+`"Eletto uninominale"` carry the `districtId` of their Senato collegio,
+joined on `osr:collegioElezione` against these boundaries (the one collegio
+with no serving uninominale senator stays unlinked; Phase 15's earlier
+exploration had found no linkage, since superseded — see the Senato Open
+Data entry above and [`docs/v3/17-senato-mandates.md`](v3/17-senato-mandates.md)).
 
 ---
 
@@ -346,3 +348,16 @@ Phase 20 normalized `votes.json`, and it surfaced a latent crash in
 `make_manifest.py::votazioni_scope_note` (it still assumed the old flat
 list) — fixed to read the `{"events":…}` schema; the generated votes note is
 byte-identical ("12 votazioni"), only `generatedAt` moved to 2026-07-22.
+
+Re-checked on 2026-07-22 (v4 post-Phase-25 doc-sync side task; see
+[`docs/v4/25a-doc-sync.md`](v4/25a-doc-sync.md)): corrected a **stale
+linkage claim** in the `istat-collegi-elettorali-senato-uninominali` entry.
+Both this file's ISTAT (Senato, uninominali) "Transformation summary" and
+`tools/make_manifest.py`'s generated `notes` still asserted no
+senator-to-collegio linkage existed — v3 Phase 17 superseded that (73 of
+the 74 collegi are linked; see
+[`docs/v3/17-senato-mandates.md`](v3/17-senato-mandates.md)). This file's
+Senato Open Data prose and `tools/SOURCES.md` were already correct.
+Re-running `make manifest` (with the committed `tools/raw/.fetch_metadata.json`
+present) rewrote only that one `notes` string; `generatedAt` stayed
+`2026-07-22` and all eight `retrievedAt` dates are unchanged.

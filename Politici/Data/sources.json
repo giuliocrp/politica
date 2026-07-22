@@ -46,7 +46,7 @@
       "id": "istat-collegi-elettorali-senato-uninominali",
       "license": "CC BY 4.0",
       "name": "ISTAT — Basi geografiche dei collegi elettorali (Senato, uninominali)",
-      "notes": "Confini geografici dei 74 collegi uninominali del Senato (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini della Camera (vedi la fonte istat-collegi-elettorali-camera-uninominali), scaricato nello stesso momento. Nessun senatore è ancora collegato al proprio collegio in questo prototipo (vedi docs/v3/15-senato-exploration.md).",
+      "notes": "Confini geografici dei 74 collegi uninominali del Senato (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini della Camera (vedi la fonte istat-collegi-elettorali-camera-uninominali), scaricato nello stesso momento. 73 dei 74 collegi sono collegati al rispettivo senatore eletto in via uninominale (districtId associato tramite osr:collegioElezione; vedi docs/v3/17-senato-mandates.md).",
       "retrievedAt": "2026-07-18",
       "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
     },
