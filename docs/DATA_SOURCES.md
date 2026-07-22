@@ -361,3 +361,17 @@ Senato Open Data prose and `tools/SOURCES.md` were already correct.
 Re-running `make manifest` (with the committed `tools/raw/.fetch_metadata.json`
 present) rewrote only that one `notes` string; `generatedAt` stayed
 `2026-07-22` and all eight `retrievedAt` dates are unchanged.
+
+Re-checked on 2026-07-22 (same doc-sync side task; see
+[`docs/v4/25a-doc-sync.md`](v4/25a-doc-sync.md)): corrected a second stale
+claim, this time in the `senato-della-repubblica-xix-legislatura` entry,
+whose generated `notes` still said "Il collegio elettorale non è ancora
+associato … (districtId è null)" — likewise superseded by v3 Phase 17.
+Rewritten to mirror the Camera Open Data note: senators elected in an
+uninominale collegio carry a `districtId`, the rest stay `null` (see
+[`docs/v3/17-senato-mandates.md`](v3/17-senato-mandates.md)). This file's
+Senato Open Data "Transformation summary" already stated the Phase 17
+linkage correctly, so only `sources.json` changed. Re-running `make
+manifest` (fetch-metadata cache present) rewrote only that one `notes`
+string; `generatedAt` stayed `2026-07-22` and all eight `retrievedAt`
+dates are unchanged.

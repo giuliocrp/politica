@@ -108,9 +108,10 @@ def real_sources(fetch_metadata):
             "notes": (
                 "Dati su senatori, gruppi parlamentari e commissioni della XIX "
                 "Legislatura, ottenuti tramite tre interrogazioni SPARQL "
-                "all'endpoint ufficiale dati.senato.it. Il collegio elettorale "
-                "non è ancora associato ai collegi campione di questo "
-                "prototipo (districtId è null)."
+                "all'endpoint ufficiale dati.senato.it. I senatori eletti in un "
+                "collegio uninominale sono associati al relativo collegio ISTAT "
+                "(districtId); gli altri non hanno un collegio associato "
+                "(districtId è null). Vedi docs/v3/17-senato-mandates.md."
             ),
         },
         {
