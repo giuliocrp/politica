@@ -20,6 +20,20 @@ end|null), scoped to XIX and to deputies present in
 lookup. **No UI in this phase** — infrastructure for Phase 29 and honest
 data in its own right. Senato: out of scope (votes are Camera-only).
 
+## Handoff from Phase 27 (carry these into the session prompt)
+
+- **Split the network approval.** Run the metadata/exploration probe
+  first, show the shape *and a byte projection*, then get the real fetch
+  approved separately. In Phase 27 that structure is exactly what surfaced
+  the atto-linkage lag and the multi-atto join risk before the fetch —
+  both expensive to discover after.
+- **Project the artifact's bytes before fetching.** `Politici/Data/` is at
+  **5.40 MiB** against the ~10 MiB soft ceiling after Phases 25 + 27, and
+  membership history spans *every* parliamentarian over time, so it has
+  more growth potential than 30 votes did. Propose the byte gate (§Technical
+  requirements) from a pre-fetch projection, not only from the post-import
+  measurement.
+
 ## Technical requirements
 
 - New pinned `.rq` under `tools/queries/`; fetch under the refetch

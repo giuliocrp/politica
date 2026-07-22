@@ -26,11 +26,25 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
 - **Q1** — 50-vs-49 (Camera) / 27-vs-26 (Senato) plurinominale feature
   counts: placeholder-feature hypothesis (Valle d'Aosta / Trentino-Alto
   Adige) must be confirmed from feature attributes → **Phase 25** (gate
-  condition).
+  condition). **RESOLVED** by Phase 25
+  ([`docs/v4/25-plurinominale-geography.md`](../v4/25-plurinominale-geography.md)):
+  confirmed — each layer's null-attribute row is a residual placeholder
+  (POP_2011 matches the un-split territory), yielding 49 Camera / 26 Senato
+  real plurinominale collegi.
 - **Q2** — Contents of `UT_Collegi2020`, `Circoscrizioni_Camera`,
-  `Regioni_Senato` layers → **Phase 23** inventory.
+  `Regioni_Senato` layers → **Phase 23** inventory. **RESOLVED** by Phase 23
+  ([`docs/v4/23-baseline-audit.md`](../v4/23-baseline-audit.md) §4):
+  `UT_Collegi2020` is the comune-level (8,213 features / 7,904 comuni) base
+  table every collegi layer aggregates from; `Circoscrizioni_Camera` = the
+  28 Camera circoscrizioni; `Regioni_Senato` = the 20 administrative regions
+  (short names, not ISTAT's bilingual forms).
 - **Q3** — dati.camera.it behavior for aggregates / OFFSET / deep
-  metadata windows → **Phase 27** probe (observe and document).
+  metadata windows → **Phase 27** probe (observe and document). **RESOLVED**
+  by Phase 27 ([`docs/v4/27-votes-stratified.md`](../v4/27-votes-stratified.md)
+  §3): `LIMIT/OFFSET` paging over a total `ORDER BY` is stable — zero URI
+  overlap, monotonic dates, clean page boundary; each 2,000-row page well
+  under any cap; no aggregate needed (so the Senato 403-on-aggregate trap was
+  never hit).
 - **Q4** — Shape of Camera group-membership interval data
   (`ocd:aderisce` + start/end; the v2 query's MINUS-on-ended-membership
   proves end dates exist) → **Phase 28** probe.

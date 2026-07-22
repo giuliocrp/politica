@@ -6,8 +6,9 @@ Executes the redesign Phase 21 recorded as the only viable path: replaces
 spanning ~9 months**, under every existing gate, and ships the lazy,
 off-main vote decoding Phase 21 deferred (its trigger — the file growing —
 now fires). The `docs/v3/votes-methodology.md` gate table is re-measured in
-this same commit: **1 of 6 → 5 of 6** (line 6 still blocks; Phase 29 stays
-NOT RUN).
+this same commit: **1 of 6 → 5 of 6** (line 6 still blocks; whether Phase 29
+becomes live is decided by Phase 28's outcome and re-measured then, not
+inherited from here).
 
 Every number below was produced by a quoted command in this session on
 **2026-07-22**.
@@ -346,12 +347,21 @@ from the new `votes.json` in this commit (per-line before/after):
 
 **5 of 6.** Line 6 stays red: `representatives.json` carries only the
 *current* parliamentary group, and attributing a 2025 vote to a 2026 group
-would be fabrication — that import is **Phase 28's** job.
+would be fabrication — that import is **Phase 28's** deliverable.
 
-**Phase 29 (alignment metric) inherits NOT RUN as a known outcome
-(addition #7).** The gate requires all six; line 6 fails; therefore no
-vote-derived metric may ship and Phase 29 remains a legitimate NOT RUN
-until Phase 28 lands. Grep-verified: the pinned metric label / any metric
+**What this does — and does not — say about Phase 29 (addition #7).** As of
+*Phase 27*, no vote-derived metric may ship, because the gate requires all
+six and line 6 is unmet. It does **not** follow that Phase 29 is NOT RUN —
+that is not this phase's call to make. Line 6 is precisely what Phase 28
+delivers, so Phase 29's runnability is determined by **Phase 28's outcome**,
+not Phase 27's: if Phase 28 lands the historical-membership import, the gate
+plausibly reaches 6/6 and Phase 29 becomes live. Per the methodology doc's
+re-evaluation protocol, **Phase 29's session must re-measure the gate from
+the then-current data and decide on that measurement — not inherit a verdict
+from here.** (This wording was corrected in the Phase 27 review follow-up:
+condition #7 asked for a flat "NOT RUN," which would harden a true-as-of-now
+fact into an inherited conclusion — the same failure mode as the stale
+"397/400" figure.) Grep-verified: the pinned metric label / any metric
 vocabulary is **absent from all app code** (present only in
 `docs/v3/votes-methodology.md`).
 
@@ -376,7 +386,7 @@ earlier spec.**
 | 1 | Probe table + pinned selector rules committed; every config limit traces to a measurement + headroom | **Met** — §3 (Q3 + window), §4 (pinned rules, selection, determinism); `maxPositionRecords=13000` traces to 30×≤399 + headroom, `maxVotes=30` = selection, byte projection §5 |
 | 2 | Validator green with updated constants; both byte gates satisfied with recorded headroom | **Met** — §5: `make validate` exit 0; 84.3% of 2 MiB, 15.7% headroom |
 | 3 | Invariant tests over expanded data (tally sums == counts; distinct `voteEventId` set == event-id set; Votazioni scope line new N) | **Met** — §7 (VoteBrowsingTests 12→30), validator invariants, §8 (scope line derives N) |
-| 4 | Lazy tests: idempotent concurrent; sample fallback zero events; decode-off-main DEBUG assert; a loading state exercised | **Met** — §6, §7 (3 new tests + fallback test; flow 5 exercises the loading state via `waitForExistence`) |
+| 4 | Lazy tests: idempotent concurrent; sample fallback zero events; decode-off-main DEBUG assert; a loading state exercised | **Met, with a documented narrowing** — §6, §7: the 3 new tests + fallback test cover idempotency, zero-event fallback, and the off-main assert; the *loading state* is exercised at the unit level (`idle→loaded`) and traversed end-to-end by the re-pinned flow 5, but no explicit assertion that the transient `ProgressView` is visible is added — the ~20 ms decode makes a spinner assertion flaky. Same shape and phrasing as Phase 24's `.contrast`/`.dynamicType` narrowing |
 | 5 | Methodology gate re-measured in the same commit, per-line before/after | **Met** — §9 |
 | 6 | No metric string in app code (grep); suite green vs current baseline + documented deliberate changes | **Met** — §9 grep clean; §7 suite 167/167 = 164 + 3 |
 

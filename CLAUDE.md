@@ -62,6 +62,19 @@ failure. The template UI-test target has also flaked twice on
 simulator-clone infrastructure (Phase 17/18 reports) — re-run once and
 diagnose before suspecting the code.
 
+Note (re-running after a bundled-data change): **changes to a bundled data
+file (anything under `Politici/Data/` — the app decodes and displays these)
+made *after* a validating test run require either a re-run or a documented
+check proving no test depends on the changed content.** A green suite only
+certifies the tree it ran against; regenerating `votes.json`, `sources.json`,
+etc. afterward invalidates that certification unless the change is provably
+test-irrelevant. Phase 24 re-ran on the exact committed tree after a late
+comment edit; Phase 27 regenerated `sources.json` (a displayed note) after
+its validating run and instead grep-confirmed no test asserts the note text
+(only `schemaVersion == 2` / non-empty `sources`) — both are legal under
+this rule; the grep-and-document path just has to be written down, not
+taken silently.
+
 Note (declared test count): when re-deriving the "declared" count from
 source, count **occurrences** of `func test…(` (+ `@Test`), never
 `sort -u` unique names. XCTest identifies each test as `Class/method`, so

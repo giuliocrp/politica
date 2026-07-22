@@ -23,12 +23,19 @@ expansion; see [`docs/v4/27-votes-stratified.md`](../v4/27-votes-stratified.md))
 | 5 | `astenuto` its own category, never folded into favorevole/contrario/assente | Holds structurally: `VoteChoice.astenuto` is a distinct case end-to-end (source `"Astensione"` → `.astenuto`, own badge, own filter chip, own tally). Distribution now: Assente 4,571 / Favorevole 4,326 / Contrario 2,541 / **Astenuto 461** | ✓ | ✓ |
 | 6 | Group-membership-at-vote-date available | **Still not available** — `representatives.json` carries only the *current* parliamentary group; the pipeline imports no historical membership intervals. This structurally blocks every group-relative metric regardless of sample size (Phase 28's target) | ✗ | ✗ |
 
-**Conclusion: 5 of 6 lines pass (was 1 of 6).** Phase 27's stratified
-expansion flipped the four sample-shape lines (1–4); **line 6 remains
-blocked** — no historical group-membership import exists yet (Phase 28's
-job). Because the gate requires **all six**, **no vote-derived metric may
-ship**, and **Phase 29 (alignment metric) remains a legitimate NOT RUN**
-until line 6 also passes.
+**Conclusion (as of Phase 27): 5 of 6 lines pass (was 1 of 6).** Phase 27's
+stratified expansion flipped the four sample-shape lines (1–4); **line 6 is
+unmet as of Phase 27 and is exactly Phase 28's deliverable** (a
+group-membership-at-vote-date import; see Phase 28 / Q4). Because the gate
+requires **all six**, no vote-derived metric may ship *now*.
+
+**Phase 29's runnability is not decided here.** It is determined by Phase
+28's outcome, not by Phase 27's: if Phase 28 lands the historical-membership
+import, line 6 plausibly flips and the gate reaches 6/6, at which point
+Phase 29 becomes live. Per the re-evaluation protocol below, **Phase 29's
+session must re-measure this table from the then-current `votes.json` and
+`representatives.json`** and decide GO/NOT-RUN on that fresh measurement —
+never inherit a verdict recorded here.
 
 Rationale, now that lines 1–4 pass: the sample spans 10 sittings across
 ~9 months with 15 substantive atto-bearing votes on 9 distinct atti, so it
