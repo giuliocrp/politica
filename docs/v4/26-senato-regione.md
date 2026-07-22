@@ -153,17 +153,24 @@ all along.
   the import loudly.
 
 - **The deferred senator-`electionType` decision — TAKEN, with user approval.**
-  This phase owns it. The decision was flagged to the user before any importer
-  change, with keep-null offered as the alternative. **User approval, quoted
-  verbatim:**
+  This phase owns it. **What was decided (the substance, so this record stands
+  on its own):** senators' `electionType`, `null` for all 201 since Phase 17, is
+  now derived from `osr:tipoElezione` as **73 `.uninominale` + 121
+  `.plurinominale` + 2 `.estero`, with the 5 a-vita senators staying `null`
+  (→ `.sconosciuto` at decode)** — the mapping
+  `"Eletto uninominale…" → .uninominale`,
+  `"Eletto proporzionale…" → .plurinominale`,
+  `"circoscrizioni estere" → .estero`.
+
+  The decision was flagged to the user before any importer change, with keep-null
+  offered as the alternative (which would have kept all 201 `null`). **User
+  approval, quoted verbatim** — the label proves the ask was made and answered;
+  the substance above is what makes the record auditable:
 
   > **"Approve mapping (Recommended)"**
 
   (Selected from a two-option choice — "Approve mapping (Recommended)" vs "Keep
-  null" — with the preview shown to the user:
-  `Eletto uninominale… → .uninominale (73); Eletto proporzionale… →
-  .plurinominale (121); circoscrizioni estere → .estero (2); (a-vita, absent) →
-  .sconosciuto (5)`.)
+  null" — with the mapping table above shown to the user as the option preview.)
 
   The mapping is a **disclosed cross-chamber best fit** onto the Camera
   `ElectionType` vocabulary — the same precedent class as the votes import's
@@ -318,17 +325,23 @@ $ xcrun xcresulttool get test-results summary --path p26final.xcresult
 
 Exit code 0; `** TEST SUCCEEDED **`. `totalTestCount` **164** = the Phase 25
 baseline **158** + the **6** deliberate additions above. Declared == runtime,
-as since Phase 24: re-derived from source with the Phase 23/24 rule, **164**
-(152 `func test` + 1 `@Test` + 11 UITests). The two Phase 24 UI smoke flows that
+as since Phase 24: re-derived from source by counting **occurrences** of
+`func test`/`@Test` (not `sort -u` unique names — see the test-count caveat in
+`CLAUDE.md`), **164** = 152 `func test` + 1 `@Test` + 11 UITests. (`RegioneTests`
+deliberately reuses one method name from its mirror `CircoscrizioneTests`, which
+`sort -u` would have miscollapsed; the occurrence rule counts both, matching the
+`.xcresult` `totalTestCount` of 164.) The two Phase 24 UI smoke flows that
 open the Lazio Senato collegio page and drive the `ChamberPicker`
 (`testSenatoCollegioDetailAndLifeSenatorMandateBadge` and the plurinominale
 flow) passed unchanged — the new `district.section.proporzionaleSenato` section
 uses a distinct identifier from the Camera `district.section.plurinominale`, so
 the Senato flow's `assertFalse(plurinominale.exists)` still holds.
 
-(An earlier full run against source that predated the HomeView-explainer edit
-and a cosmetic test-method rename was also green — 164/164 — the numbers are
-identical because neither change alters any test's logic or the runtime count.)
+(The suite was run green twice at 164/164 — once with each spelling of the
+mirrored `testGroupingForEsteroNeverReturnsAnyone` [a same-session rename was
+made to satisfy the old `sort -u` count method, then reverted once that method
+was fixed to count occurrences — see the review follow-up note below]. Both runs
+agree because the spelling changes no test's logic or the runtime count.)
 
 ---
 
@@ -372,3 +385,30 @@ identical because neither change alters any test's logic or the runtime count.)
    in the collegio lookup) that its strictness surfaced on first run; fixed to
    mirror the importer's linkage, not by loosening the assertion (§2). The data
    was consistent throughout.
+
+---
+
+## 8. Post-review follow-ups
+
+Applied in a follow-up commit after the phase commit `02750b3`, in response to
+review feedback (the phase's data and behavior are unchanged):
+
+1. **Fixed the declared-test-count method, restored the mirrored test name.**
+   The from-source declared count had been computed with `grep … | sort -u`,
+   which collapses two classes that legally share a test-method name — so it read
+   163 against a runtime 164, and this phase had (wrongly) renamed its own
+   `RegioneTests.testGroupingForEsteroNeverReturnsAnyone` to preserve
+   declared == runtime, sacrificing the parallel name that signals
+   `RegioneTests` mirrors `CircoscrizioneTests`. The name is restored; the method
+   is corrected to count **occurrences** (§6); the caveat is recorded in
+   `CLAUDE.md` beside the log-truncation note. No re-run was needed — the first
+   full run had already been green at 164/164 with this exact (restored) name.
+2. **Recorded the approval *substance*, not just the label** (§3): the record now
+   leads with "73 `.uninominale` / 121 `.plurinominale` / 2 `.estero`, 5 a-vita
+   `null`", with the verbatim quote kept as proof-of-ask.
+3. **Promoted data-visibility staleness to declared scope** — new standing rule
+   9 in `docs/plan/00-baseline-and-rules.md`: any phase that changes where a
+   datum is visible must check the `HomeView` explainer, `README.md`, and
+   `docs/DATA_SOURCES.md` for staleness as part of that phase, not as a
+   deviation. This retires the recurring "explainer update" deviation (item 2
+   above) for the six remaining phases.

@@ -83,6 +83,19 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
    `CLAUDE.md` that had never seen the plan files) and had re-derived a
    fix Phase 25 already carried; its note edits were re-applied on
    `15f3f95`, its diff discarded.
+9. **Data-visibility staleness is in-scope by default.** Any phase that
+   changes *where a datum is visible* — a new field, a new
+   section/page/list, a new linkage that surfaces records somewhere they
+   weren't — must, **as part of that phase, not as a deviation**, check the
+   explanatory copy that describes the old visibility for staleness and fix
+   what it made inaccurate: the `HomeView` "Come funziona" explainer,
+   `README.md` prose, and `docs/DATA_SOURCES.md` (where provenance/coverage
+   is described). This is declared scope, so it needs no separate
+   justification; only a *decision not to touch* one of them (because it was
+   already accurate) is worth a line in the report. Pattern recognized after
+   three consecutive phases (24 narrowed a criterion; 25 synced attribution;
+   26 updated the Senato explainer) each flagged the same shape as a
+   "deviation" — it is not one.
 
 ## Explicitly deferred from V4 (decisions, not omissions)
 

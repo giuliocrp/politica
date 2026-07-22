@@ -80,7 +80,12 @@ final class RegioneTests: XCTestCase {
         XCTAssertEqual(grouped.map(\.id), ["A", "B"])
     }
 
-    func testGroupingForEsteroRegioneNeverReturnsAnyone() throws {
+    // Deliberately shares its name with CircoscrizioneTests' equivalent: the
+    // parallel name signals that RegioneTests mirrors CircoscrizioneTests.
+    // XCTest identifies tests as Class/method, so both run as distinct cases —
+    // the declared-count method counts occurrences, not unique names (see the
+    // test-count caveat in CLAUDE.md), so this collision is legal and counted.
+    func testGroupingForEsteroNeverReturnsAnyone() throws {
         // Estero senators are excluded by electionType even when queried by
         // their own "Estero" value — the belt-and-braces guarantee that no
         // geographic page can list them ("Estero" is additionally never a

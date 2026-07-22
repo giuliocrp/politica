@@ -62,6 +62,21 @@ failure. The template UI-test target has also flaked twice on
 simulator-clone infrastructure (Phase 17/18 reports) — re-run once and
 diagnose before suspecting the code.
 
+Note (declared test count): when re-deriving the "declared" count from
+source, count **occurrences** of `func test…(` (+ `@Test`), never
+`sort -u` unique names. XCTest identifies each test as `Class/method`, so
+two classes may legally carry an identically-named test — a common,
+desirable case when one test class deliberately mirrors another (e.g.
+`RegioneTests` mirrors `CircoscrizioneTests`, both with
+`testGroupingForEsteroNeverReturnsAnyone`). `sort -u` silently collapses
+those into one and undercounts declared vs. the `.xcresult`
+`totalTestCount`; the earlier `sort -u` figures (136/144/158) were correct
+only because no collision then existed. The runtime-from-log count in
+`docs/v4/23-baseline-audit.md` §2 is already collision-safe — its regex
+captures `Test case 'Class.method()'`, class prefix included — so only the
+from-source declared count needs the occurrence rule. `.xcresult`'s
+`totalTestCount` remains the final authority.
+
 Note (`make manifest` in a fresh checkout or new worktree): in a normal
 working checkout `make manifest` is reproducible and safe — it reads each
 real source's `retrievedAt` from `tools/raw/.fetch_metadata.json`, so
