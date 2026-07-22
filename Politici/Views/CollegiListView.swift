@@ -15,10 +15,13 @@ struct CollegiListView: View {
     @Binding var path: [AppRoute]
     @Environment(\.services) private var services
     @State private var selectedChamber: Chamber = .camera
+    @State private var selectedCollegioType: CollegioType = .uninominale
     @State private var searchText = ""
 
     private var allDistricts: [District] {
-        services.districtService.allDistricts(chamber: selectedChamber).sorted { $0.name < $1.name }
+        services.districtService
+            .allDistricts(chamber: selectedChamber, collegioType: selectedCollegioType)
+            .sorted { $0.name < $1.name }
     }
 
     private var filteredDistricts: [District] {
@@ -41,6 +44,9 @@ struct CollegiListView: View {
     var body: some View {
         VStack(spacing: 0) {
             ChamberPicker(selection: $selectedChamber)
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+            CollegioTypePicker(selection: $selectedCollegioType)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
 

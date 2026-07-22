@@ -50,4 +50,4 @@ URL: https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettora
 License: CC BY 4.0
 LicenseURL: https://creativecommons.org/licenses/by/4.0/
 RetrievedAt: 2026-07-18
-Notes: Shapefile format. Camera collegi uninominali layer used for district boundaries. Requires reprojection to EPSG:4326 and simplification for mobile.
+Notes: Shapefile format, one manual download batch covering every layer. Camera + Senato collegi uninominali layers (v2/v3 Phase 16) and Camera + Senato collegi plurinominali layers (v4 Phase 25) used for district boundaries. Requires reprojection to EPSG:4326 and simplification for mobile.

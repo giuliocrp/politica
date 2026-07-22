@@ -64,7 +64,14 @@ def votazioni_scope_note():
             "'make import' (vedi docs/v2/04-votes-import.md)."
         )
     votes = json.loads(VOTES_PATH.read_text(encoding="utf-8"))
-    vote_count = len({v["sourceUrl"] for v in votes if v.get("sourceUrl")})
+    # Phase 20 normalized votes.json to {"events":[...],"positions":[...]}
+    # (docs/v3/20-vote-browsing.md); each event carries the sourceUrl. Handle
+    # both shapes so this note is robust across the schema change — the old
+    # flat list (still used by votes.sample.json) and the current object.
+    # (This function had gone stale on the new schema — first re-run since
+    # Phase 20 was Phase 25; see docs/v4/25-plurinominale-geography.md.)
+    events = votes["events"] if isinstance(votes, dict) else votes
+    vote_count = len({e["sourceUrl"] for e in events if e.get("sourceUrl")})
     return (
         f"{vote_count} votazioni dell'Assemblea, XIX legislatura (voto "
         "elettronico, non a scrutinio segreto), con la posizione di voto di "
@@ -133,6 +140,37 @@ def real_sources(fetch_metadata):
                 "nello stesso momento. Nessun senatore è ancora collegato al "
                 "proprio collegio in questo prototipo (vedi "
                 "docs/v3/15-senato-exploration.md)."
+            ),
+        },
+        {
+            "id": "istat-collegi-elettorali-camera-plurinominali",
+            "name": "ISTAT — Basi geografiche dei collegi elettorali (Camera, plurinominali)",
+            "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2",
+            "license": "CC BY 4.0",
+            "retrievedAt": retrieved_at("istat", fetch_metadata),
+            "notes": (
+                "Confini geografici dei 49 collegi plurinominali della Camera "
+                "(D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e "
+                "semplificati per l'uso su mobile. Stesso rilascio ISTAT dei "
+                "confini uninominali (vedi la fonte "
+                "istat-collegi-elettorali-camera-uninominali), scaricato "
+                "nello stesso momento. Ogni deputato eletto con quota "
+                "proporzionale è associato al proprio collegio plurinominale."
+            ),
+        },
+        {
+            "id": "istat-collegi-elettorali-senato-plurinominali",
+            "name": "ISTAT — Basi geografiche dei collegi elettorali (Senato, plurinominali)",
+            "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2",
+            "license": "CC BY 4.0",
+            "retrievedAt": retrieved_at("istat", fetch_metadata),
+            "notes": (
+                "Confini geografici dei 26 collegi plurinominali del Senato "
+                "(D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e "
+                "semplificati per l'uso su mobile. Stesso rilascio ISTAT dei "
+                "confini della Camera, scaricato nello stesso momento. I "
+                "senatori non sono ancora collegati al proprio collegio "
+                "plurinominale in questo prototipo."
             ),
         },
         {

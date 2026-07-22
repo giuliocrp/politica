@@ -331,6 +331,53 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertTrue(senators.allSatisfy { $0.circoscrizione == nil })
     }
 
+    // MARK: - Plurinominale geography (Phase 25 — see docs/v4/25-plurinominale-geography.md)
+
+    func testShippingPlurinominaleDistrictsAreOfficialProvenance() throws {
+        // Same ISTAT release as the uninominale layers, same
+        // provenance/collegioType/sourceName shape (Phase 25).
+        for resource in ["districts_plurinominali_camera", "districts_plurinominali_senato"] {
+            let districts = try GeoJSONLoader.loadDistricts(resource: resource)
+            XCTAssertFalse(districts.isEmpty)
+            XCTAssertTrue(districts.allSatisfy { $0.provenance == .official }, "\(resource)")
+            XCTAssertTrue(districts.allSatisfy { $0.collegioType == .plurinominale }, "\(resource)")
+            XCTAssertTrue(districts.allSatisfy { $0.sourceName == "ISTAT" }, "\(resource)")
+        }
+    }
+
+    func testShippingDeputiesCarryConsistentCollegioPlurinominale() throws {
+        // The GO-PLURI gate's linkage conditions, re-asserted on the shipped
+        // bundle: every plurinominale deputy carries a collegioPlurinominale
+        // that resolves to a real Camera plurinominale district AND agrees
+        // with the deputy's circoscrizione; exactly 389 deputies carry it
+        // (144 uninominale + 245 plurinominale); the 8 Estero deputies and all
+        // senators carry none.
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let pluriDistricts = try GeoJSONLoader.loadDistricts(resource: "districts_plurinominali_camera")
+        let circoscrizioneById = Dictionary(uniqueKeysWithValues: pluriDistricts.map { ($0.id, $0.circoscrizione) })
+
+        let deputies = representatives.filter { $0.chamber == .camera }
+        let withPluri = deputies.filter { $0.collegioPlurinominale != nil }
+        XCTAssertEqual(withPluri.count, 389)
+
+        // Every plurinominale deputy carries it; every value resolves and is
+        // consistent with the deputy's circoscrizione.
+        XCTAssertTrue(deputies.filter { $0.electionType == .plurinominale }.allSatisfy { $0.collegioPlurinominale != nil })
+        XCTAssertTrue(withPluri.allSatisfy { circoscrizioneById[$0.collegioPlurinominale!] != nil },
+                      "every collegioPlurinominale must reference a shipped plurinominale district")
+        XCTAssertTrue(withPluri.allSatisfy { circoscrizioneById[$0.collegioPlurinominale!] == $0.circoscrizione },
+                      "collegioPlurinominale's circoscrizione must equal the deputy's")
+
+        // Estero deputies (and all senators) carry none.
+        XCTAssertTrue(deputies.filter { $0.circoscrizione == "Estero" }.allSatisfy { $0.collegioPlurinominale == nil })
+        let senators = representatives.filter { $0.chamber == .senato }
+        XCTAssertTrue(senators.allSatisfy { $0.collegioPlurinominale == nil })
+
+        // Every one of the 49 plurinominale collegi is named by at least one
+        // deputy (the drift detector; the probe found full 49/49 coverage).
+        XCTAssertEqual(Set(withPluri.compactMap(\.collegioPlurinominale)).count, 49)
+    }
+
     // MARK: - Senato mandates (Phase 17 — see docs/v3/17-senato-mandates.md)
 
     func testShippingSenatorsCarryVerbatimMandates() throws {

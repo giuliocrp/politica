@@ -61,4 +61,30 @@ final class RepresentativeService {
             }
             .sorted { $0.name < $1.name }
     }
+
+    /// The deputies elected in one plurinominale collegio, sorted by name —
+    /// what the Phase 25 plurinominale-collegio detail page lists. Filtering
+    /// on `electionType == .plurinominale` (not merely the id) keeps it to
+    /// the deputies actually elected there by proportional list: the
+    /// uninominale deputies whose seat geographically sits inside the same
+    /// collegio also carry the id, but they belong on their own uninominale
+    /// collegio page, not here.
+    func deputies(inPlurinominaleCollegio collegioId: String) -> [Representative] {
+        Self.deputies(inPlurinominaleCollegio: collegioId, from: representatives)
+    }
+
+    /// Static so tests can exercise the grouping as a pure function on
+    /// hand-built fixtures, independent of any bundled resource.
+    static func deputies(
+        inPlurinominaleCollegio collegioId: String,
+        from representatives: [Representative]
+    ) -> [Representative] {
+        representatives
+            .filter {
+                $0.chamber == .camera
+                    && $0.electionType == .plurinominale
+                    && $0.collegioPlurinominale == collegioId
+            }
+            .sorted { $0.name < $1.name }
+    }
 }

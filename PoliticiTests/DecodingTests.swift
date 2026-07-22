@@ -22,8 +22,11 @@ final class DecodingTests: XCTestCase {
     }
 
     func testSampleDistrictsDecodeWithExpectedCount() throws {
+        // 7 fictional rectangles since Phase 25 extended the fixture with two
+        // plurinominale collegi (IT-RM-CP01 / IT-TO-SP01) alongside the five
+        // uninominale ones — see docs/v4/25-plurinominale-geography.md.
         let districts = try GeoJSONLoader.loadDistricts(resource: "districts.sample")
-        XCTAssertEqual(districts.count, 5)
+        XCTAssertEqual(districts.count, 7)
     }
 
     func testSenatoDistrictsDecodeWithExpectedCount() throws {
@@ -32,6 +35,32 @@ final class DecodingTests: XCTestCase {
         // docs/v3/15-senato-exploration.md's source exploration.
         let districts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
         XCTAssertEqual(districts.count, 74)
+    }
+
+    func testCameraPlurinominaleDistrictsDecodeWithExpectedCount() throws {
+        // 49 real Camera collegi plurinominali (ISTAT) — Phase 25; the raw
+        // ISTAT layer's 50th feature is a null-attribute Valle d'Aosta
+        // placeholder dropped at import (see docs/v4/25-plurinominale-geography.md).
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts_plurinominali_camera")
+        XCTAssertEqual(districts.count, 49)
+        XCTAssertTrue(districts.allSatisfy { $0.chamber == .camera })
+        XCTAssertTrue(districts.allSatisfy { $0.collegioType == .plurinominale })
+        XCTAssertTrue(districts.allSatisfy { $0.id.hasPrefix("CP") })
+        XCTAssertTrue(districts.allSatisfy { ($0.circoscrizione?.isEmpty == false) })
+        XCTAssertTrue(districts.allSatisfy { $0.regione == nil })
+    }
+
+    func testSenatoPlurinominaleDistrictsDecodeWithExpectedCount() throws {
+        // 26 real Senato collegi plurinominali (ISTAT) — Phase 25; the 27th
+        // raw feature is a Valle d'Aosta + Trentino-Alto Adige placeholder,
+        // dropped at import.
+        let districts = try GeoJSONLoader.loadDistricts(resource: "districts_plurinominali_senato")
+        XCTAssertEqual(districts.count, 26)
+        XCTAssertTrue(districts.allSatisfy { $0.chamber == .senato })
+        XCTAssertTrue(districts.allSatisfy { $0.collegioType == .plurinominale })
+        XCTAssertTrue(districts.allSatisfy { $0.id.hasPrefix("SP") })
+        XCTAssertTrue(districts.allSatisfy { ($0.regione?.isEmpty == false) })
+        XCTAssertTrue(districts.allSatisfy { $0.circoscrizione == nil })
     }
 
     func testRepresentativesDecodeWithExpectedCount() throws {
@@ -108,6 +137,18 @@ final class DecodingTests: XCTestCase {
         let allIds = camera.map(\.id) + senato.map(\.id)
         XCTAssertEqual(allIds.count, 221)
         XCTAssertEqual(Set(allIds).count, 221, "no id should be shared between districts.geojson and districts_senato.geojson")
+    }
+
+    func testAllFourBoundaryFilesHaveGloballyUniqueIds() throws {
+        // 147 + 74 + 49 + 26 = 296 unique ids across all four boundary files
+        // (Phase 25) — the Swift-side twin of validate_data.py's four-file
+        // cross-uniqueness check. The unconditional prefixes (bare numeric /
+        // "S" / "CP" / "SP") guarantee no id aliases two distinct collegi.
+        let allIds = try ["districts", "districts_senato",
+                          "districts_plurinominali_camera", "districts_plurinominali_senato"]
+            .flatMap { try GeoJSONLoader.loadDistricts(resource: $0).map(\.id) }
+        XCTAssertEqual(allIds.count, 296)
+        XCTAssertEqual(Set(allIds).count, 296, "no id may be shared across the four boundary files")
     }
 
     func testEveryNonNilRepresentativeDistrictReferencesAKnownDistrict() throws {

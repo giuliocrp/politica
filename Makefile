@@ -1,4 +1,4 @@
-.PHONY: fetch import validate manifest boundaries boundaries-senato all refresh
+.PHONY: fetch import validate manifest boundaries boundaries-senato boundaries-plurinominale-camera boundaries-plurinominale-senato all refresh
 
 PYTHON := python3
 
@@ -42,11 +42,24 @@ boundaries:
 boundaries-senato:
 	./tools/build_boundaries.sh senato
 
+# Builds Politici/Data/districts_plurinominali_camera.geojson /
+# districts_plurinominali_senato.geojson from the ISTAT plurinominale
+# shapefiles — same pipeline as the uninominale targets (Phase 25; see
+# docs/v4/25-plurinominale-geography.md). Offline.
+boundaries-plurinominale-camera:
+	./tools/build_boundaries.sh camera-plurinominale
+
+boundaries-plurinominale-senato:
+	./tools/build_boundaries.sh senato-plurinominale
+
 # Fully offline: rebuilds every generated Data/*.json(.geojson) file from
 # the tools/raw/ cache left by a previous `make fetch`, in dependency
 # order, with validate last so it checks this run's actual final output.
+# The four boundary targets run before import: import_representatives.py's
+# plurinominale linkage (Phase 25) reads districts_plurinominali_camera.geojson,
+# so that file must be current when import runs.
 # Does NOT fetch — see `refresh` for that.
-all: import boundaries boundaries-senato manifest validate
+all: boundaries boundaries-senato boundaries-plurinominale-camera boundaries-plurinominale-senato import manifest validate
 
 # Deliberate, network-touching refresh: fetch fresh data, then rebuild
 # everything from it. This is the only target besides `fetch` itself that

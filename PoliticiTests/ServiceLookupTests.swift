@@ -50,12 +50,43 @@ final class ServiceLookupTests: XCTestCase {
         XCTAssertNil(districtService.district(for: coordinate, chamber: .senato))
     }
 
+    func testAllDistrictsFilterByChamberAndCollegioTypeOnSampleFixture() {
+        // districts.sample.geojson mixes chambers AND collegio types in ONE
+        // file (Phase 25): 3 Camera + 2 Senato uninominali, plus 1 Camera + 1
+        // Senato plurinominale — so this exercises DistrictService bucketing
+        // by each feature's own (chamber, collegioType), not by file.
+        let cameraUni = districtService.allDistricts(chamber: .camera, collegioType: .uninominale)
+        XCTAssertEqual(Set(cameraUni.map(\.id)), ["IT-RM-C01", "IT-MI-C01", "IT-NA-C01"])
+        let cameraPluri = districtService.allDistricts(chamber: .camera, collegioType: .plurinominale)
+        XCTAssertEqual(cameraPluri.map(\.id), ["IT-RM-CP01"])
+        let senatoUni = districtService.allDistricts(chamber: .senato, collegioType: .uninominale)
+        XCTAssertEqual(Set(senatoUni.map(\.id)), ["IT-TO-S01", "IT-FI-S01"])
+        let senatoPluri = districtService.allDistricts(chamber: .senato, collegioType: .plurinominale)
+        XCTAssertEqual(senatoPluri.map(\.id), ["IT-TO-SP01"])
+        // The uninominale-only count across chambers (5) and the all-types
+        // total (7) come from the same loaded set, bucketed differently.
+        XCTAssertEqual(districtService.allDistricts(collegioType: .uninominale).count, 5)
+        XCTAssertEqual(districtService.allDistricts().count, 7)
+    }
+
+    func testSampleFixtureNestedUninominaleAndPlurinominaleForOneCoordinate() {
+        // The Camera plurinominale sample rectangle (IT-RM-CP01) contains the
+        // Roma Centro uninominale rectangle (IT-RM-C01); one coordinate inside
+        // both resolves to each within its own overlay set — the sample-fixture
+        // twin of the real-data nested test in DistrictBoundariesTests.
+        let roma = CLLocationCoordinate2D(latitude: 41.905, longitude: 12.49)
+        XCTAssertEqual(districtService.district(for: roma, chamber: .camera, collegioType: .uninominale)?.id, "IT-RM-C01")
+        XCTAssertEqual(districtService.district(for: roma, chamber: .camera, collegioType: .plurinominale)?.id, "IT-RM-CP01")
+    }
+
     func testDistrictsContainingBucketsByChamberOnMixedSampleFixture() {
-        // districts.sample.geojson deliberately mixes 3 Camera + 2 Senato
-        // features in ONE file (Roma/Milano/Napoli Camera, Torino/Firenze
-        // Senato) — this exercises DistrictService's chamber bucketing
-        // being driven by each feature's own `chamber` property, not by
-        // which file/resource it was loaded from.
+        // districts.sample.geojson deliberately mixes chambers (and, since
+        // Phase 25, collegio types) in ONE file — this exercises
+        // DistrictService's chamber bucketing being driven by each feature's
+        // own `chamber` property, not by which file/resource it loaded from.
+        // districts(containing:) is uninominale-scoped, so it returns the
+        // uninominale collegio even where a plurinominale one also contains
+        // the point.
         let torinoSud = CLLocationCoordinate2D(latitude: 45.045, longitude: 7.69)
         let matches = districtService.districts(containing: torinoSud)
         XCTAssertNil(matches[.camera], "Torino Sud is a Senato-only sample district")

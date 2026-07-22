@@ -3,6 +3,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
@@ -25,6 +26,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMITATO PERMANENTE SULLA POLITICA ESTERA PER L'ARTICO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
@@ -48,6 +50,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "II COMMISSIONE (GIUSTIZIA)"
     ],
@@ -67,6 +70,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULLA CASSA DEPOSITI E PRESTITI",
@@ -90,6 +94,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190201",
     "committees": [
       "VI COMMISSIONE (FINANZE)"
     ],
@@ -109,6 +114,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
@@ -131,6 +137,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
@@ -154,6 +161,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
@@ -176,6 +184,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
@@ -195,6 +204,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMITATO PARLAMENTARE PER LA SICUREZZA DELLA REPUBBLICA",
       "IV COMMISSIONE (DIFESA)",
@@ -216,6 +226,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "COMITATO PER GLI AFFARI DEL PERSONALE",
       "UFFICIO DI PRESIDENZA",
@@ -237,6 +248,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Molise",
+    "collegioPlurinominale": "CP140001",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELLA NATO",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
@@ -257,6 +269,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "VI COMMISSIONE (FINANZE)"
     ],
@@ -276,6 +289,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -296,6 +310,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
@@ -323,6 +338,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
@@ -345,6 +361,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
@@ -366,6 +383,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMITATO PER LA COMUNICAZIONE E L'INFORMAZIONE ESTERNA",
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
@@ -396,6 +414,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -416,6 +435,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -436,6 +456,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
@@ -455,6 +476,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
@@ -475,6 +497,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30301",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -495,6 +518,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
@@ -514,6 +538,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
@@ -535,6 +560,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
@@ -554,6 +580,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -574,6 +601,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
@@ -596,6 +624,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
@@ -617,6 +646,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "IV COMMISSIONE (DIFESA)"
@@ -637,6 +667,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -657,6 +688,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
@@ -676,6 +708,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "COMITATO PERMANENTE SULLA POLITICA ESTERA PER L'AREA INDO-MEDITERRANEA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
@@ -723,6 +756,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190203",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "IV COMMISSIONE (DIFESA)"
@@ -743,6 +777,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
@@ -762,6 +797,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Umbria",
+    "collegioPlurinominale": "CP100001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
@@ -784,6 +820,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "COMITATO PER LA COMUNICAZIONE E L'INFORMAZIONE ESTERNA",
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
@@ -806,6 +843,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10102",
     "committees": [
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
@@ -825,6 +863,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
@@ -844,6 +883,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
@@ -865,6 +905,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -885,6 +926,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Trentino-Alto Adige/Südtirol",
+    "collegioPlurinominale": "CP40001",
     "committees": [
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
@@ -907,6 +949,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Trentino-Alto Adige/Südtirol",
+    "collegioPlurinominale": "CP40001",
     "committees": [
       "COLLEGIO D'APPELLO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -931,6 +974,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMITATO PARLAMENTARE PER LA SICUREZZA DELLA REPUBBLICA",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
@@ -951,6 +995,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
@@ -972,6 +1017,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "IV COMMISSIONE (DIFESA)"
@@ -992,6 +1038,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Umbria",
+    "collegioPlurinominale": "CP100001",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "IV COMMISSIONE (DIFESA)",
@@ -1013,6 +1060,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELLA NATO",
@@ -1034,6 +1082,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
@@ -1056,6 +1105,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90002",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUI DIRITTI UMANI NEL MONDO",
@@ -1078,6 +1128,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
@@ -1097,6 +1148,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "GIUNTA PER LE AUTORIZZAZIONI",
@@ -1118,6 +1170,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUGLI ITALIANI NEL MONDO",
@@ -1144,6 +1197,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Basilicata",
+    "collegioPlurinominale": "CP170001",
     "committees": [
       "COMITATO PERMANENTE SUL COMMERCIO INTERNAZIONALE",
       "COMITATO PERMANENTE SULLA POLITICA ESTERA PER L'AREA INDO-MEDITERRANEA",
@@ -1166,6 +1220,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -1186,6 +1241,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
@@ -1207,6 +1263,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -1228,6 +1285,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -1248,6 +1306,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE CONSULTIVA PER LA CONCESSIONE DI RICOMPENSE AL VALORE E AL MERITO CIVILE",
@@ -1272,6 +1331,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
@@ -1295,6 +1355,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
@@ -1317,6 +1378,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120103",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
@@ -1338,6 +1400,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
@@ -1358,6 +1421,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMITATO PERMANENTE SUI DIRITTI UMANI NEL MONDO",
       "COMITATO PERMANENTE SUL COMMERCIO INTERNAZIONALE",
@@ -1382,6 +1446,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -1402,6 +1467,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30201",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "GIUNTA DELLE ELEZIONI",
@@ -1424,6 +1490,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50201",
     "committees": [
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
@@ -1443,6 +1510,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "DELEGAZIONE PRESSO L'ASSEMBLEA PARLAMENTARE DELLA INIZIATIVA CENTRO EUROPEA (INCE)",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
@@ -1463,6 +1531,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELL'ORGANIZZAZIONE PER LA SICUREZZA E LA COOPERAZIONE IN EUROPA OSCE",
@@ -1484,6 +1553,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50202",
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
@@ -1503,6 +1573,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10201",
     "committees": [
       "GIUNTA DELLE ELEZIONI",
       "GIUNTA PER IL REGOLAMENTO",
@@ -1524,6 +1595,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -1544,6 +1616,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
@@ -1565,6 +1638,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
@@ -1587,6 +1661,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "COMITATO PER GLI AFFARI DEL PERSONALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
@@ -1611,6 +1686,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
@@ -1630,6 +1706,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "COMITATO PER LA COMUNICAZIONE E L'INFORMAZIONE ESTERNA",
       "IV COMMISSIONE (DIFESA)",
@@ -1652,6 +1729,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)",
@@ -1673,6 +1751,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
@@ -1692,6 +1771,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
@@ -1711,6 +1791,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
@@ -1733,6 +1814,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
@@ -1797,6 +1879,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Basilicata",
+    "collegioPlurinominale": "CP170001",
     "committees": [
       "COMITATO PERMANENTE SUGLI ITALIANI NEL MONDO",
       "COMITATO PERMANENTE SUL COMMERCIO INTERNAZIONALE",
@@ -1821,6 +1904,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -1841,6 +1925,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
@@ -1861,6 +1946,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190102",
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
@@ -1880,6 +1966,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
@@ -1899,6 +1986,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -1921,6 +2009,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -1941,6 +2030,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -1961,6 +2051,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -1981,6 +2072,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COLLEGIO D'APPELLO",
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
@@ -2007,6 +2099,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -2029,6 +2122,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMITATO PARLAMENTARE PER LA SICUREZZA DELLA REPUBBLICA",
       "COMITATO PER LA COMUNICAZIONE E L'INFORMAZIONE ESTERNA",
@@ -2051,6 +2145,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -2073,6 +2168,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90002",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
@@ -2093,6 +2189,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "CONSIGLIO DI GIURISDIZIONE",
@@ -2115,6 +2212,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -2135,6 +2233,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -2155,6 +2254,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
@@ -2180,6 +2280,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -2200,6 +2301,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160002",
     "committees": [
       "COLLEGIO D'APPELLO",
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
@@ -2223,6 +2325,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -2243,6 +2346,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -2263,6 +2367,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160002",
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
@@ -2282,6 +2387,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "CONSIGLIO DI GIURISDIZIONE",
@@ -2305,6 +2411,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "COLLEGIO D'APPELLO",
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
@@ -2328,6 +2435,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
@@ -2347,6 +2455,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -2367,6 +2476,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160003",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -2387,6 +2497,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160001",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
@@ -2410,6 +2521,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "CONSIGLIO DI GIURISDIZIONE",
@@ -2431,6 +2543,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
@@ -2453,6 +2566,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
@@ -2475,6 +2589,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "GIUNTA DELLE ELEZIONI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -2495,6 +2610,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMITATO PER LE PARI OPPORTUNITA'",
@@ -2518,6 +2634,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
@@ -2537,6 +2654,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190201",
     "committees": [
       "VI COMMISSIONE (FINANZE)"
     ],
@@ -2556,6 +2674,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190202",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELLA NATO",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
@@ -2576,6 +2695,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190203",
     "committees": [
       "COLLEGIO DEI QUESTORI",
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
@@ -2601,6 +2721,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Umbria",
+    "collegioPlurinominale": "CP100001",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -2621,6 +2742,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -2641,6 +2763,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
@@ -2660,6 +2783,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
@@ -2679,6 +2803,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "COLLEGIO D'APPELLO",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
@@ -2699,6 +2824,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
@@ -2718,6 +2844,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120103",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUGLI ITALIANI NEL MONDO",
@@ -2745,6 +2872,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Umbria",
+    "collegioPlurinominale": "CP100001",
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
@@ -2764,6 +2892,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -2784,6 +2913,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Umbria",
+    "collegioPlurinominale": "CP100001",
     "committees": [
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
@@ -2803,6 +2933,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120201",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -2823,6 +2954,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120103",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)",
@@ -2844,6 +2976,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120201",
     "committees": [
       "COLLEGIO DEI QUESTORI",
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
@@ -2870,6 +3003,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -2890,6 +3024,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
@@ -2909,6 +3044,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "COLLEGIO D'APPELLO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
@@ -2933,6 +3069,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUGLI ITALIANI NEL MONDO",
@@ -2958,6 +3095,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10102",
     "committees": [
       "COLLEGIO DEI QUESTORI",
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
@@ -2983,6 +3121,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10201",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "VI COMMISSIONE (FINANZE)",
@@ -3004,6 +3143,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
@@ -3026,6 +3166,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10201",
     "committees": [
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
@@ -3045,6 +3186,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120103",
     "committees": [
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
@@ -3064,6 +3206,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10102",
     "committees": [
       "DELEGAZIONE PRESSO L'ASSEMBLEA PARLAMENTARE DELLA INIZIATIVA CENTRO EUROPEA (INCE)",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -3084,6 +3227,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10102",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMITATO PERMANENTE SUGLI ITALIANI NEL MONDO",
@@ -3109,6 +3253,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -3129,6 +3274,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
@@ -3152,6 +3298,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "IV COMMISSIONE (DIFESA)",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -3172,6 +3319,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "VI COMMISSIONE (FINANZE)"
@@ -3192,6 +3340,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -3213,6 +3362,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
@@ -3235,6 +3385,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
@@ -3254,6 +3405,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
@@ -3273,6 +3425,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50201",
     "committees": [
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
@@ -3292,6 +3445,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
@@ -3313,6 +3467,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50203",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -3333,6 +3488,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
@@ -3352,6 +3508,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -3373,6 +3530,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50203",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DI GRUPPO",
       "GIUNTA PER IL REGOLAMENTO",
@@ -3394,6 +3552,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
@@ -3416,6 +3575,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMITATO PERMANENTE SUI DIRITTI UMANI NEL MONDO",
       "COMITATO PERMANENTE SULLA POLITICA ESTERA PER L'AFRICA",
@@ -3440,6 +3600,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMITATO PER GLI AFFARI DEL PERSONALE",
@@ -3465,6 +3626,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
@@ -3485,6 +3647,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30301",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "GIUNTA DELLE ELEZIONI",
@@ -3506,6 +3669,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULLA CASSA DEPOSITI E PRESTITI",
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
@@ -3527,6 +3691,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELL'ORGANIZZAZIONE PER LA SICUREZZA E LA COOPERAZIONE IN EUROPA OSCE",
       "GIUNTA DELLE ELEZIONI",
@@ -3548,6 +3713,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30301",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -3568,6 +3734,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30301",
     "committees": [
       "ASSEMBLEA PARLAMENTARE DELL'UNIONE PER IL MEDITERRANEO (AP-UPM)",
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
@@ -3592,6 +3759,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
@@ -3616,6 +3784,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMITATO PERMANENTE SUL COMMERCIO INTERNAZIONALE",
       "COMITATO PERMANENTE SULLA POLITICA ESTERA PER L'AFRICA",
@@ -3639,6 +3808,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "GIUNTA PER IL REGOLAMENTO",
@@ -3660,6 +3830,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -3680,6 +3851,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "IV COMMISSIONE (DIFESA)"
@@ -3700,6 +3872,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
@@ -3720,6 +3893,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "IV COMMISSIONE (DIFESA)",
@@ -3741,6 +3915,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -3761,6 +3936,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -3781,6 +3957,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
@@ -3806,6 +3983,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COLLEGIO D'APPELLO",
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
@@ -3830,6 +4008,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Trentino-Alto Adige/Südtirol",
+    "collegioPlurinominale": "CP40001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -3850,6 +4029,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULLA CASSA DEPOSITI E PRESTITI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -3870,6 +4050,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
@@ -3889,6 +4070,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
@@ -3910,6 +4092,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "COMITATO PER GLI AFFARI DEL PERSONALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
@@ -3932,6 +4115,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
@@ -3951,6 +4135,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "VI COMMISSIONE (FINANZE)"
@@ -3971,6 +4156,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULLA CASSA DEPOSITI E PRESTITI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -3991,6 +4177,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -4011,6 +4198,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160003",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -4031,6 +4219,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
@@ -4050,6 +4239,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Basilicata",
+    "collegioPlurinominale": "CP170001",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "IV COMMISSIONE (DIFESA)"
@@ -4070,6 +4260,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -4090,6 +4281,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
@@ -4111,6 +4303,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "GIUNTA PER IL REGOLAMENTO",
@@ -4132,6 +4325,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160001",
     "committees": [
       "COMITATO PARLAMENTARE PER LA SICUREZZA DELLA REPUBBLICA",
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
@@ -4153,6 +4347,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -4173,6 +4368,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
@@ -4194,6 +4390,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Trentino-Alto Adige/Südtirol",
+    "collegioPlurinominale": "CP40001",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -4214,6 +4411,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
@@ -4235,6 +4433,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Trentino-Alto Adige/Südtirol",
+    "collegioPlurinominale": "CP40001",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "VI COMMISSIONE (FINANZE)"
@@ -4255,6 +4454,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "COMITATO PER LA SICUREZZA",
       "UFFICIO DI PRESIDENZA",
@@ -4276,6 +4476,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
@@ -4296,6 +4497,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
@@ -4315,6 +4517,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
@@ -4337,6 +4540,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
@@ -4358,6 +4562,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Umbria",
+    "collegioPlurinominale": "CP100001",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -4378,6 +4583,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUGLI ITALIANI NEL MONDO",
@@ -4401,6 +4607,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50202",
     "committees": [
       "COMITATO PER LE PARI OPPORTUNITA'",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
@@ -4424,6 +4631,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "IV COMMISSIONE (DIFESA)"
     ],
@@ -4443,6 +4651,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "GIUNTA PER IL REGOLAMENTO",
@@ -4464,6 +4673,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMITATO PER LA LEGISLAZIONE",
@@ -4507,6 +4717,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
@@ -4528,6 +4739,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -4550,6 +4762,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -4570,6 +4783,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
@@ -4591,6 +4805,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190203",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -4611,6 +4826,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190201",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -4631,6 +4847,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
@@ -4652,6 +4869,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -4673,6 +4891,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
@@ -4694,6 +4913,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
@@ -4827,6 +5047,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
@@ -4849,6 +5070,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -4869,6 +5091,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
@@ -4890,6 +5113,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "VI COMMISSIONE (FINANZE)"
@@ -4910,6 +5134,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -4930,6 +5155,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
@@ -4953,6 +5179,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -4973,6 +5200,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30201",
     "committees": [
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
@@ -4995,6 +5223,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -5015,6 +5244,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUI DIRITTI UMANI NEL MONDO",
@@ -5040,6 +5270,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -5060,6 +5291,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "GIUNTA DELLE ELEZIONI",
@@ -5081,6 +5313,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -5101,6 +5334,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
@@ -5120,6 +5354,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
@@ -5141,6 +5376,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -5161,6 +5397,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -5181,6 +5418,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
@@ -5202,6 +5440,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -5222,6 +5461,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -5242,6 +5482,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Marche",
+    "collegioPlurinominale": "CP110001",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -5264,6 +5505,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
@@ -5285,6 +5527,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
@@ -5306,6 +5549,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -5326,6 +5570,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
@@ -5348,6 +5593,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -5368,6 +5614,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160001",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
@@ -5391,6 +5638,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -5411,6 +5659,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -5431,6 +5680,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
@@ -5451,6 +5701,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 1",
+    "collegioPlurinominale": "CP10102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -5471,6 +5722,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
@@ -5492,6 +5744,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -5513,6 +5766,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -5533,6 +5787,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190101",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -5553,6 +5808,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190102",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
@@ -5574,6 +5830,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
@@ -5595,6 +5852,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10201",
     "committees": [
       "III COMMISSIONE (AFFARI ESTERI E COMUNITARI)"
     ],
@@ -5614,6 +5872,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 1",
+    "collegioPlurinominale": "CP190102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "VI COMMISSIONE (FINANZE)",
@@ -5635,6 +5894,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
@@ -5654,6 +5914,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -5674,6 +5935,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Piemonte 2",
+    "collegioPlurinominale": "CP10202",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELL'ORGANIZZAZIONE PER LA SICUREZZA E LA COOPERAZIONE IN EUROPA OSCE",
       "IV COMMISSIONE (DIFESA)",
@@ -5695,6 +5957,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160001",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
@@ -5717,6 +5980,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
@@ -5738,6 +6002,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160002",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -5758,6 +6023,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -5778,6 +6044,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160003",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
@@ -5802,6 +6069,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Trentino-Alto Adige/Südtirol",
+    "collegioPlurinominale": "CP40001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
@@ -5824,6 +6092,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "VI COMMISSIONE (FINANZE)"
@@ -5844,6 +6113,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Trentino-Alto Adige/Südtirol",
+    "collegioPlurinominale": "CP40001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -5864,6 +6134,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
@@ -5885,6 +6156,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120101",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
@@ -5908,6 +6180,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120103",
     "committees": [
       "VI COMMISSIONE (FINANZE)"
     ],
@@ -5927,6 +6200,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
@@ -5946,6 +6220,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -5968,6 +6243,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -5988,6 +6264,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
@@ -6009,6 +6286,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -6029,6 +6307,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -6049,6 +6328,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
@@ -6069,6 +6349,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
@@ -6091,6 +6372,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -6111,6 +6393,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120103",
     "committees": [
       "COMITATO PARLAMENTARE PER LA SICUREZZA DELLA REPUBBLICA",
       "GIUNTA PER IL REGOLAMENTO",
@@ -6132,6 +6415,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -6152,6 +6436,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -6172,6 +6457,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)",
@@ -6193,6 +6479,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMITATO PER GLI AFFARI DEL PERSONALE",
       "COMITATO PER LE PARI OPPORTUNITA'",
@@ -6218,6 +6505,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150101",
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
@@ -6237,6 +6525,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -6257,6 +6546,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)",
@@ -6278,6 +6568,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
     ],
@@ -6297,6 +6588,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 1",
+    "collegioPlurinominale": "CP150102",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -6320,6 +6612,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER IL CONTRASTO DEGLI SVANTAGGI DERIVANTI DALL'INSULARITA'",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -6340,6 +6633,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUGLI ITALIANI NEL MONDO",
@@ -6365,6 +6659,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50201",
     "committees": [
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
@@ -6384,6 +6679,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sardegna",
+    "collegioPlurinominale": "CP200001",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
@@ -6407,6 +6703,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
@@ -6427,6 +6724,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50203",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "GIUNTA DELLE ELEZIONI",
@@ -6448,6 +6746,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50203",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "IV COMMISSIONE (DIFESA)"
@@ -6468,6 +6767,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -6489,6 +6789,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Abruzzo",
+    "collegioPlurinominale": "CP130001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -6509,6 +6810,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -6529,6 +6831,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -6550,6 +6853,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
@@ -6571,6 +6875,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "COMITATO PER LE PARI OPPORTUNITA'",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
@@ -6593,6 +6898,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
@@ -6616,6 +6922,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COLLEGIO D'APPELLO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
@@ -6638,6 +6945,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -6658,6 +6966,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMITATO CONSULTIVO SULLA CONDOTTA DEI DEPUTATI",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
@@ -6682,6 +6991,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
@@ -6701,6 +7011,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90002",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -6721,6 +7032,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -6743,6 +7055,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
@@ -6765,6 +7078,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
@@ -6788,6 +7102,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA MORTE DI DAVID ROSSI",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -6809,6 +7124,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)",
@@ -6830,6 +7146,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
@@ -6851,6 +7168,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMITATO PERMANENTE SULLA POLITICA ESTERA PER L'AFRICA",
       "COMITATO PERMANENTE SULLA POLITICA ESTERA PER L'ARTICO",
@@ -6873,6 +7191,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -6893,6 +7212,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90002",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
@@ -6916,6 +7236,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
@@ -6938,6 +7259,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULLA CASSA DEPOSITI E PRESTITI",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
@@ -6959,6 +7281,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
@@ -6980,6 +7303,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -7000,6 +7324,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "COMITATO PER LA COMUNICAZIONE E L'INFORMAZIONE ESTERNA",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -7020,6 +7345,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -7040,6 +7366,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -7060,6 +7387,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -7080,6 +7408,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
@@ -7102,6 +7431,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190202",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -7122,6 +7452,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190203",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -7142,6 +7473,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190202",
     "committees": [
       "COMITATO PER LA COMUNICAZIONE E L'INFORMAZIONE ESTERNA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
@@ -7163,6 +7495,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "IV COMMISSIONE (DIFESA)"
@@ -7183,6 +7516,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190201",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE ATTIVITA' ILLECITE CONNESSE AL CICLO DEI RIFIUTI E SU ALTRI ILLECITI AMBIENTALI E AGROALIMENTARI",
@@ -7205,6 +7539,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Sicilia 2",
+    "collegioPlurinominale": "CP190203",
     "committees": [
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
@@ -7226,6 +7561,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30201",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'ATTUAZIONE DEL FEDERALISMO FISCALE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)",
@@ -7247,6 +7583,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "COMMISSIONE GIURISDIZIONALE PER IL PERSONALE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
@@ -7270,6 +7607,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -7290,6 +7628,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
@@ -7311,6 +7650,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30301",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULL'ANAGRAFE TRIBUTARIA",
@@ -7332,6 +7672,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
@@ -7354,6 +7695,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -7374,6 +7716,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -7394,6 +7737,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Calabria",
+    "collegioPlurinominale": "CP180001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
@@ -7416,6 +7760,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA GESTIONE DELL'EMERGENZA SANITARIA CAUSATA DALLA DIFFUSIONE EPIDEMICA DEL VIRUS SARS-COV-2 E SULLE MISURE ADOTTATE PER PREVENIRE E AFFRONTARE L'EMERGENZA EPIDEMIOLOGICA DA SARS-COV-2",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -7436,6 +7781,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 3",
+    "collegioPlurinominale": "CP30302",
     "committees": [
       "COMITATO PER LA COMUNICAZIONE E L'INFORMAZIONE ESTERNA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
@@ -7457,6 +7803,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI VIGILANZA SULLA CASSA DEPOSITI E PRESTITI",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -7477,6 +7824,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "IV COMMISSIONE (DIFESA)"
@@ -7497,6 +7845,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 4",
+    "collegioPlurinominale": "CP30401",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
@@ -7519,6 +7868,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
@@ -7539,6 +7889,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LA SEMPLIFICAZIONE",
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
@@ -7559,6 +7910,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Molise",
+    "collegioPlurinominale": "CP140001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -7579,6 +7931,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INFANZIA E L'ADOLESCENZA",
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
@@ -7599,6 +7952,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI SICUREZZA E SULLO STATO DI DEGRADO DELLE CITTA' E DELLE LORO PERIFERIE",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -7619,6 +7973,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 2",
+    "collegioPlurinominale": "CP120202",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FEMMINICIDIO, NONCHE' SU OGNI FORMA DI VIOLENZA DI GENERE",
@@ -7641,6 +7996,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "COMITATO PERMANENTE SUL COMMERCIO INTERNAZIONALE",
@@ -7665,6 +8021,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMITATO DI VIGILANZA SULL'ATTIVITA' DI DOCUMENTAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -7688,6 +8045,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
@@ -7710,6 +8068,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
@@ -7731,6 +8090,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "IV COMMISSIONE (DIFESA)"
@@ -7751,6 +8111,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CONDIZIONI DI LAVORO IN ITALIA, SULLO SFRUTTAMENTO E SULLA TUTELA DELLA SALUTE E DELLA SICUREZZA NEI LUOGHI DI LAVORO PUBBLICI E PRIVATI",
       "XI COMMISSIONE (LAVORO PUBBLICO E PRIVATO)"
@@ -7771,6 +8132,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "I COMMISSIONE (AFFARI COSTITUZIONALI, DELLA PRESIDENZA DEL CONSIGLIO E INTERNI)"
     ],
@@ -7790,6 +8152,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER L'INDIRIZZO GENERALE E LA VIGILANZA DEI SERVIZI RADIOTELEVISIVI",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -7810,6 +8173,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMMISSIONE PARLAMENTARE PER LE QUESTIONI REGIONALI",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -7830,6 +8194,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL FENOMENO DELLE MAFIE E SULLE ALTRE ASSOCIAZIONI CRIMINALI, ANCHE STRANIERE",
       "II COMMISSIONE (GIUSTIZIA)"
@@ -7850,6 +8215,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUI FATTI ACCADUTI PRESSO LA COMUNITA' «IL FORTETO»",
@@ -7872,6 +8238,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMITATO PARLAMENTARE PER I PROCEDIMENTI DI ACCUSA",
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
@@ -7894,6 +8261,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80002",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI CONTROLLO SULL'ATTIVITA' DEGLI ENTI GESTORI DI FORME OBBLIGATORIE DI PREVIDENZA E ASSISTENZA SOCIALE",
       "VI COMMISSIONE (FINANZE)"
@@ -7914,6 +8282,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMITATO PER LE INCOMPATIBILITA', LE INELEGGIBILITA' E LE DECADENZE",
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
@@ -7937,6 +8306,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80003",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "IV COMMISSIONE (DIFESA)",
@@ -7958,6 +8328,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Basilicata",
+    "collegioPlurinominale": "CP170001",
     "committees": [
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],
@@ -7977,6 +8348,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "COMITATO PERMANENTE PER L'ATTUAZIONE DELL'AGENDA 2030 E LO SVILUPPO SOSTENIBILE",
       "COMITATO PERMANENTE SUI DIRITTI UMANI NEL MONDO",
@@ -8001,6 +8373,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "COMITATO PARLAMENTARE DI CONTROLLO SULL'ATTUAZIONE DELL'ACCORDO DI SCHENGEN, DI VIGILANZA SULL'ATTIVITA' DI EUROPOL, DI CONTROLLO E VIGILANZA IN MATERIA DI IMMIGRAZIONE",
       "VI COMMISSIONE (FINANZE)",
@@ -8022,6 +8395,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Friuli-Venezia Giulia",
+    "collegioPlurinominale": "CP60001",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
@@ -8042,6 +8416,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30201",
     "committees": [
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
     ],
@@ -8061,6 +8436,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50201",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUL RISCHIO IDROGEOLOGICO E SISMICO DEL TERRITORIO ITALIANO, SULL'ATTUAZIONE DELLE NORME DI PREVENZIONE E SICUREZZA E SUGLI INTERVENTI DI EMERGENZA E DI RICOSTRUZIONE A SEGUITO DEGLI EVENTI CALAMITOSI VERIFICATISI DALL'ANNO 2019",
       "XIII COMMISSIONE (AGRICOLTURA)"
@@ -8081,6 +8457,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 2",
+    "collegioPlurinominale": "CP50203",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SUGLI EFFETTI ECONOMICI E SOCIALI DERIVANTI DALLA TRANSIZIONE DEMOGRAFICA IN ATTO",
       "IX COMMISSIONE (TRASPORTI, POSTE E TELECOMUNICAZIONI)"
@@ -8101,6 +8478,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160004",
     "committees": [
       "XII COMMISSIONE (AFFARI SOCIALI)"
     ],
@@ -8120,6 +8498,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Liguria",
+    "collegioPlurinominale": "CP70001",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLE CAUSE DEL DISASTRO DELLA NAVE \"MOBY PRINCE\"",
       "X COMMISSIONE (ATTIVITA'  PRODUTTIVE, COMMERCIO E TURISMO)"
@@ -8140,6 +8519,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Toscana",
+    "collegioPlurinominale": "CP90001",
     "committees": [
       "XIII COMMISSIONE (AGRICOLTURA)"
     ],
@@ -8159,6 +8539,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Puglia",
+    "collegioPlurinominale": "CP160003",
     "committees": [
       "V COMMISSIONE (BILANCIO, TESORO E PROGRAMMAZIONE)"
     ],
@@ -8178,6 +8559,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30201",
     "committees": [
       "VII COMMISSIONE (CULTURA, SCIENZA E ISTRUZIONE)"
     ],
@@ -8235,6 +8617,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30101",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "VI COMMISSIONE (FINANZE)"
@@ -8255,6 +8638,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lazio 1",
+    "collegioPlurinominale": "CP120103",
     "committees": [
       "COMMISSIONE PARLAMENTARE DI INCHIESTA SULLA SCOMPARSA DI EMANUELA ORLANDI E DI MIRELLA GREGORI",
       "XII COMMISSIONE (AFFARI SOCIALI)"
@@ -8275,6 +8659,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Veneto 1",
+    "collegioPlurinominale": "CP50101",
     "committees": [
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DEL CONSIGLIO D'EUROPA",
       "IV COMMISSIONE (DIFESA)"
@@ -8295,6 +8680,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Campania 2",
+    "collegioPlurinominale": "CP150202",
     "committees": [
       "COMITATO PER LA LEGISLAZIONE",
       "GIUNTA DELLE ELEZIONI",
@@ -8316,6 +8702,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 1",
+    "collegioPlurinominale": "CP30102",
     "committees": [
       "CONFERENZA DEI PRESIDENTI DELLE COMMISSIONI PERMANENTI",
       "DELEGAZIONE ITALIANA PRESSO L'ASSEMBLEA PARLAMENTARE DELLA NATO",
@@ -8338,6 +8725,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Lombardia 2",
+    "collegioPlurinominale": "CP30202",
     "committees": [
       "XIV COMMISSIONE (POLITICHE DELL'UNIONE EUROPEA)"
     ],
@@ -8357,6 +8745,7 @@
     "attendanceRate": null,
     "chamber": "Camera",
     "circoscrizione": "Emilia-Romagna",
+    "collegioPlurinominale": "CP80001",
     "committees": [
       "VIII COMMISSIONE (AMBIENTE, TERRITORIO E LAVORI PUBBLICI)"
     ],

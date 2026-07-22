@@ -84,6 +84,14 @@ struct Representative: Identifiable, Hashable {
     /// matches `District.circoscrizione` (and is never `regione`, which is
     /// Senato's distinct grouping concept). Senato records omit the key.
     let circoscrizione: String?
+    /// Present only for deputies whose dc:coverage names a plurinominale
+    /// collegio (Phase 25 — 389 of 400: every uninominale and plurinominale
+    /// deputy, absent for the 8 Estero and the 3 bare records). The value is
+    /// the `"CP..."`-prefixed id of a district in
+    /// `districts_plurinominali_camera.geojson`; it drives the plurinominale
+    /// collegio detail page's deputy list. Senato records never carry it
+    /// (Camera-only, same absent-not-null convention as `circoscrizione`).
+    let collegioPlurinominale: String?
     let stableSourceId: String?
     let sourceUrl: URL?
 }
@@ -95,7 +103,7 @@ extension Representative: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, name, chamber, districtId, party, parliamentaryGroup, committees
         case attendanceRate, photoName, provenance, legislature, electionType
-        case mandate, circoscrizione, stableSourceId, sourceUrl
+        case mandate, circoscrizione, collegioPlurinominale, stableSourceId, sourceUrl
     }
 
     init(from decoder: Decoder) throws {
@@ -114,6 +122,7 @@ extension Representative: Codable {
         electionType = try container.decodeIfPresent(ElectionType.self, forKey: .electionType) ?? .sconosciuto
         mandate = try container.decodeIfPresent(MandateType.self, forKey: .mandate)
         circoscrizione = try container.decodeIfPresent(String.self, forKey: .circoscrizione)
+        collegioPlurinominale = try container.decodeIfPresent(String.self, forKey: .collegioPlurinominale)
         stableSourceId = try container.decodeIfPresent(String.self, forKey: .stableSourceId)
         sourceUrl = try container.decodeIfPresent(URL.self, forKey: .sourceUrl)
     }
@@ -134,6 +143,7 @@ extension Representative: Codable {
         try container.encode(electionType, forKey: .electionType)
         try container.encodeIfPresent(mandate, forKey: .mandate)
         try container.encodeIfPresent(circoscrizione, forKey: .circoscrizione)
+        try container.encodeIfPresent(collegioPlurinominale, forKey: .collegioPlurinominale)
         try container.encodeIfPresent(stableSourceId, forKey: .stableSourceId)
         try container.encodeIfPresent(sourceUrl, forKey: .sourceUrl)
     }

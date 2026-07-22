@@ -6,7 +6,10 @@
       "properties": {
         "id": "IT-RM-C01",
         "name": "Roma Centro",
-        "chamber": "Camera"
+        "chamber": "Camera",
+        "collegioType": "uninominale",
+        "circoscrizione": "Lazio 1",
+        "subCode": "U01"
       },
       "geometry": {
         "type": "Polygon",
@@ -26,7 +29,10 @@
       "properties": {
         "id": "IT-MI-C01",
         "name": "Milano Centro",
-        "chamber": "Camera"
+        "chamber": "Camera",
+        "collegioType": "uninominale",
+        "circoscrizione": "Lombardia 1",
+        "subCode": "U01"
       },
       "geometry": {
         "type": "Polygon",
@@ -46,7 +52,10 @@
       "properties": {
         "id": "IT-TO-S01",
         "name": "Torino Sud",
-        "chamber": "Senato"
+        "chamber": "Senato",
+        "collegioType": "uninominale",
+        "regione": "Piemonte",
+        "subCode": "U01"
       },
       "geometry": {
         "type": "Polygon",
@@ -66,7 +75,10 @@
       "properties": {
         "id": "IT-NA-C01",
         "name": "Napoli Nord",
-        "chamber": "Camera"
+        "chamber": "Camera",
+        "collegioType": "uninominale",
+        "circoscrizione": "Campania 1",
+        "subCode": "U01"
       },
       "geometry": {
         "type": "Polygon",
@@ -86,7 +98,10 @@
       "properties": {
         "id": "IT-FI-S01",
         "name": "Firenze Urban",
-        "chamber": "Senato"
+        "chamber": "Senato",
+        "collegioType": "uninominale",
+        "regione": "Toscana",
+        "subCode": "U01"
       },
       "geometry": {
         "type": "Polygon",
@@ -97,6 +112,52 @@
             [11.2800, 43.7900],
             [11.2300, 43.7900],
             [11.2300, 43.7600]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "IT-RM-CP01",
+        "name": "Lazio 1 - P01 (campione)",
+        "chamber": "Camera",
+        "collegioType": "plurinominale",
+        "circoscrizione": "Lazio 1",
+        "subCode": "P01"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [12.4000, 41.8500],
+            [12.6000, 41.8500],
+            [12.6000, 41.9500],
+            [12.4000, 41.9500],
+            [12.4000, 41.8500]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "IT-TO-SP01",
+        "name": "Piemonte - P01 (campione)",
+        "chamber": "Senato",
+        "collegioType": "plurinominale",
+        "regione": "Piemonte",
+        "subCode": "P01"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [7.6000, 45.0000],
+            [7.8000, 45.0000],
+            [7.8000, 45.1000],
+            [7.6000, 45.1000],
+            [7.6000, 45.0000]
           ]
         ]
       }

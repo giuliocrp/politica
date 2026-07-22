@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21",
+  "generatedAt": "2026-07-22",
   "schemaVersion": 2,
   "sources": [
     {
@@ -19,10 +19,26 @@
       "url": "https://dati.camera.it/sparql"
     },
     {
+      "id": "istat-collegi-elettorali-camera-plurinominali",
+      "license": "CC BY 4.0",
+      "name": "ISTAT — Basi geografiche dei collegi elettorali (Camera, plurinominali)",
+      "notes": "Confini geografici dei 49 collegi plurinominali della Camera (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini uninominali (vedi la fonte istat-collegi-elettorali-camera-uninominali), scaricato nello stesso momento. Ogni deputato eletto con quota proporzionale è associato al proprio collegio plurinominale.",
+      "retrievedAt": "2026-07-18",
+      "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
+    },
+    {
       "id": "istat-collegi-elettorali-camera-uninominali",
       "license": "CC BY 4.0",
       "name": "ISTAT — Basi geografiche dei collegi elettorali (Camera, uninominali)",
       "notes": "Confini geografici dei 147 collegi uninominali della Camera (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile.",
+      "retrievedAt": "2026-07-18",
+      "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
+    },
+    {
+      "id": "istat-collegi-elettorali-senato-plurinominali",
+      "license": "CC BY 4.0",
+      "name": "ISTAT — Basi geografiche dei collegi elettorali (Senato, plurinominali)",
+      "notes": "Confini geografici dei 26 collegi plurinominali del Senato (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini della Camera, scaricato nello stesso momento. I senatori non sono ancora collegati al proprio collegio plurinominale in questo prototipo.",
       "retrievedAt": "2026-07-18",
       "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
     },

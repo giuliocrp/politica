@@ -10,10 +10,10 @@ ever disagree, `sources.json` is right and this file is stale — regenerate
 it or fix this file, don't just trust whichever you're looking at.
 
 Cross-checked against the shipping `Politici/Data/sources.json` on
-2026-07-20 (v3 Phase 16, when the Senato boundaries source was added —
-originally cross-checked with 5 entries on 2026-07-18): **all 6 entries
-match exactly** (id, name, url, license, retrievedAt, notes) — see
-"Cross-check" at the bottom for the verification method.
+2026-07-22 (v4 Phase 25, when the two plurinominale boundary sources were
+added — originally cross-checked with 5 entries on 2026-07-18, 6 in v3 Phase
+16): **all 8 entries match exactly** (id, name, url, license, retrievedAt,
+notes) — see "Cross-check" at the bottom for the verification method.
 
 ---
 
@@ -141,10 +141,10 @@ them `MultiPolygon`). `id` = `CU20_COD` (cast to string); `name` =
 all 147 rows with zero exceptions, and cross-checked against the official
 28-circoscrizione list from D.Lgs. 177/2020 (not assumed; see
 [`docs/v2/03-linkage-report.md`](v2/03-linkage-report.md)). This dataset
-covers **Camera uninominali only** — Senato boundaries are documented as
-their own separate source below (added in v3 Phase 16); Camera
-plurinominali boundaries remain out of scope (see the README's "Known
-limitations").
+covers **Camera uninominali only** — the Senato uninominali, and both
+chambers' plurinominali, are documented as their own separate sources below
+(Senato uninominali added in v3 Phase 16; both plurinominali in v4 Phase
+25).
 
 ---
 
@@ -182,6 +182,65 @@ vice versa for Camera. **No senator-to-collegio linkage exists** — Phase
 Senato SPARQL cache; every senator's `districtId` stays `null` regardless
 of this boundaries source (see the Senato Open Data entry above and
 `docs/v3/15-senato-exploration.md`'s GO/NO-GO(LINK) finding).
+
+---
+
+## ISTAT — Basi geografiche dei collegi elettorali (Camera, plurinominali)
+
+| | |
+|---|---|
+| **Portal** | [istat.it](https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2) |
+| **Dataset** | Basi geografiche dei collegi elettorali, Camera dei Deputati — collegi plurinominali (D.Lgs. 177/2020) |
+| **Access method** | Shapefile download (manual — same release and same batch as the ISTAT entries above; see `tools/SOURCES.md`) |
+| **License** | CC BY 4.0 — verified at [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/) |
+| **Retrieved** | 2026-07-18 (same download event as the other ISTAT entries — one manual `tools/raw/collegi/` acquisition covered every layer) |
+| **Build script** | `tools/build_boundaries.sh camera-plurinominale` (`ogr2ogr` reprojection + simplification) → `tools/import_boundaries.py --chamber camera-plurinominale` |
+
+**Transformation summary** (v4 Phase 25;
+[`docs/v4/25-plurinominale-geography.md`](v4/25-plurinominale-geography.md)):
+source shapefile is EPSG:32632, same CRS as the uninominale layers;
+reprojected to EPSG:4326 and simplified at the same 1000m tolerance
+(re-measured before shipping to clear both gates with margin — **49
+features, ~749KB, 28 of them `MultiPolygon`**, maximum 994 vertices).
+`id` = `"CP"` + `CP20_COD` (cast to string), applied unconditionally — the
+GO-PLURI probe collision-checked all 75 new plurinominale ids against the
+221 uninominale ids and each other (zero collisions, 296 unique across all
+four boundary files). `name` = `CP20_DEN`; `circoscrizione` and `subCode`
+(now a `"P0N"` code) are derived by parsing `CP20_DEN`'s
+`"{circoscrizione} - {subCode}"` structure exactly like the uninominale
+layer. **The raw layer's 50th feature is a null-attribute placeholder** — a
+residual polygon over Valle d'Aosta (the one circoscrizione with no
+plurinominale collegio; confirmed via its `POP_2011` against
+`Regioni_Senato_2020`) — dropped at import, never shipped as a collegio.
+Each deputy elected with the proportional quota carries a
+`collegioPlurinominale` linking to their collegio here (joined on
+`(circoscrizione, P-code)`; see the Camera Open Data entry above).
+
+---
+
+## ISTAT — Basi geografiche dei collegi elettorali (Senato, plurinominali)
+
+| | |
+|---|---|
+| **Portal** | [istat.it](https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2) |
+| **Dataset** | Basi geografiche dei collegi elettorali, Senato della Repubblica — collegi plurinominali (D.Lgs. 177/2020) |
+| **Access method** | Shapefile download (manual — same release and same batch as the ISTAT entries above; see `tools/SOURCES.md`) |
+| **License** | CC BY 4.0 — verified at [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/) |
+| **Retrieved** | 2026-07-18 (same download event as the other ISTAT entries) |
+| **Build script** | `tools/build_boundaries.sh senato-plurinominale` (`ogr2ogr` reprojection + simplification) → `tools/import_boundaries.py --chamber senato-plurinominale` |
+
+**Transformation summary** (v4 Phase 25;
+[`docs/v4/25-plurinominale-geography.md`](v4/25-plurinominale-geography.md)):
+same pipeline and 1000m tolerance as the Camera plurinominale layer —
+**26 features, ~595KB, 18 of them `MultiPolygon`**, maximum 994 vertices.
+`id` = `"SP"` + `SP20_COD`; `name` = `SP20_DEN`; **`regione`** (not
+`circoscrizione`, mirroring the Senato uninominale convention) and `subCode`
+are parsed from `SP20_DEN`. **The raw layer's 27th feature is a
+null-attribute placeholder** covering Valle d'Aosta + Trentino-Alto Adige
+(the two regions with no Senato plurinominale collegio; confirmed via
+`POP_2011`), dropped at import. No senator-to-plurinominale-collegio linkage
+exists yet — this layer ships as geography only, as the Senato uninominale
+layer did at Phase 16.
 
 ---
 
@@ -256,6 +315,8 @@ the live `Politici/Data/sources.json` on 2026-07-20 (v3 Phase 16), by id:
 - `senato-della-repubblica-xix-legislatura` ✓
 - `istat-collegi-elettorali-camera-uninominali` ✓
 - `istat-collegi-elettorali-senato-uninominali` ✓ (new in v3 Phase 16)
+- `istat-collegi-elettorali-camera-plurinominali` ✓ (new in v4 Phase 25)
+- `istat-collegi-elettorali-senato-plurinominali` ✓ (new in v4 Phase 25)
 - `prototipo-dati-dimostrativi` ✓
 
 No mismatches found. If a future `make fetch && make manifest` run changes
@@ -273,3 +334,15 @@ Full re-check on 2026-07-21 (v3 Phase 22A, release prep): all 6 manifest
 entries compared again against this file and `tools/SOURCES.md` — **no
 mismatches**; no fix needed. (Phase 21's probe fetched nothing into the
 import path, so no `retrievedAt` moved after Phase 17.)
+
+Re-checked on 2026-07-22 (v4 Phase 25, plurinominale geography): two new
+ISTAT entries added — `istat-collegi-elettorali-camera-plurinominali` and
+`istat-collegi-elettorali-senato-plurinominali`, both CC BY 4.0,
+`retrievedAt` 2026-07-18 (the same manual download batch, read from the
+shared `"istat"` fetch-metadata key), synced into this file's two new
+sections in the same commit. No `retrievedAt` moved for any existing entry
+(no fetch ran). Note: this Phase 25 `make manifest` run was the first since
+Phase 20 normalized `votes.json`, and it surfaced a latent crash in
+`make_manifest.py::votazioni_scope_note` (it still assumed the old flat
+list) — fixed to read the `{"events":…}` schema; the generated votes note is
+byte-identical ("12 votazioni"), only `generatedAt` moved to 2026-07-22.

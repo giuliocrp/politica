@@ -18,8 +18,12 @@ struct DistrictDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 if let district {
                     header(for: district)
-                    representativesSection(for: district)
-                    plurinominaleSection(for: district)
+                    if district.collegioType == .plurinominale {
+                        plurinominaleCollegioSection(for: district)
+                    } else {
+                        representativesSection(for: district)
+                        plurinominaleSection(for: district)
+                    }
                 } else {
                     ContentUnavailableView(
                         "Collegio non trovato",
@@ -112,6 +116,45 @@ struct DistrictDetailView: View {
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("representative.row.\(deputy.id)")
                     }
+                }
+            }
+        }
+    }
+
+    /// A plurinominale-collegio page (Phase 25): the deputies elected here by
+    /// proportional list. Camera only carries the linkage; a Senato
+    /// plurinominale collegio ships as geography with an honest empty state
+    /// (senators aren't yet linked to a collegio in this prototype — the same
+    /// stance the Senato uninominale layer took at Phase 16).
+    private func plurinominaleCollegioSection(for district: District) -> some View {
+        let deputies = district.chamber == .camera
+            ? services.representativeService.deputies(inPlurinominaleCollegio: district.id)
+            : []
+        return VStack(alignment: .leading, spacing: 12) {
+            Text(district.chamber == .camera
+                ? "Deputati eletti in questo collegio plurinominale"
+                : "Rappresentanti eletti")
+                .font(.headline)
+                .accessibilityIdentifier("district.section.plurinominaleCollegio")
+
+            if district.chamber == .camera {
+                Text("Eletti con il sistema proporzionale nelle liste di questo collegio plurinominale.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+
+            if deputies.isEmpty {
+                Text("Nessun rappresentante collegato in questa versione del prototipo.")
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(deputies) { deputy in
+                    Button {
+                        path.append(.representativeProfile(representativeId: deputy.id))
+                    } label: {
+                        RepresentativeRow(representative: deputy)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("representative.row.\(deputy.id)")
                 }
             }
         }

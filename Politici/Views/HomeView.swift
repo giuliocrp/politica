@@ -103,7 +103,7 @@ struct HomeView: View {
             Button {
                 path.append(.collegiList)
             } label: {
-                StatCard(value: "\(services.districtService.allDistricts().count)", label: "Collegi uninominali")
+                StatCard(value: "\(services.districtService.allDistricts(collegioType: .uninominale).count)", label: "Collegi uninominali")
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco completo dei collegi")
@@ -150,8 +150,8 @@ struct HomeView: View {
         DisclosureGroup("Come funziona l'elezione") {
             VStack(alignment: .leading, spacing: 10) {
                 BulletRow(text: "Alla Camera, 147 deputati sono eletti direttamente in un collegio uninominale: il loro nome è associato al collegio geografico che rappresentano, visibile sulla mappa.")
-                BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale (collegi plurinominali) o nella circoscrizione Estero: non sono associati a un singolo collegio uninominale, ma ogni pagina di collegio della Camera mostra anche i deputati plurinominali della sua circoscrizione. I deputati eletti all'Estero restano consultabili solo nell'elenco dei rappresentanti.")
-                BulletRow(text: "Al Senato, 73 dei 74 collegi uninominali mostrano il senatore eletto direttamente nel collegio (seleziona \"Senato\" nel selettore della mappa); un collegio è attualmente privo di senatore in carica nei dati ufficiali. Gli altri senatori — eletti con il sistema proporzionale, nella circoscrizione Estero o nominati a vita — sono consultabili nell'elenco dei rappresentanti, senza un'area specifica sulla mappa.")
+                BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale nei collegi plurinominali o nella circoscrizione Estero. I 49 collegi plurinominali della Camera sono ora visibili sulla mappa (seleziona \"Plurinominali\" nel selettore): la pagina di ciascuno elenca i deputati eletti in quel collegio, e ogni pagina di collegio uninominale mostra i deputati plurinominali della sua circoscrizione. I deputati eletti all'Estero restano consultabili solo nell'elenco dei rappresentanti.")
+                BulletRow(text: "Al Senato, 73 dei 74 collegi uninominali mostrano il senatore eletto direttamente nel collegio (seleziona \"Senato\" nel selettore della mappa); un collegio è attualmente privo di senatore in carica nei dati ufficiali. Sono visibili anche i 26 collegi plurinominali del Senato, come geografia, ma nessun senatore è ancora collegato al proprio collegio in questo prototipo. Gli altri senatori — eletti con il sistema proporzionale, nella circoscrizione Estero o nominati a vita — sono consultabili nell'elenco dei rappresentanti.")
             }
             .padding(.top, 8)
         }
