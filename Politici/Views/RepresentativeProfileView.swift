@@ -104,6 +104,15 @@ struct RepresentativeProfileView: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
+
+            // Senato mirror of the circoscrizione line (Phase 26): the regione
+            // the senator was elected in ("Estero" for overseas senators;
+            // absent for the a-vita).
+            if let regione = representative.regione {
+                Text("Regione: \(regione)")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)

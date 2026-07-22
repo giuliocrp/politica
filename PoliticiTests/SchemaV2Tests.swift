@@ -247,14 +247,17 @@ final class SchemaV2Tests: XCTestCase {
     func testUninominaleElectionTypeCountMatchesLinkedDistrictCount() throws {
         // See docs/v2/03-linkage-report.md: 147/147 uninominale collegi
         // linked, 0 vacant, 0 by-election-caused duplicates — so the count
-        // of electionType == .uninominale representatives should exactly
-        // equal the count of shipping (Camera) uninominale districts, with
-        // no undocumented deviation.
+        // of Camera electionType == .uninominale representatives should
+        // exactly equal the count of shipping (Camera) uninominale districts,
+        // with no undocumented deviation. Scoped to Camera since Phase 26
+        // (docs/v4/26-senato-regione.md) gave the 73 uninominale senators an
+        // electionType of .uninominale too — an unscoped filter would now
+        // count 147 + 73.
         let districts = try GeoJSONLoader.loadDistricts()
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
-        let uninominaleRepresentatives = representatives.filter { $0.electionType == .uninominale }
-        XCTAssertEqual(uninominaleRepresentatives.count, districts.count)
-        XCTAssertTrue(uninominaleRepresentatives.allSatisfy { $0.districtId != nil })
+        let uninominaleDeputies = representatives.filter { $0.chamber == .camera && $0.electionType == .uninominale }
+        XCTAssertEqual(uninominaleDeputies.count, districts.count)
+        XCTAssertTrue(uninominaleDeputies.allSatisfy { $0.districtId != nil })
     }
 
     func testNonUninominaleCamereRepresentativesHaveNilDistrictId() throws {
@@ -273,9 +276,14 @@ final class SchemaV2Tests: XCTestCase {
         // "S"-prefixed Senato collegio id, leaving exactly one of the 74
         // collegi without a serving senator (no XIX binding claims it in
         // the source). The other 128 senators (proporzionale/estero/life)
-        // stay nil, mirroring Camera's plurinominale/estero pattern, and
-        // electionType stays .sconosciuto for every senator — tipoElezione
-        // is consumed at import time for linkage eligibility only.
+        // stay nil, mirroring Camera's plurinominale/estero pattern.
+        //
+        // Phase 26 (docs/v4/26-senato-regione.md) took the deferred
+        // electionType decision with explicit user approval: senators'
+        // electionType is now the cross-chamber mapping of osr:tipoElezione,
+        // so the old "electionType stays .sconosciuto for every senator"
+        // assertion is deliberately replaced by the approved distribution
+        // (73 uninominale / 121 plurinominale / 2 estero / 5 a-vita .sconosciuto).
         let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
         let senatoDistricts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
         let senators = representatives.filter { $0.chamber == .senato }
@@ -287,7 +295,13 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertTrue(linkedIds.isSubset(of: Set(senatoDistricts.map(\.id))))
         XCTAssertEqual(Set(senatoDistricts.map(\.id)).subtracting(linkedIds).count, 1)
 
-        XCTAssertTrue(senators.allSatisfy { $0.electionType == .sconosciuto })
+        XCTAssertEqual(senators.filter { $0.electionType == .uninominale }.count, 73)
+        XCTAssertEqual(senators.filter { $0.electionType == .plurinominale }.count, 121)
+        XCTAssertEqual(senators.filter { $0.electionType == .estero }.count, 2)
+        XCTAssertEqual(senators.filter { $0.electionType == .sconosciuto }.count, 5)
+        // Every uninominale senator is linked; every linked senator is uninominale.
+        XCTAssertTrue(senators.filter { $0.electionType == .uninominale }.allSatisfy { $0.districtId != nil })
+        XCTAssertTrue(senators.filter { $0.districtId != nil }.allSatisfy { $0.electionType == .uninominale })
         XCTAssertTrue(
             senators.filter { $0.mandate == .nominaAVita }.allSatisfy { $0.districtId == nil },
             "life senators have no collegio and must never be linked to one"
@@ -329,6 +343,49 @@ final class SchemaV2Tests: XCTestCase {
 
         let senators = representatives.filter { $0.chamber == .senato }
         XCTAssertTrue(senators.allSatisfy { $0.circoscrizione == nil })
+    }
+
+    // MARK: - Senator regioni (Phase 26 — see docs/v4/26-senato-regione.md)
+
+    func testShippingSenatorsCarryCanonicalRegioni() throws {
+        // The GO-REG gate's conditions, re-asserted on the shipped bundle:
+        // every elective senator (196) carries a non-empty regione within
+        // districts_senato.geojson's own 20 regioni ∪ {"Estero"}; exact
+        // equality with the linked collegio's regione for every uninominale
+        // senator (condition (c)); the a-vita senators and all deputies carry
+        // none; estero <-> "Estero" correspondence (2); and the approved
+        // electionType distribution (73/121/2 + 5 a-vita .sconosciuto).
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        let senatoDistricts = try GeoJSONLoader.loadDistricts(resource: "districts_senato")
+
+        let senators = representatives.filter { $0.chamber == .senato }
+        let withRegione = senators.filter { $0.regione != nil }
+        XCTAssertEqual(withRegione.count, 196)
+        XCTAssertTrue(withRegione.allSatisfy { $0.regione?.isEmpty == false })
+
+        let validValues = Set(senatoDistricts.compactMap(\.regione)).union(["Estero"])
+        XCTAssertTrue(Set(withRegione.compactMap(\.regione)).isSubset(of: validValues))
+
+        let regioneByDistrict = Dictionary(
+            uniqueKeysWithValues: senatoDistricts.map { ($0.id, $0.regione) }
+        )
+        let linked = senators.filter { $0.districtId != nil }
+        XCTAssertTrue(linked.allSatisfy { $0.regione == regioneByDistrict[$0.districtId!] })
+
+        // Distribution + estero <-> "Estero" correspondence.
+        XCTAssertEqual(senators.filter { $0.electionType == .uninominale }.count, 73)
+        XCTAssertEqual(senators.filter { $0.electionType == .plurinominale }.count, 121)
+        let esteroSenators = senators.filter { $0.electionType == .estero }
+        XCTAssertEqual(esteroSenators.count, 2)
+        XCTAssertEqual(
+            Set(esteroSenators.map(\.id)),
+            Set(senators.filter { $0.regione == "Estero" }.map(\.id))
+        )
+
+        // A-vita senators (and all deputies) carry no regione.
+        XCTAssertTrue(senators.filter { $0.mandate == .nominaAVita }.allSatisfy { $0.regione == nil })
+        let deputies = representatives.filter { $0.chamber == .camera }
+        XCTAssertTrue(deputies.allSatisfy { $0.regione == nil })
     }
 
     // MARK: - Plurinominale geography (Phase 25 — see docs/v4/25-plurinominale-geography.md)

@@ -23,6 +23,7 @@ struct DistrictDetailView: View {
                     } else {
                         representativesSection(for: district)
                         plurinominaleSection(for: district)
+                        proporzionaleSenatoriSection(for: district)
                     }
                 } else {
                     ContentUnavailableView(
@@ -115,6 +116,41 @@ struct DistrictDetailView: View {
                         }
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("representative.row.\(deputy.id)")
+                    }
+                }
+            }
+        }
+    }
+
+    /// Senato only (Phase 26): the proporzionale senators of this collegio's
+    /// regione — the mirror of the Camera `plurinominaleSection`. Uninominale
+    /// senators of the same regione never appear here (the service filter
+    /// excludes them by electionType), nor do the a-vita (nil regione) or
+    /// estero ("Estero" regione) senators.
+    @ViewBuilder
+    private func proporzionaleSenatoriSection(for district: District) -> some View {
+        if district.chamber == .senato, let regione = district.regione {
+            let senators = services.representativeService.proporzionaleSenators(inRegione: regione)
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Senatori proporzionali della regione \(regione)")
+                    .font(.headline)
+                    .accessibilityIdentifier("district.section.proporzionaleSenato")
+                Text("Eletti con il sistema proporzionale su base regionale: rappresentano l'intera regione, non questo specifico collegio uninominale.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+
+                if senators.isEmpty {
+                    Text("Nessun senatore proporzionale in questa regione.")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(senators) { senator in
+                        Button {
+                            path.append(.representativeProfile(representativeId: senator.id))
+                        } label: {
+                            RepresentativeRow(representative: senator)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("representative.row.\(senator.id)")
                     }
                 }
             }

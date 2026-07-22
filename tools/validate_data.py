@@ -104,6 +104,22 @@ CIRCOSCRIZIONE_ESTERO = "Estero"
 # validate_collegio_plurinominale() rather than a hardcoded list.
 EXPECTED_CAMERA_WITH_COLLEGIO_PLURINOMINALE = 389
 
+# Phase 26 (docs/v4/26-senato-regione.md): "regione" is a Senato-only,
+# field-conditional key — the mirror of Camera's "circoscrizione". Present on
+# the 196 elective senators (those with mandate "elettivo"), absent (not null)
+# on the 5 a-vita senators and on every Camera record. "Estero" is the pinned
+# regione value for the 2 overseas-constituency senators; domestic values are
+# checked against districts_senato.geojson's own regione set in
+# validate_regione() rather than a hardcoded list. The approved cross-chamber
+# electionType mapping (osr:tipoElezione -> ElectionType, user-gated in the
+# phase report) yields this Senato distribution — a drift detector against the
+# GO-REG gate evidence, with the 5 a-vita carrying a null electionType.
+EXPECTED_SENATO_WITH_REGIONE = 196
+REGIONE_ESTERO = "Estero"
+EXPECTED_SENATO_UNINOMINALE = 73
+EXPECTED_SENATO_PLURINOMINALE = 121
+EXPECTED_SENATO_ESTERO = 2
+
 # "circoscrizione"/"regione" are deliberately NOT in this base set: Camera
 # features carry "circoscrizione" and Senato features carry "regione", never
 # both (see tools/import_boundaries.py) — checked separately, per chamber,
@@ -208,9 +224,23 @@ def validate_representatives():
             # collegioPlurinominale is Camera-only (Phase 25).
             if "collegioPlurinominale" in record:
                 errors.append(f"{label}: chiave 'collegioPlurinominale' presente su un record Senato — deve essere assente")
+            # "regione" (Phase 26): Senato-only, field-conditional — present on
+            # elective senators (mandate "elettivo"), absent (not null) on the
+            # 5 a-vita. When present it must be a non-empty string; its
+            # cross-file value is checked in validate_regione().
+            has_regione = "regione" in record
+            if has_regione and (not isinstance(record["regione"], str) or not record["regione"].strip()):
+                errors.append(f"{label}: 'regione' deve essere una stringa non vuota")
+            if record.get("mandate") == MANDATE_ELETTIVO and not has_regione:
+                errors.append(f"{label}: senatore elettivo senza 'regione'")
+            if record.get("mandate") in (MANDATE_A_VITA, MANDATE_EMERITO) and has_regione:
+                errors.append(f"{label}: senatore a vita con 'regione' — deve essere assente")
         elif record["chamber"] == "Camera":
             if "mandate" in record:
                 errors.append(f"{label}: chiave 'mandate' presente su un record Camera — deve essere assente")
+            # "regione" is Senato-only (Phase 26) — the mirror of "mandate".
+            if "regione" in record:
+                errors.append(f"{label}: chiave 'regione' presente su un record Camera — deve essere assente")
             if "circoscrizione" not in record:
                 errors.append(f"{label}: chiave 'circoscrizione' mancante (obbligatoria per i deputati)")
             elif not isinstance(record["circoscrizione"], str) or not record["circoscrizione"].strip():
@@ -285,6 +315,40 @@ def validate_representatives():
             "la sorgente è cambiata: rivedi prima di accettare"
         )
 
+    # Phase 26: the approved Senato electionType distribution (drift detector
+    # against the GO-REG gate evidence) and the regione<->"Estero"
+    # correspondence — the set of senators whose regione is "Estero" must be
+    # exactly the set with electionType "estero" (each identifies the other,
+    # no drift), mirroring Camera's Phase 18 estero check. The 5 a-vita carry a
+    # null electionType (they aren't elected).
+    senato_with_regione = sum(1 for r in senato_records if "regione" in r)
+    if senato_with_regione != EXPECTED_SENATO_WITH_REGIONE:
+        errors.append(
+            f"representatives.json: senatori con 'regione' = {senato_with_regione}, atteso "
+            f"{EXPECTED_SENATO_WITH_REGIONE} (i 196 elettivi — vedi docs/v4/26-senato-regione.md)"
+        )
+    sen_uninominale = sum(1 for r in senato_records if r["electionType"] == "uninominale")
+    sen_plurinominale = sum(1 for r in senato_records if r["electionType"] == "plurinominale")
+    sen_estero = sum(1 for r in senato_records if r["electionType"] == "estero")
+    for expected, actual, label_name in (
+        (EXPECTED_SENATO_UNINOMINALE, sen_uninominale, "uninominale"),
+        (EXPECTED_SENATO_PLURINOMINALE, sen_plurinominale, "plurinominale"),
+        (EXPECTED_SENATO_ESTERO, sen_estero, "estero"),
+    ):
+        if actual != expected:
+            errors.append(
+                f"representatives.json: senatori {label_name} = {actual}, atteso {expected} "
+                "(vedi docs/v4/26-senato-regione.md)"
+            )
+    sen_estero_regione_ids = {r["id"] for r in senato_records if r.get("regione") == REGIONE_ESTERO}
+    sen_estero_type_ids = {r["id"] for r in senato_records if r["electionType"] == "estero"}
+    if sen_estero_regione_ids != sen_estero_type_ids:
+        errors.append(
+            "representatives.json: insieme regione='Estero' != insieme electionType='estero' (Senato) "
+            f"(solo regione: {sorted(sen_estero_regione_ids - sen_estero_type_ids)}, "
+            f"solo tipo: {sorted(sen_estero_type_ids - sen_estero_regione_ids)})"
+        )
+
     # Phase 18: the measured electionType distribution and the
     # estero<->"Estero" correspondence — the set of deputies whose
     # circoscrizione is "Estero" must be exactly the set with
@@ -337,6 +401,12 @@ def validate_representatives():
             f"plurinominale {plurinominale_count}  estero {estero_count}"
         )
         print(f"  deputati con collegioPlurinominale: {with_pluri_count}")
+        print(
+            f"  senatori per tipo: uninominale {sen_uninominale}  "
+            f"plurinominale {sen_plurinominale}  estero {sen_estero}  "
+            f"(a-vita/null {senato_count - sen_uninominale - sen_plurinominale - sen_estero})"
+        )
+        print(f"  senatori con regione: {senato_with_regione}")
 
     return errors
 
@@ -580,6 +650,53 @@ def validate_circoscrizione():
     return errors
 
 
+def validate_regione():
+    """Phase 26 cross-file checks (docs/v4/26-senato-regione.md), the Senato
+    mirror of validate_circoscrizione(): every senator's regione (when present)
+    is either "Estero" or one of districts_senato.geojson's own shipped regione
+    values (the reference set is the real data, not a hardcoded list), and
+    every *linked* uninominale senator's regione equals their collegio's
+    shipped property exactly (GO-REG condition (c)). Only meaningful once both
+    files passed their own structural checks, so main() gates the call."""
+    errors = []
+
+    records = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    collection = json.loads(DISTRICTS_SENATO_PATH.read_text(encoding="utf-8"))
+    regione_of_district = {
+        f["properties"]["id"]: f["properties"]["regione"]
+        for f in collection["features"]
+        if f["properties"]["chamber"] == "Senato" and f["properties"]["collegioType"] == "uninominale"
+    }
+    valid_values = set(regione_of_district.values()) | {REGIONE_ESTERO}
+
+    observed = set()
+    for record in records:
+        if record["chamber"] != "Senato" or "regione" not in record:
+            continue
+        label = f"representatives.json id={record['id']}"
+        regione = record["regione"]
+        observed.add(regione)
+        if regione not in valid_values:
+            errors.append(
+                f"{label}: regione {regione!r} non è né 'Estero' né una "
+                "regione di districts_senato.geojson"
+            )
+        district_id = record["districtId"]
+        if district_id is not None and regione != regione_of_district.get(district_id):
+            errors.append(
+                f"{label}: regione {regione!r} != "
+                f"{regione_of_district.get(district_id)!r} del collegio {district_id}"
+            )
+
+    if not errors:
+        print(
+            f"OK: regioni senatori coerenti — {len(observed)} valori osservati "
+            f"({len(valid_values)} ammessi: {len(valid_values) - 1} da districts_senato.geojson + 'Estero')"
+        )
+
+    return errors
+
+
 def validate_collegio_plurinominale():
     """Phase 25 cross-file checks (docs/v4/25-plurinominale-geography.md):
     every deputy's collegioPlurinominale (when present) is a real Camera
@@ -776,6 +893,7 @@ def main():
     if not representative_errors and not district_errors:
         all_errors += validate_linkage()
         all_errors += validate_circoscrizione()
+        all_errors += validate_regione()
         all_errors += validate_collegio_plurinominale()
 
     if not representative_errors and not vote_errors:

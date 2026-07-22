@@ -8771,7 +8771,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s1103",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8780,6 +8780,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/1103",
     "stableSourceId": "1103"
   },
@@ -8792,7 +8793,7 @@
       "Commissione parlamentare per il contrasto degli svantaggi derivanti dall'insularità"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s1116",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8801,6 +8802,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/1116",
     "stableSourceId": "1116"
   },
@@ -8815,7 +8817,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s1227",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8824,6 +8826,7 @@
     "party": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Umbria",
     "sourceUrl": "http://dati.senato.it/senatore/1227",
     "stableSourceId": "1227"
   },
@@ -8834,7 +8837,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": "S30005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s1275",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8843,6 +8846,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/1275",
     "stableSourceId": "1275"
   },
@@ -8859,7 +8863,7 @@
       "Parlamentari membri della Commissione di vigilanza sulla Cassa Depositi e Prestiti"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s1407",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8868,6 +8872,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/1407",
     "stableSourceId": "1407"
   },
@@ -8880,7 +8885,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare dell'Iniziativa Centro Europea"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s1558",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8889,6 +8894,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Liguria",
     "sourceUrl": "http://dati.senato.it/senatore/1558",
     "stableSourceId": "1558"
   },
@@ -8899,7 +8905,7 @@
       "1ª Commissione permanente"
     ],
     "districtId": "S80004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s17542",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8908,6 +8914,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/17542",
     "stableSourceId": "17542"
   },
@@ -8923,7 +8930,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s17811",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8932,6 +8939,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/17811",
     "stableSourceId": "17811"
   },
@@ -8944,7 +8952,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s17924",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8953,6 +8961,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/17924",
     "stableSourceId": "17924"
   },
@@ -8965,7 +8974,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare della NATO"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s18055",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8974,6 +8983,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Marche",
     "sourceUrl": "http://dati.senato.it/senatore/18055",
     "stableSourceId": "18055"
   },
@@ -8984,7 +8994,7 @@
       "3ª Commissione permanente"
     ],
     "districtId": "S30011",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s18121",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -8993,6 +9003,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/18121",
     "stableSourceId": "18121"
   },
@@ -9007,7 +9018,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": "S30007",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s18562",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9016,6 +9027,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/18562",
     "stableSourceId": "18562"
   },
@@ -9026,7 +9038,7 @@
       "1ª Commissione permanente"
     ],
     "districtId": "S160002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s22263",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9035,6 +9047,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/22263",
     "stableSourceId": "22263"
   },
@@ -9046,7 +9059,7 @@
       "Comitato parlamentare di controllo sull'attuazione dell'Accordo di Schengen, di vigilanza sull'attività di Europol, di controllo e vigilanza in materia di immigrazione"
     ],
     "districtId": "S110002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s22814",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9055,6 +9068,7 @@
     "party": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Marche",
     "sourceUrl": "http://dati.senato.it/senatore/22814",
     "stableSourceId": "22814"
   },
@@ -9068,7 +9082,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": "S40002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s22871",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9077,6 +9091,7 @@
     "party": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Trentino-Alto Adige/Südtirol",
     "sourceUrl": "http://dati.senato.it/senatore/22871",
     "stableSourceId": "22871"
   },
@@ -9087,7 +9102,7 @@
       "2ª Commissione permanente"
     ],
     "districtId": "S120003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s22877",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9096,6 +9111,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/22877",
     "stableSourceId": "22877"
   },
@@ -9108,7 +9124,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": "S150002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s22910",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9117,6 +9133,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/22910",
     "stableSourceId": "22910"
   },
@@ -9129,7 +9146,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": "S190003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s22914",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9138,6 +9155,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/22914",
     "stableSourceId": "22914"
   },
@@ -9158,7 +9176,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s22918",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9167,6 +9185,7 @@
     "party": "Misto",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/22918",
     "stableSourceId": "22918"
   },
@@ -9178,7 +9197,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s22963",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9187,6 +9206,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/22963",
     "stableSourceId": "22963"
   },
@@ -9200,7 +9220,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s22966",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9209,6 +9229,7 @@
     "party": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/22966",
     "stableSourceId": "22966"
   },
@@ -9219,7 +9240,7 @@
       "5ª Commissione permanente"
     ],
     "districtId": "S30003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s23011",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9228,6 +9249,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/23011",
     "stableSourceId": "23011"
   },
@@ -9239,7 +9261,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s24016",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9248,6 +9270,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/24016",
     "stableSourceId": "24016"
   },
@@ -9258,7 +9281,7 @@
       "10ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s2444",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9267,6 +9290,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/2444",
     "stableSourceId": "2444"
   },
@@ -9279,7 +9303,7 @@
       "Commissione parlamentare di inchiesta sulla scomparsa di Emanuela Orlandi e di Mirella Gregori"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s25377",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9288,6 +9312,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Umbria",
     "sourceUrl": "http://dati.senato.it/senatore/25377",
     "stableSourceId": "25377"
   },
@@ -9299,7 +9324,7 @@
       "Commissione parlamentare di inchiesta sul femminicidio, nonché su ogni forma di violenza di genere"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s25402",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9308,6 +9333,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/25402",
     "stableSourceId": "25402"
   },
@@ -9318,7 +9344,7 @@
       "4ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s25407",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9327,6 +9353,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/25407",
     "stableSourceId": "25407"
   },
@@ -9339,7 +9366,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s25411",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9348,6 +9375,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/25411",
     "stableSourceId": "25411"
   },
@@ -9362,7 +9390,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": "S150001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s25429",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9371,6 +9399,7 @@
     "party": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/25429",
     "stableSourceId": "25429"
   },
@@ -9382,7 +9411,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": "S10003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s25446",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9391,6 +9420,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/25446",
     "stableSourceId": "25446"
   },
@@ -9402,7 +9432,7 @@
       "Commissione parlamentare per l'attuazione del federalismo fiscale"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s25474",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9411,6 +9441,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/25474",
     "stableSourceId": "25474"
   },
@@ -9422,7 +9453,7 @@
       "Commissione parlamentare di inchiesta sulla gestione dell'emergenza sanitaria causata dalla diffusione epidemica del virus SARS-CoV-2 e sulle misure adottate per prevenire e affrontare l'emergenza epidemiologica da SARS-CoV-2"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s25555",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9431,6 +9462,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/25555",
     "stableSourceId": "25555"
   },
@@ -9441,7 +9473,7 @@
       "6ª Commissione permanente"
     ],
     "districtId": "S50003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s25558",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9450,6 +9482,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/25558",
     "stableSourceId": "25558"
   },
@@ -9462,7 +9495,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s27622",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9471,6 +9504,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/27622",
     "stableSourceId": "27622"
   },
@@ -9481,7 +9515,7 @@
       "7ª Commissione permanente"
     ],
     "districtId": "S190004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s28306",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9490,6 +9524,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/28306",
     "stableSourceId": "28306"
   },
@@ -9521,7 +9556,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": "S30009",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s28550",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9530,6 +9565,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/28550",
     "stableSourceId": "28550"
   },
@@ -9542,7 +9578,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s28670",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9551,6 +9587,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/28670",
     "stableSourceId": "28670"
   },
@@ -9564,7 +9601,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s28924",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9573,6 +9610,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/28924",
     "stableSourceId": "28924"
   },
@@ -9585,7 +9623,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": "S30010",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s29067",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9594,6 +9632,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/29067",
     "stableSourceId": "29067"
   },
@@ -9605,7 +9644,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare dell'Iniziativa Centro Europea"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "s29105",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9614,6 +9653,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Estero",
     "sourceUrl": "http://dati.senato.it/senatore/29105",
     "stableSourceId": "29105"
   },
@@ -9624,7 +9664,7 @@
       "3ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29132",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9633,6 +9673,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/29132",
     "stableSourceId": "29132"
   },
@@ -9644,7 +9685,7 @@
       "Commissione parlamentare di inchiesta sul fenomeno delle mafie e sulle altre associazioni criminali, anche straniere"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29138",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9653,6 +9694,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/29138",
     "stableSourceId": "29138"
   },
@@ -9670,7 +9712,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29185",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9679,6 +9721,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/29185",
     "stableSourceId": "29185"
   },
@@ -9689,7 +9732,7 @@
       "8ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29270",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9698,6 +9741,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Liguria",
     "sourceUrl": "http://dati.senato.it/senatore/29270",
     "stableSourceId": "29270"
   },
@@ -9710,7 +9754,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29273",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9719,6 +9763,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/29273",
     "stableSourceId": "29273"
   },
@@ -9731,7 +9776,7 @@
       "Parlamentari membri della Commissione di vigilanza sulla Cassa Depositi e Prestiti"
     ],
     "districtId": "S30008",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s29292",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9740,6 +9785,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/29292",
     "stableSourceId": "29292"
   },
@@ -9752,7 +9798,7 @@
       "Commissione parlamentare di inchiesta sulla scomparsa di Emanuela Orlandi e di Mirella Gregori"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29293",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9761,6 +9807,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/29293",
     "stableSourceId": "29293"
   },
@@ -9776,7 +9823,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29406",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9785,6 +9832,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/29406",
     "stableSourceId": "29406"
   },
@@ -9799,7 +9847,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": "S10001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s29425",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9808,6 +9856,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/29425",
     "stableSourceId": "29425"
   },
@@ -9823,7 +9872,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare della NATO"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29467",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9832,6 +9881,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/29467",
     "stableSourceId": "29467"
   },
@@ -9843,7 +9893,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": "S160005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s29480",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9852,6 +9902,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/29480",
     "stableSourceId": "29480"
   },
@@ -9863,7 +9914,7 @@
       "Commissione parlamentare per il contrasto degli svantaggi derivanti dall'insularità"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29490",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9872,6 +9923,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sardegna",
     "sourceUrl": "http://dati.senato.it/senatore/29490",
     "stableSourceId": "29490"
   },
@@ -9886,7 +9938,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29521",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9895,6 +9947,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/29521",
     "stableSourceId": "29521"
   },
@@ -9908,7 +9961,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29573",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9917,6 +9970,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/29573",
     "stableSourceId": "29573"
   },
@@ -9929,7 +9983,7 @@
       "Commissione parlamentare di inchiesta sul fenomeno delle mafie e sulle altre associazioni criminali, anche straniere"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s29604",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9938,6 +9992,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/29604",
     "stableSourceId": "29604"
   },
@@ -9949,7 +10004,7 @@
       "Commissione parlamentare di inchiesta sulla scomparsa di Emanuela Orlandi e di Mirella Gregori"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s30110",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9958,6 +10013,7 @@
     "party": "Misto",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/30110",
     "stableSourceId": "30110"
   },
@@ -9969,7 +10025,7 @@
       "Commissione parlamentare di inchiesta sulle attività illecite connesse al ciclo dei rifiuti e su altri illeciti ambientali e agroalimentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s30294",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -9978,6 +10034,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Abruzzo",
     "sourceUrl": "http://dati.senato.it/senatore/30294",
     "stableSourceId": "30294"
   },
@@ -10045,7 +10102,7 @@
       "4ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s30742",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10054,6 +10111,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/30742",
     "stableSourceId": "30742"
   },
@@ -10067,7 +10125,7 @@
       "Commissione parlamentare per la semplificazione"
     ],
     "districtId": "S50005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s30915",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10076,6 +10134,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/30915",
     "stableSourceId": "30915"
   },
@@ -10088,7 +10147,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s31010",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10097,6 +10156,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/31010",
     "stableSourceId": "31010"
   },
@@ -10110,7 +10170,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s31725",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10119,6 +10179,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/31725",
     "stableSourceId": "31725"
   },
@@ -10132,7 +10193,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s31875",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10141,6 +10202,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/31875",
     "stableSourceId": "31875"
   },
@@ -10151,7 +10213,7 @@
       "5ª Commissione permanente"
     ],
     "districtId": "S170001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10160,6 +10222,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Basilicata",
     "sourceUrl": "http://dati.senato.it/senatore/32",
     "stableSourceId": "32"
   },
@@ -10192,7 +10255,7 @@
       "Delegazione italiana all'Assemblea parlamentare della Organizzazione per la sicurezza e la cooperazione in Europa (OSCE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32578",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10201,6 +10264,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32578",
     "stableSourceId": "32578"
   },
@@ -10211,7 +10275,7 @@
       "1ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32583",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10220,6 +10284,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32583",
     "stableSourceId": "32583"
   },
@@ -10234,7 +10299,7 @@
       "Parlamentari membri della Commissione di vigilanza sulla Cassa Depositi e Prestiti"
     ],
     "districtId": "S10005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32586",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10243,6 +10308,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/32586",
     "stableSourceId": "32586"
   },
@@ -10253,7 +10319,7 @@
       "3ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32590",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10262,6 +10328,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/32590",
     "stableSourceId": "32590"
   },
@@ -10274,7 +10341,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32598",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10283,6 +10350,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32598",
     "stableSourceId": "32598"
   },
@@ -10294,7 +10362,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare della NATO"
     ],
     "districtId": "S150005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32600",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10303,6 +10371,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/32600",
     "stableSourceId": "32600"
   },
@@ -10313,7 +10382,7 @@
       "8ª Commissione permanente"
     ],
     "districtId": "S60001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32603",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10322,6 +10391,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Friuli-Venezia Giulia",
     "sourceUrl": "http://dati.senato.it/senatore/32603",
     "stableSourceId": "32603"
   },
@@ -10334,7 +10404,7 @@
       "Commissione straordinaria per il contrasto dei fenomeni di intolleranza, razzismo, antisemitismo e istigazione all'odio e alla violenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32608",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10343,6 +10413,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/32608",
     "stableSourceId": "32608"
   },
@@ -10353,7 +10424,7 @@
       "8ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32619",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10362,6 +10433,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Abruzzo",
     "sourceUrl": "http://dati.senato.it/senatore/32619",
     "stableSourceId": "32619"
   },
@@ -10376,7 +10448,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": "S40006",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32624",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10385,6 +10457,7 @@
     "party": "Per le Autonomie (SVP-PATT, Campobase)",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Trentino-Alto Adige/Südtirol",
     "sourceUrl": "http://dati.senato.it/senatore/32624",
     "stableSourceId": "32624"
   },
@@ -10395,7 +10468,7 @@
       "6ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32628",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10404,6 +10477,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/32628",
     "stableSourceId": "32628"
   },
@@ -10415,7 +10489,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32634",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10424,6 +10498,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/32634",
     "stableSourceId": "32634"
   },
@@ -10434,7 +10509,7 @@
       "7ª Commissione permanente"
     ],
     "districtId": "S30006",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32637",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10443,6 +10518,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32637",
     "stableSourceId": "32637"
   },
@@ -10454,7 +10530,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32640",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10463,6 +10539,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/32640",
     "stableSourceId": "32640"
   },
@@ -10474,7 +10551,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32644",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10483,6 +10560,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/32644",
     "stableSourceId": "32644"
   },
@@ -10493,7 +10571,7 @@
       "7ª Commissione permanente"
     ],
     "districtId": "S150003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32645",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10502,6 +10580,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/32645",
     "stableSourceId": "32645"
   },
@@ -10512,7 +10591,7 @@
       "6ª Commissione permanente"
     ],
     "districtId": "S90003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32650",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10521,6 +10600,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/32650",
     "stableSourceId": "32650"
   },
@@ -10534,7 +10614,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32653",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10543,6 +10623,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/32653",
     "stableSourceId": "32653"
   },
@@ -10554,7 +10635,7 @@
       "Commissione parlamentare di inchiesta sulle attività illecite connesse al ciclo dei rifiuti e su altri illeciti ambientali e agroalimentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32655",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10563,6 +10644,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/32655",
     "stableSourceId": "32655"
   },
@@ -10576,7 +10658,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32658",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10585,6 +10667,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/32658",
     "stableSourceId": "32658"
   },
@@ -10598,7 +10681,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32660",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10607,6 +10690,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/32660",
     "stableSourceId": "32660"
   },
@@ -10620,7 +10704,7 @@
       "Commissione parlamentare per la semplificazione"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32673",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10629,6 +10713,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/32673",
     "stableSourceId": "32673"
   },
@@ -10639,7 +10724,7 @@
       "5ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32677",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10648,6 +10733,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/32677",
     "stableSourceId": "32677"
   },
@@ -10660,7 +10746,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32681",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10669,6 +10755,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/32681",
     "stableSourceId": "32681"
   },
@@ -10681,7 +10768,7 @@
       "Commissione parlamentare per il controllo sull'attivita' degli enti gestori di forme obbligatorie di previdenza e assistenza sociale"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32691",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10690,6 +10777,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/32691",
     "stableSourceId": "32691"
   },
@@ -10704,7 +10792,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": "S70002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32697",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10713,6 +10801,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Liguria",
     "sourceUrl": "http://dati.senato.it/senatore/32697",
     "stableSourceId": "32697"
   },
@@ -10723,7 +10812,7 @@
       "10ª Commissione permanente"
     ],
     "districtId": "S30004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32699",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10732,6 +10821,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32699",
     "stableSourceId": "32699"
   },
@@ -10743,7 +10833,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32703",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10752,6 +10842,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Friuli-Venezia Giulia",
     "sourceUrl": "http://dati.senato.it/senatore/32703",
     "stableSourceId": "32703"
   },
@@ -10764,7 +10855,7 @@
       "Commissione straordinaria per il contrasto dei fenomeni di intolleranza, razzismo, antisemitismo e istigazione all'odio e alla violenza"
     ],
     "districtId": "S30001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32706",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10773,6 +10864,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32706",
     "stableSourceId": "32706"
   },
@@ -10786,7 +10878,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": "S30002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32707",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10795,6 +10887,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32707",
     "stableSourceId": "32707"
   },
@@ -10809,7 +10902,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": "S40003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32721",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10818,6 +10911,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Trentino-Alto Adige/Südtirol",
     "sourceUrl": "http://dati.senato.it/senatore/32721",
     "stableSourceId": "32721"
   },
@@ -10829,7 +10923,7 @@
       "Commissione parlamentare di inchiesta sul sistema bancario, finanziario e assicurativo"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32726",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10838,6 +10932,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Basilicata",
     "sourceUrl": "http://dati.senato.it/senatore/32726",
     "stableSourceId": "32726"
   },
@@ -10852,7 +10947,7 @@
       "Commissione straordinaria per il contrasto dei fenomeni di intolleranza, razzismo, antisemitismo e istigazione all'odio e alla violenza"
     ],
     "districtId": "S40005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32727",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10861,6 +10956,7 @@
     "party": "Per le Autonomie (SVP-PATT, Campobase)",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Trentino-Alto Adige/Südtirol",
     "sourceUrl": "http://dati.senato.it/senatore/32727",
     "stableSourceId": "32727"
   },
@@ -10874,7 +10970,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": "S100001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32732",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10883,6 +10979,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Umbria",
     "sourceUrl": "http://dati.senato.it/senatore/32732",
     "stableSourceId": "32732"
   },
@@ -10897,7 +10994,7 @@
       "Parlamentari membri della Commissione di vigilanza sulla Cassa Depositi e Prestiti"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32747",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10906,6 +11003,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/32747",
     "stableSourceId": "32747"
   },
@@ -10921,7 +11019,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32779",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10930,6 +11028,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/32779",
     "stableSourceId": "32779"
   },
@@ -10944,7 +11043,7 @@
       "Delegazione italiana all'Assemblea parlamentare della Organizzazione per la sicurezza e la cooperazione in Europa (OSCE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32851",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10953,6 +11052,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/32851",
     "stableSourceId": "32851"
   },
@@ -10965,7 +11065,7 @@
       "Commissione straordinaria per il contrasto dei fenomeni di intolleranza, razzismo, antisemitismo e istigazione all'odio e alla violenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32856",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10974,6 +11074,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/32856",
     "stableSourceId": "32856"
   },
@@ -10986,7 +11087,7 @@
       "Delegazione italiana all'Assemblea parlamentare della Organizzazione per la sicurezza e la cooperazione in Europa (OSCE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32862",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -10995,6 +11096,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/32862",
     "stableSourceId": "32862"
   },
@@ -11006,7 +11108,7 @@
       "Commissione parlamentare di inchiesta sulle attività illecite connesse al ciclo dei rifiuti e su altri illeciti ambientali e agroalimentari"
     ],
     "districtId": "S50002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s32898",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11015,6 +11117,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/32898",
     "stableSourceId": "32898"
   },
@@ -11025,7 +11128,7 @@
       "8ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s32988",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11034,6 +11137,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/32988",
     "stableSourceId": "32988"
   },
@@ -11046,7 +11150,7 @@
       "Commissione straordinaria per il contrasto dei fenomeni di intolleranza, razzismo, antisemitismo e istigazione all'odio e alla violenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s33005",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11055,6 +11159,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/33005",
     "stableSourceId": "33005"
   },
@@ -11071,7 +11176,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": "S90002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s33022",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11080,6 +11185,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/33022",
     "stableSourceId": "33022"
   },
@@ -11092,7 +11198,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s33027",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11101,6 +11207,7 @@
     "party": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/33027",
     "stableSourceId": "33027"
   },
@@ -11111,7 +11218,7 @@
       "8ª Commissione permanente"
     ],
     "districtId": "S10004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s33038",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11120,6 +11227,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/33038",
     "stableSourceId": "33038"
   },
@@ -11132,7 +11240,7 @@
       "Commissione parlamentare per la semplificazione"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s33065",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11141,6 +11249,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Marche",
     "sourceUrl": "http://dati.senato.it/senatore/33065",
     "stableSourceId": "33065"
   },
@@ -11155,7 +11264,7 @@
       "Commissione parlamentare per l'attuazione del federalismo fiscale"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s33070",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11164,6 +11273,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/33070",
     "stableSourceId": "33070"
   },
@@ -11174,7 +11284,7 @@
       "10ª Commissione permanente"
     ],
     "districtId": "S120001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s33096",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11183,6 +11293,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/33096",
     "stableSourceId": "33096"
   },
@@ -11198,7 +11309,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": "S80001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s33110",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11207,6 +11318,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/33110",
     "stableSourceId": "33110"
   },
@@ -11219,7 +11331,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": "S120005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s33137",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11228,6 +11340,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/33137",
     "stableSourceId": "33137"
   },
@@ -11241,7 +11354,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s33863",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11250,6 +11363,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/33863",
     "stableSourceId": "33863"
   },
@@ -11265,7 +11379,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s33946",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11274,6 +11388,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/33946",
     "stableSourceId": "33946"
   },
@@ -11286,7 +11401,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s34243",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11295,6 +11410,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/34243",
     "stableSourceId": "34243"
   },
@@ -11305,7 +11421,7 @@
       "5ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s34485",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11314,6 +11430,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/34485",
     "stableSourceId": "34485"
   },
@@ -11328,7 +11445,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s35489",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11337,6 +11454,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/35489",
     "stableSourceId": "35489"
   },
@@ -11353,7 +11471,7 @@
       "Consiglio di garanzia"
     ],
     "districtId": "S180002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36013",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11362,6 +11480,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Calabria",
     "sourceUrl": "http://dati.senato.it/senatore/36013",
     "stableSourceId": "36013"
   },
@@ -11373,7 +11492,7 @@
       "Commissione parlamentare per l'attuazione del federalismo fiscale"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36381",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11382,6 +11501,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36381",
     "stableSourceId": "36381"
   },
@@ -11396,7 +11516,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": "S10002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36382",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11405,6 +11525,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/36382",
     "stableSourceId": "36382"
   },
@@ -11417,7 +11538,7 @@
       "Delegazione italiana all'Assemblea parlamentare della Organizzazione per la sicurezza e la cooperazione in Europa (OSCE)"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36383",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11426,6 +11547,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/36383",
     "stableSourceId": "36383"
   },
@@ -11440,7 +11562,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": "S70001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36384",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11449,6 +11571,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Liguria",
     "sourceUrl": "http://dati.senato.it/senatore/36384",
     "stableSourceId": "36384"
   },
@@ -11460,7 +11583,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": "S190001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36385",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11469,6 +11592,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/36385",
     "stableSourceId": "36385"
   },
@@ -11479,7 +11603,7 @@
       "9ª Commissione permanente"
     ],
     "districtId": "S50004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36386",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11488,6 +11612,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/36386",
     "stableSourceId": "36386"
   },
@@ -11499,7 +11624,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "estero",
     "id": "s36387",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11508,6 +11633,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Estero",
     "sourceUrl": "http://dati.senato.it/senatore/36387",
     "stableSourceId": "36387"
   },
@@ -11518,7 +11644,7 @@
       "6ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36388",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11527,6 +11653,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Marche",
     "sourceUrl": "http://dati.senato.it/senatore/36388",
     "stableSourceId": "36388"
   },
@@ -11541,7 +11668,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": "S90004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36390",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11550,6 +11677,7 @@
     "party": "Misto",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/36390",
     "stableSourceId": "36390"
   },
@@ -11564,7 +11692,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36391",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11573,6 +11701,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/36391",
     "stableSourceId": "36391"
   },
@@ -11587,7 +11716,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36392",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11596,6 +11725,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36392",
     "stableSourceId": "36392"
   },
@@ -11608,7 +11738,7 @@
       "Commissione parlamentare di inchiesta sulle attività illecite connesse al ciclo dei rifiuti e su altri illeciti ambientali e agroalimentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36393",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11617,6 +11747,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/36393",
     "stableSourceId": "36393"
   },
@@ -11629,7 +11760,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare dell'Iniziativa Centro Europea"
     ],
     "districtId": "S150007",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36394",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11638,6 +11769,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36394",
     "stableSourceId": "36394"
   },
@@ -11652,7 +11784,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36395",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11661,6 +11793,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Molise",
     "sourceUrl": "http://dati.senato.it/senatore/36395",
     "stableSourceId": "36395"
   },
@@ -11675,7 +11808,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36396",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11684,6 +11817,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Friuli-Venezia Giulia",
     "sourceUrl": "http://dati.senato.it/senatore/36396",
     "stableSourceId": "36396"
   },
@@ -11697,7 +11831,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": "S80005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36397",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11706,6 +11840,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/36397",
     "stableSourceId": "36397"
   },
@@ -11719,7 +11854,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": "S160001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36398",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11728,6 +11863,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/36398",
     "stableSourceId": "36398"
   },
@@ -11742,7 +11878,7 @@
       "Parlamentari membri della Commissione di vigilanza sulla Cassa Depositi e Prestiti"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36399",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11751,6 +11887,7 @@
     "party": "Per le Autonomie (SVP-PATT, Campobase)",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/36399",
     "stableSourceId": "36399"
   },
@@ -11765,7 +11902,7 @@
       "Consiglio di garanzia"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36400",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11774,6 +11911,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/36400",
     "stableSourceId": "36400"
   },
@@ -11787,7 +11925,7 @@
       "Parlamentari membri della Commissione di vigilanza sulla Cassa Depositi e Prestiti"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36401",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11796,6 +11934,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Calabria",
     "sourceUrl": "http://dati.senato.it/senatore/36401",
     "stableSourceId": "36401"
   },
@@ -11808,7 +11947,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": "S110001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36402",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11817,6 +11956,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Marche",
     "sourceUrl": "http://dati.senato.it/senatore/36402",
     "stableSourceId": "36402"
   },
@@ -11829,7 +11969,7 @@
       "Giunta per il Regolamento"
     ],
     "districtId": "S130001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36403",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11838,6 +11978,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Abruzzo",
     "sourceUrl": "http://dati.senato.it/senatore/36403",
     "stableSourceId": "36403"
   },
@@ -11853,7 +11994,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": "S150004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36404",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11862,6 +12003,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36404",
     "stableSourceId": "36404"
   },
@@ -11876,7 +12018,7 @@
       "Parlamentari membri della Commissione di vigilanza sulla Cassa Depositi e Prestiti"
     ],
     "districtId": "S140001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36405",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11885,6 +12027,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Molise",
     "sourceUrl": "http://dati.senato.it/senatore/36405",
     "stableSourceId": "36405"
   },
@@ -11897,7 +12040,7 @@
       "Commissione parlamentare per l'attuazione del federalismo fiscale"
     ],
     "districtId": "S150006",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36406",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11906,6 +12049,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36406",
     "stableSourceId": "36406"
   },
@@ -11919,7 +12063,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": "S160003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36407",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11928,6 +12072,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/36407",
     "stableSourceId": "36407"
   },
@@ -11944,7 +12089,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": "S120004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36408",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11953,6 +12098,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/36408",
     "stableSourceId": "36408"
   },
@@ -11970,7 +12116,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": "S190006",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36409",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -11979,6 +12125,7 @@
     "party": "Italia Viva - Casa Riformista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/36409",
     "stableSourceId": "36409"
   },
@@ -11991,7 +12138,7 @@
       "Commissione parlamentare di inchiesta sulla scomparsa di Emanuela Orlandi e di Mirella Gregori"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36410",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12000,6 +12147,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36410",
     "stableSourceId": "36410"
   },
@@ -12015,7 +12163,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36411",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12024,6 +12172,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/36411",
     "stableSourceId": "36411"
   },
@@ -12036,7 +12185,7 @@
       "Commissione parlamentare per la semplificazione"
     ],
     "districtId": "S160004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36412",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12045,6 +12194,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/36412",
     "stableSourceId": "36412"
   },
@@ -12058,7 +12208,7 @@
       "Commissione parlamentare per il controllo sull'attivita' degli enti gestori di forme obbligatorie di previdenza e assistenza sociale"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36413",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12067,6 +12217,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Calabria",
     "sourceUrl": "http://dati.senato.it/senatore/36413",
     "stableSourceId": "36413"
   },
@@ -12080,7 +12231,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare della NATO"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36414",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12089,6 +12240,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Calabria",
     "sourceUrl": "http://dati.senato.it/senatore/36414",
     "stableSourceId": "36414"
   },
@@ -12103,7 +12255,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": "S40001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36415",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12112,6 +12264,7 @@
     "party": "Per le Autonomie (SVP-PATT, Campobase)",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Trentino-Alto Adige/Südtirol",
     "sourceUrl": "http://dati.senato.it/senatore/36415",
     "stableSourceId": "36415"
   },
@@ -12126,7 +12279,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare dell'Unione per il Mediterraneo (Ap-UpM)"
     ],
     "districtId": "S90001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36416",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12135,6 +12288,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/36416",
     "stableSourceId": "36416"
   },
@@ -12145,7 +12299,7 @@
       "7ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36417",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12154,6 +12308,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Liguria",
     "sourceUrl": "http://dati.senato.it/senatore/36417",
     "stableSourceId": "36417"
   },
@@ -12166,7 +12321,7 @@
       "Commissione parlamentare di inchiesta sulle attività illecite connesse al ciclo dei rifiuti e su altri illeciti ambientali e agroalimentari"
     ],
     "districtId": "S80002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36418",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12175,6 +12330,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/36418",
     "stableSourceId": "36418"
   },
@@ -12188,7 +12344,7 @@
       "Commissione parlamentare per la semplificazione"
     ],
     "districtId": "S180001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36419",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12197,6 +12353,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Calabria",
     "sourceUrl": "http://dati.senato.it/senatore/36419",
     "stableSourceId": "36419"
   },
@@ -12210,7 +12367,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36420",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12219,6 +12376,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Basilicata",
     "sourceUrl": "http://dati.senato.it/senatore/36420",
     "stableSourceId": "36420"
   },
@@ -12231,7 +12389,7 @@
       "Commissione parlamentare per il contrasto degli svantaggi derivanti dall'insularità"
     ],
     "districtId": "S190002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36421",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12240,6 +12398,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/36421",
     "stableSourceId": "36421"
   },
@@ -12255,7 +12414,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": "S190005",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36422",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12264,6 +12423,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/36422",
     "stableSourceId": "36422"
   },
@@ -12276,7 +12436,7 @@
       "Commissione parlamentare di inchiesta sul fenomeno delle mafie e sulle altre associazioni criminali, anche straniere"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36423",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12285,6 +12445,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Calabria",
     "sourceUrl": "http://dati.senato.it/senatore/36423",
     "stableSourceId": "36423"
   },
@@ -12297,7 +12458,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36424",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12306,6 +12467,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Abruzzo",
     "sourceUrl": "http://dati.senato.it/senatore/36424",
     "stableSourceId": "36424"
   },
@@ -12317,7 +12479,7 @@
       "Commissione parlamentare per l'infanzia e l'adolescenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36425",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12326,6 +12488,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/36425",
     "stableSourceId": "36425"
   },
@@ -12342,7 +12505,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": "S40004",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36426",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12351,6 +12514,7 @@
     "party": "Per le Autonomie (SVP-PATT, Campobase)",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Trentino-Alto Adige/Südtirol",
     "sourceUrl": "http://dati.senato.it/senatore/36426",
     "stableSourceId": "36426"
   },
@@ -12367,7 +12531,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": "S20001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36427",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12376,6 +12540,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Valle d'aosta/Vallée d'Aoste",
     "sourceUrl": "http://dati.senato.it/senatore/36427",
     "stableSourceId": "36427"
   },
@@ -12390,7 +12555,7 @@
       "Sottocommissione permanente per l'accesso"
     ],
     "districtId": "S50001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36428",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12399,6 +12564,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/36428",
     "stableSourceId": "36428"
   },
@@ -12411,7 +12577,7 @@
       "Commissione parlamentare di inchiesta sulla gestione dell'emergenza sanitaria causata dalla diffusione epidemica del virus SARS-CoV-2 e sulle misure adottate per prevenire e affrontare l'emergenza epidemiologica da SARS-CoV-2"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36429",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12420,6 +12586,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/36429",
     "stableSourceId": "36429"
   },
@@ -12434,7 +12601,7 @@
       "Commissione parlamentare per l'attuazione del federalismo fiscale"
     ],
     "districtId": "S200001",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s36430",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12443,6 +12610,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sardegna",
     "sourceUrl": "http://dati.senato.it/senatore/36430",
     "stableSourceId": "36430"
   },
@@ -12456,7 +12624,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare della NATO"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36431",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12465,6 +12633,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/36431",
     "stableSourceId": "36431"
   },
@@ -12477,7 +12646,7 @@
       "Commissione parlamentare di inchiesta sul sistema bancario, finanziario e assicurativo"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36433",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12486,6 +12655,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Veneto",
     "sourceUrl": "http://dati.senato.it/senatore/36433",
     "stableSourceId": "36433"
   },
@@ -12498,7 +12668,7 @@
       "Commissione straordinaria per il contrasto dei fenomeni di intolleranza, razzismo, antisemitismo e istigazione all'odio e alla violenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36434",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12507,6 +12677,7 @@
     "party": "MoVimento 5 Stelle",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sardegna",
     "sourceUrl": "http://dati.senato.it/senatore/36434",
     "stableSourceId": "36434"
   },
@@ -12519,7 +12690,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36435",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12528,6 +12699,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/36435",
     "stableSourceId": "36435"
   },
@@ -12541,7 +12713,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36436",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12550,6 +12722,7 @@
     "party": "Misto",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/36436",
     "stableSourceId": "36436"
   },
@@ -12564,7 +12737,7 @@
       "Commissione parlamentare per il controllo sull'attivita' degli enti gestori di forme obbligatorie di previdenza e assistenza sociale"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36437",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12573,6 +12746,7 @@
     "party": "Misto",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/36437",
     "stableSourceId": "36437"
   },
@@ -12586,7 +12760,7 @@
       "Commissione straordinaria per la tutela e la promozione dei diritti umani"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36438",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12595,6 +12769,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/36438",
     "stableSourceId": "36438"
   },
@@ -12608,7 +12783,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea parlamentare della NATO"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36439",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12617,6 +12792,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Toscana",
     "sourceUrl": "http://dati.senato.it/senatore/36439",
     "stableSourceId": "36439"
   },
@@ -12630,7 +12806,7 @@
       "Commissione parlamentare per la semplificazione"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36440",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12639,6 +12815,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36440",
     "stableSourceId": "36440"
   },
@@ -12650,7 +12827,7 @@
       "Commissione parlamentare per il contrasto degli svantaggi derivanti dall'insularità"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36441",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12659,6 +12836,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/36441",
     "stableSourceId": "36441"
   },
@@ -12674,7 +12852,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36442",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12683,6 +12861,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36442",
     "stableSourceId": "36442"
   },
@@ -12700,7 +12879,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36443",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12709,6 +12888,7 @@
     "party": "Civici d'Italia-UDC-Noi Moderati (Noi con l'Italia, Coraggio Italia, Italia al Centro)-MAIE-Centro Popolare",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Piemonte",
     "sourceUrl": "http://dati.senato.it/senatore/36443",
     "stableSourceId": "36443"
   },
@@ -12722,7 +12902,7 @@
       "Commissione parlamentare per l'indirizzo generale e la vigilanza dei servizi radiotelevisivi"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36444",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12731,6 +12911,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sardegna",
     "sourceUrl": "http://dati.senato.it/senatore/36444",
     "stableSourceId": "36444"
   },
@@ -12743,7 +12924,7 @@
       "Commissione parlamentare per le questioni regionali"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36445",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12752,6 +12933,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/36445",
     "stableSourceId": "36445"
   },
@@ -12764,7 +12946,7 @@
       "Commissione parlamentare di vigilanza sull'anagrafe tributaria"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36446",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12773,6 +12955,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/36446",
     "stableSourceId": "36446"
   },
@@ -12786,7 +12969,7 @@
       "Delegazione parlamentare italiana presso l'Assemblea del Consiglio d'Europa"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36447",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12795,6 +12978,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/36447",
     "stableSourceId": "36447"
   },
@@ -12806,7 +12990,7 @@
       "Commissione parlamentare di vigilanza sull'anagrafe tributaria"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36448",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12815,6 +12999,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/36448",
     "stableSourceId": "36448"
   },
@@ -12828,7 +13013,7 @@
       "Commissione parlamentare per l'attuazione del federalismo fiscale"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36449",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12837,6 +13022,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Friuli-Venezia Giulia",
     "sourceUrl": "http://dati.senato.it/senatore/36449",
     "stableSourceId": "36449"
   },
@@ -12849,7 +13035,7 @@
       "Commissione parlamentare di inchiesta sulle condizioni di lavoro in Italia, sullo sfruttamento e sulla sicurezza nei luoghi di lavoro"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s36450",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12858,6 +13044,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Puglia",
     "sourceUrl": "http://dati.senato.it/senatore/36450",
     "stableSourceId": "36450"
   },
@@ -12873,7 +13060,7 @@
       "Commissione straordinaria per il contrasto dei fenomeni di intolleranza, razzismo, antisemitismo e istigazione all'odio e alla violenza"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s37415",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12882,6 +13069,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sicilia",
     "sourceUrl": "http://dati.senato.it/senatore/37415",
     "stableSourceId": "37415"
   },
@@ -12894,7 +13082,7 @@
       "Commissione parlamentare di inchiesta sulle condizioni di lavoro in Italia, sullo sfruttamento e sulla sicurezza nei luoghi di lavoro"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s37739",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12903,6 +13091,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/37739",
     "stableSourceId": "37739"
   },
@@ -12914,7 +13103,7 @@
       "Commissione per la biblioteca e per l'archivio storico"
     ],
     "districtId": "S200002",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s3900",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12923,6 +13112,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Sardegna",
     "sourceUrl": "http://dati.senato.it/senatore/3900",
     "stableSourceId": "3900"
   },
@@ -12933,7 +13123,7 @@
       "7ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s407",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12942,6 +13132,7 @@
     "party": "Fratelli d'Italia",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/407",
     "stableSourceId": "407"
   },
@@ -12953,7 +13144,7 @@
       "Commissione parlamentare per la semplificazione"
     ],
     "districtId": "S120006",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s4192",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12962,6 +13153,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lazio",
     "sourceUrl": "http://dati.senato.it/senatore/4192",
     "stableSourceId": "4192"
   },
@@ -12972,7 +13164,7 @@
       "4ª Commissione permanente"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s422",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -12981,6 +13173,7 @@
     "party": "Lega Salvini Premier - Partito Sardo d'Azione",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/422",
     "stableSourceId": "422"
   },
@@ -12997,7 +13190,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s4512",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -13006,6 +13199,7 @@
     "party": "Forza Italia - Berlusconi Presidente - PPE",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Lombardia",
     "sourceUrl": "http://dati.senato.it/senatore/4512",
     "stableSourceId": "4512"
   },
@@ -13016,7 +13210,7 @@
       "3ª Commissione permanente"
     ],
     "districtId": "S80003",
-    "electionType": null,
+    "electionType": "uninominale",
     "id": "s520",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -13025,6 +13219,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Emilia-Romagna",
     "sourceUrl": "http://dati.senato.it/senatore/520",
     "stableSourceId": "520"
   },
@@ -13037,7 +13232,7 @@
       "Giunta delle elezioni e delle immunita' parlamentari"
     ],
     "districtId": null,
-    "electionType": null,
+    "electionType": "plurinominale",
     "id": "s5799",
     "legislature": "XIX",
     "mandate": "elettivo",
@@ -13046,6 +13241,7 @@
     "party": "Partito Democratico - Italia Democratica e Progressista",
     "photoName": "person.crop.circle.fill",
     "provenance": "official",
+    "regione": "Campania",
     "sourceUrl": "http://dati.senato.it/senatore/5799",
     "stableSourceId": "5799"
   }
