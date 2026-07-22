@@ -35,6 +35,15 @@ LicenseURL: https://creativecommons.org/licenses/by/4.0/
 RetrievedAt: 2026-07-18
 Notes: Queried via SPARQL for XIX Legislature. Filter uses ocd:rif_leg <http://dati.camera.it/ocd/legislatura.rdf/repubblica_19\>. Group name literals may be truncated at parentheses in source data — use sigla as primary identifier.
 
+# Camera dei Deputati — Votazioni
+Name: Votazioni Assemblea XIX Legislatura (via SPARQL endpoint)
+URL: https://dati.camera.it/sparql
+Endpoint: https://dati.camera.it/sparql
+License: CC BY 4.0
+LicenseURL: https://creativecommons.org/licenses/by/4.0/
+RetrievedAt: 2026-07-22
+Notes: Assemblea non-secret roll-call votes, XIX Legislature, with every deputy's per-vote position. Separate cache (camera_votazioni_sparql.json) from the deputies fetch above; refetched independently. 2026-07-22 (v4 Phase 27): switched from "most recent N" to a stratified selection (tools/select_votes_scope.py from a metadata-window probe, writing votes_scope.json explicit mode) — 30 votes across 10 sittings over ~9 months; detail fetched in chunks of 10 URIs/request. Legislature XIX re-verified current at fetch time. See docs/v4/27-votes-stratified.md.
+
 # Senato della Repubblica
 Name: Senatori XIX Legislatura (via SPARQL endpoint)
 URL: https://dati.senato.it/sparql

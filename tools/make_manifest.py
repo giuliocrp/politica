@@ -72,13 +72,17 @@ def votazioni_scope_note():
     # Phase 20 was Phase 25; see docs/v4/25-plurinominale-geography.md.)
     events = votes["events"] if isinstance(votes, dict) else votes
     vote_count = len({e["sourceUrl"] for e in events if e.get("sourceUrl")})
+    sittings = len({e["id"].split("_")[1] for e in events if "_" in e.get("id", "")})
     return (
-        f"{vote_count} votazioni dell'Assemblea, XIX legislatura (voto "
-        "elettronico, non a scrutinio segreto), con la posizione di voto di "
-        "ogni deputato coinvolto. Le votazioni a scrutinio segreto sono "
-        "escluse: il dato sorgente non attribuisce una posizione al singolo "
-        "deputato per quel tipo di voto, per garantirne la segretezza. Il "
-        "Senato non è incluso in questa fase."
+        f"Campione stratificato di {vote_count} votazioni dell'Assemblea, XIX "
+        "legislatura (voto elettronico, non a scrutinio segreto), con la "
+        "posizione di voto di ogni deputato coinvolto. Non è l'archivio "
+        f"completo: le votazioni sono selezionate per copertura su {sittings} "
+        "sedute distribuite in più mesi, in parte voti procedurali (ordini "
+        "del giorno) e in parte votazioni finali su atti. Le votazioni a "
+        "scrutinio segreto sono escluse: il dato sorgente non attribuisce una "
+        "posizione al singolo deputato per quel tipo di voto, per garantirne "
+        "la segretezza. Il Senato non è incluso in questa fase."
     )
 
 

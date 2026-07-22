@@ -57,21 +57,30 @@ see the README's "Known limitations."
 | **Dataset** | Votazioni (roll-call votes) — XIX Legislatura |
 | **Access method** | SPARQL endpoint, `https://dati.camera.it/sparql` |
 | **License** | CC BY 4.0 — verified at [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/) |
-| **Retrieved** | 2026-07-18 |
-| **Queries** | `tools/queries/camera_votazioni_scope.rq` + `camera_votazioni_dettaglio.rq` (pinned, versioned) |
+| **Retrieved** | 2026-07-22 (v4 Phase 27 — stratified re-selection + refetch; Legislature XIX re-verified current at fetch time) |
+| **Queries** | `tools/queries/camera_votazioni_dettaglio.rq` (detail, fetched in chunks of 10 URIs/request); selection from `tools/probes/probe_camera_votes_metadata_window.rq` (metadata-only window) via `tools/select_votes_scope.py`. `camera_votazioni_scope.rq` retained for the legacy `recent` mode |
 | **Fetch script** | `tools/fetch_camera_votes.py` → `tools/raw/camera_votazioni_sparql.json` (gitignored cache) |
-| **Import script** | `tools/import_votes.py`, scoped by `tools/config/votes_scope.json` |
+| **Import script** | `tools/import_votes.py`, scoped by `tools/config/votes_scope.json` (explicit mode — the committed selection) |
 
 **Transformation summary**: scoped to Assemblea, non-secret ("electronic")
-roll-call votes of the XIX legislature, ordered by date descending. Secret
-ballots are excluded by design — their per-deputy records only carry a
-generic `"Ha votato"` (voted) flag, never a disclosed position, so
-including them would misrepresent inherent unattributability as missing
-data. The nominal scope is the 25 most recent qualifying votes; a
-`maxPositionRecords` bundle-size budget (5,000 records, tuned to land
-under a ~2MB `Data/votes.json`) actually capped the import at **12 votes,
-4,788 per-deputy positions** — the pipeline stops at the first vote that
-would exceed budget rather than silently truncating within a vote. Raw
+roll-call votes of the XIX legislature. Secret ballots are excluded by
+design — their per-deputy records only carry a generic `"Ha votato"`
+(voted) flag, never a disclosed position, so including them would
+misrepresent inherent unattributability as missing data. Since **v4 Phase
+27** ([`docs/v4/27-votes-stratified.md`](v4/27-votes-stratified.md)) the
+sample is chosen by **stratified selection**, not "the N most recent":
+Phase 21 established that recent Camera votes come in same-day procedural
+bursts (one sitting, one day, no atto-bearing votes), so a
+methodology-representative sample must spread across sittings and months.
+A metadata-only probe fetches a deep window (URI + date + secrecy + atto
+label); the committed offline selector `tools/select_votes_scope.py`
+applies pinned rules — 3 votes from each of 10 date-spread sittings,
+preferring atto-bearing final votes — and writes the exact chosen URI list
+into `votes_scope.json`'s `explicit` mode. The result is **30 votes across
+10 sittings spanning ~9 months, 11,899 per-deputy positions** (15 of the
+30 events atto-bearing, 9 distinct atti), landing at ~1.77 MB under the
+2 MiB `Data/votes.json` gate. 47 positions of 5 since-departed deputies
+were dropped (not in the current `representatives.json`). Raw
 position vocabulary (`"Favorevole"`/`"Contrario"`/`"Astensione"`/`"Non ha
 votato"`) is mapped explicitly onto the app's `VoteChoice` enum (note:
 `"Astensione"` → `.astenuto`, a noun→adjective translation, and `"Non ha

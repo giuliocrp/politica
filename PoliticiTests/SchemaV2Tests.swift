@@ -169,8 +169,10 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertTrue(votesFile.events.allSatisfy { $0.result != .sconosciuto })
     }
 
-    func testVoteServiceSortsRealVotesNewestFirst() throws {
+    @MainActor
+    func testVoteServiceSortsRealVotesNewestFirst() async throws {
         let voteService = VoteService()
+        await voteService.loadIfNeeded()  // lazy load since Phase 27
         let representativeId = try XCTUnwrap(voteService.votes.first?.representativeId)
         let votes = voteService.votes(for: representativeId)
         XCTAssertFalse(votes.isEmpty)

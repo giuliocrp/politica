@@ -22,7 +22,7 @@ phase's report. Statuses: `pending` / `in progress` / `done` /
 | [24](phase-24.md) | Real UI tests + a11y audits | — | [done](../v4/24-ui-tests.md) |
 | [25](phase-25.md) | Plurinominale geography | GO-PLURI | [done](../v4/25-plurinominale-geography.md) |
 | [26](phase-26.md) | Senato regione + electionType | GO-REG | [done](../v4/26-senato-regione.md) |
-| [27](phase-27.md) | Stratified votes + lazy loading | **USER-GATED network** | pending |
+| [27](phase-27.md) | Stratified votes + lazy loading | **USER-GATED network** | [done](../v4/27-votes-stratified.md) |
 | [28](phase-28.md) | Group-membership history | GO-STORICO, **USER-GATED network** | pending |
 | [29](phase-29.md) | Alignment metric | all six methodology lines | pending |
 | [30](phase-30.md) | Comuni-centroid geocoding | GO-COMUNI, **USER-GATED acquisition** | pending |

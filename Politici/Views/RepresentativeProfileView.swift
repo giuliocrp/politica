@@ -44,6 +44,7 @@ struct RepresentativeProfileView: View {
                 }
             }
         }
+        .task { await services.voteService.loadIfNeeded() }
     }
 
     private var favoriteButton: some View {
@@ -172,12 +173,21 @@ struct RepresentativeProfileView: View {
             Text("Votazioni recenti")
                 .font(.headline)
 
-            if recentVotes.isEmpty {
-                Text("Nessuna votazione disponibile in questa versione del prototipo.")
+            switch services.voteService.state {
+            case .idle, .loading:
+                ProgressView()
+                    .accessibilityIdentifier("profile.votes.loading")
+            case .failed:
+                Text("Impossibile caricare le votazioni in questa versione del prototipo.")
                     .foregroundStyle(.secondary)
-            } else {
-                ForEach(recentVotes) { vote in
-                    VoteRow(vote: vote)
+            case .loaded:
+                if recentVotes.isEmpty {
+                    Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(recentVotes) { vote in
+                        VoteRow(vote: vote)
+                    }
                 }
             }
 

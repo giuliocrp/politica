@@ -10,7 +10,7 @@ import Foundation
 /// field is absent from JSON, so existing fixtures keep decoding unchanged —
 /// see `docs/v2/00-audit.md` and `CLAUDE.md` constraint #4 (never present
 /// fictional data as real).
-enum DataProvenance: String, Codable, Hashable {
+nonisolated enum DataProvenance: String, Codable, Hashable {
     case sample
     case official
 

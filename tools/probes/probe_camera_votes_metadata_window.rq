@@ -1,0 +1,36 @@
+# Phase 27 metadata-only window probe (see docs/v4/27-votes-stratified.md).
+# NETWORK-TOUCHING by design; run once under an explicit, user-approved
+# refetch-protocol decision (never part of `make fetch`/`make refresh`).
+#
+# One row per Camera Assemblea XIX votazione — metadata ONLY, no per-deputy
+# ocd:voto positions (that is the detail fetch's job, and stays gated
+# separately). Selects the fields tools/select_votes_scope.py needs to
+# stratify the curated sample:
+#   ?v        the ocd:votazione URI (its trailing slug is the voteEventId)
+#   ?date     dc:date, "yyyyMMdd" — sortable as a plain string
+#   ?segreta  ocd:votazioneSegreta (0/1) — NOT filtered here so the probe can
+#             report the secret/non-secret split; the selector keeps only 0
+#   ?finale   ocd:votazioneFinale (0/1), OPTIONAL — lets the selector prefer
+#             final votes among atto-bearing ones
+#   ?attoLabel the associated atto's rdfs:label (the real bill/motion title),
+#             OPTIONAL — its PRESENCE is what marks a vote "atto-bearing"
+#             (methodology gate line 4)
+#
+# ORDER BY DESC(?date) ?v is a TOTAL, stable ordering (?date alone is not
+# unique — many votes share a sitting day), so tools/probes/run paging with
+# LIMIT/OFFSET is deterministic; the probe script appends "LIMIT n OFFSET o"
+# and cross-checks pages for overlap to characterise Q3 (dati.camera.it
+# OFFSET behaviour, previously unobserved).
+PREFIX ocd:  <http://dati.camera.it/ocd/>
+PREFIX dc:   <http://purl.org/dc/elements/1.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?v ?date ?segreta ?finale ?attoLabel WHERE {
+  ?v a ocd:votazione ;
+     ocd:rif_leg <http://dati.camera.it/ocd/legislatura.rdf/repubblica_19> ;
+     ocd:rif_assemblea ?assemblea ;
+     ocd:votazioneSegreta ?segreta ;
+     dc:date ?date .
+  OPTIONAL { ?v ocd:votazioneFinale ?finale . }
+  OPTIONAL { ?v ocd:rif_attoCamera ?atto . ?atto rdfs:label ?attoLabel . }
+}
+ORDER BY DESC(?date) ?v

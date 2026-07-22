@@ -19,32 +19,60 @@ struct VotazioniListView: View {
 
     var body: some View {
         Group {
-            if events.isEmpty {
+            switch services.voteService.state {
+            case .idle, .loading:
+                ProgressView("Caricamento votazioni…")
+                    .accessibilityIdentifier("votazioni.loading")
+            case .failed:
                 ContentUnavailableView(
-                    "Nessuna votazione",
-                    systemImage: "checkmark.circle.trianglebadge.exclamationmark",
-                    description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    "Votazioni non disponibili",
+                    systemImage: "exclamationmark.triangle",
+                    description: Text("Impossibile caricare le votazioni in questa versione del prototipo.")
                 )
-            } else {
-                List {
-                    Section {
-                        ForEach(events) { event in
-                            VoteEventRow(event: event)
-                                .listRowSeparator(.hidden)
-                                .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+            case .loaded:
+                if events.isEmpty {
+                    ContentUnavailableView(
+                        "Nessuna votazione",
+                        systemImage: "checkmark.circle.trianglebadge.exclamationmark",
+                        description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    )
+                } else {
+                    List {
+                        Section {
+                            ForEach(events) { event in
+                                VoteEventRow(event: event)
+                                    .listRowSeparator(.hidden)
+                                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            }
+                        } header: {
+                            scopeHeader
                         }
-                    } header: {
-                        Text("Campione di \(events.count) votazioni importate — non l'archivio completo")
-                            .font(.footnote)
-                            .textCase(nil)
-                            .accessibilityIdentifier("votazioni.scope")
                     }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
             }
         }
         .navigationTitle("Votazioni")
         .navigationBarTitleDisplayMode(.inline)
+        .task { await services.voteService.loadIfNeeded() }
+    }
+
+    /// States plainly what the sample IS a sample of (Phase 27): not "the N
+    /// most recent" but a coverage-driven stratified pick across several
+    /// sittings and months — deliberately part procedural (ordini del
+    /// giorno), part final votes on atti. N is read from the data, never
+    /// hardcoded.
+    private var scopeHeader: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Campione stratificato di \(events.count) votazioni importate — non l'archivio completo")
+                .font(.footnote)
+            Text("Selezione per copertura: sedute distribuite su più mesi, in parte voti procedurali (ordini del giorno), in parte votazioni finali su atti.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .textCase(nil)
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("votazioni.scope")
     }
 }
 

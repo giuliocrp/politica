@@ -25,40 +25,53 @@ struct VoteHistoryView: View {
 
     var body: some View {
         Group {
-            if votes.isEmpty {
+            switch services.voteService.state {
+            case .idle, .loading:
+                ProgressView("Caricamento votazioni…")
+                    .accessibilityIdentifier("voteHistory.loading")
+            case .failed:
                 ContentUnavailableView(
-                    "Nessuna votazione",
-                    systemImage: "checkmark.circle.trianglebadge.exclamationmark",
-                    description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    "Votazioni non disponibili",
+                    systemImage: "exclamationmark.triangle",
+                    description: Text("Impossibile caricare le votazioni in questa versione del prototipo.")
                 )
-            } else {
-                List {
-                    Section {
-                        if filteredVotes.isEmpty {
-                            // Honest empty state for an over-narrow filter —
-                            // distinct from the no-data case above.
-                            Text("Nessuna votazione corrisponde ai filtri selezionati.")
-                                .foregroundStyle(.secondary)
-                                .accessibilityIdentifier("voteHistory.emptyFilter")
-                                .listRowSeparator(.hidden)
-                        } else {
-                            ForEach(filteredVotes) { vote in
-                                VoteRow(vote: vote)
+            case .loaded:
+                if votes.isEmpty {
+                    ContentUnavailableView(
+                        "Nessuna votazione",
+                        systemImage: "checkmark.circle.trianglebadge.exclamationmark",
+                        description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    )
+                } else {
+                    List {
+                        Section {
+                            if filteredVotes.isEmpty {
+                                // Honest empty state for an over-narrow filter —
+                                // distinct from the no-data case above.
+                                Text("Nessuna votazione corrisponde ai filtri selezionati.")
+                                    .foregroundStyle(.secondary)
+                                    .accessibilityIdentifier("voteHistory.emptyFilter")
                                     .listRowSeparator(.hidden)
-                                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            } else {
+                                ForEach(filteredVotes) { vote in
+                                    VoteRow(vote: vote)
+                                        .listRowSeparator(.hidden)
+                                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                                }
                             }
+                        } header: {
+                            choiceFilterChips
+                                .textCase(nil)
                         }
-                    } header: {
-                        choiceFilterChips
-                            .textCase(nil)
                     }
+                    .listStyle(.plain)
+                    .searchable(text: $searchText, prompt: "Cerca nel titolo")
                 }
-                .listStyle(.plain)
-                .searchable(text: $searchText, prompt: "Cerca nel titolo")
             }
         }
         .navigationTitle(representative.map { "Voti di \($0.name)" } ?? "Cronologia Voti")
         .navigationBarTitleDisplayMode(.inline)
+        .task { await services.voteService.loadIfNeeded() }
     }
 
     /// Chip row: "Tutte" plus the four real outcomes. A `.sconosciuto`

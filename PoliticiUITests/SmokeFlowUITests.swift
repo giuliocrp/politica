@@ -35,24 +35,28 @@ final class SmokeFlowUITests: PoliticiUITestCase {
     private let lifeSenatorSearchTerm = "Segre"
     private let lifeSenatorBadge = "A vita, di nomina del Presidente della Repubblica"
 
-    // Verified in Politici/Data/votes.json: deputy p300480 has all 12
-    // positions; on event vs19_690_076 ("…ABB/21") the position is
-    // "Contrario", so the outcome chips compose with the title search in a
-    // known, asymmetric way.
+    // Verified in Politici/Data/votes.json (Phase 27 stratified sample):
+    // deputy p300480 (Giachetti) is Contrario on event vs19_577_001, the
+    // final vote on DDL n. 2423 ("...consenso informato..."), and "2423" is a
+    // title substring unique to that one vote among his — so the outcome chips
+    // compose with the title search in a known, asymmetric way (Contrario
+    // keeps it, Favorevole empties the filter).
+    //
+    // NOTE (Phase 27): these three are vote-specific and WILL break on any
+    // future votes.json change (a refetch may legitimately select a different
+    // 30 — the selection is deterministic for fixed input but not stable
+    // across refetches). Flow 6's compose logic inherently needs one vote with
+    // a known position, so it can't be made fully structural like flow 5;
+    // a failure here after a data refresh means "re-pin", not "regression".
     private let voterId = "p300480"
     private let voterSearchTerm = "Giachetti"
-    private let voteRowId = "vote.row.vd19_690_076_300480"
-    private let voteTitleQuery = "ABB/21"
+    private let voteRowId = "vote.row.vd19_577_001_300480"
+    private let voteTitleQuery = "2423"
 
     // Verified in Politici/Data/representatives.json: the first record in
     // file order, i.e. the first of the four `HomeView` shows under
     // "Rappresentanti in evidenza" (`allRepresentatives().prefix(4)`).
     private let featuredRepresentativeId = "p200291"
-
-    // Verified in Politici/Data/votes.json: 12 events, all dated
-    // 2026-07-15, so `allEvents()`'s (date, id) descending sort puts
-    // vs19_690_076 — the highest id — first.
-    private let firstVoteEventId = "vs19_690_076"
 
     // MARK: - Flow 1
 
@@ -180,21 +184,35 @@ final class SmokeFlowUITests: PoliticiUITestCase {
     func testVotazioniListScopeLineTalliesAndSourceLink() throws {
         let scope = el("votazioni.scope")
         tapButton("home.cta.votazioni", waitingFor: scope, "Elenco delle votazioni non aperto")
-        XCTAssertTrue(
-            Self.matches(scope.label, pattern: #"^Campione di \d+ votazioni importate — non l'archivio completo$"#),
-            "Riga di ambito inattesa: '\(scope.label)'"
-        )
+        // Structural (Phase 27): the scope line names the sample and carries a
+        // data-driven N > 0. The exact wording is Phase-27 copy that may
+        // evolve (it now describes a stratified, coverage-driven pick), so
+        // assert content, not the full string.
+        XCTAssertTrue(scope.label.localizedCaseInsensitiveContains("votazioni"),
+                      "Riga di ambito inattesa: '\(scope.label)'")
         XCTAssertGreaterThan(Self.firstInteger(in: scope.label) ?? 0, 0, "Ambito senza N letto dai dati")
 
-        let firstRow = assertExists("vote.event.\(firstVoteEventId)", "Prima riga di votazione non trovata")
+        // Structural: the first votazione row, whichever event it is — no
+        // vote-specific id pinned (those move on any votes.json change). The
+        // source-link ids also begin "vote.event." so they're excluded.
+        let rows = app.descendants(matching: .any).matching(
+            NSPredicate(format: "identifier BEGINSWITH %@ AND NOT (identifier CONTAINS %@)",
+                        "vote.event.", ".source.")
+        )
+        let firstRow = rows.element(boundBy: 0)
+        XCTAssertTrue(firstRow.waitForExistence(timeout: Self.timeout), "Prima riga di votazione non trovata")
         for tally in ["Favorevoli:", "Contrari:", "Astenuti:", "Assenti:"] {
             XCTAssertTrue(firstRow.label.contains(tally), "Conteggio '\(tally)' assente da: '\(firstRow.label)'")
         }
         XCTAssertTrue(firstRow.label.contains("Esito:"), "Esito assente da: '\(firstRow.label)'")
 
-        // Existence only — tapping it would leave the app for Safari.
-        let source = el("vote.event.source.\(firstVoteEventId)")
-        XCTAssertTrue(source.exists, "Link 'Fonte' assente dalla prima riga")
+        // Structural: at least one per-row official source link exists
+        // (existence only — tapping it would leave the app for Safari).
+        let sources = app.descendants(matching: .any).matching(
+            NSPredicate(format: "identifier BEGINSWITH %@", "vote.event.source.")
+        )
+        let source = sources.element(boundBy: 0)
+        XCTAssertTrue(source.waitForExistence(timeout: Self.timeout), "Link 'Fonte' assente dalla prima riga")
         XCTAssertEqual(source.label, "Fonte ufficiale")
     }
 

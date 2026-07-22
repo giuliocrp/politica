@@ -1,8 +1,311 @@
 {
-  "mode": "recent",
-  "n": 25,
-  "voteUris": [],
-  "maxVotes": 25,
-  "maxPositionRecords": 5000,
-  "notes": "mode 'recent': the N most recent Camera Assemblea electronic (non-secret) roll-call votes of the XIX legislature, ordered by dc:date descending. mode 'explicit': voteUris lists exact ocd:votazione URIs to import instead (curated by hand), ignoring n. maxVotes/maxPositionRecords are hard caps enforced in tools/fetch_camera_votes.py regardless of mode — see docs/v2/04-votes-import.md for why maxPositionRecords, not maxVotes, ends up being the binding constraint at the n=25 default."
+  "mode": "explicit",
+  "n": 30,
+  "voteUris": [
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_694_003",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_694_002",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_694_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_680_003",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_680_002",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_680_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_664_003",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_664_002",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_664_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_648_003",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_648_002",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_648_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_634_003",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_634_002",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_634_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_614_035",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_614_006",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_614_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_599_044",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_599_028",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_599_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_581_089",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_581_088",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_581_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_577_100",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_577_002",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_577_001",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_552_012",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_552_009",
+    "http://dati.camera.it/ocd/votazione.rdf/vs19_552_008"
+  ],
+  "selection": [
+    {
+      "slug": "vs19_694_003",
+      "date": "20260721",
+      "seduta": 694,
+      "seq": 3,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_694_002",
+      "date": "20260721",
+      "seduta": 694,
+      "seq": 2,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_694_001",
+      "date": "20260721",
+      "seduta": 694,
+      "seq": 1,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_680_003",
+      "date": "20260622",
+      "seduta": 680,
+      "seq": 3,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_680_002",
+      "date": "20260622",
+      "seduta": 680,
+      "seq": 2,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_680_001",
+      "date": "20260622",
+      "seduta": 680,
+      "seq": 1,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_664_003",
+      "date": "20260520",
+      "seduta": 664,
+      "seq": 3,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_664_002",
+      "date": "20260520",
+      "seduta": 664,
+      "seq": 2,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_664_001",
+      "date": "20260520",
+      "seduta": 664,
+      "seq": 1,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_648_003",
+      "date": "20260422",
+      "seduta": 648,
+      "seq": 3,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_648_002",
+      "date": "20260422",
+      "seduta": 648,
+      "seq": 2,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_648_001",
+      "date": "20260422",
+      "seduta": 648,
+      "seq": 1,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_634_003",
+      "date": "20260325",
+      "seduta": 634,
+      "seq": 3,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_634_002",
+      "date": "20260325",
+      "seduta": 634,
+      "seq": 2,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_634_001",
+      "date": "20260325",
+      "seduta": 634,
+      "seq": 1,
+      "attoBearing": false,
+      "finale": false,
+      "attoLabel": null
+    },
+    {
+      "slug": "vs19_614_035",
+      "date": "20260212",
+      "seduta": 614,
+      "seq": 35,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " &quot;Norme per la regolazione dei rapporti tra lo Stato e la Diocesi ortodossa romena d&rsquo;Italia, in attuazione dell&rsquo;articolo 8, terzo comma, della Costituzione&quot; (2396) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_614_006",
+      "date": "20260212",
+      "seduta": 614,
+      "seq": 6,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " AMICH: \\\"Istituzione della Giornata nazionale in memoria di 446 italiani internati e deportati dal Regno Unito per causa di guerra, periti nel naufragio del piroscafo britannico &lt;em&gt;Arandora Star&lt;/em&gt;, silurato da un&rsquo;unit&agrave; della Marina tedesca nell&rsquo;Oceano Atlantico il 2 luglio 1940\\\" (1895) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_614_001",
+      "date": "20260212",
+      "seduta": 614,
+      "seq": 1,
+      "attoBearing": true,
+      "finale": false,
+      "attoLabel": " AMICH: \\\"Istituzione della Giornata nazionale in memoria di 446 italiani internati e deportati dal Regno Unito per causa di guerra, periti nel naufragio del piroscafo britannico &lt;em&gt;Arandora Star&lt;/em&gt;, silurato da un&rsquo;unit&agrave; della Marina tedesca nell&rsquo;Oceano Atlantico il 2 luglio 1940\\\" (1895) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_599_044",
+      "date": "20260122",
+      "seduta": 599,
+      "seq": 44,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " BONETTI ed altri: \\\"Disposizioni per il sostegno delle attivit&agrave; educative e ricreative non formali\\\" (1311) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_599_028",
+      "date": "20260122",
+      "seduta": 599,
+      "seq": 28,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " S. 562. - Senatori MARTI ed altri: &quot;Disposizioni per la promozione e la valorizzazione dei cammini d&rsquo;Italia&quot; &lt;em&gt;(approvata dal Senato)&lt;/em&gt; (1805) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_599_001",
+      "date": "20260122",
+      "seduta": 599,
+      "seq": 1,
+      "attoBearing": true,
+      "finale": false,
+      "attoLabel": " S. 562. - Senatori MARTI ed altri: &quot;Disposizioni per la promozione e la valorizzazione dei cammini d&rsquo;Italia&quot; &lt;em&gt;(approvata dal Senato)&lt;/em&gt; (1805) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_581_089",
+      "date": "20251210",
+      "seduta": 581,
+      "seq": 89,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " S. 1578. - &quot;Legge annuale per il mercato e la concorrenza per il 2025&quot; &lt;em&gt;(approvato dal Senato)&lt;/em&gt; (2682) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_581_088",
+      "date": "20251210",
+      "seduta": 581,
+      "seq": 88,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " \"Conversione in legge del decreto-legge 29 ottobre 2025, n. 156, recante misure urgenti in materia economica\" (2678) "
+    },
+    {
+      "slug": "vs19_581_001",
+      "date": "20251210",
+      "seduta": 581,
+      "seq": 1,
+      "attoBearing": true,
+      "finale": false,
+      "attoLabel": " \"Conversione in legge del decreto-legge 29 ottobre 2025, n. 156, recante misure urgenti in materia economica\" (2678) "
+    },
+    {
+      "slug": "vs19_577_100",
+      "date": "20251203",
+      "seduta": 577,
+      "seq": 100,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " \\\"Delega al Governo per il recepimento delle direttive europee e l&rsquo;attuazione di altri atti dell&rsquo;Unione europea &ndash; Legge di delegazione europea 2025\\\" (2574) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_577_002",
+      "date": "20251203",
+      "seduta": 577,
+      "seq": 2,
+      "attoBearing": true,
+      "finale": false,
+      "attoLabel": " \\\"Delega al Governo per il recepimento delle direttive europee e l&rsquo;attuazione di altri atti dell&rsquo;Unione europea &ndash; Legge di delegazione europea 2025\\\" (2574) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_577_001",
+      "date": "20251203",
+      "seduta": 577,
+      "seq": 1,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " &quot;Disposizioni in materia di consenso informato in ambito scolastico&quot; (2423) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_552_012",
+      "date": "20251022",
+      "seduta": 552,
+      "seq": 12,
+      "attoBearing": true,
+      "finale": true,
+      "attoLabel": " \\\"Ratifica ed esecuzione dell&rsquo;Accordo quadro di partenariato globale e cooperazione tra l&rsquo;Unione europea e i suoi Stati membri, da una parte, e il Regno di Thailandia, dall&rsquo;altra, fatto a Bruxelles il 14 dicembre 2022\\\" (1686) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_552_009",
+      "date": "20251022",
+      "seduta": 552,
+      "seq": 9,
+      "attoBearing": true,
+      "finale": false,
+      "attoLabel": " \\\"Ratifica ed esecuzione dell&rsquo;Accordo quadro di partenariato globale e cooperazione tra l&rsquo;Unione europea e i suoi Stati membri, da una parte, e il Regno di Thailandia, dall&rsquo;altra, fatto a Bruxelles il 14 dicembre 2022\\\" (1686) ^^http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "slug": "vs19_552_008",
+      "date": "20251022",
+      "seduta": 552,
+      "seq": 8,
+      "attoBearing": true,
+      "finale": false,
+      "attoLabel": " \\\"Ratifica ed esecuzione dell&rsquo;Accordo quadro di partenariato globale e cooperazione tra l&rsquo;Unione europea e i suoi Stati membri, da una parte, e il Regno di Thailandia, dall&rsquo;altra, fatto a Bruxelles il 14 dicembre 2022\\\" (1686) ^^http://www.w3.org/2001/XMLSchema#string"
+    }
+  ],
+  "maxVotes": 30,
+  "maxPositionRecords": 13000,
+  "notes": "mode 'explicit': 30 votazioni scelte da tools/select_votes_scope.py (Fase 27) con regole di stratificazione fissate — vedi quel file e docs/v4/27-votes-stratified.md. Campione stratificato: 10 sedute distinte su ~8.9 mesi, con preferenza per i voti finali su atto. mode 'recent': le N votazioni più recenti (usato fino alla Fase 20). maxVotes/maxPositionRecords restano tetti duri applicati in tools/import_votes.py; MAX_OUTPUT_BYTES (2 MiB) è il limite di byte."
 }

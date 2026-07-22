@@ -24,7 +24,11 @@ enum DataLoadingError: LocalizedError {
 /// Small shared helper so each service doesn't repeat its own
 /// "find resource → read Data → decode" boilerplate.
 enum LocalJSONLoader {
-    static func decode<T: Decodable>(
+    // `nonisolated` so it can be called off the main actor — VoteService
+    // decodes the (now ~1.7 MB) votes.json inside a Task.detached to keep the
+    // cold decode off the main thread (Phase 27). Pure function, no shared
+    // state, safe from any executor.
+    nonisolated static func decode<T: Decodable>(
         _ type: T.Type,
         fromResource resource: String,
         withExtension ext: String = "json",

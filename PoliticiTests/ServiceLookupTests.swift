@@ -136,14 +136,18 @@ final class ServiceLookupTests: XCTestCase {
 
     // MARK: - votes(for:)
 
-    func testVotesForRepresentativeAreSortedNewestFirst() {
+    @MainActor
+    func testVotesForRepresentativeAreSortedNewestFirst() async {
+        await voteService.loadIfNeeded()  // lazy load since Phase 27
         let votes = voteService.votes(for: "REP001")
         XCTAssertFalse(votes.isEmpty)
         let dates = votes.map(\.date)
         XCTAssertEqual(dates, dates.sorted(by: >))
     }
 
-    func testVotesForRepresentativeAreAllAttributedToThatRepresentative() {
+    @MainActor
+    func testVotesForRepresentativeAreAllAttributedToThatRepresentative() async {
+        await voteService.loadIfNeeded()  // lazy load since Phase 27
         let votes = voteService.votes(for: "REP001")
         XCTAssertTrue(votes.allSatisfy { $0.representativeId == "REP001" })
     }

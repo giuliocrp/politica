@@ -5,7 +5,10 @@
 
 import Foundation
 
-enum VoteChoice: String, TolerantStringEnum, CaseIterable, Hashable {
+// `nonisolated` (here and on the other vote models) so VoteService can decode
+// votes.json off the main actor (Phase 27) — the project defaults types to
+// @MainActor, but these are pure Sendable data models with no UI state.
+nonisolated enum VoteChoice: String, TolerantStringEnum, CaseIterable, Hashable {
     case favorevole = "Favorevole"
     case contrario = "Contrario"
     case astenuto = "Astenuto"
@@ -41,12 +44,16 @@ enum VoteChoice: String, TolerantStringEnum, CaseIterable, Hashable {
 }
 
 extension VoteChoice: Codable {
-    init(from decoder: Decoder) throws {
-        self = try Self.decodeTolerant(from: decoder)
+    // Inlined (rather than via TolerantStringEnum.decodeTolerant) so the
+    // conformance stays nonisolated for the off-main decode; same tolerant
+    // semantics (unknown raw value -> .sconosciuto).
+    nonisolated init(from decoder: Decoder) throws {
+        let raw = try decoder.singleValueContainer().decode(String.self)
+        self = VoteChoice(rawValue: raw) ?? .sconosciuto
     }
 }
 
-enum VoteResult: String, TolerantStringEnum, CaseIterable, Hashable {
+nonisolated enum VoteResult: String, TolerantStringEnum, CaseIterable, Hashable {
     case approvato = "Approvato"
     case respinto = "Respinto"
     case sconosciuto = "Sconosciuto"
@@ -55,12 +62,13 @@ enum VoteResult: String, TolerantStringEnum, CaseIterable, Hashable {
 }
 
 extension VoteResult: Codable {
-    init(from decoder: Decoder) throws {
-        self = try Self.decodeTolerant(from: decoder)
+    nonisolated init(from decoder: Decoder) throws {
+        let raw = try decoder.singleValueContainer().decode(String.self)
+        self = VoteResult(rawValue: raw) ?? .sconosciuto
     }
 }
 
-struct Vote: Identifiable, Hashable {
+nonisolated struct Vote: Identifiable, Hashable {
     let id: String
     let representativeId: String
     let title: String
@@ -82,7 +90,9 @@ extension Vote: Codable {
     }
 
     /// Shared with `VoteEventRecord` (Phase 20), which stores the same
-    /// `yyyy-MM-dd` strings.
+    /// `yyyy-MM-dd` strings. Nonisolated (via the enclosing type) so it's
+    /// usable from the off-main decode (Phase 27); `DateFormatter` is
+    /// Sendable and this one is never mutated after construction.
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
@@ -134,12 +144,12 @@ extension Vote: Codable {
 /// source-backed `voteEventId` (the ocd:votazione URI slug, e.g.
 /// `"vs19_690_076"` — never minted). The frozen `votes.sample.json` fixture
 /// keeps the older flat `[Vote]` shape; `VoteService` decodes either.
-struct VotesFile: Codable {
+nonisolated struct VotesFile: Codable {
     let events: [VoteEventRecord]
     let positions: [VotePositionRecord]
 }
 
-struct VoteEventRecord: Identifiable, Hashable {
+nonisolated struct VoteEventRecord: Identifiable, Hashable {
     let id: String
     let title: String
     let date: Date
@@ -183,7 +193,7 @@ extension VoteEventRecord: Codable {
     }
 }
 
-struct VotePositionRecord: Identifiable, Hashable, Codable {
+nonisolated struct VotePositionRecord: Identifiable, Hashable, Codable {
     let id: String
     let voteEventId: String
     let representativeId: String
@@ -193,7 +203,7 @@ struct VotePositionRecord: Identifiable, Hashable, Codable {
 /// One votazione aggregated for the Votazioni screen — counts keyed
 /// strictly by `voteEventId` (see `VoteService.aggregateEvents`). Not a
 /// decoded type: always derived from the records above.
-struct VoteEvent: Identifiable, Hashable {
+nonisolated struct VoteEvent: Identifiable, Hashable {
     let id: String
     let title: String
     let date: Date

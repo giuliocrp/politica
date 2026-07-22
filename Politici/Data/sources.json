@@ -6,8 +6,8 @@
       "id": "camera-dei-deputati-votazioni-xix-legislatura",
       "license": "CC BY 4.0",
       "name": "Camera dei Deputati — Votazioni (XIX Legislatura)",
-      "notes": "12 votazioni dell'Assemblea, XIX legislatura (voto elettronico, non a scrutinio segreto), con la posizione di voto di ogni deputato coinvolto. Le votazioni a scrutinio segreto sono escluse: il dato sorgente non attribuisce una posizione al singolo deputato per quel tipo di voto, per garantirne la segretezza. Il Senato non è incluso in questa fase.",
-      "retrievedAt": "2026-07-18",
+      "notes": "Campione stratificato di 30 votazioni dell'Assemblea, XIX legislatura (voto elettronico, non a scrutinio segreto), con la posizione di voto di ogni deputato coinvolto. Non è l'archivio completo: le votazioni sono selezionate per copertura su 10 sedute distribuite in più mesi, in parte voti procedurali (ordini del giorno) e in parte votazioni finali su atti. Le votazioni a scrutinio segreto sono escluse: il dato sorgente non attribuisce una posizione al singolo deputato per quel tipo di voto, per garantirne la segretezza. Il Senato non è incluso in questa fase.",
+      "retrievedAt": "2026-07-22",
       "url": "https://dati.camera.it/sparql"
     },
     {

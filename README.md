@@ -26,7 +26,7 @@ narrow exception:
 | 147/147 uninominale-collegio → current-deputy linkage | Real, derived (see [`docs/v2/03-linkage-report.md`](docs/v2/03-linkage-report.md)) |
 | 73/74 Senato collegio → current-senator linkage | Real, derived (v3 Phase 17; the one uncovered collegio has no claimant in the source — see [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)) |
 | Senator mandate categories (196 elettivo + 5 a vita) and deputy circoscrizioni (28 + Estero) | Real, verbatim/derived from the sources (v3 Phases 17–18) |
-| 12 curated Camera roll-call votes, 4,788 per-deputy positions | Real — dati.camera.it |
+| 30 curated Camera roll-call votes (stratified sample), 11,899 per-deputy positions | Real — dati.camera.it |
 | The original 5 fictional sample districts / 14 sample representatives / 37 sample votes | Fictional, preserved at `*.sample.*` for tests only — never shown in the app UI |
 
 ## Features
@@ -48,12 +48,15 @@ narrow exception:
 - **Plurinominale context on Camera collegio pages** (v3 Phase 18): each
   page also lists the proportional-list deputies of its circoscrizione,
   with an explainer that they represent the whole circoscrizione.
-- **12 curated real Camera votes** with 4,788 individual per-deputy
+- **30 curated real Camera votes** with 11,899 individual per-deputy
   positions (favorevole/contrario/astenuto/assente), each traceable to its
   official "scheda votazione" source page — browsable per representative
   (with outcome filters and title search) and per votazione (the
-  "Votazioni" screen with per-event tallies; v3 Phase 20). No derived
-  metric of any kind ships — see
+  "Votazioni" screen with per-event tallies; v3 Phase 20). This is a
+  **stratified sample chosen for coverage** (v4 Phase 27), not "the N most
+  recent": 3 votes from each of 10 sittings spread across ~9 months,
+  deliberately part procedural and part final votes on atti — decoded lazily
+  off the main thread. No derived metric of any kind ships — see
   [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md).
 - **Preferiti** (v3 Phase 19) — star representatives from their profile
   and find them again from Home; stored only on-device in `UserDefaults`.
@@ -256,23 +259,28 @@ after the fact:
   collegio (Lazio - U02) has no currently-serving senator in the source
   data at all and shows an honest empty state (see
   [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)).
-- **Votes cover 12 curated Camera roll calls, not the full record — and
-  all 12 are from a single sitting day.** Secret-ballot votes are
-  excluded by design — the source data only discloses a generic "voted"
-  flag for them, never an actual position, so including them would
-  misrepresent "unattributable by law" as "unknown by omission." The set
-  is budget-constrained (a 2 MiB per-file gate; see
-  [`docs/v2/04-votes-import.md`](docs/v2/04-votes-import.md)); a v3
-  expansion was probed and **measurably exited**: the Camera votes in
-  same-day bursts, so no "most recent N" scope that fits the gate can
-  span more than one sitting (see
-  [`docs/v3/21-votes-expansion.md`](docs/v3/21-votes-expansion.md)).
+- **Votes cover 30 curated Camera roll calls, not the full record — a
+  stratified sample across 10 sittings and ~9 months (v4 Phase 27).**
+  Secret-ballot votes are excluded by design — the source data only
+  discloses a generic "voted" flag for them, never an actual position, so
+  including them would misrepresent "unattributable by law" as "unknown by
+  omission." The set is budget-constrained (a 2 MiB per-file gate; see
+  [`docs/v2/04-votes-import.md`](docs/v2/04-votes-import.md)). A v3 "most
+  recent N" expansion was probed and **measurably exited** (Camera votes
+  come in same-day bursts, so no such scope spans more than one sitting —
+  [`docs/v3/21-votes-expansion.md`](docs/v3/21-votes-expansion.md)); v4
+  Phase 27 replaced it with a **stratified selection** — 3 votes from each
+  of 10 date-spread sittings, preferring atto-bearing final votes — that
+  spans sittings and months within the same gate (see
+  [`docs/v4/27-votes-stratified.md`](docs/v4/27-votes-stratified.md)).
   Senato votes are out of scope entirely.
-- **No vote-derived metric ships — browsing only.** Alignment/discipline
-  numbers computed over 12 same-day votes would be misleading by
-  construction; the six-line gate any future metric must pass (and
-  currently fails, 1 of 6) is
-  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md).
+- **No vote-derived metric ships — browsing only.** The six-line gate any
+  future metric must pass is
+  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md); Phase 27's
+  stratified sample flips the four sample-shape lines (≥30 events, ≥3
+  sittings, ≥6 months, ≥2 distinct atti), but the group-membership-at-
+  vote-date line remains unmet (no historical-membership import exists), so
+  the gate is **not fully passed and no metric ships** (5 of 6).
 - **`attendanceRate` is not populated** for any real representative — no
   source in this pipeline publishes a documented, reproducible attendance
   methodology, and inventing one would be fabrication.
@@ -325,12 +333,18 @@ What v3 actually did to the old roadmap, stated plainly, plus what remains
   existing `"explicit"` scope mode), which needs its own probe
   ([`docs/v3/21-votes-expansion.md`](docs/v3/21-votes-expansion.md)).
 
+**Shipped in v4** (see `docs/v4/*.md`):
+- The stratified votes-scope redesign the Phase 21 exit called for — 30
+  votes across 10 sittings and ~9 months via `tools/select_votes_scope.py`
+  writing `votes_scope.json`'s `explicit` mode — plus the lazy, off-main
+  vote decoding its file growth (711 KB → ~1.77 MB) triggered (Phase 27,
+  [`docs/v4/27-votes-stratified.md`](docs/v4/27-votes-stratified.md)).
+
 **Open (V4 candidates)**:
-- The stratified votes-scope redesign above, and with it the lazy
-  vote-loading work its file growth would trigger.
 - Any vote-derived metric — strictly behind the six-line gate in
-  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md), which
-  also requires a group-membership-history import that doesn't exist yet.
+  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md). Phase 27
+  flipped the four sample-shape lines; the remaining blocker is a
+  group-membership-history import that doesn't exist yet.
 - Populating senators' `electionType` from `osr:tipoElezione` — the data
   now exists in the cache, but mapping the Senato vocabulary onto
   Camera's cases is a semantic decision deliberately not taken in v3
