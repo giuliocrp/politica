@@ -58,9 +58,18 @@ Note: xcodebuild's parallel test output occasionally truncates a
 passed-test log line mid-name (three documented v3 occurrences) — the
 authoritative signals are the exit code and the failed-line count, and a
 missing name must be verified in the log body before being called a
-failure. The template UI-test target has also flaked twice on
-simulator-clone infrastructure (Phase 17/18 reports) — re-run once and
-diagnose before suspecting the code.
+failure. The UI-test target has also flaked on simulator-clone
+infrastructure — a running tally, since these recur: the template
+`PoliticiUITests` twice (Phase 17/18 reports), then
+`AccessibilityAuditUITests.testAccessibilityAuditDistrictDetailBothChambers`
+once in Phase 29 (131 s vs. its ~65 s siblings; the heaviest-navigation audit,
+which relaunches and re-drives the map twice) — **three-plus** occurrences.
+Re-run once and diagnose before suspecting the code. **Caveat on the re-run:**
+running the flaky test *alone* removes the parallelism (concurrent simulator
+clones) that triggers the flake, so an isolated green is *weaker* evidence than
+a clean full-suite green — the honest state after a flake is "one full-suite run
+at N−1/N with a diagnosed environmental failure"; a second full-suite run is
+what actually settles it.
 
 Note (re-running after a bundled-data change): **changes to a bundled data
 file (anything under `Politici/Data/` — the app decodes and displays these)

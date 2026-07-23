@@ -57,9 +57,11 @@ enum GroupAlignment {
     /// Prominent honesty caption shown beneath the value. States what the
     /// number is, that absences are excluded, that the sample is a
     /// coverage-driven stratified pick (part procedural) describing behaviour
-    /// *on this sample* and not the whole of Parliament, and that small groups
-    /// (Gruppo Misto included) align almost automatically.
-    static let sampleCaption = "Quota dei voti espressi (favorevole, contrario o astenuto) che coincidono con la posizione di maggioranza del gruppo di appartenenza alla data di ciascun voto; le assenze sono escluse. Il campione di votazioni importate è scelto per copertura ed è in parte procedurale: la percentuale descrive il comportamento su questo campione, non l'attività complessiva in Parlamento. Nei gruppi molto piccoli, incluso il Gruppo Misto, l'allineamento è quasi automatico."
+    /// *on this sample* and not the whole of Parliament, that small differences
+    /// rest on few votes and must not be over-read (so it reads as strongly for
+    /// a deputy at 85 % — where the sampling noise concentrates — as at 100 %),
+    /// and that small groups (Gruppo Misto included) align almost automatically.
+    static let sampleCaption = "Quota dei voti espressi (favorevole, contrario o astenuto) che coincidono con la posizione di maggioranza del gruppo di appartenenza alla data di ciascun voto; le assenze sono escluse. Il campione di votazioni importate è scelto per copertura ed è in parte procedurale, quindi la percentuale descrive il comportamento su questo campione, non l'attività complessiva in Parlamento. Le differenze tra deputati dipendono da pochi voti e non vanno sovrainterpretate: un valore più basso riflette il campione limitato, non necessariamente una tendenza generale. Nei gruppi molto piccoli, incluso il Gruppo Misto, l'allineamento è quasi automatico."
 
     /// Below this many expressed, group-defined, non-tie votes the metric does
     /// not render (Q7, user-approved 2026-07-23). See the phase report for the
@@ -70,40 +72,37 @@ enum GroupAlignment {
     /// `.assente` (and the never-shipped `.sconosciuto`) are excluded.
     static let expressedChoices: Set<VoteChoice> = [.favorevole, .contrario, .astenuto]
 
-    /// One deputy's alignment over the sample. `matched / denominator`, with the
-    /// denominator the honest base. Value types + `Equatable` so a test can
-    /// compute the whole cohort twice and prove byte-identical determinism.
-    struct Score: Equatable {
+    /// The raw arithmetic tally — `matched` of `denominator`. This is the
+    /// **internal** computation and the testing seam; it is deliberately *not*
+    /// the type the UI holds, because a below-threshold or `0/0` tally must
+    /// never be formatted as "0%". The presentable result is `Alignment`, via
+    /// `alignment(...)`. Value type + `Equatable` so a test can compute the
+    /// whole cohort twice and prove byte-identical determinism.
+    struct Tally: Equatable {
         /// Numerator: expressed positions matching the group's majority.
         let matched: Int
         /// Denominator *n*: expressed positions with a known group-at-date and a
         /// **defined** (non-tie) group majority. Absences, unknown-group votes,
         /// and group-tie votes are all excluded.
         let denominator: Int
-
-        /// Whether *n* clears the minimum to render.
-        var meetsThreshold: Bool { denominator >= GroupAlignment.minimumDenominator }
-
-        /// Integer percentage, or `nil` when there is no basis (`denominator`
-        /// 0). Rounded to nearest. Shown only alongside `denominator`.
-        var percentage: Int? {
-            guard denominator > 0 else { return nil }
-            return Int((Double(matched) / Double(denominator) * 100).rounded())
-        }
     }
 
-    /// The value line, or `nil` when the deputy is below threshold (the caller
-    /// then renders nothing — an honest absence). e.g. `"96% — su 27 voti espressi"`.
-    static func valueText(for score: Score) -> String? {
-        guard score.meetsThreshold, let percentage = score.percentage else { return nil }
-        return "\(percentage)% — su \(score.denominator) voti espressi"
-    }
-
-    /// VoiceOver label — spells the value out as a sentence rather than a bare
-    /// percentage. `nil` below threshold.
-    static func accessibilityText(for score: Score) -> String? {
-        guard score.meetsThreshold, let percentage = score.percentage else { return nil }
-        return "\(metricLabel): \(percentage) percento, su \(score.denominator) voti espressi."
+    /// The **presentable** result — the only type a UI holds. A deputy below
+    /// the minimum denominator, or with no basis at all, is `.insufficientData`,
+    /// which carries **no number**. That makes the "0 % of 0 votes" misrender
+    /// *non-representable*: the Camera President, for instance, holds group
+    /// memberships yet casts no roll-call votes (a `Tally(0, 0)`), and this type
+    /// renders him as an honest absence rather than as 0 % aligned. The
+    /// nil-not-fallback rule is thus enforced by the type, not by caller
+    /// discipline — a future surface literally cannot format an insufficient
+    /// result as a percentage.
+    enum Alignment: Equatable {
+        /// Renderable: `denominator >= minimumDenominator`; `percentage` is the
+        /// integer share, `denominator` the honest base shown alongside it.
+        case value(percentage: Int, denominator: Int)
+        /// Too few expressed, group-defined, non-tie votes (or none at all) —
+        /// the caller renders nothing.
+        case insufficientData
     }
 
     /// The group's majority expressed position for one cohort of positions, or
@@ -120,22 +119,52 @@ enum GroupAlignment {
         return leaders.count == 1 ? leaders.first?.key : nil
     }
 
-    /// Pure alignment computation. Scans `positions` once to build, per
-    /// `(event, group-at-date)`, the group's expressed-position cohort and its
-    /// majority, then scores the target deputy's own expressed positions
-    /// against the majority of the group they held **on each vote's date**.
-    ///
-    /// Order-independent by construction (it counts positions), so the result
-    /// is deterministic regardless of input or dictionary iteration order — a
-    /// deputy with no expressed, group-defined, non-tie vote returns
-    /// `Score(matched: 0, denominator: 0)` (senators, who have no positions,
-    /// among them), which is below threshold and renders nothing.
-    static func score(
+    /// The threshold-gated **public** result the UI consumes. `.insufficientData`
+    /// below the minimum denominator (0/0 included); otherwise a renderable
+    /// `.value`. This is the only entry point a view should call — it can never
+    /// hand back a formattable zero.
+    static func alignment(
         representativeId: String,
         events: [VoteEventRecord],
         positions: [VotePositionRecord],
         memberships: [GroupMembership]
-    ) -> Score {
+    ) -> Alignment {
+        let tally = tally(representativeId: representativeId, events: events, positions: positions, memberships: memberships)
+        guard tally.denominator >= minimumDenominator else { return .insufficientData }
+        let percentage = Int((Double(tally.matched) / Double(tally.denominator) * 100).rounded())
+        return .value(percentage: percentage, denominator: tally.denominator)
+    }
+
+    /// The value line for a renderable result. A *total* function on the
+    /// `.value` payload, so there is no code path that formats an insufficient
+    /// result — e.g. `"96% — su 27 voti espressi"`.
+    static func valueText(percentage: Int, denominator: Int) -> String {
+        "\(percentage)% — su \(denominator) voti espressi"
+    }
+
+    /// VoiceOver label for a renderable result — spells the value out as a
+    /// sentence rather than a bare percentage.
+    static func accessibilityText(percentage: Int, denominator: Int) -> String {
+        "\(metricLabel): \(percentage) percento, su \(denominator) voti espressi."
+    }
+
+    /// Pure arithmetic tally. Scans `positions` once to build, per
+    /// `(event, group-at-date)`, the group's expressed-position cohort and its
+    /// majority, then tallies the target deputy's own expressed positions
+    /// against the majority of the group they held **on each vote's date**.
+    ///
+    /// Order-independent by construction (it counts positions), so the result
+    /// is deterministic regardless of input or dictionary iteration order. A
+    /// deputy with no expressed, group-defined, non-tie vote returns
+    /// `Tally(matched: 0, denominator: 0)` (senators, who have no positions,
+    /// among them) — which `alignment(...)` maps to `.insufficientData`. This
+    /// function is the internal/testing seam; the UI calls `alignment(...)`.
+    static func tally(
+        representativeId: String,
+        events: [VoteEventRecord],
+        positions: [VotePositionRecord],
+        memberships: [GroupMembership]
+    ) -> Tally {
         let dateByEvent = Dictionary(events.map { ($0.id, $0.date) }, uniquingKeysWith: { first, _ in first })
         let membershipsByRep = Dictionary(grouping: memberships, by: \.representativeId)
 
@@ -172,6 +201,6 @@ enum GroupAlignment {
             denominator += 1
             if position.vote == majority { matched += 1 }
         }
-        return Score(matched: matched, denominator: denominator)
+        return Tally(matched: matched, denominator: denominator)
     }
 }

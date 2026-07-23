@@ -10,6 +10,11 @@
 //  restates its hand computation so the assertion is auditable against the
 //  report, not against whatever the code happens to return.
 //
+//  `tally(...)` is the raw arithmetic (any denominator — the rule fixtures
+//  assert its exact matched/denominator); `alignment(...)` is the
+//  threshold-gated presentable result the UI holds (`.value` or
+//  `.insufficientData`, the latter carrying no number).
+//
 
 import XCTest
 @testable import Politici
@@ -63,13 +68,12 @@ final class GroupAlignmentTests: XCTestCase {
             pos("E2", "r1", .astenuto), pos("E2", "r2", .astenuto), pos("E2", "r3", .astenuto),
         ]
         let memberships = [openMember("r1", "G"), openMember("r2", "G"), openMember("r3", "G")]
-        let score = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: memberships)
-        XCTAssertEqual(score, GroupAlignment.Score(matched: 2, denominator: 2))
-        XCTAssertEqual(score.percentage, 100)
+        let tally = GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: memberships)
+        XCTAssertEqual(tally, GroupAlignment.Tally(matched: 2, denominator: 2))
     }
 
     /// SPLIT group. E1: r1 Contrario against r2..r5 Favorevole → majority Fav
-    /// (4-1). The dissenter r1 → 0/1 (0%); a follower r2 → 1/1 (100%).
+    /// (4-1). The dissenter r1 → 0/1; a follower r2 → 1/1.
     func testSplitGroupDissenterUnalignedFollowerAligned() {
         let events = [event("E1", "2026-01-01")]
         let positions = [
@@ -78,11 +82,10 @@ final class GroupAlignmentTests: XCTestCase {
             pos("E1", "r4", .favorevole), pos("E1", "r5", .favorevole),
         ]
         let memberships = ["r1", "r2", "r3", "r4", "r5"].map { openMember($0, "G") }
-        let dissenter = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: memberships)
-        let follower = GroupAlignment.score(representativeId: "r2", events: events, positions: positions, memberships: memberships)
-        XCTAssertEqual(dissenter, GroupAlignment.Score(matched: 0, denominator: 1))
-        XCTAssertEqual(dissenter.percentage, 0)
-        XCTAssertEqual(follower, GroupAlignment.Score(matched: 1, denominator: 1))
+        let dissenter = GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: memberships)
+        let follower = GroupAlignment.tally(representativeId: "r2", events: events, positions: positions, memberships: memberships)
+        XCTAssertEqual(dissenter, GroupAlignment.Tally(matched: 0, denominator: 1))
+        XCTAssertEqual(follower, GroupAlignment.Tally(matched: 1, denominator: 1))
     }
 
     /// TIE-EXCLUSION. E1: G = {r1,r2 Fav; r3,r4 Contr} → 2-2 tie → no majority →
@@ -98,8 +101,8 @@ final class GroupAlignmentTests: XCTestCase {
             pos("E2", "r3", .favorevole), pos("E2", "r4", .favorevole),
         ]
         let memberships = ["r1", "r2", "r3", "r4"].map { openMember($0, "G") }
-        let score = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: memberships)
-        XCTAssertEqual(score, GroupAlignment.Score(matched: 1, denominator: 1))
+        let tally = GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: memberships)
+        XCTAssertEqual(tally, GroupAlignment.Tally(matched: 1, denominator: 1))
     }
 
     /// ABSENCE-EXCLUSION. E1: r1 Assente, r2/r3 Favorevole → majority (over
@@ -114,10 +117,10 @@ final class GroupAlignmentTests: XCTestCase {
             pos("E2", "r1", .favorevole), pos("E2", "r2", .favorevole), pos("E2", "r3", .favorevole),
         ]
         let memberships = ["r1", "r2", "r3"].map { openMember($0, "G") }
-        let absentThenPresent = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: memberships)
-        let alwaysPresent = GroupAlignment.score(representativeId: "r2", events: events, positions: positions, memberships: memberships)
-        XCTAssertEqual(absentThenPresent, GroupAlignment.Score(matched: 1, denominator: 1))
-        XCTAssertEqual(alwaysPresent, GroupAlignment.Score(matched: 2, denominator: 2))
+        let absentThenPresent = GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: memberships)
+        let alwaysPresent = GroupAlignment.tally(representativeId: "r2", events: events, positions: positions, memberships: memberships)
+        XCTAssertEqual(absentThenPresent, GroupAlignment.Tally(matched: 1, denominator: 1))
+        XCTAssertEqual(alwaysPresent, GroupAlignment.Tally(matched: 2, denominator: 2))
     }
 
     /// ASTENUTO AS OWN CATEGORY. E1: r1..r3 Astenuto, r4/r5 Favorevole →
@@ -130,17 +133,18 @@ final class GroupAlignmentTests: XCTestCase {
             pos("E1", "r4", .favorevole), pos("E1", "r5", .favorevole),
         ]
         let memberships = ["r1", "r2", "r3", "r4", "r5"].map { openMember($0, "G") }
-        let abstainer = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: memberships)
-        let favVoter = GroupAlignment.score(representativeId: "r4", events: events, positions: positions, memberships: memberships)
-        XCTAssertEqual(abstainer, GroupAlignment.Score(matched: 1, denominator: 1))
-        XCTAssertEqual(favVoter, GroupAlignment.Score(matched: 0, denominator: 1))
+        let abstainer = GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: memberships)
+        let favVoter = GroupAlignment.tally(representativeId: "r4", events: events, positions: positions, memberships: memberships)
+        XCTAssertEqual(abstainer, GroupAlignment.Tally(matched: 1, denominator: 1))
+        XCTAssertEqual(favVoter, GroupAlignment.Tally(matched: 0, denominator: 1))
     }
 
     /// THRESHOLD BOUNDARY (denominator 9 vs 10). 10 events; group {r1,r2} both
     /// Favorevole (so every majority is Fav and r1 always aligns). At 9 expressed
-    /// (r1 Assente on E10) → 9/9, below the threshold of 10 → renders nothing
-    /// (valueText nil). At 10 expressed → 10/10, at the threshold → renders.
-    func testThresholdBoundaryNineDoesNotRenderTenDoes() {
+    /// (r1 Assente on E10) → tally 9/9, below the threshold of 10 →
+    /// `.insufficientData` (renders nothing). At 10 expressed → tally 10/10, at
+    /// the threshold → `.value(100, 10)`.
+    func testThresholdBoundaryNineIsInsufficientTenRenders() {
         let dates = (1...10).map { String(format: "2026-01-%02d", $0) }
         let events = zip(1...10, dates).map { event("E\($0.0)", $0.1) }
         var positions: [VotePositionRecord] = []
@@ -150,18 +154,18 @@ final class GroupAlignmentTests: XCTestCase {
             positions.append(pos("E\(i)", "r1", i == 10 ? .assente : .favorevole))
         }
         let memberships = ["r1", "r2"].map { openMember($0, "G") }
-        let nine = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: memberships)
-        XCTAssertEqual(nine, GroupAlignment.Score(matched: 9, denominator: 9))
-        XCTAssertFalse(nine.meetsThreshold)
-        XCTAssertNil(GroupAlignment.valueText(for: nine))
+        XCTAssertEqual(GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: memberships),
+                       GroupAlignment.Tally(matched: 9, denominator: 9))
+        XCTAssertEqual(GroupAlignment.alignment(representativeId: "r1", events: events, positions: positions, memberships: memberships),
+                       .insufficientData)
 
         // Flip r1's E10 absence to a real expressed vote → denominator 10.
         positions.removeAll { $0.id == "E10_r1" }
         positions.append(pos("E10", "r1", .favorevole))
-        let ten = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: memberships)
-        XCTAssertEqual(ten, GroupAlignment.Score(matched: 10, denominator: 10))
-        XCTAssertTrue(ten.meetsThreshold)
-        XCTAssertNotNil(GroupAlignment.valueText(for: ten))
+        XCTAssertEqual(GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: memberships),
+                       GroupAlignment.Tally(matched: 10, denominator: 10))
+        XCTAssertEqual(GroupAlignment.alignment(representativeId: "r1", events: events, positions: positions, memberships: memberships),
+                       .value(percentage: 100, denominator: 10))
     }
 
     /// GROUP-SWITCHER whose alignment DIFFERS BY INTERVAL (the point of Phase
@@ -170,7 +174,7 @@ final class GroupAlignmentTests: XCTestCase {
     /// Favorevole; on E2, G2 (with r1) is Favorevole (r1 matches).
     /// With the switch, r1 is scored G1@E1 then G2@E2 → 2/2. If r1 had instead
     /// stayed in G2 the whole time, E1 would score against G2's Favorevole
-    /// majority → r1 Contrario unaligned → 1/2. The two scores differ, which is
+    /// majority → r1 Contrario unaligned → 1/2. The two tallies differ, which is
     /// exactly the fabrication the date-aware attribution prevents.
     func testGroupSwitcherAlignmentDiffersByInterval() {
         let events = [event("E1", "2026-02-01"), event("E2", "2026-03-15")]
@@ -191,44 +195,59 @@ final class GroupAlignmentTests: XCTestCase {
         ]
         let neverSwitched = others + [openMember("r1", "G2")]
 
-        let withSwitch = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: switching)
-        let withoutSwitch = GroupAlignment.score(representativeId: "r1", events: events, positions: positions, memberships: neverSwitched)
-        XCTAssertEqual(withSwitch, GroupAlignment.Score(matched: 2, denominator: 2))
-        XCTAssertEqual(withoutSwitch, GroupAlignment.Score(matched: 1, denominator: 2))
+        let withSwitch = GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: switching)
+        let withoutSwitch = GroupAlignment.tally(representativeId: "r1", events: events, positions: positions, memberships: neverSwitched)
+        XCTAssertEqual(withSwitch, GroupAlignment.Tally(matched: 2, denominator: 2))
+        XCTAssertEqual(withoutSwitch, GroupAlignment.Tally(matched: 1, denominator: 2))
         XCTAssertNotEqual(withSwitch, withoutSwitch)
     }
 
-    /// A representative with no positions at all (e.g. a senator, or the Camera
-    /// President who casts no roll-call votes) → 0/0: below threshold, no
-    /// percentage, no value line, no a11y line. Never a fabricated 0%.
-    func testRepresentativeWithNoPositionsRendersNothing() {
-        let score = GroupAlignment.score(representativeId: "sX", events: [], positions: [], memberships: [])
-        XCTAssertEqual(score, GroupAlignment.Score(matched: 0, denominator: 0))
-        XCTAssertFalse(score.meetsThreshold)
-        XCTAssertNil(score.percentage)
-        XCTAssertNil(GroupAlignment.valueText(for: score))
-        XCTAssertNil(GroupAlignment.accessibilityText(for: score))
+    /// The non-representable-zero guard (review follow-up). A deputy who holds a
+    /// real group membership yet casts **no** roll-call votes — the Camera
+    /// President's exact shape — tallies `0/0`. That must surface as
+    /// `.insufficientData` (which carries no number), never a formattable
+    /// `0 %`: the type prevents the "President is 0 % aligned" misrender.
+    /// (Senators, with no positions at all, take the same path.)
+    func testDeputyWithMembershipButNoVotesIsInsufficientNotZero() {
+        let president = [openMember("pPresident", "LEGA")]
+        XCTAssertEqual(GroupAlignment.tally(representativeId: "pPresident", events: [], positions: [], memberships: president),
+                       GroupAlignment.Tally(matched: 0, denominator: 0))
+        XCTAssertEqual(GroupAlignment.alignment(representativeId: "pPresident", events: [], positions: [], memberships: president),
+                       .insufficientData)
+        // A representative not present anywhere at all: same insufficient result.
+        XCTAssertEqual(GroupAlignment.alignment(representativeId: "sX", events: [], positions: [], memberships: []),
+                       .insufficientData)
     }
 
     // MARK: - Pinned Italian strings (spec #3 — the shipping vocabulary)
 
-    /// The exact user-facing strings this phase introduces. Pinning them here is
-    /// the regression guard; the report records the same wording verbatim.
-    func testPinnedItalianStringsAndValueFormatting() {
+    /// The exact user-facing strings this phase introduces, plus the rounding.
+    /// Pinning them here is the regression guard; the report records the same
+    /// wording verbatim.
+    func testPinnedItalianStringsValueFormattingAndRounding() {
         XCTAssertEqual(GroupAlignment.metricLabel, "Allineamento nel campione di votazioni importate")
         XCTAssertEqual(GroupAlignment.minimumDenominator, 10)
         XCTAssertEqual(
             GroupAlignment.sampleCaption,
-            "Quota dei voti espressi (favorevole, contrario o astenuto) che coincidono con la posizione di maggioranza del gruppo di appartenenza alla data di ciascun voto; le assenze sono escluse. Il campione di votazioni importate è scelto per copertura ed è in parte procedurale: la percentuale descrive il comportamento su questo campione, non l'attività complessiva in Parlamento. Nei gruppi molto piccoli, incluso il Gruppo Misto, l'allineamento è quasi automatico."
+            "Quota dei voti espressi (favorevole, contrario o astenuto) che coincidono con la posizione di maggioranza del gruppo di appartenenza alla data di ciascun voto; le assenze sono escluse. Il campione di votazioni importate è scelto per copertura ed è in parte procedurale, quindi la percentuale descrive il comportamento su questo campione, non l'attività complessiva in Parlamento. Le differenze tra deputati dipendono da pochi voti e non vanno sovrainterpretate: un valore più basso riflette il campione limitato, non necessariamente una tendenza generale. Nei gruppi molto piccoli, incluso il Gruppo Misto, l'allineamento è quasi automatico."
         )
-        // Integer percentage, rounded to nearest, with the denominator shown.
-        XCTAssertEqual(GroupAlignment.valueText(for: .init(matched: 26, denominator: 27)), "96% — su 27 voti espressi") // 96.296 → 96
-        XCTAssertEqual(GroupAlignment.valueText(for: .init(matched: 24, denominator: 27)), "89% — su 27 voti espressi") // 88.888 → 89
-        XCTAssertNil(GroupAlignment.valueText(for: .init(matched: 9, denominator: 9)))                                   // below threshold
+        // Formatting: integer % with the denominator shown.
+        XCTAssertEqual(GroupAlignment.valueText(percentage: 96, denominator: 27), "96% — su 27 voti espressi")
         XCTAssertEqual(
-            GroupAlignment.accessibilityText(for: .init(matched: 27, denominator: 27)),
+            GroupAlignment.accessibilityText(percentage: 100, denominator: 27),
             "Allineamento nel campione di votazioni importate: 100 percento, su 27 voti espressi."
         )
+        // Rounding lives in alignment(): 11 of 12 aligned → 91.67 → 92.
+        let events = (1...12).map { event("E\($0)", String(format: "2026-01-%02d", $0)) }
+        var positions: [VotePositionRecord] = []
+        for i in 1...12 {
+            positions.append(pos("E\(i)", "r2", .favorevole))
+            positions.append(pos("E\(i)", "r3", .favorevole))
+            positions.append(pos("E\(i)", "r1", i == 1 ? .contrario : .favorevole)) // one dissent
+        }
+        let memberships = ["r1", "r2", "r3"].map { openMember($0, "G") }
+        XCTAssertEqual(GroupAlignment.alignment(representativeId: "r1", events: events, positions: positions, memberships: memberships),
+                       .value(percentage: 92, denominator: 12))
     }
 
     // MARK: - Shipping data (spec #5 + determinism)
@@ -241,18 +260,18 @@ final class GroupAlignmentTests: XCTestCase {
         return (votes.events, votes.positions, memberships, reps)
     }
 
-    /// Determinism proven by DIFF, not inspection: compute every deputy's score
+    /// Determinism proven by DIFF, not inspection: compute every deputy's tally
     /// twice over the identical shipping input, serialize both to a canonical
     /// sorted string, and assert byte-identical. The computation is
     /// order-independent by construction (it counts positions), and this is the
     /// check that it stays so.
-    func testShippingScoresAreDeterministic() throws {
+    func testShippingTalliesAreDeterministic() throws {
         let (events, positions, memberships, reps) = try shippingInputs()
         let camera = reps.filter { $0.chamber == .camera }.map(\.id).sorted()
         func dump() -> String {
             camera.map { id in
-                let s = GroupAlignment.score(representativeId: id, events: events, positions: positions, memberships: memberships)
-                return "\(id):\(s.matched)/\(s.denominator)"
+                let t = GroupAlignment.tally(representativeId: id, events: events, positions: positions, memberships: memberships)
+                return "\(id):\(t.matched)/\(t.denominator)"
             }.joined(separator: "\n")
         }
         XCTAssertEqual(dump(), dump())
@@ -260,24 +279,27 @@ final class GroupAlignmentTests: XCTestCase {
 
     /// Shipping invariants, robust to a future refetch (no exact per-deputy
     /// value is pinned — those shift with the sample, like votes.json's count):
-    /// every Camera score is in bounds (0 ≤ matched ≤ denominator ≤ event count),
-    /// a substantial number of deputies render, and senators — Camera-only votes
-    /// — always score 0/0 so the metric never appears for them.
-    func testShippingScoresAreWithinBoundsAndCameraOnly() throws {
+    /// every Camera tally is in bounds (0 ≤ matched ≤ denominator ≤ event
+    /// count), a substantial number of deputies render, and senators —
+    /// Camera-only votes — always tally 0/0 and resolve to `.insufficientData`,
+    /// so the metric never appears for them.
+    func testShippingTalliesAreWithinBoundsAndCameraOnly() throws {
         let (events, positions, memberships, reps) = try shippingInputs()
         let eventCount = events.count
         var rendered = 0
         for rep in reps where rep.chamber == .camera {
-            let s = GroupAlignment.score(representativeId: rep.id, events: events, positions: positions, memberships: memberships)
-            XCTAssertGreaterThanOrEqual(s.matched, 0)
-            XCTAssertLessThanOrEqual(s.matched, s.denominator)
-            XCTAssertLessThanOrEqual(s.denominator, eventCount)
-            if s.meetsThreshold { rendered += 1 }
+            let t = GroupAlignment.tally(representativeId: rep.id, events: events, positions: positions, memberships: memberships)
+            XCTAssertGreaterThanOrEqual(t.matched, 0)
+            XCTAssertLessThanOrEqual(t.matched, t.denominator)
+            XCTAssertLessThanOrEqual(t.denominator, eventCount)
+            if t.denominator >= GroupAlignment.minimumDenominator { rendered += 1 }
         }
         XCTAssertGreaterThanOrEqual(rendered, 100, "expected many Camera deputies to clear the threshold")
         for rep in reps where rep.chamber == .senato {
-            let s = GroupAlignment.score(representativeId: rep.id, events: events, positions: positions, memberships: memberships)
-            XCTAssertEqual(s, GroupAlignment.Score(matched: 0, denominator: 0), "senator \(rep.id) must have no metric")
+            XCTAssertEqual(GroupAlignment.tally(representativeId: rep.id, events: events, positions: positions, memberships: memberships),
+                           GroupAlignment.Tally(matched: 0, denominator: 0), "senator \(rep.id) must have no metric")
+            XCTAssertEqual(GroupAlignment.alignment(representativeId: rep.id, events: events, positions: positions, memberships: memberships),
+                           .insufficientData)
         }
     }
 }

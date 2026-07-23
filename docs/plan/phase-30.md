@@ -8,6 +8,24 @@
 > **Report:** `docs/v4/30-comuni-geocoding.md`.
 > **Commit:** `feat(v4): phase 30 — offline comuni-centroid geocoding (gated)`
 
+> **User guidance (from the Phase 29 handoff, 2026-07-23) — binds this phase:**
+> - **Gate size against measured reality, not this file's estimate.** `Data/`
+>   (real-only, excl. `*.sample.*`) is **~5.50 MiB** as of Phase 29 (Phase 27's
+>   5.40 + Phase 28's memberships) against the ~10 MiB soft ceiling — the
+>   `comuni.json` estimate here (~400–600 KB) and the ceiling headroom must both
+>   be re-measured against that current figure at execution time, because this
+>   spec predates Phases 25/27/28.
+> - **Q5 licensing is the live constraint, and an unverifiable licence is a
+>   NO-GO, not a footnote.** "Never fabricate licensing information" (CLAUDE.md
+>   #4) means: if the actual ISTAT product page does not carry a verifiable,
+>   CC-BY-compatible licence quotable verbatim, the GO-COMUNI gate fails —
+>   document it and stop, do not proceed on an assumed or reconstructed licence.
+> - **Acquisition is user-gated and manual (not a SPARQL fetch).** Before it
+>   begins, the session must state **exactly which file it needs and from which
+>   official URL/page**, and get approval quoted verbatim — the same shape as
+>   the collegi-shapefile acquisition, no downloading first and reconciling
+>   later.
+
 ## Objectives & deliverables
 
 Replace the 5-city fallback ceiling: a bundled table of all Italian

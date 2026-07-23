@@ -5,9 +5,10 @@ Ships the first vote-derived metric in the app: a per-deputy
 deputy's *expressed* positions (favorevole / contrario / astenuto) that match
 the majority expressed position of the group they held **on each vote's date**,
 over the shipped 30-vote sample. It is a pure function
-`GroupAlignment.score(events, positions, memberships)`, rendered **only** on the
-Camera deputy profile, **only** above a minimum denominator, **never** on lists,
-**never** ranked, and **never** colored as a judgment.
+`GroupAlignment.alignment(events, positions, memberships)` (over an internal
+`tally(…)`), rendered **only** on the Camera deputy profile, **only** above a
+minimum denominator, **never** on lists, **never** ranked, and **never** colored
+as a judgment.
 
 Every number below was produced by a quoted command in this session on
 **2026-07-23**. No network act was performed (this phase is fully offline); the
@@ -109,8 +110,12 @@ Also settled and recorded, **not** asked (the spec + this data settle them):
 
 ### 3.1 Per-deputy denominator distribution (shown before choosing a presentation)
 
-Computed over the shipping data (all 400 Camera deputies; *n* = expressed &
-group-defined & non-tie votes):
+Computed over the **399 Camera deputies who cast at least one position** (*n* =
+expressed & group-defined & non-tie votes). The 400th Camera deputy, **President
+Lorenzo Fontana**, presides and casts **no** roll-call votes, so he has no
+positions and is not in this distribution (see §3.3) — the same 399-vs-400
+distinction Phase 28 had to correct once, stated here next to each count so no
+number reads as an inconsistency:
 
 ```
 n=0:34  n=1:4  n=2:6  n=3:12  n=4:3  n=5:4  n=6:5  n=7:2  n=8:5  n=9:6
@@ -118,8 +123,12 @@ n=10:3  n=11:5 n=12:10 n=13:6 n=14:8 n=15:13 n=16:13 n=17:14 n=18:11 n=19:19
 n=20:15 n=21:19 n=22:13 n=23:12 n=24:20 n=25:27 n=26:19 n=27:34 n=28:10 n=29:16 n=30:31
 ```
 
-min 0 · **median 21** · mean 18.3 · max 30. Threshold sensitivity: ≥8 → 329
-render / 71 unknown; **≥10 → 318 / 82**; ≥12 → 310 / 90; ≥15 → 286 / 114.
+(sums to **399**.) min 0 · **median 21** · mean 18.3 · max 30. Threshold
+sensitivity **over these 399** (render / unknown): ≥8 → 329 / 70; **≥10 → 318 /
+81**; ≥12 → 310 / 89; ≥15 → 286 / 113. **Over all 400** Camera deputies — the
+President added as one more below-threshold unknown — ≥10 is **318 / 82** (the
+figure the shipping determinism dump in §7 reports, since it iterates every
+Camera deputy). So: **81** unknown of the 399 who vote, **82** of all 400.
 
 ### 3.2 The metric barely discriminates — stated plainly, not hidden
 
@@ -167,29 +176,37 @@ For a deputy **D**, over the 30 shipped events:
   matched. **Value** = numerator / n(D), rendered only if **n(D) ≥ 10**.
 - **Senators: never.**
 
-Implemented as `GroupAlignment.score(representativeId:events:positions:memberships:)`
-in `Politici/Models/GroupAlignment.swift` — a caseless namespace (no stored
-state), a pure function of its inputs, order-independent by construction (it
-counts positions), reusing the one canonical half-open containment rule
-(`MembershipService.membership(at:in:)`).
+Implemented in `Politici/Models/GroupAlignment.swift` — a caseless namespace (no
+stored state), a pure function of its inputs, order-independent by construction
+(it counts positions), reusing the one canonical half-open containment rule
+(`MembershipService.membership(at:in:)`). **Two levels, deliberately** (the
+review follow-up in §14): `tally(…) -> Tally(matched, denominator)` is the raw
+arithmetic and testing seam (any denominator); `alignment(…) -> Alignment` is
+the threshold-gated **presentable** result the UI holds — `.value(percentage,
+denominator)` above the minimum, else `.insufficientData`, which carries **no
+number**. A `Tally(0, 0)` (the President — memberships but no roll-call votes)
+therefore cannot be formatted as "0 %": the nil-not-fallback rule is enforced by
+the type, not by caller discipline.
 
 ---
 
 ## 5. Pinned Italian strings (this phase's new shipping vocabulary)
 
 Recorded here verbatim because this phase introduces the metric vocabulary
-Phase 27 spec 6 verified was previously absent from all app code. All three live
-in `GroupAlignment.swift` and are pinned by
-`GroupAlignmentTests.testPinnedItalianStringsAndValueFormatting`.
+Phase 27 spec 6 verified was previously absent from all app code. All live in
+`GroupAlignment.swift` and are pinned by
+`GroupAlignmentTests.testPinnedItalianStringsValueFormattingAndRounding`.
 
 - **Label** (`GroupAlignment.metricLabel`, the **single** occurrence of the
   literal in `Politici/`):
   `Allineamento nel campione di votazioni importate`
-- **Value line** (`GroupAlignment.valueText`, integer % + denominator):
-  `«N»% — su «D» voti espressi` — e.g. `96% — su 27 voti espressi`
-- **Caption** (`GroupAlignment.sampleCaption`, the prominent honesty note):
-  `Quota dei voti espressi (favorevole, contrario o astenuto) che coincidono con la posizione di maggioranza del gruppo di appartenenza alla data di ciascun voto; le assenze sono escluse. Il campione di votazioni importate è scelto per copertura ed è in parte procedurale: la percentuale descrive il comportamento su questo campione, non l'attività complessiva in Parlamento. Nei gruppi molto piccoli, incluso il Gruppo Misto, l'allineamento è quasi automatico.`
-- **VoiceOver** (`GroupAlignment.accessibilityText`):
+- **Value line** (`GroupAlignment.valueText(percentage:denominator:)`, integer %
+  + denominator): `«N»% — su «D» voti espressi` — e.g. `96% — su 27 voti espressi`
+- **Caption** (`GroupAlignment.sampleCaption`, the prominent honesty note —
+  **strengthened in the §14 follow-up** so it reads as firmly for a deputy at
+  85 %, where the sampling noise concentrates, as for one at 100 %):
+  `Quota dei voti espressi (favorevole, contrario o astenuto) che coincidono con la posizione di maggioranza del gruppo di appartenenza alla data di ciascun voto; le assenze sono escluse. Il campione di votazioni importate è scelto per copertura ed è in parte procedurale, quindi la percentuale descrive il comportamento su questo campione, non l'attività complessiva in Parlamento. Le differenze tra deputati dipendono da pochi voti e non vanno sovrainterpretate: un valore più basso riflette il campione limitato, non necessariamente una tendenza generale. Nei gruppi molto piccoli, incluso il Gruppo Misto, l'allineamento è quasi automatico.`
+- **VoiceOver** (`GroupAlignment.accessibilityText(percentage:denominator:)`):
   `Allineamento nel campione di votazioni importate: «N» percento, su «D» voti espressi.`
 
 The caption deliberately carries **no hardcoded sample size** (to stay
@@ -202,22 +219,24 @@ in the value line and is derived.
 
 Per the verify-expectations-independently rule, each expected value below was
 computed **by hand** and encoded into `GroupAlignmentTests` before the
-implementation was run. `Score(m, d)` = matched m of denominator d.
+implementation was run. `Tally(m, d)` = matched m of denominator d; `.value` /
+`.insufficientData` are the `alignment(…)` cases.
 
 | Fixture (test) | Setup | Hand-computed expectation | Rule proven |
 |---|---|---|---|
-| `testUnanimousGroupAllAlignedIncludingAstenuto` | G={r1,r2,r3}; E1 all Fav, E2 all Astenuto | r1 → `Score(2,2)`, 100% | basic + astenuto aligned |
-| `testSplitGroupDissenterUnalignedFollowerAligned` | E1: r1 Contr vs r2..r5 Fav (maj Fav) | r1 → `Score(0,1)` 0%; r2 → `Score(1,1)` | plurality; dissenter vs follower |
-| `testGroupMajorityTieExcludesThatVoteFromDenominator` | E1: 2 Fav / 2 Contr (tie); E2 all Fav | r1 → `Score(1,1)` — **not** 2 in denom | **tie-exclusion** |
-| `testAbsenceExcludedNotCountedAsDisagreement` | E1: r1 Assente, r2/r3 Fav; E2 all Fav | r1 → `Score(1,1)` (not 0/2, not 1/2); r2 → `Score(2,2)` | **absence excluded** |
-| `testAstenutoIsItsOwnCategoryForMajorityAndMatch` | E1: 3 Astenuto / 2 Fav (maj Astenuto) | abstainer → `Score(1,1)`; Fav-voter → `Score(0,1)` | **astenuto ≠ favorevole** |
-| `testThresholdBoundaryNineDoesNotRenderTenDoes` | 10 events; r1 expresses 9 then 10 | n=9 → `!meetsThreshold`, valueText nil; n=10 → renders | **threshold boundary 9 vs 10** |
-| `testGroupSwitcherAlignmentDiffersByInterval` | r1 G1→G2 @2026-03-01; E1 2/1 G1, E2 3/15 G2 | with switch `Score(2,2)`; if never-switched `Score(1,2)` — **differ** | **group-switcher by interval** |
-| `testRepresentativeWithNoPositionsRendersNothing` | no positions | `Score(0,0)`, nil percentage/value/a11y | senator/no-vote absence |
+| `testUnanimousGroupAllAlignedIncludingAstenuto` | G={r1,r2,r3}; E1 all Fav, E2 all Astenuto | r1 → `Tally(2,2)` | basic + astenuto aligned |
+| `testSplitGroupDissenterUnalignedFollowerAligned` | E1: r1 Contr vs r2..r5 Fav (maj Fav) | r1 → `Tally(0,1)`; r2 → `Tally(1,1)` | plurality; dissenter vs follower |
+| `testGroupMajorityTieExcludesThatVoteFromDenominator` | E1: 2 Fav / 2 Contr (tie); E2 all Fav | r1 → `Tally(1,1)` — **not** 2 in denom | **tie-exclusion** |
+| `testAbsenceExcludedNotCountedAsDisagreement` | E1: r1 Assente, r2/r3 Fav; E2 all Fav | r1 → `Tally(1,1)` (not 0/2, not 1/2); r2 → `Tally(2,2)` | **absence excluded** |
+| `testAstenutoIsItsOwnCategoryForMajorityAndMatch` | E1: 3 Astenuto / 2 Fav (maj Astenuto) | abstainer → `Tally(1,1)`; Fav-voter → `Tally(0,1)` | **astenuto ≠ favorevole** |
+| `testThresholdBoundaryNineIsInsufficientTenRenders` | 10 events; r1 expresses 9 then 10 | n=9 → `alignment == .insufficientData`; n=10 → `.value(100,10)` | **threshold boundary 9 vs 10** |
+| `testGroupSwitcherAlignmentDiffersByInterval` | r1 G1→G2 @2026-03-01; E1 2/1 G1, E2 3/15 G2 | with switch `Tally(2,2)`; if never-switched `Tally(1,2)` — **differ** | **group-switcher by interval** |
+| `testDeputyWithMembershipButNoVotesIsInsufficientNotZero` | membership, zero votes (President shape) | `Tally(0,0)` → `alignment == .insufficientData` (no number) | **non-representable zero** (§14) |
 | `testMajorityChoicePluralityTieAndExpressedOnly` | direct majority helper | plurality→choice; 2- and 4-way tie→nil; astenuto wins; absences ignored | majority + tie helper |
+| `testPinnedItalianStringsValueFormattingAndRounding` | strings + 11/12 fixture | label/caption/value/a11y verbatim; `alignment` rounds 91.67→`.value(92,12)` | pinned copy + rounding |
 
 Plus two shipping-data tests (§7). The full ask distribution and the shipping
-scores were also reproduced by a standalone Python mirror of the exact rules —
+tallies were also reproduced by a standalone Python mirror of the exact rules —
 its numbers match the Swift output.
 
 ---
@@ -230,18 +249,19 @@ deputy's `matched/denominator` over the shipping data, serialized sorted by id,
 `9f898449dfab4ad6b1c46892d07b26bb5b6538da234e0fff13756c0561eaa73b`. The dump
 carries 400 Camera deputies → 318 render / 82 unknown / 297 exactly 100 %.
 
-**In the shipped code.** `testShippingScoresAreDeterministic` computes every
-Camera deputy's score **twice** over the identical input, serializes both to a
+**In the shipped code.** `testShippingTalliesAreDeterministic` computes every
+Camera deputy's tally **twice** over the identical input, serializes both to a
 canonical string, and asserts byte-identical — the computation is
 order-independent by construction (it counts positions), and this is the check
 that it stays so, not an assertion by inspection.
 
-**Bounds & Camera-only.** `testShippingScoresAreWithinBoundsAndCameraOnly`
-asserts every Camera score is in bounds (0 ≤ matched ≤ denominator ≤ 30), that a
+**Bounds & Camera-only.** `testShippingTalliesAreWithinBoundsAndCameraOnly`
+asserts every Camera tally is in bounds (0 ≤ matched ≤ denominator ≤ 30), that a
 substantial number of deputies render (≥ 100; actually 318), and that every
-senator scores `Score(0,0)` so the metric never appears for them. No exact
-per-deputy percentage is pinned — those shift with the sample, like
-`votes.json`'s count, and pinning one would be brittle re-pin bait.
+senator tallies `Tally(0,0)` **and** resolves to `.insufficientData`, so the
+metric never appears for them. No exact per-deputy percentage is pinned — those
+shift with the sample, like `votes.json`'s count, and pinning one would be
+brittle re-pin bait.
 
 ---
 
@@ -250,9 +270,10 @@ per-deputy percentage is pinned — those shift with the sample, like
 `RepresentativeProfileView.alignmentSection(for:)` renders the metric between
 the committees and recent-votes sections. It is present **only** when
 `representative.chamber == .camera`, the vote data is `.loaded`, and
-`GroupAlignment.valueText(for:)` is non-nil (i.e. n ≥ 10). Below threshold, for
-senators, or before the votes load, the whole section is **absent** — an honest
-silence. The value uses the primary text color (no judgment coloring), the
+`GroupAlignment.alignment(…)` pattern-matches `.value(percentage, denominator)`
+(i.e. n ≥ 10). Below threshold, for senators, or before the votes load, the
+result is `.insufficientData` and the whole section is **absent** — an honest
+silence, with no formattable number in reach of the view. The value uses the primary text color (no judgment coloring), the
 denominator is shown in the same line, and the honesty caption sits beneath it.
 The section is one combined accessibility element
 (`accessibilityIdentifier("profile.alignment")`) reading the VoiceOver value +
@@ -298,35 +319,33 @@ was checked for staleness:
 | `testGroupMajorityTieExcludesThatVoteFromDenominator` | tie-exclusion (#2) |
 | `testAbsenceExcludedNotCountedAsDisagreement` | absence-exclusion (#2) |
 | `testAstenutoIsItsOwnCategoryForMajorityAndMatch` | astenuto own category (#2) |
-| `testThresholdBoundaryNineDoesNotRenderTenDoes` | threshold boundary 9 vs 10 (#2) |
+| `testThresholdBoundaryNineIsInsufficientTenRenders` | threshold boundary 9 vs 10 (#2) |
 | `testGroupSwitcherAlignmentDiffersByInterval` | group-switcher by interval (#2) |
-| `testRepresentativeWithNoPositionsRendersNothing` | senator/below-threshold → nothing (#2/#3) |
-| `testPinnedItalianStringsAndValueFormatting` | pinned label/caption/value; Italian (#3) |
-| `testShippingScoresAreDeterministic` | determinism by diff (#5) |
-| `testShippingScoresAreWithinBoundsAndCameraOnly` | bounds + Camera-only + some render (#5) |
+| `testDeputyWithMembershipButNoVotesIsInsufficientNotZero` | senator/President → `.insufficientData` (#2/#3, §14) |
+| `testPinnedItalianStringsValueFormattingAndRounding` | pinned label/caption/value + rounding; Italian (#3) |
+| `testShippingTalliesAreDeterministic` | determinism by diff (#5) |
+| `testShippingTalliesAreWithinBoundsAndCameraOnly` | bounds + Camera-only + some render (#5) |
 
-**Final `.xcresult`: `totalTestCount 189`** — 177 baseline + 12. The full run
-reported `passedTests 188, failedTests 1`; the single failure was
-`AccessibilityAuditUITests.testAccessibilityAuditDistrictDetailBothChambers`
-(**131 s** vs. its ~65 s siblings), the **documented simulator-clone UI flake**
-(`CLAUDE.md`: "re-run once and diagnose before suspecting the code"). Diagnosed,
-not assumed:
+**`.xcresult`: `totalTestCount 189`** — 177 baseline + 12. Two full-suite runs
+were needed, and both are reported honestly:
 
-- That test navigates **District Detail only** (Camera collegio 120101, Senato
-  S120001) — it **never opens a representative profile**, so it never renders
-  the Camera-only alignment section this phase adds; the change cannot affect
-  its audited content.
-- `testAccessibilityAuditProfileAndPreferiti` — the one that **does** audit a
-  profile — **passed**, and every one of the 12 new `GroupAlignmentTests`
-  passed.
-- **Re-run in isolation → passed** (`-only-testing:…testAccessibilityAuditDistrictDetailBothChambers`,
-  exit 0). Environmental timing on the loaded clone, not the code.
+- **Commit 1's run: `passedTests 188, failedTests 1`.** The single failure was
+  `AccessibilityAuditUITests.testAccessibilityAuditDistrictDetailBothChambers`
+  (**131 s** vs. its ~65 s siblings), the **documented simulator-clone UI flake**.
+  Diagnosed, not assumed: that test navigates **District Detail only** (Camera
+  120101, Senato S120001), never a profile, so it cannot render the Camera-only
+  alignment section; `testAccessibilityAuditProfileAndPreferiti` (which *does*
+  audit a profile) passed, as did all 12 new tests. An isolated re-run passed —
+  but, per the caveat now in `CLAUDE.md`, running the test alone removes the
+  clone parallelism that triggers the flake, so that is **weaker** evidence than
+  a clean full suite.
+- **Commit 2's run (this tree, after the follow-up refactor): `totalTestCount
+  189, passedTests 189, failedTests 0`, result Passed** — a clean full-suite
+  green, no flake, which is what actually settles it.
 
-So the effective, code-attributable result is **189/189 passing** (188 in the
-parallel run + the flake confirmed green on isolated re-run). "Zero regressions"
-now means 189 plus documented deliberate additions. The re-derived occurrence
-count is collision-safe: 165 (unit `func test`) + 1 (`@Test`) + 11 (UI) = 177
-prior, now 177 + 12 = **189** declared.
+"Zero regressions" now means 189 plus documented deliberate additions. The
+re-derived occurrence count is collision-safe: 165 (unit `func test`) + 1
+(`@Test`) + 11 (UI) = 177 prior, now 177 + 12 = **189** declared.
 
 **Grep — the pinned label appears exactly once in `Politici/`:**
 `grep -rn "Allineamento nel campione di votazioni importate" Politici/` → the
@@ -361,7 +380,7 @@ stated explicitly: **189**.
 |---|---|---|
 | 1 | Six-line gate re-verified and quoted; NOT-RUN if any red | **Met** — §1.1: re-measured 6/6 independently; GO |
 | 2 | Pure-function tests vs pre-recorded hand-computed values (unanimous; split; tie-exclusion; absence-exclusion; astenuto; threshold 9 vs 10; switcher by interval) | **Met** — §6 fixture matrix + §10; all seven rules + helper covered |
-| 3 | UI: metric absent for senators & below-threshold; caption pinned; Italian throughout | **Met** — §8 (Camera-only, above-threshold-only), §5 pinned strings, `testRepresentativeWithNoPositionsRendersNothing`, `testPinnedItalianStringsAndValueFormatting` |
+| 3 | UI: metric absent for senators & below-threshold; caption pinned; Italian throughout | **Met** — §8 (Camera-only, above-threshold-only), §5 pinned strings, `testDeputyWithMembershipButNoVotesIsInsufficientNotZero`, `testPinnedItalianStringsValueFormattingAndRounding` |
 | 4 | Grep: pinned label exactly once in `Politici/`, nowhere else | **Met** — §10 grep |
 | 5 | Suite green vs baseline + documented additions | **Met** — §10: 177 → 189, all pass |
 
@@ -382,11 +401,15 @@ stated explicitly: **189**.
 | Re-measure the gate per-line before/after in the same commit; state post-phase count | **Met** — §11; post-phase count **189** |
 
 **Deviations, stated plainly:**
-1. **`Score(0,0)` for a representative with no positions** (senators, the Camera
-   President) rather than a `nil` return — the caller treats below-threshold and
-   `0/0` identically (renders nothing), so the honest-absence behaviour is the
-   same; a `Score` with a visible `denominator == 0` is more testable than a
-   bare `nil`. No behavioural difference from the spec's "no line" requirement.
+1. **The originally-shipped `Score(0,0)` type carried a latent named-person
+   misrender** — a `Score` with `denominator == 0` (the Camera President, who
+   holds memberships but casts no roll-call votes) *could* be formatted as
+   "0 % aligned" by any future surface that skipped the threshold check.
+   Behaviourally inert at the time (0 < 10 → nothing rendered), but the type
+   allowed the fabrication rather than preventing it. **Resolved in the review
+   follow-up (§14):** the public result is now the `Alignment` enum, whose
+   `.insufficientData` case carries no number, so the misrender is
+   non-representable — enforced by the type, not by caller discipline.
 2. **The one honesty finding worth flagging** (§3.2): the metric barely
    discriminates on this sample (93.4 % at exactly 100 %). This does **not**
    make the metric indefensible — it is defensible *as a description of this
@@ -395,17 +418,30 @@ stated explicitly: **189**.
 
 ---
 
-## 13. Diff scope for this commit
+## 13. Diff scope
+
+**Commit 1 — `feat(v4): phase 29 …` (`744d045`, pushed):**
 
 ```
-Politici/Models/GroupAlignment.swift          (new — pure metric: label/caption/threshold constants, Score, score())
+Politici/Models/GroupAlignment.swift          (new — pure metric namespace + constants)
 Politici/Views/RepresentativeProfileView.swift (alignmentSection — Camera-only, above-threshold-only, no color)
-PoliticiTests/GroupAlignmentTests.swift        (new — 12 tests: 9 hand-computed fixtures + 3 shipping/determinism)
+PoliticiTests/GroupAlignmentTests.swift        (new — 12 tests: hand-computed fixtures + shipping/determinism)
 docs/v3/votes-methodology.md                   (gate conclusion: metric shipped under gate; stale label rule fixed)
 README.md                                      (3 regions: votes bullet, methodology bullet, roadmap — metric now ships)
 docs/plan/00-baseline-and-rules.md             (Q7 marked RESOLVED)
 docs/v4/29-alignment-metric.md                 (new — this report)
 docs/plan/README.md                            (Phase 29 status row: pending -> done)
+```
+
+**Commit 2 — `chore(v4): phase 29 review follow-ups …` (this commit; see §14):**
+
+```
+Politici/Models/GroupAlignment.swift          (Score -> Tally + Alignment enum; caption strengthened)
+Politici/Views/RepresentativeProfileView.swift (switch on Alignment; no formattable zero in reach)
+PoliticiTests/GroupAlignmentTests.swift        (tally()/alignment() split; President-shape test; rounding)
+CLAUDE.md                                      (UI-flake running tally + isolated-re-run caveat)
+docs/plan/phase-30.md                          (user guidance: measure-vs-reality, licence NO-GO, state file+source)
+docs/v4/29-alignment-metric.md                 (report updated: universe 81/82, Tally/Alignment, §14)
 ```
 
 No generated data file changed (no pipeline ran); no network act; no new
@@ -414,3 +450,50 @@ bundled data source. Remote actions are the user's. Not run here:
 ```
 git push origin v4
 ```
+
+---
+
+## 14. Review follow-ups (2026-07-23, after commit 1 was pushed)
+
+Five points from the user's review of commit 1, all in scope, all in commit 2:
+
+1. **`Score(0,0)`'s named-person failure mode made non-representable (the real
+   fix).** Commit 1 returned a `Score(matched, denominator)` for every deputy;
+   `Score(0, 0)` — Lorenzo Fontana's exact shape (memberships, zero roll-call
+   votes) — could be formatted as "0 %" by any future surface that skipped the
+   threshold, the precise fabrication the nil-not-fallback rule forbids,
+   prevented only by caller discipline. Commit 2 splits the API: `tally(…) ->
+   Tally` (raw arithmetic, internal/testing) and `alignment(…) -> Alignment`
+   with `.value(percentage, denominator)` **or** `.insufficientData` (no
+   number). The UI holds only `Alignment` and pattern-matches `.value`, so the
+   misrender is not representable — enforced by the type. New test
+   `testDeputyWithMembershipButNoVotesIsInsufficientNotZero` pins the President
+   shape → `.insufficientData`.
+2. **Report universe stated next to each count (§3.1).** The n-distribution sums
+   to **399** (deputies who cast ≥1 position); the 400th, President Fontana,
+   casts none. So unknown is **81 of the 399 who vote**, **82 of all 400** Camera
+   deputies — the same 399-vs-400 distinction Phase 28 corrected once, now
+   labelled at every count so neither reads as an inconsistency.
+3. **Flake honesty + CLAUDE.md running tally.** The isolated re-run of commit 1's
+   flake is weaker evidence than it looks — running the test alone removes the
+   simulator-*clone* parallelism that triggers it — so the honest state of
+   commit 1 was "one full-suite run at 188/189 with a diagnosed environmental
+   failure." A **second full-suite run on commit 2's tree** settles it (§10),
+   and the sighting is now recorded in `CLAUDE.md` as a running tally
+   (three-plus occurrences) with the re-run caveat, alongside the log-truncation
+   count.
+4. **Caption strengthened for the low-alignment outlier (§5).** With 93.4 % of
+   renderable deputies at exactly 100 %, the metric's only discriminating output
+   is the ~13 below 90 %, where one or two defections out of ~27 coverage-picked
+   votes move the number — i.e. its signal lands where the sampling noise is
+   worst. Refusing ranking helps but doesn't cover it, so the caption now adds
+   *"Le differenze tra deputati dipendono da pochi voti e non vanno
+   sovrainterpretate: un valore più basso riflette il campione limitato, non
+   necessariamente una tendenza generale"* — reading as firmly at 85 % as at
+   100 %.
+5. **Phase 30 guidance recorded (`docs/plan/phase-30.md`).** For the next phase,
+   per the handoff: gate size against the **measured ~5.50 MiB** `Data/` reality
+   (this report's own measurement; the spec predates Phases 25/27/28), treat an
+   **unverifiable licence as a NO-GO, not a footnote**, and — acquisition being
+   user-gated and manual — have the session **state the exact file and official
+   source URL for approval before it downloads anything**.

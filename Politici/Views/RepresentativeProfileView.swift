@@ -176,30 +176,28 @@ struct RepresentativeProfileView: View {
     /// No color is used: the value is never rendered as a judgment.
     @ViewBuilder
     private func alignmentSection(for representative: Representative) -> some View {
-        if representative.chamber == .camera, services.voteService.state == .loaded {
-            let score = GroupAlignment.score(
-                representativeId: representative.id,
-                events: services.voteService.eventRecords,
-                positions: services.voteService.positionRecords,
-                memberships: services.membershipService.memberships
-            )
-            if let valueText = GroupAlignment.valueText(for: score) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(GroupAlignment.metricLabel)
-                        .font(.headline)
-                    Text(valueText)
-                        .font(.title3.weight(.semibold))
-                        .foregroundStyle(.primary)
-                    Text(GroupAlignment.sampleCaption)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel([GroupAlignment.accessibilityText(for: score), GroupAlignment.sampleCaption]
-                    .compactMap { $0 }.joined(separator: " "))
-                .accessibilityIdentifier("profile.alignment")
+        if representative.chamber == .camera, services.voteService.state == .loaded,
+           case let .value(percentage, denominator) = GroupAlignment.alignment(
+               representativeId: representative.id,
+               events: services.voteService.eventRecords,
+               positions: services.voteService.positionRecords,
+               memberships: services.membershipService.memberships
+           ) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(GroupAlignment.metricLabel)
+                    .font(.headline)
+                Text(GroupAlignment.valueText(percentage: percentage, denominator: denominator))
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(.primary)
+                Text(GroupAlignment.sampleCaption)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(GroupAlignment.accessibilityText(percentage: percentage, denominator: denominator)
+                + " " + GroupAlignment.sampleCaption)
+            .accessibilityIdentifier("profile.alignment")
         }
     }
 
