@@ -31,16 +31,20 @@ sample-shape lines (1–4); **Phase 28's group-membership import flips line 6**
 Phase 28 / Q4). The gate requires **all six** — as of this commit, all six
 pass.
 
-**What this means for Phase 29 — stated plainly, not inherited.** Reaching
-6/6 makes **Phase 29 a live phase** (it was structurally blocked while line 6
-was red). It does **not** pre-decide Phase 29's own GO: per the
-re-evaluation protocol below, **Phase 29's session must re-measure this table
-from the then-current `votes.json` and `memberships_camera.json`** and decide
-GO/NOT-RUN on *that* fresh measurement — plus resolve its own open questions
-(metric tie-breaking and the minimum-denominator threshold — Q7, which need
-explicit user sign-off) — never inheriting the 6/6 recorded here. A gate that
-passes today can regress if a future refetch changes the sample; a stale ✓ is
-as misleading as an unearned one.
+**Phase 29 outcome (2026-07-23) — metric shipped under the gate.** Phase 29
+**re-measured this table independently** from the then-current `votes.json` and
+`memberships_camera.json` — the six lines were confirmed green with identical
+numbers (30 events / 10 sittings / 272 days / 15 atto-bearing on 9 distinct
+atti / astenuto 461 / **11,899 of 11,899** position rows and **3,967 of 3,967**
+distinct `(deputy, date)` pairs resolving to exactly one interval), not
+inherited from the Phase 28 figures above — and, on that fresh measurement plus
+explicit user sign-off on Q7 (the group-majority tie rule and the
+minimum-denominator threshold), it **ships the per-deputy group-alignment
+metric under this gate** (see
+[`docs/v4/29-alignment-metric.md`](../v4/29-alignment-metric.md)). A gate that
+passes today can still regress if a future refetch changes the sample; a stale
+✓ is as misleading as an unearned one, so the re-evaluation protocol below
+continues to bind any change to the sample.
 
 Rationale, now that all six pass: the sample spans 10 sittings across ~9
 months with 15 substantive atto-bearing votes on 9 distinct atti, and each
@@ -69,8 +73,10 @@ metric that ships.
   permanent rule).
 - **The only permitted metric label is the pinned Italian string**
   `"Allineamento nel campione di votazioni importate"` — the label itself
-  must state the sample-bound scope. It appears in this documentation
-  only; grep-verified absent from all app code as of Phase 20.
+  must state the sample-bound scope. Since Phase 29 it ships as
+  `GroupAlignment.metricLabel`, the **single** occurrence of the literal in the
+  app target (grep-verified exactly once in `Politici/`); it appeared in this
+  documentation only through Phase 28.
 - Any metric ships with its exact denominator definition and the gate
   table above, re-measured, in the same commit.
 

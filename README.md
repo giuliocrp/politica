@@ -56,7 +56,9 @@ narrow exception:
   **stratified sample chosen for coverage** (v4 Phase 27), not "the N most
   recent": 3 votes from each of 10 sittings spread across ~9 months,
   deliberately part procedural and part final votes on atti — decoded lazily
-  off the main thread. No derived metric of any kind ships — see
+  off the main thread. One derived metric now ships (v4 Phase 29): a per-deputy
+  within-group **alignment** figure on the profile, strictly behind the
+  six-line methodology gate — see
   [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md).
 - **Preferiti** (v3 Phase 19) — star representatives from their profile
   and find them again from Home; stored only on-device in `UserDefaults`.
@@ -274,18 +276,20 @@ after the fact:
   spans sittings and months within the same gate (see
   [`docs/v4/27-votes-stratified.md`](docs/v4/27-votes-stratified.md)).
   Senato votes are out of scope entirely.
-- **No vote-derived metric ships — browsing only.** The six-line gate any
-  future metric must pass is
+- **Exactly one vote-derived metric ships, strictly behind the gate.** The
+  six-line gate any metric must pass is
   [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md); Phase 27's
   stratified sample flipped the four sample-shape lines (≥30 events, ≥3
   sittings, ≥6 months, ≥2 distinct atti) and **Phase 28's
-  group-membership-history import flips the sixth** (group-at-vote-date, at
-  100 % coverage of the shipped sample), so the gate now passes **6 of 6**.
-  A metric still does not ship: Phase 28 adds only the membership
-  *infrastructure* (`Data/memberships_camera.json` + a
-  `MembershipService.membershipAt(representativeId:date:)` lookup, **no UI**);
-  an actual metric is Phase 29's deliverable, behind its own GO re-measurement
-  and explicit user sign-off on tie-breaking and the minimum denominator.
+  group-membership-history import flipped the sixth** (group-at-vote-date, at
+  100 % coverage of the shipped sample), so the gate passes **6 of 6**. On that
+  basis **Phase 29 ships a per-deputy group-alignment figure** — the share of a
+  deputy's expressed positions (favorevole/contrario/astenuto; absences
+  excluded) matching their group-at-vote-date majority, over the shipped sample
+  only. It is profile-only, **never on lists, never ranked, never colored as a
+  judgment**, shown only above a minimum denominator (10) with that denominator
+  visible, and it exists for Camera deputies only. See
+  [`docs/v4/29-alignment-metric.md`](docs/v4/29-alignment-metric.md).
 - **`attendanceRate` is not populated** for any real representative — no
   source in this pipeline publishes a documented, reproducible attendance
   methodology, and inventing one would be fabrication.
@@ -350,16 +354,14 @@ What v3 actually did to the old roadmap, stated plainly, plus what remains
   (468 intervals, half-open `[start, end)`) with a
   `MembershipService.membershipAt(representativeId:date:)` lookup, flipping
   the last methodology-gate line. **Infrastructure only — no metric UI.**
+- The per-deputy **group-alignment metric** (Phase 29,
+  [`docs/v4/29-alignment-metric.md`](docs/v4/29-alignment-metric.md)) — a pure
+  `GroupAlignment.score(…)` over `(events, positions, memberships)`, shown on
+  the Camera deputy profile only, above a minimum denominator of 10, with the
+  denominator visible, never listed/ranked/colored. Ships behind the re-measured
+  6/6 gate and explicit user sign-off on the tie rule and threshold (Q7).
 
 **Open (V4 candidates)**:
-- Any vote-derived metric — strictly behind the six-line gate in
-  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md). As of Phase
-  28 the gate passes **6/6** (Phase 27 flipped the four sample-shape lines,
-  Phase 28 flipped group-at-vote-date), so a within-sample within-group
-  alignment metric is now **unblocked** — it is Phase 29's deliverable,
-  pending that phase's own re-measurement and explicit user sign-off on
-  tie-breaking and the minimum-denominator threshold. Nothing metric-related
-  ships today.
 - Populating senators' `electionType` from `osr:tipoElezione` — the data
   now exists in the cache, but mapping the Senato vocabulary onto
   Camera's cases is a semantic decision deliberately not taken in v3

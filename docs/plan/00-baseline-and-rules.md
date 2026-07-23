@@ -61,7 +61,13 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
 - **Q6** — V3 commissioning brief archival (standing since Phase 13) →
   closed whenever the document surfaces; restated in 32A.
 - **Q7** — Metric tie-breaking and minimum-denominator threshold need
-  explicit user sign-off → **Phase 29**.
+  explicit user sign-off → **Phase 29**. **RESOLVED** by Phase 29
+  ([`docs/v4/29-alignment-metric.md`](../v4/29-alignment-metric.md)): with
+  explicit user sign-off (2026-07-23) a **group-majority tie excludes that vote
+  from the member's denominator**, the **minimum denominator is 10** (below it
+  the metric renders nothing — an honest absence, never 0%), and the value is
+  shown as an integer percentage **with its denominator visible**, profile-only,
+  never listed/ranked/colored. Gruppo Misto is one group per Phase 28's mapping.
 
 ## Plan-wide rules
 

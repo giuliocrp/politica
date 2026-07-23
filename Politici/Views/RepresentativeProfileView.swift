@@ -24,6 +24,7 @@ struct RepresentativeProfileView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     header(for: representative)
                     committeesSection(for: representative)
+                    alignmentSection(for: representative)
                     recentVotesSection
                 }
                 .padding()
@@ -164,6 +165,40 @@ struct RepresentativeProfileView: View {
                     Label(committee, systemImage: "person.3.fill")
                         .font(.subheadline)
                 }
+            }
+        }
+    }
+
+    /// The Phase 29 group-alignment metric — profile-only, Camera-only, and
+    /// only when the deputy clears the minimum denominator. Below threshold (or
+    /// for senators, who have no positions) the whole section is absent — an
+    /// honest silence, never `0%` or a default (docs/v4/29-alignment-metric.md).
+    /// No color is used: the value is never rendered as a judgment.
+    @ViewBuilder
+    private func alignmentSection(for representative: Representative) -> some View {
+        if representative.chamber == .camera, services.voteService.state == .loaded {
+            let score = GroupAlignment.score(
+                representativeId: representative.id,
+                events: services.voteService.eventRecords,
+                positions: services.voteService.positionRecords,
+                memberships: services.membershipService.memberships
+            )
+            if let valueText = GroupAlignment.valueText(for: score) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(GroupAlignment.metricLabel)
+                        .font(.headline)
+                    Text(valueText)
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(.primary)
+                    Text(GroupAlignment.sampleCaption)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel([GroupAlignment.accessibilityText(for: score), GroupAlignment.sampleCaption]
+                    .compactMap { $0 }.joined(separator: " "))
+                .accessibilityIdentifier("profile.alignment")
             }
         }
     }
