@@ -277,10 +277,15 @@ after the fact:
 - **No vote-derived metric ships — browsing only.** The six-line gate any
   future metric must pass is
   [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md); Phase 27's
-  stratified sample flips the four sample-shape lines (≥30 events, ≥3
-  sittings, ≥6 months, ≥2 distinct atti), but the group-membership-at-
-  vote-date line remains unmet (no historical-membership import exists), so
-  the gate is **not fully passed and no metric ships** (5 of 6).
+  stratified sample flipped the four sample-shape lines (≥30 events, ≥3
+  sittings, ≥6 months, ≥2 distinct atti) and **Phase 28's
+  group-membership-history import flips the sixth** (group-at-vote-date, at
+  100 % coverage of the shipped sample), so the gate now passes **6 of 6**.
+  A metric still does not ship: Phase 28 adds only the membership
+  *infrastructure* (`Data/memberships_camera.json` + a
+  `MembershipService.membershipAt(representativeId:date:)` lookup, **no UI**);
+  an actual metric is Phase 29's deliverable, behind its own GO re-measurement
+  and explicit user sign-off on tie-breaking and the minimum denominator.
 - **`attendanceRate` is not populated** for any real representative — no
   source in this pipeline publishes a documented, reproducible attendance
   methodology, and inventing one would be fabrication.
@@ -339,12 +344,22 @@ What v3 actually did to the old roadmap, stated plainly, plus what remains
   writing `votes_scope.json`'s `explicit` mode — plus the lazy, off-main
   vote decoding its file growth (711 KB → ~1.77 MB) triggered (Phase 27,
   [`docs/v4/27-votes-stratified.md`](docs/v4/27-votes-stratified.md)).
+- The Camera group-membership-history import (Phase 28,
+  [`docs/v4/28-membership-history.md`](docs/v4/28-membership-history.md)) —
+  per-deputy `ocd:aderisce` intervals in `Data/memberships_camera.json`
+  (468 intervals, half-open `[start, end)`) with a
+  `MembershipService.membershipAt(representativeId:date:)` lookup, flipping
+  the last methodology-gate line. **Infrastructure only — no metric UI.**
 
 **Open (V4 candidates)**:
 - Any vote-derived metric — strictly behind the six-line gate in
-  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md). Phase 27
-  flipped the four sample-shape lines; the remaining blocker is a
-  group-membership-history import that doesn't exist yet.
+  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md). As of Phase
+  28 the gate passes **6/6** (Phase 27 flipped the four sample-shape lines,
+  Phase 28 flipped group-at-vote-date), so a within-sample within-group
+  alignment metric is now **unblocked** — it is Phase 29's deliverable,
+  pending that phase's own re-measurement and explicit user sign-off on
+  tie-breaking and the minimum-denominator threshold. Nothing metric-related
+  ships today.
 - Populating senators' `electionType` from `osr:tipoElezione` — the data
   now exists in the cache, but mapping the Senato vocabulary onto
   Camera's cases is a semantic decision deliberately not taken in v3

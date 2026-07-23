@@ -10,12 +10,17 @@ fetch:
 	$(PYTHON) tools/fetch_camera.py
 	$(PYTHON) tools/fetch_senato.py
 	$(PYTHON) tools/fetch_camera_votes.py
+	$(PYTHON) tools/fetch_camera_adesioni.py
 
-# Merges tools/raw/*.json into Politici/Data/representatives.json and
-# Politici/Data/votes.json. Offline — uses cached raw/ output from `make fetch`.
+# Merges tools/raw/*.json into Politici/Data/representatives.json,
+# Politici/Data/votes.json and Politici/Data/memberships_camera.json. Offline —
+# uses cached raw/ output from `make fetch`. import_memberships.py runs LAST:
+# it reads the just-built representatives.json to scope + reconcile the
+# per-deputy group-membership intervals (Phase 28).
 import:
 	$(PYTHON) tools/import_representatives.py
 	$(PYTHON) tools/import_votes.py
+	$(PYTHON) tools/import_memberships.py
 
 # Structural + referential-integrity validation of everything the steps
 # above produce (representatives.json, districts.geojson, votes.json).

@@ -25,6 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 MANIFEST_PATH = ROOT / "Politici" / "Data" / "sources.json"
 VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
+MEMBERSHIPS_PATH = ROOT / "Politici" / "Data" / "memberships_camera.json"
 FETCH_METADATA_PATH = Path(__file__).parent / "raw" / ".fetch_metadata.json"
 
 
@@ -83,6 +84,36 @@ def votazioni_scope_note():
         "scrutinio segreto sono escluse: il dato sorgente non attribuisce una "
         "posizione al singolo deputato per quel tipo di voto, per garantirne "
         "la segretezza. Il Senato non è incluso in questa fase."
+    )
+
+
+def adesioni_scope_note():
+    """Builds the group-membership source's note from what's ACTUALLY in
+    Data/memberships_camera.json (Phase 28), so the counts can't drift from
+    the shipped artifact."""
+    if not MEMBERSHIPS_PATH.exists():
+        return (
+            "Nessuno storico delle adesioni importato ancora — esegui "
+            "'make fetch' e 'make import' (vedi docs/v4/28-membership-history.md)."
+        )
+    data = json.loads(MEMBERSHIPS_PATH.read_text(encoding="utf-8"))
+    memberships = data["memberships"]
+    by_person = {}
+    for m in memberships:
+        by_person.setdefault(m["representativeId"], []).append(m)
+    switchers = sum(1 for iv in by_person.values() if len(iv) > 1)
+    return (
+        f"Storico delle adesioni ai gruppi parlamentari dei {len(by_person)} "
+        "deputati in carica della XIX legislatura, ottenuto tramite "
+        "interrogazione SPARQL all'endpoint ufficiale dati.camera.it. Ogni "
+        f"adesione è un intervallo con data di inizio ed eventuale data di "
+        f"fine ({len(memberships)} intervalli in tutto; {switchers} deputati "
+        "hanno cambiato gruppo almeno una volta): questo permette di "
+        "attribuire ogni voto al gruppo di cui il deputato faceva parte alla "
+        "data del voto, e non all'attuale. La sigla del gruppo è il dato "
+        "canonico; il nome esteso conserva la troncatura alla parentesi "
+        "presente nella fonte. Solo Camera: le votazioni importate sono solo "
+        "della Camera."
     )
 
 
@@ -186,6 +217,14 @@ def real_sources(fetch_metadata):
             "license": "CC BY 4.0",
             "retrievedAt": retrieved_at("camera_votazioni", fetch_metadata),
             "notes": votazioni_scope_note(),
+        },
+        {
+            "id": "camera-dei-deputati-adesioni-gruppi-xix-legislatura",
+            "name": "Camera dei Deputati — Adesioni ai gruppi parlamentari (XIX Legislatura)",
+            "url": "https://dati.camera.it/sparql",
+            "license": "CC BY 4.0",
+            "retrievedAt": retrieved_at("camera_adesioni", fetch_metadata),
+            "notes": adesioni_scope_note(),
         },
     ]
 

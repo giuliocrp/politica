@@ -47,7 +47,15 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
   never hit).
 - **Q4** — Shape of Camera group-membership interval data
   (`ocd:aderisce` + start/end; the v2 query's MINUS-on-ended-membership
-  proves end dates exist) → **Phase 28** probe.
+  proves end dates exist) → **Phase 28** probe. **RESOLVED** by Phase 28
+  ([`docs/v4/28-membership-history.md`](../v4/28-membership-history.md)):
+  an `ocd:aderisce` carries `ocd:startDate` (the discovered start predicate,
+  `YYYYMMDD`), an optional `ocd:endDate` (absent = the single open interval),
+  and the group via `ocd:rif_gruppoParlamentare` (`dc:title`/`dcterms:alternative`);
+  the node itself is a **blank node** (composed id minted at import). 468
+  intervals for the 400 current deputies, half-open `[start, end)` (same-day
+  handoff, evidenced), 100 % coverage of the shipped votes — methodology gate
+  line 6 flips (`GO-STORICO` → GO).
 - **Q5** — Exact ISTAT comuni product, acquisition path, license page →
   **Phase 30**.
 - **Q6** — V3 commissioning brief archival (standing since Phase 13) →

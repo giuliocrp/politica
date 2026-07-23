@@ -12,6 +12,10 @@ struct ServiceContainer {
     let districtService: DistrictService
     let representativeService: RepresentativeService
     let voteService: VoteService
+    /// Phase 28 — parliamentary-group membership intervals. No view consumes
+    /// it yet; it's wired here so the Phase 29 alignment metric can inject it
+    /// through the environment like every other service.
+    let membershipService: MembershipService
     let geocodingService: GeocodingService
     let manifestService: ManifestService
     let partyStyleService: PartyStyleService
@@ -21,6 +25,7 @@ struct ServiceContainer {
         districtService: .shared,
         representativeService: .shared,
         voteService: .shared,
+        membershipService: .shared,
         geocodingService: .shared,
         manifestService: .shared,
         partyStyleService: .shared,

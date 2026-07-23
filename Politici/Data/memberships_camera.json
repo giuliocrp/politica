@@ -1,0 +1,3749 @@
+{
+  "memberships": [
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p200291_20221018",
+      "representativeId": "p200291",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p300299_20221018",
+      "representativeId": "p300299",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p300319_20221018",
+      "representativeId": "p300319",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p300369_20221018",
+      "representativeId": "p300369",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p300369_20221027",
+      "representativeId": "p300369",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p300444_20221018",
+      "representativeId": "p300444",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p300447_20221018",
+      "representativeId": "p300447",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p300447_20221027",
+      "representativeId": "p300447",
+      "start": "2022-10-27"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p300469_20221018",
+      "representativeId": "p300469",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p300469_20221027",
+      "representativeId": "p300469",
+      "start": "2022-10-27"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p300480_20221018",
+      "representativeId": "p300480",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p300480_20231120",
+      "representativeId": "p300480",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p300497_20221018",
+      "representativeId": "p300497",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p300674_20221018",
+      "representativeId": "p300674",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p301436_20221018",
+      "representativeId": "p301436",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p301439_20221018",
+      "representativeId": "p301439",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-04-18",
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p301439_20221027",
+      "representativeId": "p301439",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p301439_20240418",
+      "representativeId": "p301439",
+      "start": "2024-04-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p301457_20221018",
+      "representativeId": "p301457",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-05-20",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p301459_20221018",
+      "representativeId": "p301459",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p301459_20260520",
+      "representativeId": "p301459",
+      "start": "2026-05-20"
+    },
+    {
+      "end": "2024-09-24",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p301531_20221018",
+      "representativeId": "p301531",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-10-30",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p301531_20240924",
+      "representativeId": "p301531",
+      "start": "2024-09-24"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p301531_20241030",
+      "representativeId": "p301531",
+      "start": "2024-10-30"
+    },
+    {
+      "end": "2024-09-16",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p301541_20221018",
+      "representativeId": "p301541",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p301541_20240916",
+      "representativeId": "p301541",
+      "start": "2024-09-16"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p301558_20221018",
+      "representativeId": "p301558",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p301577_20221018",
+      "representativeId": "p301577",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302069_20221018",
+      "representativeId": "p302069",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p302080_20221018",
+      "representativeId": "p302080",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p302080_20221027",
+      "representativeId": "p302080",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p302103_20221018",
+      "representativeId": "p302103",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302422_20221018",
+      "representativeId": "p302422",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302746_20221018",
+      "representativeId": "p302746",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p302748_20221018",
+      "representativeId": "p302748",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302754_20221018",
+      "representativeId": "p302754",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p302762_20221018",
+      "representativeId": "p302762",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p302764_20221018",
+      "representativeId": "p302764",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-05-06",
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302789_20221018",
+      "representativeId": "p302789",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p302789_20260506",
+      "representativeId": "p302789",
+      "start": "2026-05-06"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302794_20221018",
+      "representativeId": "p302794",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302818_20221018",
+      "representativeId": "p302818",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2023-03-02",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p302838_20221018",
+      "representativeId": "p302838",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p302838_20230302",
+      "representativeId": "p302838",
+      "start": "2023-03-02"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302856_20221018",
+      "representativeId": "p302856",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p302867_20221018",
+      "representativeId": "p302867",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p302902_20221018",
+      "representativeId": "p302902",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-04-19",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p302913_20221018",
+      "representativeId": "p302913",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2025-07-18",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p302913_20240419",
+      "representativeId": "p302913",
+      "start": "2024-04-19"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p302913_20250718",
+      "representativeId": "p302913",
+      "start": "2025-07-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p302942_20221018",
+      "representativeId": "p302942",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p302968_20221018",
+      "representativeId": "p302968",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p302980_20221018",
+      "representativeId": "p302980",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p303089_20221018",
+      "representativeId": "p303089",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p304521_20221018",
+      "representativeId": "p304521",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305549_20221018",
+      "representativeId": "p305549",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p305553_20221018",
+      "representativeId": "p305553",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p305553_20231120",
+      "representativeId": "p305553",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p305580_20221018",
+      "representativeId": "p305580",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p305586_20221018",
+      "representativeId": "p305586",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305624_20221018",
+      "representativeId": "p305624",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p305688_20221018",
+      "representativeId": "p305688",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305698_20221018",
+      "representativeId": "p305698",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305704_20221018",
+      "representativeId": "p305704",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p305708_20221018",
+      "representativeId": "p305708",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p305733_20221018",
+      "representativeId": "p305733",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305757_20221018",
+      "representativeId": "p305757",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305771_20221018",
+      "representativeId": "p305771",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305815_20221018",
+      "representativeId": "p305815",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p305880_20221018",
+      "representativeId": "p305880",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p305880_20221027",
+      "representativeId": "p305880",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305931_20221018",
+      "representativeId": "p305931",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p305974_20221018",
+      "representativeId": "p305974",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p306003_20221018",
+      "representativeId": "p306003",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p306003_20231120",
+      "representativeId": "p306003",
+      "start": "2023-11-20"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p306005_20221018",
+      "representativeId": "p306005",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p306005_20231120",
+      "representativeId": "p306005",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306008_20221018",
+      "representativeId": "p306008",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p306064_20221018",
+      "representativeId": "p306064",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306139_20221018",
+      "representativeId": "p306139",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-05-14",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p306158_20221018",
+      "representativeId": "p306158",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p306158_20240514",
+      "representativeId": "p306158",
+      "start": "2024-05-14"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p306160_20221018",
+      "representativeId": "p306160",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p306160_20231120",
+      "representativeId": "p306160",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306176_20221018",
+      "representativeId": "p306176",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306189_20221018",
+      "representativeId": "p306189",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p306214_20221018",
+      "representativeId": "p306214",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p306349_20221018",
+      "representativeId": "p306349",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p306352_20221018",
+      "representativeId": "p306352",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p306379_20221018",
+      "representativeId": "p306379",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-09-30",
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p306379_20231120",
+      "representativeId": "p306379",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p306379_20240930",
+      "representativeId": "p306379",
+      "start": "2024-09-30"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p306382_20221018",
+      "representativeId": "p306382",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p306382_20231120",
+      "representativeId": "p306382",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306395_20241220",
+      "representativeId": "p306395",
+      "start": "2024-12-20"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306398_20221018",
+      "representativeId": "p306398",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306412_20221018",
+      "representativeId": "p306412",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306417_20221018",
+      "representativeId": "p306417",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p306497_20221018",
+      "representativeId": "p306497",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p306521_20221018",
+      "representativeId": "p306521",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p306521_20221027",
+      "representativeId": "p306521",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307109_20250722",
+      "representativeId": "p307109",
+      "start": "2025-07-22"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307130_20221018",
+      "representativeId": "p307130",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-04-29",
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307132_20221018",
+      "representativeId": "p307132",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307132_20260429",
+      "representativeId": "p307132",
+      "start": "2026-04-29"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307134_20221018",
+      "representativeId": "p307134",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307138_20221018",
+      "representativeId": "p307138",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307142_20221018",
+      "representativeId": "p307142",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-02-06",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307143_20221018",
+      "representativeId": "p307143",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307143_20260206",
+      "representativeId": "p307143",
+      "start": "2026-02-06"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307151_20221018",
+      "representativeId": "p307151",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307161_20221018",
+      "representativeId": "p307161",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307162_20221018",
+      "representativeId": "p307162",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307173_20221018",
+      "representativeId": "p307173",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307175_20221018",
+      "representativeId": "p307175",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307185_20221018",
+      "representativeId": "p307185",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307193_20221018",
+      "representativeId": "p307193",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307202_20221018",
+      "representativeId": "p307202",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307210_20221018",
+      "representativeId": "p307210",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307215_20221018",
+      "representativeId": "p307215",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307219_20221018",
+      "representativeId": "p307219",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307223_20221018",
+      "representativeId": "p307223",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307234_20221018",
+      "representativeId": "p307234",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307246_20221018",
+      "representativeId": "p307246",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307248_20221018",
+      "representativeId": "p307248",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307250_20221018",
+      "representativeId": "p307250",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307285_20221018",
+      "representativeId": "p307285",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307298_20221018",
+      "representativeId": "p307298",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307300_20221018",
+      "representativeId": "p307300",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307302_20221018",
+      "representativeId": "p307302",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307306_20221018",
+      "representativeId": "p307306",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307308_20221018",
+      "representativeId": "p307308",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307312_20221018",
+      "representativeId": "p307312",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p307328_20221018",
+      "representativeId": "p307328",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-09-09",
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p307328_20231120",
+      "representativeId": "p307328",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307328_20240909",
+      "representativeId": "p307328",
+      "start": "2024-09-09"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307332_20221018",
+      "representativeId": "p307332",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307334_20221018",
+      "representativeId": "p307334",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307340_20221018",
+      "representativeId": "p307340",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307348_20221018",
+      "representativeId": "p307348",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-09-04",
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307356_20221018",
+      "representativeId": "p307356",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307356_20240904",
+      "representativeId": "p307356",
+      "start": "2024-09-04"
+    },
+    {
+      "end": "2026-02-06",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307360_20221018",
+      "representativeId": "p307360",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307360_20260206",
+      "representativeId": "p307360",
+      "start": "2026-02-06"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307370_20221018",
+      "representativeId": "p307370",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307374_20221018",
+      "representativeId": "p307374",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307376_20221018",
+      "representativeId": "p307376",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307388_20221018",
+      "representativeId": "p307388",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307394_20221018",
+      "representativeId": "p307394",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307400_20221018",
+      "representativeId": "p307400",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307402_20221018",
+      "representativeId": "p307402",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307406_20221018",
+      "representativeId": "p307406",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307416_20221018",
+      "representativeId": "p307416",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307418_20221018",
+      "representativeId": "p307418",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307420_20221018",
+      "representativeId": "p307420",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307424_20221018",
+      "representativeId": "p307424",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307426_20221018",
+      "representativeId": "p307426",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307430_20240709",
+      "representativeId": "p307430",
+      "start": "2024-07-09"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307435_20221018",
+      "representativeId": "p307435",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307436_20221018",
+      "representativeId": "p307436",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307447_20221018",
+      "representativeId": "p307447",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307452_20221018",
+      "representativeId": "p307452",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307453_20221018",
+      "representativeId": "p307453",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307454_20221018",
+      "representativeId": "p307454",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307455_20221018",
+      "representativeId": "p307455",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307456_20221018",
+      "representativeId": "p307456",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307457_20221018",
+      "representativeId": "p307457",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307459_20221018",
+      "representativeId": "p307459",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307463_20221018",
+      "representativeId": "p307463",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307464_20221018",
+      "representativeId": "p307464",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307466_20221018",
+      "representativeId": "p307466",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307471_20221018",
+      "representativeId": "p307471",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307475_20221018",
+      "representativeId": "p307475",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p307478_20221018",
+      "representativeId": "p307478",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307479_20221018",
+      "representativeId": "p307479",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307481_20221018",
+      "representativeId": "p307481",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307496_20221018",
+      "representativeId": "p307496",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307502_20221018",
+      "representativeId": "p307502",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307507_20221018",
+      "representativeId": "p307507",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307508_20221018",
+      "representativeId": "p307508",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307511_20221018",
+      "representativeId": "p307511",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307531_20221018",
+      "representativeId": "p307531",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307561_20221018",
+      "representativeId": "p307561",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307564_20221018",
+      "representativeId": "p307564",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307567_20221018",
+      "representativeId": "p307567",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307568_20221018",
+      "representativeId": "p307568",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307570_20221018",
+      "representativeId": "p307570",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307573_20221018",
+      "representativeId": "p307573",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307575_20221018",
+      "representativeId": "p307575",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307580_20221018",
+      "representativeId": "p307580",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-06-04",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307585_20221018",
+      "representativeId": "p307585",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-07-06",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307585_20260604",
+      "representativeId": "p307585",
+      "start": "2026-06-04"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307585_20260706",
+      "representativeId": "p307585",
+      "start": "2026-07-06"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307591_20221018",
+      "representativeId": "p307591",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307601_20221018",
+      "representativeId": "p307601",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307602_20221018",
+      "representativeId": "p307602",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307603_20221018",
+      "representativeId": "p307603",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p307603_20221027",
+      "representativeId": "p307603",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307604_20221018",
+      "representativeId": "p307604",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307608_20221018",
+      "representativeId": "p307608",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307612_20221018",
+      "representativeId": "p307612",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307616_20221018",
+      "representativeId": "p307616",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307630_20221018",
+      "representativeId": "p307630",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307632_20221018",
+      "representativeId": "p307632",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307634_20221018",
+      "representativeId": "p307634",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p307634_20221027",
+      "representativeId": "p307634",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307639_20221018",
+      "representativeId": "p307639",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307641_20221018",
+      "representativeId": "p307641",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307657_20221018",
+      "representativeId": "p307657",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307659_20221018",
+      "representativeId": "p307659",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307678_20221018",
+      "representativeId": "p307678",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307680_20221018",
+      "representativeId": "p307680",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307683_20221018",
+      "representativeId": "p307683",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307686_20221018",
+      "representativeId": "p307686",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307688_20221018",
+      "representativeId": "p307688",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307689_20221018",
+      "representativeId": "p307689",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307716_20221018",
+      "representativeId": "p307716",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-06-08",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307718_20221018",
+      "representativeId": "p307718",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307718_20260608",
+      "representativeId": "p307718",
+      "start": "2026-06-08"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307726_20221018",
+      "representativeId": "p307726",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307749_20221018",
+      "representativeId": "p307749",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307752_20221018",
+      "representativeId": "p307752",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307762_20221018",
+      "representativeId": "p307762",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307782_20221018",
+      "representativeId": "p307782",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307790_20221018",
+      "representativeId": "p307790",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307803_20221018",
+      "representativeId": "p307803",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307822_20221018",
+      "representativeId": "p307822",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p307826_20221018",
+      "representativeId": "p307826",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307829_20221018",
+      "representativeId": "p307829",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307837_20221018",
+      "representativeId": "p307837",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307851_20221018",
+      "representativeId": "p307851",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p307857_20221018",
+      "representativeId": "p307857",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307863_20221018",
+      "representativeId": "p307863",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307889_20221018",
+      "representativeId": "p307889",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307892_20221018",
+      "representativeId": "p307892",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307902_20221018",
+      "representativeId": "p307902",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307903_20221018",
+      "representativeId": "p307903",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-08-12",
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p307918_20221018",
+      "representativeId": "p307918",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2025-02-05",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p307918_20240812",
+      "representativeId": "p307918",
+      "start": "2024-08-12"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307918_20250205",
+      "representativeId": "p307918",
+      "start": "2025-02-05"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307922_20221018",
+      "representativeId": "p307922",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p307926_20221018",
+      "representativeId": "p307926",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p307983_20221018",
+      "representativeId": "p307983",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308001_20221018",
+      "representativeId": "p308001",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308101_20221018",
+      "representativeId": "p308101",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308221_20221018",
+      "representativeId": "p308221",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308243_20221018",
+      "representativeId": "p308243",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p308244_20221018",
+      "representativeId": "p308244",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308421_20221018",
+      "representativeId": "p308421",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308600_20221018",
+      "representativeId": "p308600",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308620_20250312",
+      "representativeId": "p308620",
+      "start": "2025-03-12"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308760_20221018",
+      "representativeId": "p308760",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308761_20221018",
+      "representativeId": "p308761",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-02-25",
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p308761_20221027",
+      "representativeId": "p308761",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308761_20260225",
+      "representativeId": "p308761",
+      "start": "2026-02-25"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308762_20221018",
+      "representativeId": "p308762",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308763_20221018",
+      "representativeId": "p308763",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308764_20221018",
+      "representativeId": "p308764",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308765_20221018",
+      "representativeId": "p308765",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308766_20221018",
+      "representativeId": "p308766",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308767_20221018",
+      "representativeId": "p308767",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308768_20221018",
+      "representativeId": "p308768",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308769_20221018",
+      "representativeId": "p308769",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308770_20221018",
+      "representativeId": "p308770",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308780_20221018",
+      "representativeId": "p308780",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-02-01",
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308781_20221018",
+      "representativeId": "p308781",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p308781_20240201",
+      "representativeId": "p308781",
+      "start": "2024-02-01"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308782_20221018",
+      "representativeId": "p308782",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p308782_20221027",
+      "representativeId": "p308782",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308783_20221018",
+      "representativeId": "p308783",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308784_20221018",
+      "representativeId": "p308784",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308785_20221018",
+      "representativeId": "p308785",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p308785_20221027",
+      "representativeId": "p308785",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308786_20221018",
+      "representativeId": "p308786",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308787_20221018",
+      "representativeId": "p308787",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308788_20221018",
+      "representativeId": "p308788",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308789_20221018",
+      "representativeId": "p308789",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308790_20221018",
+      "representativeId": "p308790",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2025-09-16",
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p308790_20221027",
+      "representativeId": "p308790",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308790_20250916",
+      "representativeId": "p308790",
+      "start": "2025-09-16"
+    },
+    {
+      "end": "2025-12-30",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308791_20221018",
+      "representativeId": "p308791",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-01-20",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308791_20251230",
+      "representativeId": "p308791",
+      "start": "2025-12-30"
+    },
+    {
+      "end": "2026-06-08",
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308791_20260120",
+      "representativeId": "p308791",
+      "start": "2026-01-20"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308791_20260608",
+      "representativeId": "p308791",
+      "start": "2026-06-08"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308792_20221018",
+      "representativeId": "p308792",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308793_20221018",
+      "representativeId": "p308793",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308794_20221018",
+      "representativeId": "p308794",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308795_20221018",
+      "representativeId": "p308795",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308796_20221018",
+      "representativeId": "p308796",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308797_20221018",
+      "representativeId": "p308797",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC E ITALIA AL CENTRO)-MAIE-CENTRO POPOLARE (NM(N-C-U-I)M-CP) (27.10.2022",
+      "groupSigla": "NM(N-C-U-I)M-CP",
+      "id": "m_p308797_20221027",
+      "representativeId": "p308797",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308798_20221018",
+      "representativeId": "p308798",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308799_20221018",
+      "representativeId": "p308799",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308800_20221018",
+      "representativeId": "p308800",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-06-08",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308801_20221018",
+      "representativeId": "p308801",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308801_20260608",
+      "representativeId": "p308801",
+      "start": "2026-06-08"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p308802_20221018",
+      "representativeId": "p308802",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308803_20221018",
+      "representativeId": "p308803",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308804_20221018",
+      "representativeId": "p308804",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308805_20221018",
+      "representativeId": "p308805",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308806_20221018",
+      "representativeId": "p308806",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308807_20221018",
+      "representativeId": "p308807",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308808_20221018",
+      "representativeId": "p308808",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308809_20221018",
+      "representativeId": "p308809",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308810_20221018",
+      "representativeId": "p308810",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p308810_20221027",
+      "representativeId": "p308810",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308811_20221018",
+      "representativeId": "p308811",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308812_20221018",
+      "representativeId": "p308812",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308813_20221018",
+      "representativeId": "p308813",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308814_20221018",
+      "representativeId": "p308814",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308815_20221018",
+      "representativeId": "p308815",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308816_20221018",
+      "representativeId": "p308816",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p308816_20221027",
+      "representativeId": "p308816",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308817_20221018",
+      "representativeId": "p308817",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308818_20221018",
+      "representativeId": "p308818",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308819_20221018",
+      "representativeId": "p308819",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308820_20221018",
+      "representativeId": "p308820",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308821_20221018",
+      "representativeId": "p308821",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2025-05-14",
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308822_20221018",
+      "representativeId": "p308822",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308822_20250514",
+      "representativeId": "p308822",
+      "start": "2025-05-14"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308823_20221018",
+      "representativeId": "p308823",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308824_20221018",
+      "representativeId": "p308824",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308825_20221018",
+      "representativeId": "p308825",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308826_20221018",
+      "representativeId": "p308826",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308827_20221018",
+      "representativeId": "p308827",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308828_20221018",
+      "representativeId": "p308828",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308829_20221018",
+      "representativeId": "p308829",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2025-03-21",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308830_20221018",
+      "representativeId": "p308830",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308830_20250321",
+      "representativeId": "p308830",
+      "start": "2025-03-21"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308831_20221018",
+      "representativeId": "p308831",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308832_20221018",
+      "representativeId": "p308832",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308833_20221018",
+      "representativeId": "p308833",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308834_20221018",
+      "representativeId": "p308834",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308835_20221018",
+      "representativeId": "p308835",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308836_20221018",
+      "representativeId": "p308836",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308837_20221018",
+      "representativeId": "p308837",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308838_20221018",
+      "representativeId": "p308838",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308839_20221018",
+      "representativeId": "p308839",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308840_20221018",
+      "representativeId": "p308840",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308841_20221018",
+      "representativeId": "p308841",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308843_20221018",
+      "representativeId": "p308843",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308844_20221018",
+      "representativeId": "p308844",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308845_20221018",
+      "representativeId": "p308845",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308846_20221018",
+      "representativeId": "p308846",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308847_20221018",
+      "representativeId": "p308847",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308848_20221018",
+      "representativeId": "p308848",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308849_20221018",
+      "representativeId": "p308849",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308850_20221018",
+      "representativeId": "p308850",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308851_20221018",
+      "representativeId": "p308851",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308852_20221018",
+      "representativeId": "p308852",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308853_20221018",
+      "representativeId": "p308853",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308854_20221018",
+      "representativeId": "p308854",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308855_20221018",
+      "representativeId": "p308855",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308856_20221018",
+      "representativeId": "p308856",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308857_20221018",
+      "representativeId": "p308857",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p308857_20221027",
+      "representativeId": "p308857",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308858_20221018",
+      "representativeId": "p308858",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308859_20221018",
+      "representativeId": "p308859",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308860_20221018",
+      "representativeId": "p308860",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308861_20221018",
+      "representativeId": "p308861",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p308861_20221027",
+      "representativeId": "p308861",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308862_20221018",
+      "representativeId": "p308862",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308863_20221018",
+      "representativeId": "p308863",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308864_20221018",
+      "representativeId": "p308864",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308866_20221018",
+      "representativeId": "p308866",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308867_20221018",
+      "representativeId": "p308867",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308868_20221018",
+      "representativeId": "p308868",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308869_20221018",
+      "representativeId": "p308869",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p308869_20221027",
+      "representativeId": "p308869",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308870_20221018",
+      "representativeId": "p308870",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308871_20221018",
+      "representativeId": "p308871",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308872_20221018",
+      "representativeId": "p308872",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308873_20221018",
+      "representativeId": "p308873",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308874_20221018",
+      "representativeId": "p308874",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p308875_20221018",
+      "representativeId": "p308875",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308876_20221018",
+      "representativeId": "p308876",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308877_20221018",
+      "representativeId": "p308877",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308878_20221018",
+      "representativeId": "p308878",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308879_20221018",
+      "representativeId": "p308879",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308880_20221018",
+      "representativeId": "p308880",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308881_20221018",
+      "representativeId": "p308881",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308882_20221018",
+      "representativeId": "p308882",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308884_20221018",
+      "representativeId": "p308884",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308885_20221018",
+      "representativeId": "p308885",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308886_20221018",
+      "representativeId": "p308886",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308887_20221018",
+      "representativeId": "p308887",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308888_20221018",
+      "representativeId": "p308888",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308889_20221018",
+      "representativeId": "p308889",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308890_20221018",
+      "representativeId": "p308890",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308891_20221018",
+      "representativeId": "p308891",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308892_20221018",
+      "representativeId": "p308892",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308893_20221018",
+      "representativeId": "p308893",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2024-04-23",
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p308893_20221027",
+      "representativeId": "p308893",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308893_20240423",
+      "representativeId": "p308893",
+      "start": "2024-04-23"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308894_20221018",
+      "representativeId": "p308894",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p308895_20221018",
+      "representativeId": "p308895",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308896_20221018",
+      "representativeId": "p308896",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2025-07-31",
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308897_20221018",
+      "representativeId": "p308897",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308897_20250731",
+      "representativeId": "p308897",
+      "start": "2025-07-31"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308898_20221018",
+      "representativeId": "p308898",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308899_20221018",
+      "representativeId": "p308899",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308900_20221018",
+      "representativeId": "p308900",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308901_20221018",
+      "representativeId": "p308901",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308902_20221018",
+      "representativeId": "p308902",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308903_20221018",
+      "representativeId": "p308903",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308904_20221018",
+      "representativeId": "p308904",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308905_20221018",
+      "representativeId": "p308905",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308906_20221018",
+      "representativeId": "p308906",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308907_20221018",
+      "representativeId": "p308907",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308908_20221018",
+      "representativeId": "p308908",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308909_20221018",
+      "representativeId": "p308909",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308910_20221018",
+      "representativeId": "p308910",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308911_20221018",
+      "representativeId": "p308911",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308912_20221018",
+      "representativeId": "p308912",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p308913_20221018",
+      "representativeId": "p308913",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308914_20221018",
+      "representativeId": "p308914",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308915_20221018",
+      "representativeId": "p308915",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308916_20221018",
+      "representativeId": "p308916",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308917_20221018",
+      "representativeId": "p308917",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308918_20221018",
+      "representativeId": "p308918",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308920_20221018",
+      "representativeId": "p308920",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308921_20221018",
+      "representativeId": "p308921",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308922_20221018",
+      "representativeId": "p308922",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308923_20221018",
+      "representativeId": "p308923",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2023-11-20",
+      "groupName": "AZIONE-POPOLARI EUROPEISTI RIFORMATORI-RENEW EUROPE (AZ-PER-RE) (18.10.2022",
+      "groupSigla": "AZ-PER-RE",
+      "id": "m_p308924_20221018",
+      "representativeId": "p308924",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2025-06-05",
+      "groupName": "ITALIA VIVA-CASA RIFORMISTA (IV-CR) (20.11.2023",
+      "groupSigla": "IV-CR",
+      "id": "m_p308924_20231120",
+      "representativeId": "p308924",
+      "start": "2023-11-20"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308924_20250605",
+      "representativeId": "p308924",
+      "start": "2025-06-05"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308925_20221018",
+      "representativeId": "p308925",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308926_20221018",
+      "representativeId": "p308926",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308927_20221018",
+      "representativeId": "p308927",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-01-07",
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308928_20221018",
+      "representativeId": "p308928",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2026-01-20",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308928_20260107",
+      "representativeId": "p308928",
+      "start": "2026-01-07"
+    },
+    {
+      "end": "2026-06-08",
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p308928_20260120",
+      "representativeId": "p308928",
+      "start": "2026-01-20"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308928_20260608",
+      "representativeId": "p308928",
+      "start": "2026-06-08"
+    },
+    {
+      "end": "2022-10-27",
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308929_20221018",
+      "representativeId": "p308929",
+      "start": "2022-10-18"
+    },
+    {
+      "end": "2023-01-09",
+      "groupName": "ALLEANZA VERDI E SINISTRA (AVS) (27.10.2022",
+      "groupSigla": "AVS",
+      "id": "m_p308929_20221027",
+      "representativeId": "p308929",
+      "start": "2022-10-27"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p308929_20230109",
+      "representativeId": "p308929",
+      "start": "2023-01-09"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308930_20221018",
+      "representativeId": "p308930",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308931_20221018",
+      "representativeId": "p308931",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308932_20221018",
+      "representativeId": "p308932",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p308933_20221018",
+      "representativeId": "p308933",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308934_20221018",
+      "representativeId": "p308934",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308935_20221018",
+      "representativeId": "p308935",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p308936_20221018",
+      "representativeId": "p308936",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308937_20221018",
+      "representativeId": "p308937",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308938_20221018",
+      "representativeId": "p308938",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308939_20221018",
+      "representativeId": "p308939",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308940_20221018",
+      "representativeId": "p308940",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p308941_20221018",
+      "representativeId": "p308941",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p308942_20221018",
+      "representativeId": "p308942",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MOVIMENTO 5 STELLE (M5S) (18.10.2022",
+      "groupSigla": "M5S",
+      "id": "m_p309140_20240410",
+      "representativeId": "p309140",
+      "start": "2024-04-10"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p309160_20240709",
+      "representativeId": "p309160",
+      "start": "2024-07-09"
+    },
+    {
+      "end": null,
+      "groupName": "FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE (FI-PPE) (18.10.2022",
+      "groupSigla": "FI-PPE",
+      "id": "m_p309161_20240709",
+      "representativeId": "p309161",
+      "start": "2024-07-09"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p309200_20241202",
+      "representativeId": "p309200",
+      "start": "2024-12-02"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p309220_20250107",
+      "representativeId": "p309220",
+      "start": "2025-01-07"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p309260_20251203",
+      "representativeId": "p309260",
+      "start": "2025-12-03"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p309280_20260203",
+      "representativeId": "p309280",
+      "start": "2026-02-03"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p309300_20260326",
+      "representativeId": "p309300",
+      "start": "2026-03-26"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p309320_20260326",
+      "representativeId": "p309320",
+      "start": "2026-03-26"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p309321_20260326",
+      "representativeId": "p309321",
+      "start": "2026-03-26"
+    },
+    {
+      "end": "2026-07-09",
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p34580_20221018",
+      "representativeId": "p34580",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "MISTO (MISTO) (18.10.2022",
+      "groupSigla": "MISTO",
+      "id": "m_p34580_20260709",
+      "representativeId": "p34580",
+      "start": "2026-07-09"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p35980_20221018",
+      "representativeId": "p35980",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA (PD-IDP) (18.10.2022",
+      "groupSigla": "PD-IDP",
+      "id": "m_p36500_20221018",
+      "representativeId": "p36500",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p38560_20221018",
+      "representativeId": "p38560",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p39130_20221018",
+      "representativeId": "p39130",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "LEGA - SALVINI PREMIER (LEGA) (18.10.2022",
+      "groupSigla": "LEGA",
+      "id": "m_p50115_20221018",
+      "representativeId": "p50115",
+      "start": "2022-10-18"
+    },
+    {
+      "end": null,
+      "groupName": "FRATELLI D'ITALIA (FDI) (18.10.2022",
+      "groupSigla": "FDI",
+      "id": "m_p50204_20221018",
+      "representativeId": "p50204",
+      "start": "2022-10-18"
+    }
+  ],
+  "schemaVersion": 1
+}

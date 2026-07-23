@@ -1,0 +1,32 @@
+# Phase 28 probe — run once, deliberately, under the refetch protocol
+# (not part of the normal offline pipeline; network-touching).
+#
+# Purpose (Q4): discover the SHAPE of Camera group-membership ("adesione")
+# interval data before writing any importer. The v2 deputies query
+# (tools/queries/camera_deputati.rq) proves an adesione carries
+# `ocd:endDate` (it MINUS-es adesioni that have one, to keep only the
+# currently-open membership) and links a group via
+# `ocd:rif_gruppoParlamentare` — but the START-date predicate and the full
+# predicate vocabulary of an `ocd:aderisce` resource are NEVER SELECT-ed by
+# that query, so they are unknown and must be verified here, not assumed.
+#
+# This is step 1 of the exploration: a plain SELECT DISTINCT over every
+# predicate present on any XIX deputato's adesione resources. Aggregate-free
+# (dati.senato.it rejects GROUP BY/COUNT with 403/400 — Phase 15b — and the
+# Camera votes work deliberately never leaned on aggregates either, Phase 27
+# Q3; so probes stay on plain SELECT/SELECT DISTINCT on both endpoints).
+# The result is the predicate list that a step-2 full dump then materializes
+# into concrete (start, end, group) columns for the byte projection and the
+# group-switcher/reconciliation checks.
+#
+# Endpoint: https://dati.camera.it/sparql   License: CC BY 4.0
+PREFIX ocd: <http://dati.camera.it/ocd/>
+
+SELECT DISTINCT ?p
+WHERE {
+  ?d a ocd:deputato ;
+     ocd:rif_leg <http://dati.camera.it/ocd/legislatura.rdf/repubblica_19> ;
+     ocd:aderisce ?aderisce .
+  ?aderisce ?p ?o .
+}
+ORDER BY ?p

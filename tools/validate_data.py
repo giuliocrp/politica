@@ -22,6 +22,28 @@ DISTRICTS_SENATO_PATH = ROOT / "Politici" / "Data" / "districts_senato.geojson"
 DISTRICTS_PLURINOMINALI_CAMERA_PATH = ROOT / "Politici" / "Data" / "districts_plurinominali_camera.geojson"
 DISTRICTS_PLURINOMINALI_SENATO_PATH = ROOT / "Politici" / "Data" / "districts_plurinominali_senato.geojson"
 VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
+MEMBERSHIPS_PATH = ROOT / "Politici" / "Data" / "memberships_camera.json"
+
+# Phase 28 (docs/v4/28-membership-history.md): memberships_camera.json is
+# {"schemaVersion":1,"memberships":[...]} — per-deputy parliamentary-group
+# intervals, half-open [start, end) with end==null for the single current
+# interval. The composed id ("m_<personId>_<startYYYYMMDD>") is minted by
+# import_memberships.py because the source ocd:aderisce node is a blank node.
+REQUIRED_MEMBERSHIP_KEYS = {
+    "id",
+    "representativeId",
+    "groupName",
+    "groupSigla",
+    "start",
+    "end",
+}
+MEMBERSHIPS_SCHEMA_VERSION = 1
+# Measured 108,917 B (106.4 KiB) at import for the 468 XIX intervals (Phase
+# 28); the 256 KiB gate is a coarse drift backstop (~2.4x headroom, room for
+# legitimate mid-legislature group-switching) — the precise scope guard is
+# the referential-integrity check that every membership's deputy is a shipped
+# Camera deputy, which no size bound could replace.
+MAX_MEMBERSHIPS_FILE_BYTES = 256 * 1024
 
 # Phase 20 normalized schema (docs/v3/20-vote-browsing.md): votes.json is
 # {"events":[...],"positions":[...]} — event fields live once per event,
@@ -884,11 +906,189 @@ def validate_votes_reference_representatives():
     return []
 
 
+def _parse_iso(value):
+    """A yyyy-MM-dd string -> datetime.date, or None if malformed. Used only
+    for interval ordering/overlap checks; the format itself is validated
+    separately via DATE_RE so a malformed value is reported, not silently
+    skipped."""
+    from datetime import date as _date
+    try:
+        parts = value.split("-")
+        return _date(int(parts[0]), int(parts[1]), int(parts[2]))
+    except (ValueError, IndexError, AttributeError):
+        return None
+
+
+def validate_memberships():
+    """Structural + per-deputy interval invariants for
+    memberships_camera.json (Phase 28 — docs/v4/28-membership-history.md):
+    schema/byte gate, parseable dates, half-open [start, end) validity, and
+    exactly one open (end==null) interval per deputy with non-overlapping
+    intervals. The cross-file reconciliation with representatives.json lives
+    in validate_memberships_reference_representatives() (called only when both
+    files were independently clean)."""
+    errors = []
+
+    if not MEMBERSHIPS_PATH.exists():
+        return [f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make import'"]
+
+    file_size = MEMBERSHIPS_PATH.stat().st_size
+    if file_size > MAX_MEMBERSHIPS_FILE_BYTES:
+        errors.append(
+            f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: {file_size / 1024:.1f} KiB, "
+            f"supera il limite di {MAX_MEMBERSHIPS_FILE_BYTES / 1024:.0f} KiB"
+        )
+
+    try:
+        payload = json.loads(MEMBERSHIPS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return errors + [f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+
+    if not isinstance(payload, dict) or set(payload.keys()) != {"schemaVersion", "memberships"}:
+        return errors + [
+            f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: atteso un oggetto con esattamente le chiavi "
+            "'schemaVersion' e 'memberships' (Fase 28)"
+        ]
+    if payload["schemaVersion"] != MEMBERSHIPS_SCHEMA_VERSION:
+        errors.append(
+            f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: schemaVersion "
+            f"{payload['schemaVersion']!r}, atteso {MEMBERSHIPS_SCHEMA_VERSION}"
+        )
+
+    memberships = payload["memberships"]
+    if not isinstance(memberships, list) or not memberships:
+        errors.append(f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: 'memberships' deve essere un array non vuoto")
+        return errors
+
+    seen_ids = set()
+    by_person = {}
+    for index, m in enumerate(memberships):
+        label = f"memberships_camera.json #{index} (id={m.get('id', '?') if isinstance(m, dict) else '?'})"
+        if not isinstance(m, dict):
+            errors.append(f"{label}: non è un oggetto JSON")
+            continue
+        missing = REQUIRED_MEMBERSHIP_KEYS - m.keys()
+        if missing:
+            errors.append(f"{label}: chiavi mancanti: {sorted(missing)}")
+            continue
+        mid = m["id"]
+        if not isinstance(mid, str) or not mid:
+            errors.append(f"{label}: 'id' deve essere una stringa non vuota")
+        elif mid in seen_ids:
+            errors.append(f"{label}: id duplicato")
+        else:
+            seen_ids.add(mid)
+        for key in ("representativeId", "groupName", "groupSigla"):
+            if not isinstance(m[key], str) or not m[key].strip():
+                errors.append(f"{label}: '{key}' deve essere una stringa non vuota")
+        if not isinstance(m["start"], str) or not DATE_RE.fullmatch(m["start"]) or _parse_iso(m["start"]) is None:
+            errors.append(f"{label}: 'start' deve essere una data yyyy-MM-dd valida, trovato {m.get('start')!r}")
+        end = m["end"]
+        if end is not None and (not isinstance(end, str) or not DATE_RE.fullmatch(end) or _parse_iso(end) is None):
+            errors.append(f"{label}: 'end' deve essere null o una data yyyy-MM-dd valida, trovato {end!r}")
+        # Half-open validity: a closed interval must have start < end.
+        if isinstance(m["start"], str) and isinstance(end, str):
+            s, e = _parse_iso(m["start"]), _parse_iso(end)
+            if s is not None and e is not None and not (s < e):
+                errors.append(f"{label}: intervallo non valido: start {m['start']} >= end {end}")
+        if isinstance(m.get("representativeId"), str):
+            by_person.setdefault(m["representativeId"], []).append(m)
+
+    if errors:
+        return errors
+
+    # Per-deputy invariants: exactly one open interval; non-overlapping under
+    # half-open [start, end) (a closed interval must end no later than the
+    # next interval starts; only the latest-starting interval may be open).
+    for pid, intervals in by_person.items():
+        opens = [m for m in intervals if m["end"] is None]
+        if len(opens) != 1:
+            errors.append(f"memberships_camera.json: deputato {pid} ha {len(opens)} intervalli aperti, atteso 1")
+        ordered = sorted(intervals, key=lambda m: (m["start"], m["id"]))
+        for earlier, later in zip(ordered, ordered[1:]):
+            if earlier["end"] is None:
+                errors.append(f"memberships_camera.json: deputato {pid}: un intervallo aperto ne precede un altro")
+                break
+            if _parse_iso(earlier["end"]) > _parse_iso(later["start"]):
+                errors.append(
+                    f"memberships_camera.json: deputato {pid}: intervalli sovrapposti "
+                    f"({earlier['start']}..{earlier['end']} / {later['start']}..)"
+                )
+                break
+
+    if not errors:
+        open_count = sum(1 for m in memberships if m["end"] is None)
+        print(
+            f"OK: {len(memberships)} intervalli di adesione ({open_count} aperti) per "
+            f"{len(by_person)} deputati in {MEMBERSHIPS_PATH.relative_to(ROOT)} "
+            f"({file_size / 1024:.1f} KiB)"
+        )
+
+    return errors
+
+
+def validate_memberships_reference_representatives():
+    """Cross-file invariants tying memberships_camera.json to
+    representatives.json — the Phase 28 reconciliation (only called when both
+    files passed their own structural checks):
+      - every membership's deputy is a shipping Camera deputy;
+      - every Camera deputy has >=1 interval;
+      - the single open interval's group reconciles with the shipped gruppo
+        (sigla equality + parliamentaryGroup prefix-comparison, the
+        documented truncation-at-"(" normalization)."""
+    representatives = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    camera = {r["id"]: r for r in representatives if r.get("chamber") == "Camera"}
+    memberships = json.loads(MEMBERSHIPS_PATH.read_text(encoding="utf-8"))["memberships"]
+
+    by_person = {}
+    for m in memberships:
+        by_person.setdefault(m["representativeId"], []).append(m)
+
+    errors = []
+    unknown = sorted(set(by_person) - set(camera))
+    if unknown:
+        errors.append(f"memberships_camera.json: representativeId non deputati Camera: {unknown}")
+    missing = sorted(set(camera) - set(by_person))
+    if missing:
+        errors.append(f"memberships_camera.json: {len(missing)} deputati Camera senza intervalli: {missing[:10]}")
+    if errors:
+        return errors
+
+    for pid, intervals in by_person.items():
+        opens = [m for m in intervals if m["end"] is None]
+        if len(opens) != 1:
+            continue  # already reported by validate_memberships()
+        current = opens[0]
+        rep = camera[pid]
+        rep_sigla = (rep.get("party") or "").strip()
+        rep_group = (rep.get("parliamentaryGroup") or "").strip()
+        open_name = (current["groupName"] or "").strip()
+        if current["groupSigla"] != rep_sigla:
+            errors.append(
+                f"memberships_camera.json: deputato {pid} sigla aperta {current['groupSigla']!r} "
+                f"!= party {rep_sigla!r}"
+            )
+        elif not (rep_group.startswith(open_name) or open_name.startswith(rep_group)):
+            errors.append(
+                f"memberships_camera.json: deputato {pid} gruppo aperto {open_name!r} "
+                f"non coerente (prefix) con parliamentaryGroup {rep_group!r}"
+            )
+
+    if not errors:
+        switchers = sum(1 for iv in by_person.values() if len(iv) > 1)
+        print(
+            f"OK: integrità referenziale adesioni coerente — {len(memberships)} intervalli, "
+            f"{len(by_person)} deputati, {switchers} con più gruppi nel tempo"
+        )
+    return errors
+
+
 def main():
     representative_errors = validate_representatives()
     district_errors = validate_districts()
     vote_errors = validate_votes()
-    all_errors = representative_errors + district_errors + vote_errors
+    membership_errors = validate_memberships()
+    all_errors = representative_errors + district_errors + vote_errors + membership_errors
 
     if not representative_errors and not district_errors:
         all_errors += validate_linkage()
@@ -898,6 +1098,9 @@ def main():
 
     if not representative_errors and not vote_errors:
         all_errors += validate_votes_reference_representatives()
+
+    if not representative_errors and not membership_errors:
+        all_errors += validate_memberships_reference_representatives()
 
     if all_errors:
         print(f"ERRORE: {len(all_errors)} problema/i:", file=sys.stderr)

@@ -10,10 +10,11 @@ ever disagree, `sources.json` is right and this file is stale — regenerate
 it or fix this file, don't just trust whichever you're looking at.
 
 Cross-checked against the shipping `Politici/Data/sources.json` on
-2026-07-22 (v4 Phase 25, when the two plurinominale boundary sources were
-added — originally cross-checked with 5 entries on 2026-07-18, 6 in v3 Phase
-16): **all 8 entries match exactly** (id, name, url, license, retrievedAt,
-notes) — see "Cross-check" at the bottom for the verification method.
+2026-07-22 (v4 Phase 28, when the Camera group-membership source was added —
+originally cross-checked with 5 entries on 2026-07-18, 6 in v3 Phase 16, 8
+in v4 Phase 25): **all 9 entries match exactly** (id, name, url, license,
+retrievedAt, notes) — see "Cross-check" at the bottom for the verification
+method.
 
 ---
 
@@ -90,6 +91,47 @@ contrario/astensione recorded" — see
 vocabulary and every mapping decision). `sourceUrl` is the real, verbatim
 `dc:relation` deep link to the vote's official "scheda votazione" page —
 never constructed.
+
+---
+
+## Camera dei Deputati — Adesioni ai gruppi parlamentari (XIX Legislatura)
+
+| | |
+|---|---|
+| **Portal** | [dati.camera.it](https://dati.camera.it/) |
+| **Dataset** | Adesioni ai gruppi parlamentari (group-membership intervals) — XIX Legislatura |
+| **Access method** | SPARQL endpoint, `https://dati.camera.it/sparql` |
+| **License** | CC BY 4.0 — verified at [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/) |
+| **Retrieved** | 2026-07-22 (v4 Phase 28 — minimal-scope adesioni fetch; Legislature XIX re-verified current at fetch time; the deputies and votes caches were **not** re-fetched, so their `retrievedAt` dates are unchanged) |
+| **Query** | `tools/queries/camera_adesioni.rq` (pinned, versioned; shape verified first by `tools/probes/probe_camera_adesioni_shape.rq`) |
+| **Fetch script** | `tools/fetch_camera_adesioni.py` → `tools/raw/camera_adesioni_sparql.json` (gitignored cache) |
+| **Import script** | `tools/import_memberships.py` → `Politici/Data/memberships_camera.json` |
+
+**Transformation summary**: for each of the 400 currently-serving XIX
+deputies, every `ocd:aderisce` group-membership interval — `ocd:startDate`
+(the discovered start predicate; `YYYYMMDD` in source, stored ISO
+`yyyy-MM-dd`), an optional `ocd:endDate` (absent = the single **open**,
+current interval), and the group via `ocd:rif_gruppoParlamentare`
+(`dc:title` → `groupName`, `dcterms:alternative` → `groupSigla`). This makes
+each vote attributable to the group the deputy held **on the vote's date**,
+not their current one (methodology gate line 6 —
+[`docs/v3/votes-methodology.md`](v3/votes-methodology.md)). **468 intervals
+for 400 deputies (400 open + 68 closed); 52 deputies changed group at least
+once.** Intervals are **half-open `[start, end)`** — evidenced, not chosen:
+the source uses same-day handoff (a switcher's old `endDate` equals the new
+`startDate`), so half-open is the only rule that resolves a switch day to a
+single group. The `ocd:aderisce` node is a **blank node** (no stable URI),
+so `import_memberships.py` mints a composed deterministic id
+(`m_<personId>_<startYYYYMMDD>`). `groupSigla` is the canonical, clean
+identifier; `groupName` preserves the source `dc:title` **exactly**,
+including the documented truncation-at-`"("` quirk (e.g.
+`"MISTO (MISTO) (18.10.2022"`) — never repaired. Every membership's deputy
+and every open interval's group are reconciled against `representatives.json`
+(sigla equality + `parliamentaryGroup` prefix-comparison; 400/400 match) at
+import and in `tools/validate_data.py`. Senato is out of scope (the imported
+votes are Camera-only). No participation is inferred: a date not covered by
+any interval resolves to *unknown*, never a fallback group. See
+[`docs/v4/28-membership-history.md`](v4/28-membership-history.md).
 
 ---
 
@@ -323,6 +365,7 @@ the live `Politici/Data/sources.json` on 2026-07-20 (v3 Phase 16), by id:
 
 - `camera-dei-deputati-xix-legislatura` ✓
 - `camera-dei-deputati-votazioni-xix-legislatura` ✓
+- `camera-dei-deputati-adesioni-gruppi-xix-legislatura` ✓ (new in v4 Phase 28)
 - `senato-della-repubblica-xix-legislatura` ✓
 - `istat-collegi-elettorali-camera-uninominali` ✓
 - `istat-collegi-elettorali-senato-uninominali` ✓ (new in v3 Phase 16)
@@ -384,3 +427,13 @@ linkage correctly, so only `sources.json` changed. Re-running `make
 manifest` (fetch-metadata cache present) rewrote only that one `notes`
 string; `generatedAt` stayed `2026-07-22` and all eight `retrievedAt`
 dates are unchanged.
+
+Re-checked on 2026-07-22 (v4 Phase 28, group-membership history; see
+[`docs/v4/28-membership-history.md`](v4/28-membership-history.md)): one new
+entry added — `camera-dei-deputati-adesioni-gruppi-xix-legislatura`, CC BY
+4.0, `retrievedAt` 2026-07-22 (its own minimal-scope adesioni fetch, read
+from the new `"camera_adesioni"` fetch-metadata key), synced into this
+file's new section in the same commit. **The manifest now has 9 entries.**
+The deputies (`camera`, 2026-07-18) and votes (`camera_votazioni`,
+2026-07-22) caches were deliberately **not** re-fetched, so no existing
+entry's `retrievedAt` moved; `generatedAt` stayed `2026-07-22`.

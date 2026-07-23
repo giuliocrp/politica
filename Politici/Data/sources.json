@@ -3,6 +3,14 @@
   "schemaVersion": 2,
   "sources": [
     {
+      "id": "camera-dei-deputati-adesioni-gruppi-xix-legislatura",
+      "license": "CC BY 4.0",
+      "name": "Camera dei Deputati — Adesioni ai gruppi parlamentari (XIX Legislatura)",
+      "notes": "Storico delle adesioni ai gruppi parlamentari dei 400 deputati in carica della XIX legislatura, ottenuto tramite interrogazione SPARQL all'endpoint ufficiale dati.camera.it. Ogni adesione è un intervallo con data di inizio ed eventuale data di fine (468 intervalli in tutto; 52 deputati hanno cambiato gruppo almeno una volta): questo permette di attribuire ogni voto al gruppo di cui il deputato faceva parte alla data del voto, e non all'attuale. La sigla del gruppo è il dato canonico; il nome esteso conserva la troncatura alla parentesi presente nella fonte. Solo Camera: le votazioni importate sono solo della Camera.",
+      "retrievedAt": "2026-07-22",
+      "url": "https://dati.camera.it/sparql"
+    },
+    {
       "id": "camera-dei-deputati-votazioni-xix-legislatura",
       "license": "CC BY 4.0",
       "name": "Camera dei Deputati — Votazioni (XIX Legislatura)",
