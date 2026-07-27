@@ -25,7 +25,7 @@ phase's report. Statuses: `pending` / `in progress` / `done` /
 | [27](phase-27.md) | Stratified votes + lazy loading | **USER-GATED network** | [done](../v4/27-votes-stratified.md) |
 | [28](phase-28.md) | Group-membership history | GO-STORICO, **USER-GATED network** | [done](../v4/28-membership-history.md) |
 | [29](phase-29.md) | Alignment metric | all six methodology lines | [done](../v4/29-alignment-metric.md) |
-| [30](phase-30.md) | Comuni-centroid geocoding | GO-COMUNI, **USER-GATED acquisition** | pending |
+| [30](phase-30.md) | Comuni-centroid geocoding | GO-COMUNI, **USER-GATED acquisition** | [done](../v4/30-comuni-geocoding.md) |
 | [31](phase-31.md) | Staleness + live-refresh ADR | — | pending |
 | [32A](phase-32a.md) | Docs, a11y, release prep | — | pending |
 | [32B](phase-32b.md) | Decisions + tag | explicit tag approval | pending |

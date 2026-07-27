@@ -10,11 +10,11 @@ ever disagree, `sources.json` is right and this file is stale — regenerate
 it or fix this file, don't just trust whichever you're looking at.
 
 Cross-checked against the shipping `Politici/Data/sources.json` on
-2026-07-22 (v4 Phase 28, when the Camera group-membership source was added —
+2026-07-23 (v4 Phase 30, when the ISTAT comuni-centroid source was added —
 originally cross-checked with 5 entries on 2026-07-18, 6 in v3 Phase 16, 8
-in v4 Phase 25): **all 9 entries match exactly** (id, name, url, license,
-retrievedAt, notes) — see "Cross-check" at the bottom for the verification
-method.
+in v4 Phase 25, 9 in v4 Phase 28): **all 10 entries match exactly** (id,
+name, url, license, retrievedAt, notes) — see "Cross-check" at the bottom for
+the verification method.
 
 ---
 
@@ -297,6 +297,64 @@ layer did at Phase 16.
 
 ---
 
+## ISTAT — Comuni (centroidi per la geocodifica offline)
+
+| | |
+|---|---|
+| **Portal** | [istat.it](https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2) |
+| **Dataset** | Basi geografiche dei collegi elettorali (D.Lgs. 177/2020) — layer `UT_Collegi2020` (unità territoriali comunali) |
+| **Access method** | Shapefile download (manual — **the same release and the same download batch** as the four collegi entries above; no new acquisition was performed for this source, see `tools/SOURCES.md`) |
+| **License** | CC BY 4.0 — verified at [creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0/) |
+| **Retrieved** | 2026-07-18 (same download event as the other ISTAT entries — read from the shared `istat` fetch-metadata key) |
+| **Import script** | `tools/import_comuni.py` (`make comuni`) → `Politici/Data/comuni.json` |
+
+**Transformation summary** (v4 Phase 30;
+[`docs/v4/30-comuni-geocoding.md`](v4/30-comuni-geocoding.md)): the
+`UT_Collegi2020` layer is the **comune-level base table every collegi layer
+aggregates from** (identified in
+[`docs/v4/23-baseline-audit.md`](v4/23-baseline-audit.md) §4.6): 8,213
+features over **7,904 distinct comuni** (six large comuni — Roma, Milano,
+Napoli, Palermo, Genova, Torino — are split into sub-comunal rows because a
+comune can straddle several collegi). Because it ships **inside the collegi
+package this project already downloaded and attributes**, the comuni vintage
+is identical *by construction* to the four bundled boundary files — the
+mismatch risk a separately-acquired, current-vintage comuni product would
+have introduced (post-2020 mergers/renames) does not arise.
+
+For each comune the importer takes **one interior point of the comune's
+largest polygon part** via OGR `PointOnSurface`, reprojected EPSG:32632 →
+EPSG:4326 and rounded to 5 decimal places. Both choices are measured, not
+assumed: the mathematical centroid falls *outside* its own polygon for 89 of
+the 7,904 comuni (concave shapes, islands), and a point in the *union* of a
+split comune's parts can land in a sliver gap between the independently
+simplified collegi (whole-comune Roma did exactly that, resolving to no
+Camera collegio at all). Shipped schema is the compact
+`{name, province, lat, lon}` — **568.2 KiB / 581,848 B** for 7,904 records.
+
+`province` is ISTAT's `DEN_P_CM` (provincia / città metropolitana) and is the
+**homonym disambiguator**: six comune names occur in two provinces each
+(`Calliano`, `Castro`, `Livo`, `Peglio`, `Samone`, `San Teodoro`), and
+`(name, province)` is unique across all 7,904 — the lookup returns every
+candidate and the UI asks which province. Comune names are the source's own
+**Italian-only** forms (`Bolzano`, not `Bolzano/Bozen`; zero `DEN_COM` values
+contain a `/`) — German/Ladin exonyms are **not** present in the source and
+are never fabricated, so a bilingual `"X/Y"` query is resolved by matching
+either side of the slash rather than by inventing the missing name.
+
+Measured coverage against the shipped, simplified collegi polygons (full
+7,904-comune offline dry run, `tools/probes/probe_comuni_centroids.py`):
+**99.94 %** resolve to a Camera uninominale collegio and **99.97 %** to a
+Senato one; **1** comune (Isole Tremiti) falls outside every polygon in both
+chambers, a consequence of the 1000 m boundary simplification dropping small
+islands, and is disclosed rather than snapped to a nearest collegio. Of the
+comuni that resolve, **99.97 %** match the collegio the source itself assigns
+them (`CU20_COD`); the 2 exceptions are border comuni displaced by the same
+simplification. For a split comune the point lands in the collegio containing
+its largest territorial part — an inherent limitation of representing a
+multi-collegio comune by one coordinate, documented, not hidden.
+
+---
+
 ## Dati dimostrativi generati per il prototipo
 
 | | |
@@ -339,6 +397,10 @@ not a SPARQL endpoint — see step 3):
    `tools/raw/collegi/SENATO_CollegiUNINOMINALI_2020/` first — neither step
    fetches it). Rebuild `Data/districts.geojson` / `Data/districts_senato.geojson`
    respectively.
+3b. **`make comuni`** — offline, only needed if the ISTAT shapefile package
+   changed. Rebuilds `Data/comuni.json` (the offline comuni-centroid
+   geocoding table) from the same already-downloaded
+   `tools/raw/collegi/UT_Collegi2020/` layer; enforces its own byte gate.
 4. **`make validate`** — offline. Re-checks every file's structure and
    cross-references from scratch (not trusting that import already got it
    right), including cross-file id uniqueness between the two boundary
@@ -371,6 +433,7 @@ the live `Politici/Data/sources.json` on 2026-07-20 (v3 Phase 16), by id:
 - `istat-collegi-elettorali-senato-uninominali` ✓ (new in v3 Phase 16)
 - `istat-collegi-elettorali-camera-plurinominali` ✓ (new in v4 Phase 25)
 - `istat-collegi-elettorali-senato-plurinominali` ✓ (new in v4 Phase 25)
+- `istat-comuni-centroidi` ✓ (new in v4 Phase 30)
 - `prototipo-dati-dimostrativi` ✓
 
 No mismatches found. If a future `make fetch && make manifest` run changes
@@ -437,3 +500,13 @@ file's new section in the same commit. **The manifest now has 9 entries.**
 The deputies (`camera`, 2026-07-18) and votes (`camera_votazioni`,
 2026-07-22) caches were deliberately **not** re-fetched, so no existing
 entry's `retrievedAt` moved; `generatedAt` stayed `2026-07-22`.
+
+Re-checked on 2026-07-23 (v4 Phase 30, comuni-centroid geocoding; see
+[`docs/v4/30-comuni-geocoding.md`](v4/30-comuni-geocoding.md)): one new entry
+added — `istat-comuni-centroidi`, CC BY 4.0, `retrievedAt` **2026-07-18**,
+read from the **existing shared `istat` fetch-metadata key** because this
+source is a layer of the collegi package already downloaded in that batch —
+**no fetch and no new download ran in this phase**. **The manifest now has 10
+entries.** No existing entry's `retrievedAt` moved; `generatedAt` advanced
+2026-07-22 → 2026-07-23 (the date `make manifest` actually ran). The scoped
+`git diff` of `sources.json` was exactly those two changes and nothing else.

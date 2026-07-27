@@ -16,6 +16,10 @@ struct AddressSearchView: View {
     @State private var isSearching = false
     @State private var errorMessage: String?
     @State private var resolvedMatches: [Chamber: District]?
+    /// Set when a typed name matches more than one comune (a homonym, e.g.
+    /// "Castro" in Bergamo and Lecce): the user picks which province before we
+    /// resolve a coordinate. Phase 30.
+    @State private var comuneCandidates: [Comune]?
     @State private var hasAutoSearched = false
     @State private var suggestionsVisible = true
     @State private var suppressNextQueryChange = false
@@ -62,7 +66,7 @@ struct AddressSearchView: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("Città campione disponibili")
+                Text("Comuni di esempio")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -109,6 +113,10 @@ struct AddressSearchView: View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
+            }
+
+            if let comuneCandidates {
+                candidatesSection(comuneCandidates)
             }
 
             if let resolvedMatches {
@@ -186,6 +194,7 @@ struct AddressSearchView: View {
 
         errorMessage = nil
         resolvedMatches = nil
+        comuneCandidates = nil
         isSearching = true
 
         Task {
@@ -204,8 +213,12 @@ struct AddressSearchView: View {
         }
     }
 
-    /// Free-text submission: falls back to `GeocodingProviding` (CLGeocoder, then
-    /// the five-city offline table) exactly as before autocomplete was added.
+    /// Free-text submission. If the typed text is a homonym comune name
+    /// (matches more than one comune, distinguished by province), we ask the
+    /// user which one first (Phase 30) — an offline, exact-name check that
+    /// never fires for a full street address, so `CLGeocoder` still wins for
+    /// address-level queries. Otherwise resolve through `GeocodingProviding`
+    /// (CLGeocoder → comuni table → five-city fallback).
     private func search() {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
@@ -213,8 +226,15 @@ struct AddressSearchView: View {
         suggestionsVisible = false
         errorMessage = nil
         resolvedMatches = nil
-        isSearching = true
+        comuneCandidates = nil
 
+        let candidates = services.comuneService.comuni(matching: trimmed)
+        if candidates.count > 1 {
+            comuneCandidates = candidates
+            return
+        }
+
+        isSearching = true
         Task {
             defer { isSearching = false }
             do {
@@ -226,6 +246,15 @@ struct AddressSearchView: View {
         }
     }
 
+    /// The user picked one province for a homonym name: resolve that comune's
+    /// coordinate directly (offline), skipping the ambiguous geocode.
+    private func selectCandidate(_ comune: Comune) {
+        comuneCandidates = nil
+        errorMessage = nil
+        resolvedMatches = nil
+        resolveCoordinate(comune.coordinate)
+    }
+
     /// Resolves against BOTH chambers independently — an address may fall
     /// inside a Camera collegio, a Senato collegio, both, or neither, and
     /// each is reported on its own line rather than silently preferring
@@ -233,10 +262,47 @@ struct AddressSearchView: View {
     private func resolveCoordinate(_ coordinate: CLLocationCoordinate2D) {
         let matches = services.districtService.districts(containing: coordinate)
         if matches.isEmpty {
-            errorMessage = "Indirizzo non coperto dal prototipo. Prova con una città campione come Roma, Milano o Torino."
+            errorMessage = "Nessun collegio elettorale trovato per questa posizione. Prova con il nome di un comune (es. Roma, Milano, Torino)."
         } else {
             resolvedMatches = matches
         }
+    }
+
+    /// Homonym chooser: the same comune name exists in more than one province,
+    /// so present each candidate as "Nome (Provincia)" and let the user pick.
+    private func candidatesSection(_ candidates: [Comune]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Più comuni con questo nome")
+                .font(.headline)
+                .accessibilityIdentifier("addressSearch.candidates.header")
+            Text("Scegli la provincia:")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            ForEach(candidates) { comune in
+                Button {
+                    selectCandidate(comune)
+                } label: {
+                    HStack {
+                        Text("\(comune.name) (\(comune.province))")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundStyle(.tertiary)
+                            .accessibilityHidden(true)
+                    }
+                    .frame(minHeight: 44)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityElement(children: .combine)
+                .accessibilityIdentifier("addressSearch.candidate.\(comune.province)")
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
     }
 
     @ViewBuilder

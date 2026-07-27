@@ -17,6 +17,9 @@ struct ServiceContainer {
     /// through the environment like every other service.
     let membershipService: MembershipService
     let geocodingService: GeocodingService
+    /// Phase 30 — the offline comuni-centroid table. Backs `GeocodingService`'s
+    /// middle tier and `AddressSearchView`'s up-front homonym disambiguation.
+    let comuneService: ComuneService
     let manifestService: ManifestService
     let partyStyleService: PartyStyleService
     let favoritesStore: any FavoritesStore
@@ -27,6 +30,7 @@ struct ServiceContainer {
         voteService: .shared,
         membershipService: .shared,
         geocodingService: .shared,
+        comuneService: .shared,
         manifestService: .shared,
         partyStyleService: .shared,
         favoritesStore: UserDefaultsFavoritesStore.live

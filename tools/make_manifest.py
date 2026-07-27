@@ -211,6 +211,24 @@ def real_sources(fetch_metadata):
             ),
         },
         {
+            "id": "istat-comuni-centroidi",
+            "name": "ISTAT — Comuni (centroidi per la geocodifica offline)",
+            "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2",
+            "license": "CC BY 4.0",
+            "retrievedAt": retrieved_at("istat", fetch_metadata),
+            "notes": (
+                "Tabella dei 7.904 comuni italiani con un punto interno "
+                "(centroide) per ciascuno, usata per la geocodifica offline: un "
+                "nome di comune viene risolto in una coordinata e quindi nel "
+                "collegio tramite point-in-polygon, senza rete. Derivata dal "
+                "livello comunale UT_Collegi2020 dello stesso rilascio ISTAT "
+                "dei confini dei collegi (D.Lgs. 177/2020; vedi la fonte "
+                "istat-collegi-elettorali-camera-uninominali), scaricato nello "
+                "stesso momento — nessun nuovo download. I nomi omonimi (6, es. "
+                "Castro, Livo) sono distinti per provincia."
+            ),
+        },
+        {
             "id": "camera-dei-deputati-votazioni-xix-legislatura",
             "name": "Camera dei Deputati — Votazioni (XIX Legislatura)",
             "url": "https://dati.camera.it/sparql",

@@ -1,4 +1,4 @@
-.PHONY: fetch import validate manifest boundaries boundaries-senato boundaries-plurinominale-camera boundaries-plurinominale-senato all refresh
+.PHONY: fetch import validate manifest boundaries boundaries-senato boundaries-plurinominale-camera boundaries-plurinominale-senato comuni all refresh
 
 PYTHON := python3
 
@@ -57,6 +57,14 @@ boundaries-plurinominale-camera:
 boundaries-plurinominale-senato:
 	./tools/build_boundaries.sh senato-plurinominale
 
+# Builds Politici/Data/comuni.json — the offline comuni-centroid geocoding
+# table (Phase 30; see docs/v4/30-comuni-geocoding.md). One interior point
+# per Italian comune, derived from the ISTAT UT_Collegi2020 base layer
+# already under tools/raw/collegi/ (same D.Lgs. 177/2020 release as the
+# boundaries — no new acquisition). Offline; enforces its own byte gate.
+comuni:
+	$(PYTHON) tools/import_comuni.py
+
 # Fully offline: rebuilds every generated Data/*.json(.geojson) file from
 # the tools/raw/ cache left by a previous `make fetch`, in dependency
 # order, with validate last so it checks this run's actual final output.
@@ -64,7 +72,7 @@ boundaries-plurinominale-senato:
 # plurinominale linkage (Phase 25) reads districts_plurinominali_camera.geojson,
 # so that file must be current when import runs.
 # Does NOT fetch — see `refresh` for that.
-all: boundaries boundaries-senato boundaries-plurinominale-camera boundaries-plurinominale-senato import manifest validate
+all: boundaries boundaries-senato boundaries-plurinominale-camera boundaries-plurinominale-senato comuni import manifest validate
 
 # Deliberate, network-touching refresh: fetch fresh data, then rebuild
 # everything from it. This is the only target besides `fetch` itself that

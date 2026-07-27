@@ -57,7 +57,18 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
   handoff, evidenced), 100 % coverage of the shipped votes — methodology gate
   line 6 flips (`GO-STORICO` → GO).
 - **Q5** — Exact ISTAT comuni product, acquisition path, license page →
-  **Phase 30**.
+  **Phase 30**. **RESOLVED** by Phase 30
+  ([`docs/v4/30-comuni-geocoding.md`](../v4/30-comuni-geocoding.md)): the
+  product is the **`UT_Collegi2020` layer of the ISTAT collegi package already
+  local under `tools/raw/collegi/`** (the comune-level base table the collegi
+  layers aggregate from — 7,904 comuni), so the acquisition path is **"none
+  required"** and the licence is the **CC BY 4.0 already verified and recorded**
+  for that same D.Lgs. 177/2020 release in `tools/SOURCES.md` /
+  `docs/DATA_SOURCES.md`. Decided under the user-gated acquisition rule with
+  approval quoted verbatim; no download and no network act occurred, and the
+  shared `istat` fetch-metadata key (2026-07-18) was not advanced. Comuni
+  vintage is identical *by construction* to the shipped collegi bases, which is
+  what a separately-acquired current-vintage product could not have offered.
 - **Q6** — V3 commissioning brief archival (standing since Phase 13) →
   closed whenever the document surfaces; restated in 32A.
 - **Q7** — Metric tie-breaking and minimum-denominator threshold need

@@ -64,8 +64,11 @@ narrow exception:
   and find them again from Home; stored only on-device in `UserDefaults`.
 - **Address search with autocomplete** (`MKLocalSearchCompleter`) resolving
   any Italian address to its real collegio via point-in-polygon geometry,
-  with an offline five-city fallback table when network geocoding isn't
-  available.
+  through three tiers: `CLGeocoder` first (address-level, when online), then
+  a **bundled table of all 7,904 Italian comuni** with ISTAT-derived
+  centroids (v4 Phase 30 — so any comune name resolves fully offline;
+  homonyms like `Castro` are disambiguated by province in the UI), then the
+  original five-city substring fallback.
 - **Searchable representative list** (`RepresentativeListView`) — all 601
   representatives, filterable by party (12 deduplicated party chips merging
   Camera-sigla/Senato-full-name spelling variants of the same party).
@@ -129,8 +132,8 @@ narrow exception:
 ## Data pipeline
 
 `Data/districts.geojson`, `Data/districts_senato.geojson`,
-`Data/representatives.json`, and `Data/votes.json` are **generated
-artifacts** — never hand-edited. They're produced by a `tools/` pipeline
+`Data/representatives.json`, `Data/votes.json`, and `Data/comuni.json` are
+**generated artifacts** — never hand-edited. They're produced by a `tools/` pipeline
 that deliberately separates the one network-touching step from everything
 else, so every other step is reproducible offline from a cache:
 
@@ -145,13 +148,16 @@ make boundaries        # offline — rebuilds districts.geojson (Camera) from th
                        # gate (see docs/v3/14-pipeline-hardening.md)
 make boundaries-senato # offline — same pipeline, Senato layer →
                        # districts_senato.geojson (v3 Phase 16)
+make comuni            # offline — rebuilds comuni.json (7,904 comune centroids
+                       # for offline geocoding) from the UT_Collegi2020 layer of
+                       # that same local ISTAT package (v4 Phase 30)
 make manifest          # offline — regenerates Data/sources.json
 make validate          # offline — structural + referential-integrity checks;
                        # runs last so it checks the final state of everything
                        # the steps above produce
-make all               # offline — import + boundaries + boundaries-senato +
-                       # manifest + validate, against whatever is already
-                       # cached under tools/raw/ (never fetches — see below)
+make all               # offline — boundaries (×4) + comuni + import + manifest
+                       # + validate, against whatever is already cached under
+                       # tools/raw/ (never fetches — see below)
 ```
 
 One-command refresh of the SPARQL-derived data (fetch, then rebuild
@@ -366,8 +372,9 @@ What v3 actually did to the old roadmap, stated plainly, plus what remains
   now exists in the cache, but mapping the Senato vocabulary onto
   Camera's cases is a semantic decision deliberately not taken in v3
   (flagged in [`docs/v3/17-senato-mandates.md`](docs/v3/17-senato-mandates.md)).
-- Offline geocoding beyond the five-city fallback (bundled
-  comuni-centroid table).
+- ~~Offline geocoding beyond the five-city fallback (bundled
+  comuni-centroid table).~~ **Done** in v4 Phase 30 — see
+  [`docs/v4/30-comuni-geocoding.md`](docs/v4/30-comuni-geocoding.md).
 - Possible live data refresh — still deferred pending the "is that
   compatible with local-first at all" decision.
 - Push notifications for new votes — still deferred (needs a backend that

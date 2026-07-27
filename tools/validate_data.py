@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Structural validation of Data/representatives.json, Data/districts.geojson,
-and Data/votes.json.
+Data/votes.json, Data/memberships_camera.json, and Data/comuni.json.
 
 Offline — does not fetch anything. Checks each file is well-formed and
 internally consistent, plus the votes<->representatives referential
@@ -23,6 +23,7 @@ DISTRICTS_PLURINOMINALI_CAMERA_PATH = ROOT / "Politici" / "Data" / "districts_pl
 DISTRICTS_PLURINOMINALI_SENATO_PATH = ROOT / "Politici" / "Data" / "districts_plurinominali_senato.geojson"
 VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
 MEMBERSHIPS_PATH = ROOT / "Politici" / "Data" / "memberships_camera.json"
+COMUNI_PATH = ROOT / "Politici" / "Data" / "comuni.json"
 
 # Phase 28 (docs/v4/28-membership-history.md): memberships_camera.json is
 # {"schemaVersion":1,"memberships":[...]} — per-deputy parliamentary-group
@@ -44,6 +45,23 @@ MEMBERSHIPS_SCHEMA_VERSION = 1
 # the referential-integrity check that every membership's deputy is a shipped
 # Camera deputy, which no size bound could replace.
 MAX_MEMBERSHIPS_FILE_BYTES = 256 * 1024
+
+# Phase 30 (docs/v4/30-comuni-geocoding.md): comuni.json is
+# {"schemaVersion":1,"comuni":[{"name","province","lat","lon"},...]} — one
+# interior point per Italian comune (ISTAT UT_Collegi2020, 7,904 comuni),
+# for offline comune-name -> coordinate -> collegio geocoding. Measured 568.2
+# KiB; the 768 KiB gate is a coarse drift backstop (~35% headroom). Coordinate
+# bounds are Italy's real extremes (Lampedusa 35.51 .. Predoi 47.04 lat;
+# Bardonecchia 6.72 .. Salento 18.45 lon) with margin — a sanity check that a
+# reprojection/axis-order accident can't slip a Null-Island coordinate through.
+REQUIRED_COMUNE_KEYS = {"name", "province", "lat", "lon"}
+COMUNI_SCHEMA_VERSION = 1
+MAX_COMUNI_FILE_BYTES = 768 * 1024
+COMUNI_LAT_RANGE = (35.0, 47.5)
+COMUNI_LON_RANGE = (6.3, 19.0)
+# The ISTAT-2020 comune count is 7,904; the window is a drift backstop only.
+COMUNI_MIN_COUNT = 7000
+COMUNI_MAX_COUNT = 8500
 
 # Phase 20 normalized schema (docs/v3/20-vote-browsing.md): votes.json is
 # {"events":[...],"positions":[...]} — event fields live once per event,
@@ -1083,12 +1101,100 @@ def validate_memberships_reference_representatives():
     return errors
 
 
+def validate_comuni():
+    """Structural + sanity invariants for comuni.json (Phase 30 —
+    docs/v4/30-comuni-geocoding.md): schema/byte gate, exactly {name,
+    province, lat, lon} per entry with correct types, non-empty name/province,
+    coordinates inside Italy's bounds, (name, province) unique (the app's
+    Comune id and the homonym-by-province disambiguation depend on it), and a
+    coarse count window. The comune -> collegio resolution itself is proven by
+    the offline full-table dry run in tools/probes/probe_comuni_centroids.py
+    and pinned by the app's integration tests, not re-run here (this validator
+    is deliberately osgeo-free)."""
+    errors = []
+
+    if not COMUNI_PATH.exists():
+        return [f"{COMUNI_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make comuni'"]
+
+    file_size = COMUNI_PATH.stat().st_size
+    if file_size > MAX_COMUNI_FILE_BYTES:
+        errors.append(
+            f"{COMUNI_PATH.relative_to(ROOT)}: {file_size / 1024:.1f} KiB, "
+            f"supera il limite di {MAX_COMUNI_FILE_BYTES / 1024:.0f} KiB"
+        )
+
+    try:
+        payload = json.loads(COMUNI_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return errors + [f"{COMUNI_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+
+    if not isinstance(payload, dict) or set(payload.keys()) != {"schemaVersion", "comuni"}:
+        return errors + [
+            f"{COMUNI_PATH.relative_to(ROOT)}: atteso un oggetto con esattamente le chiavi "
+            "'schemaVersion' e 'comuni' (Fase 30)"
+        ]
+    if payload["schemaVersion"] != COMUNI_SCHEMA_VERSION:
+        errors.append(
+            f"{COMUNI_PATH.relative_to(ROOT)}: schemaVersion "
+            f"{payload['schemaVersion']!r}, atteso {COMUNI_SCHEMA_VERSION}"
+        )
+
+    comuni = payload["comuni"]
+    if not isinstance(comuni, list) or not comuni:
+        errors.append(f"{COMUNI_PATH.relative_to(ROOT)}: 'comuni' deve essere un array non vuoto")
+        return errors
+
+    if not (COMUNI_MIN_COUNT <= len(comuni) <= COMUNI_MAX_COUNT):
+        errors.append(
+            f"{COMUNI_PATH.relative_to(ROOT)}: {len(comuni)} comuni fuori dalla finestra "
+            f"attesa [{COMUNI_MIN_COUNT}, {COMUNI_MAX_COUNT}]"
+        )
+
+    lat_lo, lat_hi = COMUNI_LAT_RANGE
+    lon_lo, lon_hi = COMUNI_LON_RANGE
+    seen_keys = set()
+    for index, c in enumerate(comuni):
+        label = f"comuni.json #{index}"
+        if not isinstance(c, dict):
+            errors.append(f"{label}: non è un oggetto JSON")
+            continue
+        if set(c.keys()) != REQUIRED_COMUNE_KEYS:
+            errors.append(f"{label}: chiavi {sorted(c.keys())}, attese {sorted(REQUIRED_COMUNE_KEYS)}")
+            continue
+        for key in ("name", "province"):
+            if not isinstance(c[key], str) or not c[key].strip():
+                errors.append(f"{label}: '{key}' deve essere una stringa non vuota")
+        for key in ("lat", "lon"):
+            if not isinstance(c[key], (int, float)) or isinstance(c[key], bool):
+                errors.append(f"{label}: '{key}' deve essere numerico, trovato {c[key]!r}")
+        if isinstance(c["lat"], (int, float)) and not (lat_lo <= c["lat"] <= lat_hi):
+            errors.append(f"{label} ({c.get('name')}): lat {c['lat']} fuori dai limiti Italia {COMUNI_LAT_RANGE}")
+        if isinstance(c["lon"], (int, float)) and not (lon_lo <= c["lon"] <= lon_hi):
+            errors.append(f"{label} ({c.get('name')}): lon {c['lon']} fuori dai limiti Italia {COMUNI_LON_RANGE}")
+        if isinstance(c.get("name"), str) and isinstance(c.get("province"), str):
+            key = (c["name"], c["province"])
+            if key in seen_keys:
+                errors.append(f"{label}: coppia (name, province) duplicata: {key}")
+            else:
+                seen_keys.add(key)
+
+    if not errors:
+        homonyms = len(seen_keys) - len({name for name, _ in seen_keys})
+        print(
+            f"OK: {len(comuni)} comuni in {COMUNI_PATH.relative_to(ROOT)} "
+            f"({file_size / 1024:.1f} KiB) — {homonyms} nomi omonimi disambiguati per provincia"
+        )
+
+    return errors
+
+
 def main():
     representative_errors = validate_representatives()
     district_errors = validate_districts()
     vote_errors = validate_votes()
     membership_errors = validate_memberships()
-    all_errors = representative_errors + district_errors + vote_errors + membership_errors
+    comuni_errors = validate_comuni()
+    all_errors = representative_errors + district_errors + vote_errors + membership_errors + comuni_errors
 
     if not representative_errors and not district_errors:
         all_errors += validate_linkage()
