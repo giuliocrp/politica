@@ -56,11 +56,19 @@ $ python3 -c "import json;print(json.load(open('tools/raw/.fetch_metadata.json')
 {'fetchedAt': '2026-07-18'}
 ```
 
-> The figures quoted in the approval text (99.92 % / 0.08 % nil) are the
-> **first** probe pass, using a whole-comune-union interior point. §4
-> documents why the method was then improved to the largest-part point and
-> the numbers moved to 99.94 % / 0.06 %. The change strictly improved every
-> measure; it is recorded here rather than silently substituted.
+> **Scope of this approval — the approval predates the centroid method
+> change.** The figures quoted in the approval text (99.92 % / 0.08 % nil,
+> 568 KiB) are the **first** probe pass, using a whole-comune-union interior
+> point; the shipped configuration uses largest-polygon-part centroids and
+> different numbers (99.94 % / 0.06 %). What the user approved is the
+> **choice of source** — local `UT_Collegi2020` over a fresh acquisition —
+> which the method change does not affect. §4 documents the change and
+> publishes both passes; it **strictly improved every measure** (Camera and
+> Senato resolution both up, both-chamber nil 2 → 1, accuracy unchanged, size
+> unchanged), so under the standing rule now recorded in
+> `docs/plan/00-baseline-and-rules.md` (rule 10) it is disclosed here rather
+> than sent back for re-approval. Had any measure worsened, or had the basis
+> of the source decision shifted, it would have gone back first.
 
 ---
 
@@ -637,7 +645,279 @@ was edited.
 
 ---
 
-## 10. Diff scope for this commit
+## 10. Post-Phase-30 bundle figure (for Phases 32A/32B)
+
+Recorded as a standalone, current figure so later phases quote a measured
+number rather than one from a spec predating Phases 25/27/28/30. Real
+(non-`*.sample.*`) `Politici/Data/` **immediately after Phase 30**:
+
+| File | Bytes |
+|---|---:|
+| `votes.json` | 1,767,926 |
+| `districts.geojson` | 1,158,457 |
+| `districts_senato.geojson` | 867,362 |
+| `districts_plurinominali_camera.geojson` | 766,581 |
+| `districts_plurinominali_senato.geojson` | 608,842 |
+| **`comuni.json`** | **581,849** |
+| `representatives.json` | 482,770 |
+| `memberships_camera.json` | 108,917 |
+| `sources.json` | 7,002 |
+| `parties.json` | 1,620 |
+| **TOTAL real** | **6,351,326 B = 6.06 MiB = 60.6 % of the ~10 MiB soft ceiling** |
+
+The three `*.sample.*` test fixtures add a further 13,179 B on disk and in the
+bundle (Phase 23 §7 item 1 — deliberately retained). Headroom remaining
+against the soft ceiling: **3.94 MiB**.
+
+---
+
+## 11. Open decision (raised by review) — source assignment vs geometric resolution
+
+> **Status: awaiting the user's decision. Nothing was changed for this.** The
+> analysis below is read-only measurement against the committed tree; no data,
+> pipeline or app behaviour was modified.
+
+### 11.1 Does the source carry its own comune → collegio assignment? **Yes.**
+
+The review asked whether §2(c)'s phrasing — "99.97 % of hits match the
+collegio the source itself assigns" — implies `UT_Collegi2020` carries an
+authoritative assignment. **It does, and the phrasing was literally accurate.**
+The fields:
+
+| Field | Meaning |
+|---|---|
+| `CU20_COD` / `CU20_DEN` / `CU20_C1` | **Camera uninominale** collegio: code, name, sub-code |
+| `SU20_COD` / `SU20_DEN` / `SU20_C1` | **Senato uninominale** collegio |
+| `CP20_COD` / `CP20_DEN` / `CP20_C1` | Camera plurinominale collegio |
+| `SP20_COD` / `SP20_DEN` / `SP20_C1` | Senato plurinominale collegio |
+| `CIRC_COD` / `CIRC_DEN` | Camera circoscrizione |
+
+Sample row (Firenze, `PRO_COM = 48017`):
+
+```
+$ ogrinfo -ro -al -geom=NO … -where "PRO_COM = 48017"
+  DEN_P_CM (String) = Firenze
+  PRO_COM (Integer64) = 48017
+  DEN_COM (String) = Firenze
+  CU20_COD (Integer64) = 90007          CU20_DEN (String) = Toscana - U07
+  SU20_COD (Integer64) = 90004          SU20_DEN (String) = Toscana - U04
+  CP20_COD (Integer64) = 90003          CP20_DEN (String) = Toscana - P03
+  SP20_COD (Integer64) = 90001          SP20_DEN (String) = Toscana - P01
+```
+
+**The 99.97 % figure was comparing the geometric result against exactly this
+field** (`CU20_COD`) — i.e. Phase 30 already held the publisher's own answer
+and used it only to *grade* the geometry, never to *be* the answer.
+
+Coverage and integrity, measured across all 7,904 comuni:
+
+```
+with >=1 CU20_COD: 7904        with NO CU20_COD: 0
+with >=1 SU20_COD: 7904        with NO SU20_COD: 0
+distinct source CU codes: 147; shipped Camera ids: 147; source codes NOT shipped: []
+distinct source SU codes:  74; shipped Senato ids:  74; source codes NOT shipped: []
+```
+
+**100 % populated, and referentially exact** — every source code is already a
+shipped district id, requiring no translation.
+
+### 11.2 Why does the lookup resolve geometrically? Partly specified, partly artefact
+
+Honestly, both — and only the first was recorded:
+
+- **Specified.** `docs/plan/phase-30.md` defines the deliverable as "a bundled
+  table of all Italian comuni (~7,900) **with centroid coordinates**, so any
+  comune name resolves offline to a coordinate **→ collegio via the existing
+  point-in-polygon path**". The centroid→PIP design is the phase's own wording,
+  and the implementation followed it.
+- **Artefact.** No design note anywhere — not in the report, the importer, or
+  the service — records the alternative ("read `CU20_COD` directly") being
+  considered and rejected. It was not weighed. I used the field as a
+  verification oracle without asking whether it should be the primary answer.
+  **There is no deliberate, recorded decision to prefer geometry**; there is a
+  spec that said "geometry" and an implementation that complied.
+
+### 11.3 What would change
+
+Measured by resolving every shipped `comuni.json` centroid against the shipped
+polygons and comparing to that comune's source assignment:
+
+| | Camera | Senato |
+|---|---:|---:|
+| Geometry agrees with source | 7,897 (99.911 %) | 7,900 (99.949 %) |
+| Geometry **differs** | **2** | **2** |
+| Geometry returns **nil**, source has an answer | **5** | **2** |
+| **Comuni whose answer would change** | **7 (0.089 %)** | **4 (0.051 %)** |
+
+**Both named mismatches become correct** — by construction, since they would
+read their own source row:
+
+```
+Carbonara di Nola (Napoli): geometry=150204  source=150106
+Torre de' Roveri (Bergamo): geometry=30302   source=30301
+```
+
+**`Isole Tremiti` gains an answer** rather than staying a gap: the source
+assigns it Camera `160002` and Senato `S160001`, both real shipped ids. So do
+four further Camera gaps this report had only counted, never named:
+
+```
+Correzzana (Monza e della Brianza) -> 30102
+Pognana Lario (Como)               -> 30203
+Porto Recanati (Macerata)          -> 110002
+Ronzone (Trento)                   -> 40001
+Tropea (Vibo Valentia)             -> S180002   (Senato)
+```
+
+**The reviewer's framing is correct on the key point:** this is *citing the
+publisher*, not snapping. Snapping invents a nearest-neighbour answer the
+source never stated; reading `CU20_COD` reproduces what ISTAT actually
+published for that comune. The "disclose over snap" reasoning in §2(c) was
+sound **for the choice it was actually facing** (geometry-nil → invent a
+neighbour), but it never considered the third option of not needing geometry
+at all for name lookups.
+
+### 11.4 The finding the review did not anticipate — and it is larger
+
+The 7 changed Camera comuni total **20,375 residents (0.034 % of Italy)**. But
+the same silent-confidence critique applies far more widely, to a case Phase 30
+shipped without flagging as a *correctness* issue:
+
+```
+population in the 6 multi-collegio comuni: 6,937,409 (11.67% of Italy)
+   Roma     pop=2,617,175  spans 7 Camera collegi
+   Milano   pop=1,242,123  spans 3
+   Napoli   pop=  962,003  spans 2
+   Torino   pop=  872,367  spans 2
+   Palermo  pop=  657,561  spans 2
+   Genova   pop=  586,180  spans 2
+```
+
+For these six the source assignment is **legitimately multi-valued** — Roma
+genuinely spans seven Camera collegi — so "the source's answer" is a *set*, not
+a value. Today a user typing "Roma" is shown **one** collegio (`120105`, Lazio
+1 - U05, the largest-part result) with exactly the same confidence as a user
+typing "Firenze", for whom the answer is genuinely unique. That is the same
+silent-failure shape as `Carbonara di Nola`, but affecting **340× more people**
+(6.94 M vs 20 k) — and unlike the two mismatches it is not a simplification
+artefact that better geometry would fix; it is intrinsic to answering a
+whole-comune question with a single collegio.
+
+This *strengthens* the case for change while reframing it: the main prize is
+not fixing 2 wrong answers, it is being able to say "Roma spans 7 collegi —
+which part?" using the same disambiguation UI Phase 30 already built for
+homonyms.
+
+### 11.5 Cost
+
+Carrying the assignment enlarges `comuni.json`. Both variants measured:
+
+| Schema | Bytes | KiB | vs current 768 KiB gate | `Data/` total |
+|---|---:|---:|---:|---:|
+| Current (v1, coordinates only) | 581,849 | 568.2 | 74.0 % | 6.06 MiB |
+| **A** — always-array `camera`/`senato` | 896,739 | 875.7 | **114.0 %** | 6.36 MiB |
+| **B** — scalar when single-valued, array only for the 6/3 multi, short keys | 786,101 | 767.7 | **100.0 %** | 6.25 MiB |
+
+Either variant **requires raising `MAX_COMUNI_FILE_BYTES`** (B clears the
+current gate by ~300 bytes, which is not headroom — it defeats the point of a
+drift backstop). ~1 MiB would be the honest new gate. Both stay far inside the
+~10 MiB soft ceiling.
+
+**Coordinates must stay regardless.** `lat`/`lon` are not replaceable by the
+assignment: `CLGeocoder` returns a *coordinate* for street addresses, map taps
+produce coordinates, and arbitrary-point → collegio still needs
+point-in-polygon. The assignment would serve the **comune-name lookup path
+only**.
+
+### 11.6 Recommendation
+
+**Adopt the source assignment as the primary answer for comune-name lookups,
+with geometry retained for every coordinate-based path — but as its own scoped
+change, not a patch to this commit.** Reasoning:
+
+1. It replaces a derived value with a published one, for 100 % of comuni, with
+   zero referential slack (147/147, 74/74).
+2. It removes boundary-simplification artefacts from the name path entirely —
+   the 2 mismatches and all 7 gaps, not case-by-case.
+3. It makes the 6 multi-collegio comuni answerable **honestly**, reusing the
+   existing homonym chooser — the largest single integrity gain, by population.
+4. It is consistent with how this project already treats sourced-vs-derived
+   values everywhere else (`CLAUDE.md` #4).
+
+Against, stated fairly: it is a behaviour change for every comune query, it
+grows shipped data ~35 % (variant B) and needs the byte gate raised, it
+requires a `schemaVersion` bump with importer/validator/model/service/test
+changes, and the 14 hardcoded integration pairs in §5 would need re-derivation
+for the split comuni (whose single expected id stops being the right
+assertion). None of that is an argument against correctness; it is an argument
+for doing it deliberately in its own phase with its own test pass.
+
+**Concretely:** a lettered sub-phase (**30B**) is the established shape for a
+user-gated insert of exactly this size (precedents: 13B, 15b). It should also
+settle the multi-collegio UI question explicitly rather than inheriting the
+largest-part default. **Recommended, not decided — this is the user's call.**
+
+The measurement script used here was run read-only from the session scratchpad
+and is deliberately **not** committed: adding a probe for a decision not yet
+taken would presume the outcome. If the decision is to proceed, 30B commits it
+under `tools/probes/` per the probes convention; if not, the numbers above are
+the durable record.
+
+---
+
+## 12. Flow-7 / `CLGeocoder` question (open since Phase 24) — answered
+
+[`docs/v4/24-ui-tests.md`](24-ui-tests.md) §6.3 and §9 recorded UI flow 7's
+**300 s wait ceiling** as latent debt: `GeocodingService` attempts `CLGeocoder`
+before its offline table, and that attempt was measured once at ~1 s and once
+at **>120 s**. Phase 24's stated blocker:
+
+> "making the fallback deterministic would require a second app seam, which
+> the phase does not permit… If a later phase adds a geocoding seam, this
+> ceiling should come back down."
+
+**Phase 30 added exactly that seam.** `AddressResolving` (§6) factors the
+`CLGeocoder` tier behind a protocol with `CLGeocoderResolver` as the production
+implementation, injectable via `GeocodingService(primary:comuni:)`. It is
+already exercised by `GeocodingTierTests`' fakes.
+
+**Can the `CLGeocoder` attempt be dropped?** **No — and it must not be.** The
+comuni table resolves **comune names only** (7,904 exact names). A street
+address (`"Via del Corso 12, Roma"`) has no offline resolution path at all;
+`CLGeocoder`/`MKLocalSearch` remains the only way to answer it. Dropping tier 1
+would regress address-level search — precisely what GO-COMUNI condition (d)
+forbids.
+
+**Can it be bounded? Yes, and Phase 30 is what makes that safe.** Two levers
+now exist that did not in Phase 24:
+
+1. **Test-side:** inject a deterministic `AddressResolving` into flow 7,
+   removing the network wait from the test entirely and letting the 300 s
+   ceiling drop to a normal one. This is the seam Phase 24 asked for, and it
+   needs **no production behaviour change at all** — the lowest-risk half.
+2. **Production-side:** put a timeout (a few seconds) on the tier-1 attempt.
+   This was unattractive before Phase 30 because timing out dropped the user to
+   a five-city table; now it drops them to ~7,900 comuni, so a bounded tier 1
+   degrades to a genuinely useful answer instead of a near-empty one.
+
+**What is still missing** (so this is not read as fully solved): street-address
+resolution has no offline path and never will under local-first — a bounded
+tier 1 means a slow network yields a *comune-level* answer where an
+*address-level* one was possible. That is a deliberate UX trade needing a
+decision, not a pure win, and it is why lever 1 (test-only) and lever 2
+(production) should be decided separately.
+
+**Scope recommendation — a later phase, not this follow-up.** This one is
+docs-only by the user's framing; both levers change app or test code and
+require a suite run plus a re-measured flow-7 duration. **Phase 32A** is the
+natural home: it already owns Phase 24's deferred UI/a11y inventory, it already
+lists the "comuni disambiguation UI" in its a11y pass, and a 300 s ceiling is a
+release-readiness issue. Phase 31 (staleness / live-refresh ADR) is unrelated.
+**Recommended, not decided.**
+
+---
+
+## 13. Diff scope for the Phase 30 commit (`0e76a75`)
 
 ```
 Politici/Data/comuni.json                          (new — generated artifact)
@@ -673,3 +953,29 @@ Remote actions are the user's. Not run here:
 ```
 git push origin v4
 ```
+
+---
+
+## 14. Review follow-up (separate commit, `docs(v4): phase 30 review follow-ups`)
+
+Sections 10–12, the §1 approval-scope note, and the entries listed below were
+added by a scoped review follow-up after `0e76a75`. It is a **separate commit,
+deliberately not an amend** — Phase 30 may already have been pushed, matching
+the `17cc2a7` precedent for Phase 29's follow-ups.
+
+| File | Change |
+|---|---|
+| `docs/v4/30-comuni-geocoding.md` | §1 approval-scope line; §10 bundle figure; §11 open decision; §12 flow-7 answer; this section |
+| `docs/plan/00-baseline-and-rules.md` | new plan-wide **rule 10** (approval scope); two deferred-list entries (bilingual comune names; the open decision) |
+| `CLAUDE.md` | log-truncation tally — fourth sighting recorded, with the v4 variant's distinguishing detail |
+
+**No suite re-run was performed, and none is owed.** `CLAUDE.md`'s re-run rule
+is scoped to *"changes to a bundled data file (anything under
+`Politici/Data/`)"* made after a validating run. This follow-up touches **only
+Markdown** — no file under `Politici/`, no file under `tools/`, no generated
+artifact, no test source. The Phase 30 run therefore still certifies the tree:
+**`totalTestCount 204`, `passedTests 204`, `failedTests 0`**, and the declared
+count is unchanged at **204** (stated for reference, deliberately not
+re-derived from source, since nothing here can change it).
+
+Working tree was clean before and after; nothing was pushed or tagged.

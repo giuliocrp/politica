@@ -135,6 +135,21 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
    three consecutive phases (24 narrowed a criterion; 25 synced attribution;
    26 updated the Senato explainer) each flagged the same shape as a
    "deviation" — it is not one.
+10. **A user approval binds to the outcome it was given on.** After the user
+   approves something on quoted evidence, a later change that **strictly
+   improves** the approved outcome — every stated measure equal or better, and
+   the basis of the decision unchanged — **may ship, disclosed in the report**:
+   the report must publish both the approved figures and the shipped ones,
+   state that the approval predates the change, and say why the change is an
+   improvement. Anything that **worsens any measure, or shifts the basis of the
+   decision** (a different source, a different licence, a different scope, a
+   new trade-off the user was not shown) **goes back for re-approval before
+   shipping** — never disclosed after the fact as a *fait accompli*. First
+   applied in Phase 30, where approval of the comuni **source** was given on a
+   whole-comune-union centroid pass (99.92 % resolution) and the shipped
+   largest-part method improved every measure (99.94 %, both-chamber nil
+   2 → 1) without touching the source choice the approval was actually about —
+   see [`docs/v4/30-comuni-geocoding.md`](../v4/30-comuni-geocoding.md) §1.
 
 ## Explicitly deferred from V4 (decisions, not omissions)
 
@@ -148,3 +163,5 @@ that date** (not assumed). Phase 23 re-verifies the volatile ones.
 | Map-polygon VoiceOver discoverability | Platform limitation; `CollegiListView` (+ Phase 25's type filter) remains the accessible path |
 | Fixing the 62 `performAccessibilityAudit` findings (`.contrast` / `.dynamicType` / `.textClipped`) | Deferred *within* V4, not out of it: Phase 24 recorded rather than fixed them (see [`docs/v4/24-ui-tests.md`](../v4/24-ui-tests.md) §5) and handed them to **Phase 32A**, which triages each to a fix or a documented human-judgment deferral |
 | `make_manifest.py` fail-loud on an absent `.fetch_metadata.json` | Tooling-hardening backlog, not a shipping decision: the cache is gitignored, so a fresh-checkout/worktree `make manifest` silently rewrites every `retrievedAt` to today (see the `make manifest` caveat in `CLAUDE.md`). The script should refuse rather than fall back to `date.today()`. Pick up in a tooling-touching phase; do not implement as a side effect of unrelated work |
+| Official bilingual (Italian/German) comune names for Alto Adige | The ISTAT `UT_Collegi2020` source carries **Italian-only** comune names — **zero** of its 7,904 `DEN_COM` values contain a `/`, so `Bolzano` is present and `Bolzano/Bozen` is not (measured; see [`docs/v4/30-comuni-geocoding.md`](../v4/30-comuni-geocoding.md) §3). Inventing the German exonyms to satisfy the Phase 30 spec's "match either side of the `/`" wording would fabricate geographic data (constraint #4), so Phase 30 handled it on the *query* side instead (a `"X/Y"` query matches via its Italian side; a German-only query honestly returns nothing). Revisit **only if and when a source that actually publishes the official bilingual forms is identified** — then it is a data-join task with its own provenance entry, not a string transformation |
+| **Open user decision** — comune-name lookup: source assignment vs geometric resolution | **Not deferred by choice; awaiting the user's decision**, raised by the Phase 30 review. `UT_Collegi2020` carries an authoritative comune→collegio assignment (`CU20_COD`/`SU20_COD`, 100 % populated, referentially exact against the shipped ids) which Phase 30 used only as a *verification oracle* while the shipped lookup resolves geometrically. Preferring the source's own assignment would change 7 Camera answers (2 wrong→right, 5 gap→answered) and 4 Senato ones, and would force an explicit decision about the 6 multi-collegio comuni (Roma, Milano, Napoli, Torino, Palermo, Genova — **11.67 % of the population**) that today receive a single largest-part answer. Full finding, measurements and recommendation in [`docs/v4/30-comuni-geocoding.md`](../v4/30-comuni-geocoding.md) §11. **If undecided by then, Phase 32A must surface it rather than let it lapse** |

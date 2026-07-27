@@ -55,10 +55,19 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild -project Pol
 ```
 
 Note: xcodebuild's parallel test output occasionally truncates a
-passed-test log line mid-name (three documented v3 occurrences) — the
+passed-test log line mid-name (three documented v3 occurrences, plus a
+**fourth in v4 Phase 30** — 203 `passed` log lines against the `.xcresult`'s
+`totalTestCount 204`, traced in the log body to
+`SmokeFlowUITests.testVotazioniListScopeLineTalliesAndSourceLink()` whose line
+was cut mid-word at `' pa` by an interleaved `xcodebuild[…]
+IDELaunchParametersSnapshot` diagnostic; the test passed) — the
 authoritative signals are the exit code and the failed-line count, and a
 missing name must be verified in the log body before being called a
-failure. The UI-test target has also flaked on simulator-clone
+failure. Note the v4 sighting truncated at the **line tail** rather than
+mid-*name*: the class and method were intact and only the `passed` verdict
+word was mangled, so a `grep -c "passed"` undercounts while a
+`grep "Test case"` name inventory still finds it — check both before
+concluding a test is missing. The UI-test target has also flaked on simulator-clone
 infrastructure — a running tally, since these recur: the template
 `PoliticiUITests` twice (Phase 17/18 reports), then
 `AccessibilityAuditUITests.testAccessibilityAuditDistrictDetailBothChambers`
