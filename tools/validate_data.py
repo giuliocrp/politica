@@ -46,17 +46,28 @@ MEMBERSHIPS_SCHEMA_VERSION = 1
 # Camera deputy, which no size bound could replace.
 MAX_MEMBERSHIPS_FILE_BYTES = 256 * 1024
 
-# Phase 30 (docs/v4/30-comuni-geocoding.md): comuni.json is
-# {"schemaVersion":1,"comuni":[{"name","province","lat","lon"},...]} — one
-# interior point per Italian comune (ISTAT UT_Collegi2020, 7,904 comuni),
-# for offline comune-name -> coordinate -> collegio geocoding. Measured 568.2
-# KiB; the 768 KiB gate is a coarse drift backstop (~35% headroom). Coordinate
-# bounds are Italy's real extremes (Lampedusa 35.51 .. Predoi 47.04 lat;
-# Bardonecchia 6.72 .. Salento 18.45 lon) with margin — a sanity check that a
-# reprojection/axis-order accident can't slip a Null-Island coordinate through.
-REQUIRED_COMUNE_KEYS = {"name", "province", "lat", "lon"}
-COMUNI_SCHEMA_VERSION = 1
-MAX_COMUNI_FILE_BYTES = 768 * 1024
+# Phase 30 (docs/v4/30-comuni-geocoding.md) + Phase 30B
+# (docs/v4/30b-comuni-assignment.md): comuni.json is
+# {"schemaVersion":2,"comuni":[{"name","province","lat","lon","camera","senato"},...]}
+# — per Italian comune (ISTAT UT_Collegi2020, 7,904 comuni) the source's own
+# published uninominale collegio assignment (`camera`/`senato`, from
+# CU20_COD/SU20_COD, legitimately multi-valued for the 6 split comuni) plus
+# one interior point for the coordinate path. Measured 875.7 KiB; the 1.25 MiB
+# gate is a coarse drift backstop (68.4% used). Coordinate bounds are Italy's
+# real extremes (Lampedusa 35.51 .. Predoi 47.04 lat; Bardonecchia 6.72 ..
+# Salento 18.45 lon) with margin — a sanity check that a reprojection/axis-order
+# accident can't slip a Null-Island coordinate through.
+REQUIRED_COMUNE_KEYS = {"name", "province", "lat", "lon", "camera", "senato"}
+COMUNI_SCHEMA_VERSION = 2
+MAX_COMUNI_FILE_BYTES = 1280 * 1024
+# GO-ASSIGN gate evidence, not a plan figure (tools/probes/probe_comuni_assignment.py,
+# quoted in docs/v4/30b-comuni-assignment.md §2): the published assignment
+# covers all 147 Camera and all 74 Senato uninominale collegi with zero
+# unshipped codes, and exactly 6 comuni (Roma, Milano, Napoli, Torino,
+# Palermo, Genova) span more than one uninominale collegio. Both are drift
+# detectors: a change in either means the source's assignment moved, which
+# must be examined deliberately, never absorbed silently.
+EXPECTED_COMUNI_MULTI_COLLEGIO = 6
 COMUNI_LAT_RANGE = (35.0, 47.5)
 COMUNI_LON_RANGE = (6.3, 19.0)
 # The ISTAT-2020 comune count is 7,904; the window is a drift backstop only.
@@ -1103,14 +1114,19 @@ def validate_memberships_reference_representatives():
 
 def validate_comuni():
     """Structural + sanity invariants for comuni.json (Phase 30 —
-    docs/v4/30-comuni-geocoding.md): schema/byte gate, exactly {name,
-    province, lat, lon} per entry with correct types, non-empty name/province,
-    coordinates inside Italy's bounds, (name, province) unique (the app's
-    Comune id and the homonym-by-province disambiguation depend on it), and a
-    coarse count window. The comune -> collegio resolution itself is proven by
-    the offline full-table dry run in tools/probes/probe_comuni_centroids.py
-    and pinned by the app's integration tests, not re-run here (this validator
-    is deliberately osgeo-free)."""
+    docs/v4/30-comuni-geocoding.md; Phase 30B —
+    docs/v4/30b-comuni-assignment.md): schema/byte gate, exactly {name,
+    province, lat, lon, camera, senato} per entry with correct types,
+    non-empty name/province, non-empty sorted string arrays for the published
+    collegio assignment, coordinates inside Italy's bounds, (name, province)
+    unique (the app's Comune id and the homonym-by-province disambiguation
+    depend on it), and a coarse count window. Referential integrity of the
+    published codes against the shipped district ids is a cross-file check —
+    see validate_comuni_reference_districts(). The coordinate path's
+    geometric resolution is proven by the offline full-table dry run in
+    tools/probes/probe_comuni_centroids.py and pinned by the app's
+    integration tests, not re-run here (this validator is deliberately
+    osgeo-free)."""
     errors = []
 
     if not COMUNI_PATH.exists():
@@ -1131,7 +1147,7 @@ def validate_comuni():
     if not isinstance(payload, dict) or set(payload.keys()) != {"schemaVersion", "comuni"}:
         return errors + [
             f"{COMUNI_PATH.relative_to(ROOT)}: atteso un oggetto con esattamente le chiavi "
-            "'schemaVersion' e 'comuni' (Fase 30)"
+            "'schemaVersion' e 'comuni' (Fase 30/30B)"
         ]
     if payload["schemaVersion"] != COMUNI_SCHEMA_VERSION:
         errors.append(
@@ -1171,6 +1187,30 @@ def validate_comuni():
             errors.append(f"{label} ({c.get('name')}): lat {c['lat']} fuori dai limiti Italia {COMUNI_LAT_RANGE}")
         if isinstance(c["lon"], (int, float)) and not (lon_lo <= c["lon"] <= lon_hi):
             errors.append(f"{label} ({c.get('name')}): lon {c['lon']} fuori dai limiti Italia {COMUNI_LON_RANGE}")
+        # The published assignment (Phase 30B). Non-empty by construction —
+        # the importer refuses to write a comune without one — and always an
+        # array, including for the 7,898 single-collegio comuni, so the app
+        # never has to decode a scalar-or-array union. Sorted so the artifact
+        # is byte-identical across runs.
+        for key in ("camera", "senato"):
+            value = c[key]
+            if not isinstance(value, list) or not value:
+                errors.append(f"{label} ({c.get('name')}): '{key}' deve essere un array non vuoto")
+                continue
+            if not all(isinstance(v, str) and v.strip() for v in value):
+                errors.append(f"{label} ({c.get('name')}): '{key}' deve contenere solo stringhe non vuote")
+                continue
+            if list(value) != sorted(value):
+                errors.append(f"{label} ({c.get('name')}): '{key}' non è ordinato: {value}")
+            if len(set(value)) != len(value):
+                errors.append(f"{label} ({c.get('name')}): '{key}' contiene codici duplicati: {value}")
+        if isinstance(c.get("senato"), list) and not all(
+            isinstance(v, str) and v.startswith("S") for v in c["senato"]
+        ):
+            errors.append(
+                f"{label} ({c.get('name')}): i codici 'senato' devono avere il prefisso 'S' "
+                f"come gli id dei collegi pubblicati: {c['senato']}"
+            )
         if isinstance(c.get("name"), str) and isinstance(c.get("province"), str):
             key = (c["name"], c["province"])
             if key in seen_keys:
@@ -1179,10 +1219,73 @@ def validate_comuni():
                 seen_keys.add(key)
 
     if not errors:
+        multi = [c for c in comuni if len(c["camera"]) > 1 or len(c["senato"]) > 1]
+        if len(multi) != EXPECTED_COMUNI_MULTI_COLLEGIO:
+            errors.append(
+                f"{COMUNI_PATH.relative_to(ROOT)}: {len(multi)} comuni su più collegi "
+                f"uninominali, attesi {EXPECTED_COMUNI_MULTI_COLLEGIO} "
+                f"({sorted(c['name'] for c in multi)})"
+            )
+
+    if not errors:
         homonyms = len(seen_keys) - len({name for name, _ in seen_keys})
         print(
             f"OK: {len(comuni)} comuni in {COMUNI_PATH.relative_to(ROOT)} "
-            f"({file_size / 1024:.1f} KiB) — {homonyms} nomi omonimi disambiguati per provincia"
+            f"({file_size / 1024:.1f} KiB) — {homonyms} nomi omonimi disambiguati per provincia, "
+            f"{len(multi)} su più collegi uninominali"
+        )
+
+    return errors
+
+
+def validate_comuni_reference_districts():
+    """Cross-file referential integrity for the published comune -> collegio
+    assignment (Phase 30B GO-ASSIGN condition (b)): every distinct code in
+    comuni.json's `camera`/`senato` must ALREADY be a shipped uninominale
+    district id, and — the other direction — every shipped uninominale
+    collegio must be assigned to at least one comune. One unresolvable code
+    would mean the name lookup can cite the publisher for a collegio the app
+    cannot open; a shipped collegio no comune points at would mean the
+    assignment stopped covering the country. Neither may be closed with an
+    alias (gate condition (b)); both mean the source moved and must be
+    examined deliberately.
+
+    Only meaningful once comuni.json and the boundary files have each passed
+    their own structural checks, so main() only calls this when they have."""
+    errors = []
+
+    comuni = json.loads(COMUNI_PATH.read_text(encoding="utf-8"))["comuni"]
+    published = {
+        "Camera": {code for c in comuni for code in c["camera"]},
+        "Senato": {code for c in comuni for code in c["senato"]},
+    }
+    shipped = {}
+    for chamber, path in (("Camera", DISTRICTS_PATH), ("Senato", DISTRICTS_SENATO_PATH)):
+        collection = json.loads(path.read_text(encoding="utf-8"))
+        shipped[chamber] = {
+            f["properties"]["id"] for f in collection["features"]
+            if f["properties"].get("collegioType") == "uninominale"
+        }
+
+    for chamber in ("Camera", "Senato"):
+        unresolvable = sorted(published[chamber] - shipped[chamber])
+        if unresolvable:
+            errors.append(
+                f"comuni.json: codici collegio {chamber} pubblicati ma non presenti tra i "
+                f"collegi distribuiti: {unresolvable}"
+            )
+        unassigned = sorted(shipped[chamber] - published[chamber])
+        if unassigned:
+            errors.append(
+                f"comuni.json: collegi {chamber} distribuiti a cui nessun comune è assegnato: "
+                f"{unassigned}"
+            )
+
+    if not errors:
+        print(
+            "OK: assegnazione comune → collegio referenzialmente esatta — "
+            f"Camera {len(published['Camera'])}/{len(shipped['Camera'])} collegi, "
+            f"Senato {len(published['Senato'])}/{len(shipped['Senato'])} collegi coperti"
         )
 
     return errors
@@ -1195,6 +1298,9 @@ def main():
     membership_errors = validate_memberships()
     comuni_errors = validate_comuni()
     all_errors = representative_errors + district_errors + vote_errors + membership_errors + comuni_errors
+
+    if not comuni_errors and not district_errors:
+        all_errors += validate_comuni_reference_districts()
 
     if not representative_errors and not district_errors:
         all_errors += validate_linkage()

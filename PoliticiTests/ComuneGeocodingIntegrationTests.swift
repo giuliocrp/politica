@@ -3,17 +3,23 @@
 //  PoliticiTests
 //
 //  Phase 30 — end-to-end offline geocoding (docs/v4/30-comuni-geocoding.md),
-//  test spec 4: a comune name resolves, through the bundled comuni table
-//  (ComuneService) and the point-in-polygon path (DistrictService), to its
-//  real Camera and Senato uninominale collegio ids.
+//  test spec 4; Phase 30B (docs/v4/30b-comuni-assignment.md) test spec 5.
 //
-//  Every (comune → collegio id) pair below was verified against the ISTAT
-//  source in the report BEFORE being hardcoded here: each comune's shipped
+//  Since Phase 30B this file pins the **COORDINATE path** specifically: a
+//  coordinate (from CLGeocoder, a map tap, or — as here — a comune's bundled
+//  interior point) resolved through DistrictService's point-in-polygon into
+//  one collegio per chamber. Its behaviour is deliberately UNCHANGED by
+//  Phase 30B; the comune-NAME path moved to the published assignment and is
+//  covered by ComuneAssignmentTests.
+//
+//  Every (coordinate → collegio id) pair below was verified against the ISTAT
+//  source in the Phase 30 report BEFORE being hardcoded: each comune's shipped
 //  comuni.json interior point was resolved against the shipped collegi
 //  polygons, and the Camera result cross-checked against the comune's own
 //  source CU20_COD (docs/v4/30-comuni-geocoding.md §"Spot verification").
-//  Roma/Milano/Napoli/Torino/Genova are split comuni: they resolve to the
-//  collegio containing the comune's largest territorial part (documented).
+//  Roma/Milano/Napoli/Torino/Genova are split comuni: the coordinate lands in
+//  the collegio containing the comune's largest territorial part, which is
+//  exactly why a NAME query no longer answers this way.
 //
 
 import XCTest
@@ -23,7 +29,7 @@ final class ComuneGeocodingIntegrationTests: XCTestCase {
     private let comuni = ComuneService()
     private let districts = DistrictService()
 
-    /// (comune, expected Camera uninominale id, expected Senato uninominale id).
+    /// (comune, Camera uninominale id containing its interior point, Senato one).
     private let verifiedPairs: [(name: String, camera: String, senato: String)] = [
         ("Roma", "120105", "S120004"),
         ("Milano", "30108", "S30003"),
@@ -59,9 +65,10 @@ final class ComuneGeocodingIntegrationTests: XCTestCase {
         }
     }
 
-    /// The dual-chamber address-search entry point (`districts(containing:)`)
-    /// resolves a comune coordinate to one collegio per chamber, the same path
-    /// AddressSearchView uses.
+    /// The dual-chamber coordinate entry point (`districts(containing:)`)
+    /// resolves a coordinate to at most one collegio per chamber — the path
+    /// AddressSearchView still uses for street addresses and autocomplete
+    /// results.
     func testDualChamberResolutionForAComuneCoordinate() {
         guard let firenze = comuni.comuni(matching: "Firenze").first else {
             return XCTFail("Firenze non trovata nella tabella comuni")
@@ -69,5 +76,37 @@ final class ComuneGeocodingIntegrationTests: XCTestCase {
         let matches = districts.districts(containing: firenze.coordinate)
         XCTAssertEqual(matches[.camera]?.id, "90007")
         XCTAssertEqual(matches[.senato]?.id, "S90004")
+    }
+
+    /// The two paths are **deliberately distinct** (Phase 30B test spec 5),
+    /// and this pins the difference rather than leaving it implicit.
+    ///
+    /// `Carbonara di Nola` is the worked example: its interior point falls on
+    /// the wrong side of a 1000 m-simplified boundary, so the COORDINATE path
+    /// answers with the neighbouring collegio `150204` — measured and
+    /// disclosed by Phase 30, and unchanged here. The NAME path answers
+    /// `150106`, which is what ISTAT publishes for that comune. Neither is a
+    /// bug in the other: one says "which collegio contains this point in our
+    /// simplified geometry", the other "which collegio does the publisher
+    /// assign this comune to".
+    func testCoordinatePathAndPublishedAssignmentAreDeliberatelyDistinct() {
+        guard case .one(let comune) = comuni.match(name: "Carbonara di Nola") else {
+            return XCTFail("Carbonara di Nola non trovata nella tabella comuni")
+        }
+
+        // Coordinate path — unchanged from Phase 30, including its artefact.
+        XCTAssertEqual(districts.district(for: comune.coordinate, chamber: .camera)?.id, "150204")
+
+        // Name path — the published assignment.
+        XCTAssertEqual(districts.districts(assignedTo: comune)[.camera]?.map(\.id), ["150106"])
+
+        // Isole Tremiti: the coordinate path has no answer at all (its island
+        // is dropped by the simplification) and honestly returns nil, while
+        // the published assignment does have one. The nil is not patched.
+        guard case .one(let tremiti) = comuni.match(name: "Isole Tremiti") else {
+            return XCTFail("Isole Tremiti non trovata nella tabella comuni")
+        }
+        XCTAssertNil(districts.district(for: tremiti.coordinate, chamber: .camera))
+        XCTAssertEqual(districts.districts(assignedTo: tremiti)[.camera]?.map(\.id), ["160002"])
     }
 }

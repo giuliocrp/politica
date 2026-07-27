@@ -138,4 +138,29 @@ final class DistrictService {
         }
         return matches
     }
+
+    /// Resolves the collegi **ISTAT itself assigns** to `comune` (v4 Phase 30B
+    /// — docs/v4/30b-comuni-assignment.md), per chamber. This is the
+    /// comune-**name** path and is deliberately *not* geometric: it cites the
+    /// publisher's own `CU20_COD`/`SU20_COD` instead of deriving an answer
+    /// from the 1000 m-simplified boundaries, so it carries neither the
+    /// simplification's border artefacts nor its dropped-island gaps.
+    ///
+    /// A chamber's array holds **every** assigned collegio — six comuni
+    /// genuinely span more than one, and returning the set is the whole point:
+    /// no single member of it may be presented as the comune's collegio. A
+    /// chamber whose ids resolve to no shipped district is absent from the
+    /// result rather than defaulted (the validator's cross-file check makes
+    /// that structurally impossible for the bundled data, but the service
+    /// still refuses to invent).
+    func districts(assignedTo comune: Comune) -> [Chamber: [District]] {
+        var matches: [Chamber: [District]] = [:]
+        for chamber in Chamber.allCases {
+            let resolved = comune.collegioIds(for: chamber).compactMap { district(withId: $0) }
+            if !resolved.isEmpty {
+                matches[chamber] = resolved
+            }
+        }
+        return matches
+    }
 }

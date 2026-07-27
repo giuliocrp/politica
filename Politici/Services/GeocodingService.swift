@@ -74,6 +74,51 @@ struct CLGeocoderResolver: AddressResolving {
 final class GeocodingService: GeocodingProviding {
     static let shared = GeocodingService()
 
+    /// The service the app actually runs with (see `ServiceContainer.live`).
+    /// In release builds this is always `shared`, i.e. `CLGeocoder`-backed.
+    /// In DEBUG it additionally honors the Phase 30B UI-test launch argument
+    /// — see `uiTestPrimaryResolver()`.
+    static var live: GeocodingService {
+        #if DEBUG
+        if let stub = uiTestPrimaryResolver() {
+            return GeocodingService(primary: stub)
+        }
+        #endif
+        return shared
+    }
+
+    #if DEBUG
+    /// UI-test seam (Phase 30B): launching the app with
+    /// `-stubAddressResolver 1` replaces the `CLGeocoder` tier with one that
+    /// resolves nothing, immediately.
+    ///
+    /// This is what finally bounds UI flow 7's wait, open since Phase 24
+    /// (docs/v4/24-ui-tests.md §6.3): `GeocodingService` always *tries*
+    /// `CLGeocoder` first, and on a simulator with no route out that attempt
+    /// was measured taking anywhere from ~1 s to over 120 s to fail, forcing
+    /// the test to carry a 300 s ceiling. Stubbing the tier removes the wait
+    /// from the test instead of putting a timeout into the product — the
+    /// production `CLGeocoder` behaviour is deliberately left alone here and
+    /// stays with Phase 32A.
+    ///
+    /// Reuses the `AddressResolving` injection seam Phase 30 added rather
+    /// than adding a second one, and mirrors
+    /// `UserDefaultsFavoritesStore.uiTestSuite()`: read through `.standard`
+    /// because `-key value` launch arguments land in `UserDefaults`' argument
+    /// domain, compiled out of release builds entirely, and inert in DEBUG
+    /// unless the argument is passed.
+    static func uiTestPrimaryResolver() -> AddressResolving? {
+        guard UserDefaults.standard.bool(forKey: "stubAddressResolver") else { return nil }
+        return StubAddressResolver()
+    }
+
+    /// Resolves nothing, instantly — so tiers 2/3 decide the outcome and no
+    /// UI test ever waits on a network geocode.
+    private struct StubAddressResolver: AddressResolving {
+        func resolve(address: String) async -> CLLocationCoordinate2D? { nil }
+    }
+    #endif
+
     private let primary: AddressResolving
     private let comuni: ComuneLookup?
 

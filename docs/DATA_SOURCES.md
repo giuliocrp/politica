@@ -10,10 +10,10 @@ ever disagree, `sources.json` is right and this file is stale — regenerate
 it or fix this file, don't just trust whichever you're looking at.
 
 Cross-checked against the shipping `Politici/Data/sources.json` on
-2026-07-23 (v4 Phase 30, when the ISTAT comuni-centroid source was added —
-originally cross-checked with 5 entries on 2026-07-18, 6 in v3 Phase 16, 8
-in v4 Phase 25, 9 in v4 Phase 28): **all 10 entries match exactly** (id,
-name, url, license, retrievedAt, notes) — see "Cross-check" at the bottom for
+2026-07-27 (v4 Phase 30B, when the ISTAT comuni entry gained the published
+collegio assignment — originally cross-checked with 5 entries on 2026-07-18,
+6 in v3 Phase 16, 8 in v4 Phase 25, 9 in v4 Phase 28, 10 in v4 Phase 30):
+**all 10 entries match exactly** (id, name, url, license, retrievedAt, notes) — see "Cross-check" at the bottom for
 the verification method.
 
 ---
@@ -297,7 +297,7 @@ layer did at Phase 16.
 
 ---
 
-## ISTAT — Comuni (centroidi per la geocodifica offline)
+## ISTAT — Comuni (assegnazione ai collegi e centroidi)
 
 | | |
 |---|---|
@@ -321,15 +321,39 @@ is identical *by construction* to the four bundled boundary files — the
 mismatch risk a separately-acquired, current-vintage comuni product would
 have introduced (post-2020 mergers/renames) does not arise.
 
-For each comune the importer takes **one interior point of the comune's
-largest polygon part** via OGR `PointOnSurface`, reprojected EPSG:32632 →
-EPSG:4326 and rounded to 5 decimal places. Both choices are measured, not
-assumed: the mathematical centroid falls *outside* its own polygon for 89 of
-the 7,904 comuni (concave shapes, islands), and a point in the *union* of a
-split comune's parts can land in a sliver gap between the independently
-simplified collegi (whole-comune Roma did exactly that, resolving to no
-Camera collegio at all). Shipped schema is the compact
-`{name, province, lat, lon}` — **568.2 KiB / 581,848 B** for 7,904 records.
+Each record carries **two independent things**, feeding two deliberately
+distinct resolution paths (v4 Phase 30B;
+[`docs/v4/30b-comuni-assignment.md`](v4/30b-comuni-assignment.md)):
+
+1. **The published collegio assignment** — `camera` / `senato`, the source's
+   own `CU20_COD` / `SU20_COD` for that comune (`"S"`-prefixed on the Senato
+   side to match the shipped district ids). Measured across the whole layer:
+   populated on **all 8,213 rows / all 7,904 comuni**, and referentially
+   exact — the distinct codes are **147/147** Camera and **74/74** Senato
+   shipped uninominale collegi, with none unresolvable and none unassigned.
+   This is what a comune-**name** query is answered with: a sourced fact, not
+   a value derived from simplified geometry. It is legitimately multi-valued
+   — **6 comuni** (Roma 7 Camera collegi, Milano 3, Napoli/Torino/Palermo/
+   Genova 2 each; 3 of them also span 2–3 Senato collegi) are divided between
+   several uninominale collegi, together **6,937,409 residents = 11.67 %** of
+   the national total by ISTAT's `POP_2011` field (**census 2011**, the
+   vintage this layer carries — not a current population figure). Those
+   comuni are shown with **every** assigned collegio; none is ever presented
+   as *the* collegio of the comune.
+2. **One interior point** (`lat`/`lon`) for the **coordinate** path — a
+   `CLGeocoder` result, a map tap, any arbitrary point — which still resolves
+   by point-in-polygon. The importer takes an interior point of the comune's
+   **largest polygon part** via OGR `PointOnSurface`, reprojected EPSG:32632 →
+   EPSG:4326 and rounded to 5 decimal places. Both choices are measured, not
+   assumed: the mathematical centroid falls *outside* its own polygon for 89 of
+   the 7,904 comuni (concave shapes, islands), and a point in the *union* of a
+   split comune's parts can land in a sliver gap between the independently
+   simplified collegi (whole-comune Roma did exactly that, resolving to no
+   Camera collegio at all).
+
+Shipped schema (`schemaVersion` 2) is
+`{name, province, lat, lon, camera[], senato[]}` — **875.7 KiB / 896,739 B**
+for 7,904 records.
 
 `province` is ISTAT's `DEN_P_CM` (provincia / città metropolitana) and is the
 **homonym disambiguator**: six comune names occur in two provinces each
@@ -341,17 +365,23 @@ contain a `/`) — German/Ladin exonyms are **not** present in the source and
 are never fabricated, so a bilingual `"X/Y"` query is resolved by matching
 either side of the slash rather than by inventing the missing name.
 
-Measured coverage against the shipped, simplified collegi polygons (full
-7,904-comune offline dry run, `tools/probes/probe_comuni_centroids.py`):
-**99.94 %** resolve to a Camera uninominale collegio and **99.97 %** to a
-Senato one; **1** comune (Isole Tremiti) falls outside every polygon in both
-chambers, a consequence of the 1000 m boundary simplification dropping small
-islands, and is disclosed rather than snapped to a nearest collegio. Of the
-comuni that resolve, **99.97 %** match the collegio the source itself assigns
-them (`CU20_COD`); the 2 exceptions are border comuni displaced by the same
-simplification. For a split comune the point lands in the collegio containing
-its largest territorial part — an inherent limitation of representing a
-multi-collegio comune by one coordinate, documented, not hidden.
+**Coverage of the two paths, kept separate because they answer different
+questions.** The **name** path is complete by construction: every comune has a
+published assignment in both chambers, so there is no nil rate and no
+simplification artefact on it. The **coordinate** path retains the figures
+measured for it by the full 7,904-comune offline dry run
+(`tools/probes/probe_comuni_centroids.py`): **99.94 %** of interior points
+resolve to a Camera uninominale collegio and **99.97 %** to a Senato one;
+**1** comune (Isole Tremiti) falls outside every polygon in both chambers, a
+consequence of the 1000 m boundary simplification dropping small islands, and
+is disclosed rather than snapped to a nearest collegio. Of the points that
+resolve, **99.97 %** land in the collegio the source assigns that comune; the
+2 exceptions are border comuni displaced by the same simplification, and for
+a split comune the point lands in the collegio containing its largest
+territorial part. Those are honest properties of resolving a *coordinate*
+against simplified geometry — they are documented, not hidden, and since
+Phase 30B they no longer reach the comune-name answer, which cites the
+publisher instead.
 
 ---
 
@@ -510,3 +540,16 @@ source is a layer of the collegi package already downloaded in that batch —
 entries.** No existing entry's `retrievedAt` moved; `generatedAt` advanced
 2026-07-22 → 2026-07-23 (the date `make manifest` actually ran). The scoped
 `git diff` of `sources.json` was exactly those two changes and nothing else.
+
+Re-checked on 2026-07-27 (v4 Phase 30B, comuni resolved via the published
+collegio assignment; see
+[`docs/v4/30b-comuni-assignment.md`](v4/30b-comuni-assignment.md)): **no new
+entry** — the source is unchanged, the same `UT_Collegi2020` layer of the same
+already-downloaded ISTAT package, and **no fetch and no download ran in this
+phase**. The existing `istat-comuni-centroidi` entry's `name` and `notes` were
+rewritten to describe what the table now carries (the published
+`CU20_COD`/`SU20_COD` assignment alongside the interior points, and the 6
+multi-collegio comuni). **The manifest still has 10 entries.** No `retrievedAt`
+moved — `istat` remains **2026-07-18**; `generatedAt` advanced 2026-07-23 →
+2026-07-27 (the date `make manifest` actually ran). The scoped `git diff` of
+`sources.json` was exactly those three lines and nothing else.

@@ -256,20 +256,33 @@ final class SmokeFlowUITests: PoliticiUITestCase {
         tapButton("home.search.submit", waitingFor: el("addressSearch.field"), "Schermata di ricerca indirizzo non aperta")
         XCTAssertTrue(el("addressSearch.city.Roma").exists, "Città campione 'Roma' non trovata")
 
-        // "Roma" is one of GeocodingService's five offline fallback cities,
-        // so this screen resolves with **no network at all**. The ceiling is
-        // deliberately huge because `GeocodingService` always *tries*
-        // CLGeocoder before falling back, and on a machine with no route out
-        // that attempt was measured taking anywhere from ~1 s to over 120 s
-        // to fail (see docs/v4/24-ui-tests.md §6). Nothing below asserts
-        // *which* collegio resolved, so the assertion holds identically
-        // whichever path ran — no test outcome depends on the network, only
-        // this one wait's duration does.
+        // Bounded at last (Phase 30B). Two independent things now keep this
+        // off the network, where Phase 24 had to carry a 300 s ceiling for a
+        // live `CLGeocoder` attempt measured at ~1 s to >120 s:
+        //   * "Roma" is a comune name, so it is answered from the bundled
+        //     published assignment without any geocoding at all, and
+        //   * every UI test launches with `-stubAddressResolver 1`, which
+        //     stubs the `CLGeocoder` tier out even when the coordinate path
+        //     does run (see PoliticiUITestCase.launchArguments).
+        // Nothing below asserts *which* collegio resolved, so the assertion
+        // holds identically whichever path ran.
         XCTAssertTrue(
-            el("addressSearch.results.header").waitForExistence(timeout: 300),
+            el("addressSearch.results.header").waitForExistence(timeout: Self.timeout),
             "Sezione dei risultati non comparsa"
         )
         XCTAssertTrue(el("addressSearch.result.camera").exists, "Riga del risultato Camera assente")
         XCTAssertTrue(el("addressSearch.result.senato").exists, "Riga del risultato Senato assente")
+
+        // Roma is assigned SEVEN Camera collegi by the source, so the screen
+        // must list all of them rather than present one as "the" collegio
+        // (Phase 30B — docs/v4/30b-comuni-assignment.md). Each carries its own
+        // "addressSearch.result.camera.<id>" identifier.
+        let romaCameraCollegi = app.descendants(matching: .any).matching(
+            NSPredicate(format: "identifier BEGINSWITH %@", "addressSearch.result.camera.")
+        )
+        XCTAssertGreaterThan(
+            romaCameraCollegi.count, 1,
+            "Roma è divisa tra più collegi Camera: devono essere elencati tutti, non uno solo"
+        )
     }
 }

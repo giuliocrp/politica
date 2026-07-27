@@ -62,13 +62,20 @@ narrow exception:
   [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md).
 - **Preferiti** (v3 Phase 19) — star representatives from their profile
   and find them again from Home; stored only on-device in `UserDefaults`.
-- **Address search with autocomplete** (`MKLocalSearchCompleter`) resolving
-  any Italian address to its real collegio via point-in-polygon geometry,
-  through three tiers: `CLGeocoder` first (address-level, when online), then
-  a **bundled table of all 7,904 Italian comuni** with ISTAT-derived
-  centroids (v4 Phase 30 — so any comune name resolves fully offline;
-  homonyms like `Castro` are disambiguated by province in the UI), then the
-  original five-city substring fallback.
+- **Address search with autocomplete** (`MKLocalSearchCompleter`), answering
+  along **two deliberately distinct paths** (v4 Phase 30 + 30B):
+  - a **comune name** is answered from the **collegio assignment ISTAT itself
+    publishes** for that comune, carried in the bundled table of all 7,904
+    Italian comuni — a sourced fact rather than a value derived from
+    simplified geometry, fully offline. It is legitimately multi-valued: the
+    six comuni divided between several uninominale collegi (Roma spans seven
+    on the Camera side) are shown with **all** of them, never with one
+    presented as the answer. Homonyms like `Castro` are disambiguated by
+    province first.
+  - **anything else** — a street address, `"Roma Termini"` — is resolved to a
+    coordinate (`CLGeocoder` when online, then the same comuni table's
+    interior points, then the original five-city substring fallback) and then
+    to a collegio by **point-in-polygon** against the shipped boundaries.
 - **Searchable representative list** (`RepresentativeListView`) — all 601
   representatives, filterable by party (12 deduplicated party chips merging
   Camera-sigla/Senato-full-name spelling variants of the same party).
@@ -148,9 +155,10 @@ make boundaries        # offline — rebuilds districts.geojson (Camera) from th
                        # gate (see docs/v3/14-pipeline-hardening.md)
 make boundaries-senato # offline — same pipeline, Senato layer →
                        # districts_senato.geojson (v3 Phase 16)
-make comuni            # offline — rebuilds comuni.json (7,904 comune centroids
-                       # for offline geocoding) from the UT_Collegi2020 layer of
-                       # that same local ISTAT package (v4 Phase 30)
+make comuni            # offline — rebuilds comuni.json (7,904 comuni: the
+                       # published collegio assignment per chamber, plus one
+                       # interior point each) from the UT_Collegi2020 layer of
+                       # that same local ISTAT package (v4 Phase 30 / 30B)
 make manifest          # offline — regenerates Data/sources.json
 make validate          # offline — structural + referential-integrity checks;
                        # runs last so it checks the final state of everything

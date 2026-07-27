@@ -15,10 +15,20 @@ struct AddressSearchView: View {
     @State private var query: String
     @State private var isSearching = false
     @State private var errorMessage: String?
-    @State private var resolvedMatches: [Chamber: District]?
+    /// One entry per chamber, each holding **every** collegio that chamber
+    /// answers with. It is an array rather than a single district because a
+    /// comune-name query can legitimately answer with several — Roma spans
+    /// seven Camera collegi — and Phase 30B's rule is that such a comune must
+    /// never be reduced to one collegio presented as the answer. The
+    /// coordinate path still produces exactly one per chamber.
+    @State private var resolvedMatches: [Chamber: [District]]?
+    /// The comune whose **published assignment** produced `resolvedMatches`,
+    /// or `nil` when they came from the coordinate path. Drives the caption
+    /// that tells the two apart. Phase 30B.
+    @State private var resolvedComune: Comune?
     /// Set when a typed name matches more than one comune (a homonym, e.g.
     /// "Castro" in Bergamo and Lecce): the user picks which province before we
-    /// resolve a coordinate. Phase 30.
+    /// resolve anything. Phase 30.
     @State private var comuneCandidates: [Comune]?
     @State private var hasAutoSearched = false
     @State private var suggestionsVisible = true
@@ -192,9 +202,7 @@ struct AddressSearchView: View {
         suggestionsVisible = false
         autocomplete.clear()
 
-        errorMessage = nil
-        resolvedMatches = nil
-        comuneCandidates = nil
+        clearResults()
         isSearching = true
 
         Task {
@@ -213,25 +221,38 @@ struct AddressSearchView: View {
         }
     }
 
-    /// Free-text submission. If the typed text is a homonym comune name
-    /// (matches more than one comune, distinguished by province), we ask the
-    /// user which one first (Phase 30) — an offline, exact-name check that
-    /// never fires for a full street address, so `CLGeocoder` still wins for
-    /// address-level queries. Otherwise resolve through `GeocodingProviding`
-    /// (CLGeocoder → comuni table → five-city fallback).
+    /// Free-text submission, routed down one of **two deliberately distinct
+    /// paths** (Phase 30B — docs/v4/30b-comuni-assignment.md):
+    ///
+    /// * the text names a comune → answer with the collegi **ISTAT publishes**
+    ///   for it. A sourced fact, so it carries none of the simplified
+    ///   geometry's border artefacts or dropped-island gaps — and it can be a
+    ///   *set*, which is how Roma stops being answered with one of its seven
+    ///   Camera collegi. A homonym (`Castro` in Bergamo *and* Lecce) asks for
+    ///   the province first (Phase 30).
+    /// * anything else (a street address, "Roma Termini", …) → the unchanged
+    ///   coordinate path through `GeocodingProviding` (CLGeocoder → comuni
+    ///   table → five-city fallback) and point-in-polygon.
+    ///
+    /// The comune check is exact-name and offline, so it never fires for a
+    /// full street address and `CLGeocoder` still wins for address-level
+    /// queries.
     private func search() {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
         suggestionsVisible = false
-        errorMessage = nil
-        resolvedMatches = nil
-        comuneCandidates = nil
+        clearResults()
 
-        let candidates = services.comuneService.comuni(matching: trimmed)
-        if candidates.count > 1 {
+        switch services.comuneService.match(name: trimmed) {
+        case .ambiguous(let candidates):
             comuneCandidates = candidates
             return
+        case .one(let comune):
+            resolveComune(comune)
+            return
+        case .none:
+            break  // not a comune name — fall through to the coordinate path
         }
 
         isSearching = true
@@ -246,26 +267,45 @@ struct AddressSearchView: View {
         }
     }
 
-    /// The user picked one province for a homonym name: resolve that comune's
-    /// coordinate directly (offline), skipping the ambiguous geocode.
+    /// The user picked one province for a homonym name: answer from that
+    /// comune's published assignment, skipping the ambiguous geocode.
     private func selectCandidate(_ comune: Comune) {
-        comuneCandidates = nil
-        errorMessage = nil
-        resolvedMatches = nil
-        resolveCoordinate(comune.coordinate)
+        clearResults()
+        resolveComune(comune)
     }
 
-    /// Resolves against BOTH chambers independently — an address may fall
-    /// inside a Camera collegio, a Senato collegio, both, or neither, and
-    /// each is reported on its own line rather than silently preferring
-    /// one chamber (see `resultsSection`).
+    /// Answers from the **published** comune → collegio assignment, per
+    /// chamber, listing every collegio the source assigns. A comune spanning
+    /// several is shown as all of them, never reduced to one.
+    private func resolveComune(_ comune: Comune) {
+        let matches = services.districtService.districts(assignedTo: comune)
+        if matches.isEmpty {
+            errorMessage = "Nessun collegio elettorale trovato per questo comune."
+        } else {
+            resolvedComune = comune
+            resolvedMatches = matches
+        }
+    }
+
+    /// Resolves a coordinate against BOTH chambers independently — a position
+    /// may fall inside a Camera collegio, a Senato collegio, both, or neither,
+    /// and each is reported on its own line rather than silently preferring
+    /// one chamber (see `resultsSection`). Geometry answers at most one
+    /// collegio per chamber, so each entry here is a single-element list.
     private func resolveCoordinate(_ coordinate: CLLocationCoordinate2D) {
         let matches = services.districtService.districts(containing: coordinate)
         if matches.isEmpty {
             errorMessage = "Nessun collegio elettorale trovato per questa posizione. Prova con il nome di un comune (es. Roma, Milano, Torino)."
         } else {
-            resolvedMatches = matches
+            resolvedMatches = matches.mapValues { [$0] }
         }
+    }
+
+    private func clearResults() {
+        errorMessage = nil
+        resolvedMatches = nil
+        resolvedComune = nil
+        comuneCandidates = nil
     }
 
     /// Homonym chooser: the same comune name exists in more than one province,
@@ -306,20 +346,25 @@ struct AddressSearchView: View {
     }
 
     @ViewBuilder
-    private func resultsSection(_ matches: [Chamber: District]) -> some View {
+    private func resultsSection(_ matches: [Chamber: [District]]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Collegio trovato")
+            Text(matches.values.contains { $0.count > 1 } ? "Collegi trovati" : "Collegio trovato")
                 .font(.headline)
                 .accessibilityIdentifier("addressSearch.results.header")
-            ChamberResultRow(chamber: .camera, district: matches[.camera]) {
-                if let district = matches[.camera] {
-                    path.append(.districtDetail(districtId: district.id))
-                }
+            // The two paths answer different questions and can legitimately
+            // differ near a simplified boundary, so the result says which one
+            // produced it rather than presenting both as the same kind of fact.
+            Text(resolvedComune == nil
+                 ? "Collegio determinato dalla posizione geografica trovata."
+                 : "Assegnazione del comune ai collegi pubblicata da ISTAT (basi geografiche dei collegi 2020).")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .accessibilityIdentifier("addressSearch.results.source")
+            ChamberResultGroup(chamber: .camera, districts: matches[.camera] ?? []) { district in
+                path.append(.districtDetail(districtId: district.id))
             }
-            ChamberResultRow(chamber: .senato, district: matches[.senato]) {
-                if let district = matches[.senato] {
-                    path.append(.districtDetail(districtId: district.id))
-                }
+            ChamberResultGroup(chamber: .senato, districts: matches[.senato] ?? []) { district in
+                path.append(.districtDetail(districtId: district.id))
             }
         }
         .padding()
@@ -328,59 +373,102 @@ struct AddressSearchView: View {
     }
 }
 
-/// One line of `AddressSearchView`'s dual-chamber result: a tappable
-/// "Collegio Camera: {name}"/"Collegio Senato: {name}" row when that
-/// chamber has a containing district, or the same honest not-covered
-/// copy `resolveCoordinate` used to show for the whole search — now
-/// scoped to just this chamber, since the other one may still have
-/// resolved.
-private struct ChamberResultRow: View {
+/// One chamber's slice of `AddressSearchView`'s dual-chamber result — **one,
+/// many, or none**, the three outcomes Phase 30B's name path has to be able
+/// to express (docs/v4/30b-comuni-assignment.md):
+///
+/// * **one** — the ordinary case, and every case the coordinate path can
+///   produce: a single tappable "Collegio Camera / Senato: {name}" row.
+/// * **many** — a comune the source assigns to several uninominale collegi
+///   (Roma spans seven Camera collegi). Every one of them is listed, under
+///   copy that says the comune is divided between them: reducing the set to
+///   its largest-territory member would present a computed pick with the same
+///   confidence as a genuinely unique answer, which is the silent-failure
+///   shape this phase exists to remove.
+/// * **none** — the honest not-covered copy `resolveCoordinate` used to show
+///   for the whole search, scoped to just this chamber since the other one
+///   may still have resolved.
+private struct ChamberResultGroup: View {
     let chamber: Chamber
-    let district: District?
-    let onSelect: () -> Void
+    let districts: [District]
+    let onSelect: (District) -> Void
 
     private var chamberLabel: String {
         chamber == .camera ? "Camera" : "Senato"
     }
 
-    /// Stable across both branches below, so a test can assert the dual
-    /// structure regardless of which chambers actually matched.
+    /// "della Camera" / "del Senato" — the genitive the multi-collegio
+    /// sentence needs.
+    private var chamberGenitive: String {
+        chamber == .camera ? "della Camera" : "del Senato"
+    }
+
+    /// Stable across all three branches below, so a test can assert the dual
+    /// structure regardless of how many collegi each chamber answered with.
     private var identifier: String {
         "addressSearch.result.\(chamber == .camera ? "camera" : "senato")"
     }
 
     var body: some View {
-        if let district {
-            Button(action: onSelect) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Collegio \(chamberLabel)")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Text(district.name)
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(.primary)
-                    }
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundStyle(.tertiary)
-                        .accessibilityHidden(true)
-                }
-                .frame(minHeight: 44)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityElement(children: .combine)
-            .accessibilityHint("Apre i dettagli del collegio")
-            .accessibilityIdentifier(identifier)
-        } else {
-            Text("Collegio \(chamberLabel): indirizzo non coperto dal prototipo per questa camera.")
+        if districts.isEmpty {
+            Text("Collegio \(chamberLabel): non coperto dal prototipo per questa camera.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .frame(minHeight: 44, alignment: .leading)
                 .accessibilityIdentifier(identifier)
+        } else if districts.count == 1, let district = districts.first {
+            row(district, caption: "Collegio \(chamberLabel)")
+                .accessibilityIdentifier(identifier)
+        } else {
+            VStack(alignment: .leading, spacing: 6) {
+                // The group's identifier lives on this header, not on the
+                // enclosing VStack: an `accessibilityIdentifier` applied to a
+                // plain container propagates down and *overrides* the
+                // per-collegio identifiers set inside it, which would erase
+                // exactly the per-row addressability this branch exists for.
+                Text("Collegi \(chamberLabel): \(districts.count)")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .accessibilityIdentifier(identifier)
+                Text("Questo comune è diviso tra \(districts.count) collegi uninominali \(chamberGenitive): sono elencati tutti. Cerca un indirizzo completo per sapere quale ti riguarda.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                ForEach(districts) { district in
+                    row(district, caption: nil)
+                        .accessibilityIdentifier("\(identifier).\(district.id)")
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+
+    private func row(_ district: District, caption: String?) -> some View {
+        Button {
+            onSelect(district)
+        } label: {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    if let caption {
+                        Text(caption)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Text(district.name)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.primary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                    .accessibilityHidden(true)
+            }
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .accessibilityHint("Apre i dettagli del collegio")
     }
 }
 

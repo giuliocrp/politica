@@ -29,7 +29,7 @@ final class GeocodingTierTests: XCTestCase {
 
     func testTier1CLGeocoderWinsWhenAvailable() async throws {
         // Even though the comuni table also has a match, tier 1 must win.
-        let comune = Comune(name: "Castro", province: "Bergamo", lat: comunePoint.latitude, lon: comunePoint.longitude)
+        let comune = Comune(name: "Castro", province: "Bergamo", lat: comunePoint.latitude, lon: comunePoint.longitude, camera: ["30302"], senato: ["S30007"])
         let service = GeocodingService(
             primary: FakePrimary(coordinate: clGeocoderPoint),
             comuni: FakeComuni(byQuery: ["Castro": [comune]])
@@ -40,7 +40,7 @@ final class GeocodingTierTests: XCTestCase {
     }
 
     func testTier2ComuniTableUsedWhenPrimaryFails() async throws {
-        let comune = Comune(name: "Predoi", province: "Bolzano", lat: comunePoint.latitude, lon: comunePoint.longitude)
+        let comune = Comune(name: "Predoi", province: "Bolzano", lat: comunePoint.latitude, lon: comunePoint.longitude, camera: ["40004"], senato: ["S40006"])
         let service = GeocodingService(
             primary: FakePrimary(coordinate: nil),
             comuni: FakeComuni(byQuery: ["Predoi": [comune]])

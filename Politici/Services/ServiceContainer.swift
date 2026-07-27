@@ -29,7 +29,7 @@ struct ServiceContainer {
         representativeService: .shared,
         voteService: .shared,
         membershipService: .shared,
-        geocodingService: .shared,
+        geocodingService: .live,
         comuneService: .shared,
         manifestService: .shared,
         partyStyleService: .shared,

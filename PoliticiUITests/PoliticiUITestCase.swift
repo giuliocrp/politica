@@ -26,12 +26,29 @@ class PoliticiUITestCase: XCTestCase {
     /// favorites and none of them can touch a real user's data.
     static let favoritesSuiteName = "PoliticiUITestsFavorites"
 
+    /// Launch arguments every UI test runs with.
+    ///
+    /// `-stubAddressResolver 1` swaps `GeocodingService`'s `CLGeocoder` tier
+    /// for one that resolves nothing, instantly (Phase 30B —
+    /// `GeocodingService.uiTestPrimaryResolver()`). It is what finally bounds
+    /// flow 7's wait, open since Phase 24: the live `CLGeocoder` attempt was
+    /// measured taking ~1 s to >120 s to fail on a simulator with no route
+    /// out, which is why that flow carried a 300 s ceiling. Nothing in this
+    /// suite asserts a `CLGeocoder`-derived result, so removing the network
+    /// from the tests changes no expectation — only how long they can take.
+    /// The seam is DEBUG-only and inert unless passed; no production timeout
+    /// was introduced.
+    static let launchArguments = [
+        "-favoritesSuite", favoritesSuiteName,
+        "-stubAddressResolver", "1",
+    ]
+
     var app: XCUIApplication!
 
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments += ["-favoritesSuite", Self.favoritesSuiteName]
+        app.launchArguments += Self.launchArguments
         app.launch()
         XCTAssertTrue(
             app.staticTexts["home.title"].waitForExistence(timeout: Self.timeout),
