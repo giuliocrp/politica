@@ -72,7 +72,112 @@ comuni with NO Senato code  : 0  []
 
 Measured on **rows** as well as comuni, because the condition names an
 unpopulated *row* as NO-GO and a comune can carry up to 155 of them. Zero on
-both counts. **Condition (a): PASS.**
+both counts.
+
+#### The 8,213 rows vs 7,904 comuni reconciliation
+
+Both counts appear above, so the 309-row surplus is explained here rather
+than left for a reader to wonder about — the importer groups rows, and a
+grouping rule that silently picked among disagreeing rows would be exactly
+the arbitrary choice this phase exists to remove. Measured read-only at
+closeout (2026-07-28) against `UT_Collegi2020`:
+
+```
+rows=8213  comuni=7904  surplus=309
+rows-per-comune distribution: {1: 7898, 8: 1, 9: 1, 25: 1, 30: 1, 88: 1, 155: 1}
+
+comuni with >1 row: 6   surplus they account for: 309
+  Roma (Roma)  rows=155     Milano (Milano)  rows=88     Napoli (Napoli)  rows=30
+  Palermo (Palermo) rows=25 Genova (Genova)  rows=9      Torino (Torino)  rows=8
+```
+
+**Cause, named precisely: sub-comunal territorial units (the `ASC_*`
+fields — `area sub-comunale`).** `UT_Collegi2020` splits exactly six comuni
+into their official sub-comunal divisions, one row each, and every other
+comune is a single row:
+
+```
+ASC_TIPO value counts: {None: 7898, 'Zona Urbanistica': 155, 'NIL': 88,
+                        'Quartiere': 55, 'Municipio': 9, 'Circoscrizione': 8}
+single-row comuni with a non-empty ASC_NOME: 0
+```
+
+Roma's 155 rows are its *zone urbanistiche*, Milano's 88 its *NIL* (nuclei di
+identità locale), Napoli's 30 and Palermo's 25 its *quartieri*, Genova's 9 its
+*municipi*, Torino's 8 its *circoscrizioni comunali* — 155+88+55+9+8 = 315
+rows for 6 comuni, i.e. **surplus 309, exactly**. The 7,898 single-row comuni
+carry `ASC_TIPO = null` and no `ASC_NOME`. **The surplus is the multi-collegio
+set and nothing else** — a stronger result than the closeout brief expected,
+and it is why the split exists at all: ISTAT subdivides precisely those
+comuni whose territory straddles more than one collegio.
+
+**The collapse rule, stated explicitly.** `tools/import_comuni.py` groups on
+**`PRO_COM`** (the ISTAT comune code) and, for the two fields that ship as
+the answer, takes the **sorted set union** across the group — not a pick:
+
+```python
+if cu not in (None, 0, ""): camera_codes[code].add(str(cu))
+if su not in (None, 0, ""): senato_codes[code].add("S" + str(su))
+...
+"camera": sorted(camera_codes[code]), "senato": sorted(senato_codes[code]),
+```
+
+**When grouped rows disagree, every value ships.** That is the whole
+mechanism by which Roma answers with seven Camera collegi instead of one:
+there is no tie-break to be arbitrary about, because nothing is discarded.
+
+**Proof that the disagreement is confined to the (c) set.** Per-comune, the
+number of comuni whose rows carry more than one distinct value:
+
+```
+CU20_COD  : 6 comuni disagree -> Roma[7] Milano[3] Napoli[2] Torino[2] Palermo[2] Genova[2]
+SU20_COD  : 3 comuni disagree -> Roma[3] Milano[2] Genova[2]
+CP20_COD  : 1 comune  disagrees -> Roma [120101, 120102, 120103]
+SP20_COD  : 0 comuni disagree
+CIRC_COD  : 0 comuni disagree
+DEN_COM   : 0 comuni disagree
+DEN_P_CM  : 0 comuni disagree
+```
+
+The uninominale disagreements are **exactly** the (c) set, comune for comune
+and code for code — 6 on the Camera side, 3 on the Senato side, the same
+values enumerated there. **No comune disagrees outside that set**, so the
+Q1 50-vs-49 pattern (a row that is not what its attributes claim) does not
+arise and there is nothing to stop and report.
+
+**The plurinominale check the brief asked for — the Phase 25 nesting model
+holds.** Roma's single `CP20_COD` disagreement is *not* a counter-example:
+the invariant is that a comune in **one** uninominale collegio sits in one
+plurinominale, and Roma is in seven. Tested directly at the collegio level
+rather than the comune level:
+
+```
+distinct uninominale Camera collegi: 147 | any mapping to >1 plurinominale: NONE
+distinct uninominale Senato collegi:  74 | any mapping to >1 plurinominale: NONE
+any Camera uninominale in >1 circoscrizione: NONE
+
+Roma's 7 uninominale -> plurinominale:
+   120101,120102,120103 -> 120101 'Lazio 1 - P01'
+   120104               -> 120102 'Lazio 1 - P02'
+   120105,120106,120107 -> 120103 'Lazio 1 - P03'
+```
+
+Every one of the 147 Camera and 74 Senato uninominale collegi nests in
+exactly one plurinominale, and every Camera uninominale in exactly one
+circoscrizione. Roma spans 3 plurinominale collegi **because** its 7
+uninominale ones do — the union model predicts it. **The table is shaped the
+way Phase 25 established; no restatement is needed.**
+
+**One honest gap, not a defect.** The name/province collapse is *last row
+wins* (`meta[code] = (DEN_COM, DEN_P_CM)` overwrites on each row) rather than
+a checked union. It is provably unambiguous on this data — 0 comuni disagree
+on either field, measured above — and the importer already fails loudly on an
+empty name or province, but it does **not** guard against a future source
+where two rows of one comune carry different names. Left alone here (this
+closeout is report-only and the guard is not needed by the shipped data);
+recorded in the deferred list as a tooling-hardening candidate.
+
+**Condition (a): PASS.**
 
 ### (b) Referential integrity — exact, both chambers
 
@@ -185,15 +290,19 @@ project's other coarse drift backstops (`comuni` v1 at 74.0 %, memberships at
 41.6 %). The gate exists to catch a schema/regeneration accident, and 31.6 %
 headroom keeps it doing that job at the same coarseness as its siblings.
 
-**`Data/` total, re-measured (not projected):**
+**`Data/` total — the figure condition (d) requires be recorded for
+32A/32B.** Measured directly off the shipped tree (`os.path.getsize` over
+`Politici/Data/`, excluding the three `*.sample.*` fixtures), **not** derived
+from the phase file's or Phase 30's numbers, and re-verified independently at
+closeout on 2026-07-28:
 
-| | Bytes | MiB | % of 10 MiB soft ceiling |
+| | Bytes | MiB | % of ~10 MiB soft ceiling |
 |---|---:|---:|---:|
 | Real `Data/` after Phase 30 | 6,351,326 | 6.06 | 60.6 % |
-| **After Phase 30B** (`+314,890` comuni, `+335` sources) | **6,666,551** | **6.36** | **63.6 %** |
+| **Real `Data/` after Phase 30B** (`+314,890` comuni, `+335` sources) | **6,666,551** | **6.36** | **63.6 %** |
+| Headroom remaining | 3,819,209 | 3.64 | 36.4 % |
 
-Headroom remaining: **3.64 MiB**. §8 carries the per-file table for 32A/32B.
-**Condition (d): PASS.**
+§9 carries the per-file breakdown behind that total. **Condition (d): PASS.**
 
 ### (e) The resolution diff — enumerated comune by comune
 
@@ -707,7 +816,61 @@ No other deviation. Nothing under `docs/v2/`, `docs/v3/`, `docs/history/`, or
 
 ---
 
-## 11. Diff scope for this commit
+## 11. Container-identifier shadowing — survey (added at closeout)
+
+The defect §6 records — an `accessibilityIdentifier` on a plain container
+propagating down and **overriding** the identifiers its children set — is
+standard SwiftUI behaviour, not a one-off. So `Politici/Views/` was swept for
+the same shape. **Survey only: nothing outside 30B's diff scope was changed.**
+
+48 `accessibilityIdentifier` call sites across 10 view files
+(AddressSearch 11, Home 10, DistrictDetail 9, Profile 5, VotazioniList 4,
+VoteHistory 4, Map 2, CollegiList/RepresentativeList/Preferiti 1 each;
+`AppRoute` and `FontiEDatiView` carry none). The shadowing shape needs **both**
+a container that is not itself a single accessibility element **and**
+descendants carrying their own identifiers. Classified:
+
+| Class | Count | Shadowing risk | Load-bearing? |
+|---|---:|---|---|
+| Leaf / single control — `Text`, `TextField`, `Button`, `Link`, `ProgressView` | 39 | **None** — nothing identified underneath | n/a |
+| Container with `.accessibilityElement(children: .combine)` | 7 | **None by construction** — the container *is* one element, its children are deliberately merged and were never separately addressable | n/a |
+| Container **without** `.combine` | 2 | **Theoretically yes** | **No** — see below |
+
+The 7 combine containers: `votazioni.scope`, `vote.event.<id>`,
+`vote.row.<id>`, `profile.header`, `profile.alignment`, `district.header`,
+`addressSearch.candidate.<province>`. Merging children into one element is the
+Phase 24 convention for a row that VoiceOver should read as a single unit; it
+is a deliberate structural choice, distinct from accidental identifier
+shadowing.
+
+**The only two non-`.combine` container sites** are the two shared segmented
+controls in [`MapView.swift`](../../Politici/Views/MapView.swift):
+`ChamberPicker` → `chamber.picker` (line 177) and `CollegioTypePicker` →
+`collegioType.picker` (line 201). Each wraps a `Picker` whose two `Text`
+segments carry an `.accessibilityLabel` but **no identifier of their own**, so
+there is nothing for the container identifier to shadow. Neither identifier is
+referenced by any test: `PoliticiUITestCase.selectChamber` addresses segments
+through `app.segmentedControls.firstMatch` and then `picker.buttons[label]`,
+i.e. by the pinned institutional label, never by identifier. **Not
+load-bearing, and no test can be passing for the wrong reason through them.**
+
+**Effect on Phase 24's accessibility audit: none.**
+`performAccessibilityAudit` walks the accessibility **element tree**;
+identifier propagation sets a *property* on elements and does not add, remove
+or merge any. What does change the tree is `.accessibilityElement(children:
+.combine)`, and that is a deliberate, already-recorded convention rather than
+a side effect of this pattern. So the audit traversed the same elements before
+and after the 30B fix, and the 62 recorded findings are unaffected.
+
+**Conclusion: the 30B site was the only load-bearing instance in the app.** A
+deferred-list entry nonetheless points Phase 32A — whose scope already
+includes the accessibility reconciliation — at re-running this survey when it
+touches these screens, since the pattern is easy to reintroduce and silent
+when it happens.
+
+---
+
+## 12. Diff scope for this commit
 
 ```
 Politici/Data/comuni.json                          (regenerated — schemaVersion 2)
@@ -743,3 +906,35 @@ Remote actions are the user's. Not run here:
 ```
 git push origin v4
 ```
+
+---
+
+## 13. Closeout (separate commit, `docs(v4): phase 30b closeout — row reconciliation, data total, identifier survey`)
+
+Three review items on the 30B commit, addressed before push. **A separate
+commit, deliberately not an amend** — matching the `5186a51` / `17cc2a7`
+precedent for Phase 30's and Phase 29's follow-ups.
+
+| Item | Outcome | Change |
+|---|---|---|
+| 1 — reconcile 8,213 rows vs 7,904 comuni | **No data defect.** The 309-row surplus is *entirely* the six multi-collegio comuni, split into ISTAT sub-comunal units (`ASC_*`); the collapse rule is a sorted set **union** on `PRO_COM`, so disagreeing rows all ship; disagreement is confined to the (c) set; the Phase 25 nesting model holds (147/147 and 74/74 uninominale each in exactly one plurinominale) | §2(a), report-only |
+| 2 — record the post-30B `Data/` total | Re-measured independently: **6,666,551 B = 6.36 MiB = 63.6 %**, headroom 3,819,209 B = 3.64 MiB | §2(d), restated in bytes/MiB/% |
+| 3 — container-identifier shadowing survey | 48 sites swept; 39 leaf, 7 deliberate `.combine` containers, 2 non-`.combine` containers (the `MapView` pickers) whose children carry no identifiers and which no test references. **The 30B site was the only load-bearing instance** | §11 (new), deferred-list entry for 32A |
+
+**No suite re-run was performed, and none is owed.** `CLAUDE.md`'s re-run rule
+is scoped to *"changes to a bundled data file (anything under
+`Politici/Data/`)"* made after a validating run. This closeout touches **only
+Markdown** — no file under `Politici/`, no file under `tools/`, no generated
+artifact, no test source; item 1's measurements were read-only against the
+committed tree and item 3's survey was a `grep`. The Phase 30B run therefore
+still certifies the tree: **`totalTestCount` 219, `passedTests` 219,
+`failedTests` 0**, and the declared count is unchanged at **219**.
+
+**Deliberately left alone.** The item-1 measurements were run read-only from
+the session scratchpad and their commands are quoted inline above rather than
+committed as an extension to
+[`probe_comuni_assignment.py`](../../tools/probes/probe_comuni_assignment.py)'s
+condition-(a) section — which is their natural home under the probes
+convention, but is a `tools/` change and outside this closeout's stated
+report-only scope. Recorded here so a later tooling-touching phase can pick it
+up rather than re-derive it.
