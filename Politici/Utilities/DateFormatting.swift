@@ -22,10 +22,26 @@ enum DateFormatting {
         isoDateFormatter.date(from: string)
     }
 
+    /// The zone every date in this project is *produced* in: both ISO parsers
+    /// (`parseISODate` above and `Vote.dateFormatter`) turn a bare `yyyy-MM-dd`
+    /// into **midnight Europe/Rome**. The display formatters below must read
+    /// them back in that same zone, or the rendered calendar day is wrong.
+    ///
+    /// This bit them before it was pinned (fixed in Phase 31 —
+    /// `docs/v4/31-live-refresh-adr.md` §8): left on the device's timezone,
+    /// midnight in Rome is the *previous* day anywhere west of it, so
+    /// `2026-07-22` rendered as "21 luglio 2026" under UTC and every US zone —
+    /// silently shifting each vote's date and each source's retrieval date by
+    /// one day for those users. Do not relax this to the device zone: these
+    /// are Rome calendar days (sitting dates, retrieval dates), not instants
+    /// to be localized.
+    private static let romeTimeZone = TimeZone(identifier: "Europe/Rome")
+
     /// e.g. "12 marzo 2025"
     static let longDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = italianLocale
+        formatter.timeZone = romeTimeZone
         formatter.dateFormat = "d MMMM yyyy"
         return formatter
     }()
@@ -34,6 +50,7 @@ enum DateFormatting {
     static let shortDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = italianLocale
+        formatter.timeZone = romeTimeZone
         formatter.dateStyle = .short
         return formatter
     }()

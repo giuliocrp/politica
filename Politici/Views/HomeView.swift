@@ -186,17 +186,35 @@ struct HomeView: View {
         }
     }
 
+    /// The data-vintage line sits *inside* the "Informazioni e fonti" button
+    /// rather than beside it: the footer states one fact — the last retrieval
+    /// across every source — and the per-source breakdown that qualifies it is
+    /// then one tap away. It is deliberately a plain statement with no
+    /// threshold and no warning colour (Phase 31 — docs/v4/31-live-refresh-adr.md
+    /// §7); when the manifest fails to load the line is simply absent, never a
+    /// placeholder date. No `accessibilityIdentifier` is set on the inner
+    /// `Text`s: they are inside a `Button` label, so the button is the single
+    /// accessibility element and a child identifier would be unreachable —
+    /// the shadowing trap `CLAUDE.md` records from Phase 30B.
     private var footer: some View {
         Button {
             path.append(.fontiEDati)
         } label: {
-            Text("Informazioni e fonti")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity)
+            VStack(spacing: 4) {
+                Text("Informazioni e fonti")
+                    .font(.footnote)
+                if let vintage = services.manifestService.dataVintageText {
+                    Text(vintage)
+                        .font(.caption)
+                }
+            }
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
         }
         .frame(minHeight: 44)
         .contentShape(Rectangle())
+        .accessibilityIdentifier("home.footer.fonti")
         .padding(.top, 4)
     }
 

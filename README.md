@@ -322,6 +322,15 @@ after the fact:
   `Data/sources.json` / the in-app "Informazioni e fonti" screen — nothing
   refreshes automatically; re-running `make refresh` is required to update
   it, and the app has no way to know it's stale beyond the displayed date.
+  Since v4 Phase 31 the Home footer states the last retrieval across all
+  sources ("Ultimo aggiornamento dei dati: …"), so the vintage is visible
+  without opening the sources screen. What that staleness actually costs is
+  measured per class in
+  [`docs/v4/31-live-refresh-adr.md`](docs/v4/31-live-refresh-adr.md): ~91 %
+  of the bundle cannot change within the legislature, while the parts that
+  can are the ones about named people — measured at 19 group switches
+  (14 deputies) in a trailing 12 months, and ≥5 of 400 Camera seats changing
+  occupant inside the 9-month vote window.
 - **`PoliticiUITests` is still unmodified Xcode template boilerplate** — no
   real UI-automation test coverage exists; all verification during v2 and
   v3 was `PoliticiTests` unit coverage plus per-phase code-inspection
@@ -370,10 +379,16 @@ What v3 actually did to the old roadmap, stated plainly, plus what remains
   the last methodology-gate line. **Infrastructure only — no metric UI.**
 - The per-deputy **group-alignment metric** (Phase 29,
   [`docs/v4/29-alignment-metric.md`](docs/v4/29-alignment-metric.md)) — a pure
-  `GroupAlignment.score(…)` over `(events, positions, memberships)`, shown on
+  `GroupAlignment.alignment(…)` (over an internal `tally(…)`) computed from
+  `(events, positions, memberships)`, shown on
   the Camera deputy profile only, above a minimum denominator of 10, with the
   denominator visible, never listed/ranked/colored. Ships behind the re-measured
   6/6 gate and explicit user sign-off on the tie rule and threshold (Q7).
+- The Home **data-vintage line** and the ADR that decided live refresh
+  (Phase 31, [`docs/v4/31-live-refresh-adr.md`](docs/v4/31-live-refresh-adr.md)).
+  Also fixed there: every date the app rendered was one calendar day early
+  on devices west of Rome, because the display formatters ran on the device
+  timezone while every parser produces midnight Europe/Rome.
 
 **Open (V4 candidates)**:
 - Populating senators' `electionType` from `osr:tipoElezione` — the data
@@ -383,8 +398,15 @@ What v3 actually did to the old roadmap, stated plainly, plus what remains
 - ~~Offline geocoding beyond the five-city fallback (bundled
   comuni-centroid table).~~ **Done** in v4 Phase 30 — see
   [`docs/v4/30-comuni-geocoding.md`](docs/v4/30-comuni-geocoding.md).
-- Possible live data refresh — still deferred pending the "is that
-  compatible with local-first at all" decision.
+- ~~Possible live data refresh — still deferred pending the "is that
+  compatible with local-first at all" decision.~~ **Decided** in v4
+  Phase 31: **stays deferred**, now on measured grounds rather than a
+  pending question — ~91 % of the bundle cannot change within the
+  legislature, refreshing the comuni table would break its legally-pinned
+  collegio join, and the ~9 % that does age already has a human-reviewed
+  refresh path in `make refresh`. The trigger conditions that would
+  re-open it are pinned in
+  [`docs/v4/31-live-refresh-adr.md`](docs/v4/31-live-refresh-adr.md) §5.
 - Push notifications for new votes — still deferred (needs a backend that
   doesn't exist and isn't planned); listed so it isn't quietly forgotten.
 

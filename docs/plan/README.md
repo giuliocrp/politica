@@ -27,7 +27,7 @@ phase's report. Statuses: `pending` / `in progress` / `done` /
 | [29](phase-29.md) | Alignment metric | all six methodology lines | [done](../v4/29-alignment-metric.md) |
 | [30](phase-30.md) | Comuni-centroid geocoding | GO-COMUNI, **USER-GATED acquisition** | [done](../v4/30-comuni-geocoding.md) |
 | [30B](phase-30b.md) | Comuni Resolve via Published Assignment | GO-ASSIGN | [done](../v4/30b-comuni-assignment.md) |
-| [31](phase-31.md) | Staleness + live-refresh ADR | — | pending |
+| [31](phase-31.md) | Staleness + live-refresh ADR | — | [done](../v4/31-live-refresh-adr.md) |
 | [32A](phase-32a.md) | Docs, a11y, release prep | — | pending |
 | [32B](phase-32b.md) | Decisions + tag | explicit tag approval | pending |
 
