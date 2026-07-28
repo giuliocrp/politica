@@ -83,6 +83,42 @@ class PoliticiUITestCase: XCTestCase {
         app.buttons.matching(identifier: identifier).firstMatch
     }
 
+    /// Scrolls the enclosing scroll view until `element` is hittable.
+    ///
+    /// Needed for content below the fold — `HomeView` is a `ScrollView`, so
+    /// its footer exists in the accessibility tree from launch but is not
+    /// hittable, and `performAccessibilityAudit` never traverses it, until it
+    /// is scrolled into view. `swipeUp()` is a gesture sent to a real,
+    /// identified element, so this stays inside the suite's rule against
+    /// screen coordinates; it is not a retry of any assertion.
+    @discardableResult
+    func scrollUntilHittable(
+        _ element: XCUIElement,
+        maxSwipes: Int = 8,
+        file: StaticString = #filePath, line: UInt = #line
+    ) -> XCUIElement {
+        XCTAssertTrue(
+            element.waitForExistence(timeout: Self.timeout),
+            "Elemento da raggiungere con lo scorrimento non trovato", file: file, line: line
+        )
+        guard !element.isHittable else { return element }
+        let scrollView = app.scrollViews.firstMatch
+        XCTAssertTrue(
+            scrollView.waitForExistence(timeout: Self.timeout),
+            "Nessuna vista scorrevole in cui scorrere", file: file, line: line
+        )
+        var swipes = 0
+        while !element.isHittable && swipes < maxSwipes {
+            scrollView.swipeUp()
+            swipes += 1
+        }
+        XCTAssertTrue(
+            element.isHittable,
+            "Elemento ancora non raggiungibile dopo \(maxSwipes) scorrimenti", file: file, line: line
+        )
+        return element
+    }
+
     @discardableResult
     func assertExists(_ identifier: String, _ message: String, file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
         let element = el(identifier)

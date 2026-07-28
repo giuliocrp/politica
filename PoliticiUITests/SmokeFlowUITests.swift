@@ -285,4 +285,47 @@ final class SmokeFlowUITests: PoliticiUITestCase {
             "Roma è divisa tra più collegi Camera: devono essere elencati tutti, non uno solo"
         )
     }
+
+    // MARK: - Flow 8
+
+    /// Phase 31's only user-facing deliverable is the data-vintage line, and
+    /// it sits **below Home's fold** — so until this flow existed, nothing
+    /// asserted it reaches the screen at all (`DataVintageTests` proves the
+    /// value is derived correctly; the wiring was only checked by reading the
+    /// code). See docs/v4/31-live-refresh-adr.md §13.
+    ///
+    /// Looked up by identifier, per the suite's rule. The identifier is on the
+    /// **Button** (`home.footer.fonti`) rather than on the line itself: the
+    /// line is inside a `Button` label, so the button is the single
+    /// accessibility element and a child identifier would be silently
+    /// unreachable — the shadowing trap CLAUDE.md records from Phase 30B. The
+    /// content is therefore read off the button's combined label.
+    ///
+    /// The exact date is deliberately **not** pinned. It is the max
+    /// `retrievedAt` across sources.json and advances on any refetch, so
+    /// pinning it would be re-pin bait (same reasoning as the Phase 27/28 data
+    /// anchors). What is asserted is the pinned copy plus a well-formed
+    /// Italian long date, which is what "derived and rendered" means here.
+    @MainActor
+    func testHomeFooterShowsTheDerivedDataVintageLine() throws {
+        let footer = button("home.footer.fonti")
+        scrollUntilHittable(footer)
+
+        let label = footer.label
+        XCTAssertTrue(
+            label.contains("Informazioni e fonti"),
+            "Il piè di pagina ha perso il testo del pulsante: '\(label)'"
+        )
+        XCTAssertTrue(
+            label.contains("Ultimo aggiornamento dei dati:"),
+            "Riga di aggiornamento dei dati assente dal piè di pagina: '\(label)'"
+        )
+        XCTAssertTrue(
+            Self.matches(
+                label,
+                pattern: #"Ultimo aggiornamento dei dati: \d{1,2} (gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre) \d{4}"#
+            ),
+            "Data non formattata come data lunga italiana: '\(label)'"
+        )
+    }
 }

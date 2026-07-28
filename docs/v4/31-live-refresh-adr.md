@@ -51,16 +51,44 @@ So the question was re-opened from the data, not the prose.
 
 ### 1.1 The bundle, split by whether a refresh could change it
 
-Measured over `Politici/Data/`, excluding the three `*.sample.*` fixtures
-(14,765 B, test-only):
+Measured over `Politici/Data/`. Every shipped byte is classified — the
+table accounts for 100 % of what the app bundles, with the one deliberate
+exclusion named below it.
 
 | Class | Files | Bytes | Share |
 |---|---|---|---|
 | **A — cannot change within the legislature** | `districts.geojson`, `districts_senato.geojson`, both plurinominale files, `comuni.json`, `votes.json` | **6,065,907** | **90.99 %** |
 | **C — ages silently, about named people** | `representatives.json`, `memberships_camera.json` | **591,687** | **8.88 %** |
 | **B — provenance dates** | `sources.json` | 7,337 | 0.11 % |
-| — | `parties.json` (styling vocabulary) | 1,620 | 0.02 % |
-| **Total (real)** | | **6,666,551 B = 6.36 MiB** | |
+| **D — degrades to a disclosed fallback** | `parties.json` | 1,620 | 0.02 % |
+| **Total (real)** | | **6,666,551 B = 6.36 MiB** | **100.00 %** |
+
+**`parties.json` is Class D, not unclassified.** It is a styling vocabulary
+— 19 rows mapping an exact `Representative.party` string to a short name
+and a colour. It ages by *omission*: when a new parliamentary group forms,
+its rows are simply missing, and `PartyStyleService` falls back to neutral
+gray and the party's own full name. That is a documented, deliberate
+degradation (the service's doc comment calls it "expected … not an error
+condition"), it cannot misstate anyone, and it is visibly duller rather
+than wrong — the same shape as the comuni table's honest-absence behaviour,
+which is why it shares the class rather than getting one of its own.
+
+**The one exclusion, stated rather than dropped:** the three `*.sample.*`
+fixtures (`districts.sample.geojson`, `representatives.sample.json`,
+`votes.sample.json`) total **14,765 B**, bringing the on-disk total to
+**6,681,316 B**. They sit **outside the taxonomy entirely**, not in a
+class: they are fictional, `provenance: "sample"`, test-only, referenced by
+no shipping view or service default, and never shown to a user
+(`CLAUDE.md`, "The `*.sample.*` convention"). Data that is never displayed
+and never claimed to be real has no staleness consequence to classify.
+
+**Bytes are classified by file; consequences are not always.** One
+clarification the table cannot carry: `comuni.json`'s **bytes** are Class A
+— its `CU20_COD`/`SU20_COD` assignment is fixed by D.Lgs. 177/2020 and
+cannot change within the legislature — while its **name coverage** behaves
+like Class D, since comuni that merge or are renamed after 2020 become
+unfindable by their current name (§2.5). Both statements are true of the
+same file; the table measures the first.
 
 **91 % of what ships is data a live refresh could not change**, because it
 is either fixed by law for the legislature or a record of something that
@@ -177,13 +205,15 @@ both are wrong. Consequently:
 
 - `validate_data.py`'s cross-file reconciliation stays green — it compares
   the two artifacts to each other, not to the world.
-- `MembershipTests.testEveryVotingDeputyGroupAtTodayMatchesShippedGroup`
-  ([`MembershipTests.swift:105`](../../PoliticiTests/MembershipTests.swift:105))
-  compares `membershipAt(today)` against the shipped `party` — **both
+- `MembershipTests.testEveryVotingDeputyOpenIntervalAgreesWithShippedGroupAtTheSnapshot`
+  compares the open interval's group against the shipped `party` — **both
   sides come from the same snapshot**, so it is tautologically green
   forever and **cannot** detect real-world drift. That is not a defect in
   the test (it guards the internal invariant it was written for); it is
-  the reason no automated signal exists.
+  the reason no automated signal exists. It was **renamed in the closeout**
+  (§13, item 5) from `testEveryVotingDeputyGroupAtTodayMatchesShippedGroup`,
+  which read as a currency check; Phase 28's report records the original
+  name.
 - The app itself has no clock-based check and, being local-first, no way
   to acquire one.
 
@@ -214,9 +244,10 @@ has no way to know the present. **What is available instead is
 disclosure**, which is why §6 concludes disclosure is the deliverable and
 refresh is not.
 
-### 2.5 Class D — frozen-correct, diverges from reality, degrades to absence
+### 2.5 Class D — frozen-correct, diverges from reality, degrades to a disclosed fallback
 
-The 7,904-comune table (§1.2). Distinct from Class C because the failure is
+The 7,904-comune table's *name coverage* (§1.2), and `parties.json`'s
+styling vocabulary (§1.1). Distinct from Class C because the failure is
 a **failed lookup, not a wrong answer**, and because refreshing it would
 break the legally-pinned join. The magnitude — how many comuni have merged
 or been renamed since 2020 — is **not measurable offline from the bundled
@@ -324,6 +355,22 @@ re-opens §3; none of them is a countdown, and none is rendered in the app.
    and confirms they still hold.** Phase 32A carries this forward as part
    of release prep.
 
+6. **The Home footer's max stops being backed by a Class-C source.** Added
+   in the closeout (§7.1). The footer reports the **latest** `retrievedAt`,
+   so it is honest but optimistic by construction, and minimal-scope
+   refetches — the protocol's preferred practice — widen the gap between
+   that date and the oldest one. The failure mode is specific: if a future
+   refetch advances the max via a **Class A or B** source (say votazioni
+   alone, whose records are immutable anyway) while `camera` deputati or
+   `camera_adesioni` sits far behind, the line reassures with a fresh date
+   while the data about named people is the stale part. **Check:** the max
+   `retrievedAt` in `sources.json` is still carried by
+   `camera-dei-deputati-xix-legislatura` or
+   `camera-dei-deputati-adesioni-gruppi-xix-legislatura`. **Status today:
+   holds** — the max, 2026-07-22, is carried by the adesioni source. When it
+   stops holding, revisit the aggregate (show the range, or the Class-C
+   minimum) rather than the wording.
+
 **Explicitly not a trigger:** the mere passage of time with the app
 unchanged. That is the condition this ADR already priced in.
 
@@ -419,7 +466,53 @@ trap `CLAUDE.md` records from Phase 30B. The identifier went on the button
 instead (`home.footer.fonti`), where it works. VoiceOver reads the button
 as its two lines combined.
 
-### 7.1 The sample-fixture rule — decided, no exclusion
+### 7.1 Why a **max**, and not a min or a range
+
+The wording rationale above says why "Ultimo aggiornamento" rather than
+"Dati aggiornati al". The *aggregate* choice deserves its own record,
+because a min is the conservative reading ("no data older than this") and
+this ADR's own §7 argues that minimal-scope refetches widen the spread by
+design — so a max does become progressively more flattering over time. That
+objection is correct, and the choice is made against it, not in ignorance
+of it.
+
+The spread today, from `sources.json`:
+
+| `retrievedAt` | Sources |
+|---|---|
+| **2026-07-22** (max) | Camera votazioni, Camera adesioni |
+| 2026-07-21 | Senato |
+| 2026-07-18 | Camera deputati + the five ISTAT rows |
+| **2026-07-17** (min) | the `prototipo-dati-dimostrativi` fixture |
+
+Three reasons for the max:
+
+1. **A min would be a date derived from data the app never shows.** The
+   minimum over the manifest is the *sample fixture's* 2026-07-17 — a
+   fictional, test-only dataset. Reporting the app's vintage as a date that
+   comes from fiction is worse than reporting a real one. Fixing that would
+   need exactly the id-keyed exclusion §7.2 rejects, and the exclusion is
+   *harder* to justify for a min (where the fixture genuinely dominates)
+   than for a max (where it structurally cannot).
+2. **A min needs warning-shaped wording.** "Nessun dato più recente di …"
+   or "Dati non più recenti di …" reads as a caution, and the phase
+   forbids inventing a staleness judgment. "Ultimo aggiornamento" is a
+   neutral report of an event that happened.
+3. **The range was considered and rejected on proportion.** Showing both
+   endpoints is the fully honest aggregate, but it doubles a footer line to
+   express a spread currently **four days** wide across real sources — and
+   the full per-source breakdown, which strictly dominates any two-number
+   summary, is one tap away in the same control (§6.2).
+
+**Is the widening spread itself a trigger? Yes — added as trigger 6**, and
+it is sharper than "the spread got wide". A max flatters *dangerously* only
+when the freshest source is one whose staleness does not matter. Today it
+does not flatter: the max is carried by `camera-dei-deputati-adesioni-gruppi`
+— a **Class C** source, the group-membership data itself — so the line's
+date is backed by the very data whose currency is at stake. The trigger is
+the day that stops being true.
+
+### 7.2 The sample-fixture rule — decided, no exclusion
 
 `phase-31.md` leaves open whether to exclude the fixture row
 (`prototipo-dati-dimostrativi`) from the max "if a rule is needed".
@@ -622,3 +715,149 @@ Remote actions are the user's. Not run here:
 ```
 git push origin v4
 ```
+
+---
+
+## 13. Closeout (2026-07-28, second commit)
+
+Five review items on the phase commit, all in scope, all in the follow-up
+commit `docs(v4): phase 31 closeout — …`. Where an item changed a figure or
+a claim above, the section itself was edited rather than contradicted here.
+
+**1. The classification is now exhaustive.** The residue was **1,620 B =
+`parties.json`**, which §1.1 had listed with a dash instead of a class —
+not the sample fixtures, which are excluded on purpose and were never in
+the 6,666,551 B total. Both are now resolved in §1.1: `parties.json` is
+**Class D** (it ages by omission and degrades to `PartyStyleService`'s
+documented neutral-gray fallback, so it cannot misstate anyone), and the
+fixtures are named with their **14,765 B** and the on-disk total
+**6,681,316 B**, with the reason they sit outside the taxonomy rather than
+inside a class. The table now sums to 100.00 %. One clarification the
+review surfaced and §1.1 now carries: `comuni.json`'s *bytes* are Class A
+while its *name coverage* behaves like Class D — the table measures files,
+the classes measure consequences, and those are not always the same axis.
+
+**2. The footer is verified end to end, and the audit gap is closed.** New
+UI flow 8, `SmokeFlowUITests.testHomeFooterShowsTheDerivedDataVintageLine`:
+it scrolls Home to the footer (new `PoliticiUITestCase.scrollUntilHittable`,
+a `swipeUp` on the identified scroll view — no coordinates), looks the
+control up by **identifier** (`home.footer.fonti`, on the `Button`, since a
+child identifier inside a `Button` label is shadowed), and asserts the
+pinned copy plus a well-formed Italian long date. The exact date is
+deliberately not pinned — it advances on any refetch, so pinning it would
+be re-pin bait; `DataVintageTests` already proves the value equals the
+manifest max, and this proves it reaches the screen.
+
+`testAccessibilityAuditHomeAndCollegiList` now scrolls to the footer and
+audits again (`audit("Home — piè di pagina")`), then relaunches to restore
+the flow. **Measured answer to "new findings or none": two, both
+`contrast`**, quoted from the run's attachment:
+
+```
+Contrast failed: Informazioni e fonti
+Contrast failed: Ultimo aggiornamento dei dati: 22 luglio 2026
+```
+
+The first is the **pre-existing** footer button text, traversed for the
+first time; the second is Phase 31's new line. Both fall inside the three
+types the suite records for human judgment, so **no new audit *type* was
+raised** and the test passes. The scroll also brought the featured
+representative rows into the audited viewport, adding `Contrast failed: FI`
+and three `Dynamic Type font sizes are unsupported: AO / EC / RC` (the
+`InitialsAvatar` glyphs the audit's own doc comment already accounts for) —
+noted so Phase 32A inherits the whole Home inventory, not the first
+viewport's. Incidentally, the attachment is also independent confirmation
+of the rendered value: **`Ultimo aggiornamento dei dati: 22 luglio 2026`**,
+exactly the derived string §7 predicts.
+
+`xcode-select` was **not** touched — the verification trio sets
+`DEVELOPER_DIR` explicitly, so nothing was blocked; the earlier note about
+it concerned only the optional Simulator-panel integration.
+
+**3. Max-vs-min is recorded** — §7.1, new. The objection is accepted as
+correct (a max flatters more as minimal-scope refetches widen the spread)
+and the choice is made against it for three reasons, chiefly that the
+manifest's **minimum is the fictional sample fixture's date**. And yes, it
+is now a pinned trigger — **trigger 6** in §5, sharpened from "the spread
+widened" to the condition that actually bites: *the max stops being carried
+by a Class-C source*. Status today: it holds (the max is the adesioni
+source).
+
+**4. The timezone guard is host-independent.** The honest problem was that
+the behavioural test could not fail on this CEST host even with the pin
+removed. `DateFormatting` now exposes `make…(timeZone:)` factories that are
+the single source of each formatter's configuration, and
+`testInjectedNonRomeZonesShiftTheDayWhileTheShippedFormattersDoNot`
+**injects** UTC / America/New_York / America/Los_Angeles (each must render
+`21 luglio 2026` and `21/07/26`) and Asia/Tokyo (unchanged — the defect is
+directional, which is why a Rome runner could never surface it), then
+asserts the shipped formatters are unaffected. It exercises the mechanism
+wherever it runs.
+
+**Every formatter `DateFormatting` vends, listed and confirmed pinned:**
+
+| Formatter | Zone | Status |
+|---|---|---|
+| `isoDateFormatter` (parser) | Europe/Rome | already pinned pre-Phase-31 |
+| `longDateFormatter` | Europe/Rome | pinned in the phase commit |
+| `shortDateFormatter` | Europe/Rome | pinned in the phase commit |
+| `makeRelativeFormatter` (`relativeString`) | Europe/Rome **calendar** | **pinned in this closeout** |
+
+The relative formatter was the gap: it measures its interval in its
+calendar's zone, so an unpinned zone can move "1 giorno fa" to "2 giorni
+fa" at a boundary. Nothing in the app renders a relative date today, so
+this is latent rather than a live defect — pinned anyway, and
+`testDisplayFormattersReadDatesInTheZoneTheParsersProduceThem` now asserts
+all three rather than the two the phase happened to exercise.
+(`Vote.dateFormatter`, the other parser in the project, was already
+Europe/Rome — Phase 27.)
+
+**5. The tautological test is renamed and annotated** — both, not either.
+`testEveryVotingDeputyGroupAtTodayMatchesShippedGroup` →
+**`testEveryVotingDeputyOpenIntervalAgreesWithShippedGroupAtTheSnapshot`**,
+with a doc comment stating plainly that it is not a currency guard, that it
+stays green while the app misstates a named person, and pointing at §2.3
+for the measured rate. The `let today = Date()` that made it read as a
+currency check is renamed `anyDateInsideTheOpenInterval` with a comment
+saying `Date()` is merely a convenient such date. **Not weakened, not
+deleted** — it is the Swift twin of `validate_data.py`'s reconciliation and
+is what would catch an importer writing the two files out of step.
+[`28-membership-history.md`](28-membership-history.md) was deliberately
+**not** edited: it is a completed phase report recording what was true when
+written, and corrections belong in living documents (the rename is recorded
+here and in §2.3).
+
+### 13.1 Tests — 225 → 227
+
+| Test | Item |
+|---|---|
+| **+** `SmokeFlowUITests.testHomeFooterShowsTheDerivedDataVintageLine` | 2 |
+| **+** `DateFormattingTests.testInjectedNonRomeZonesShiftTheDayWhileTheShippedFormattersDoNot` | 4 |
+| `DateFormattingTests.testDisplayFormattersReadDatesInTheZoneTheParsersProduceThem` | 4 — extended to all three formatters |
+| `DateFormattingTests.testLongStringRoundTripsAMidnightRomeISODate` | 4 — `shortString` assertion added |
+| `MembershipTests.testEveryVotingDeputy…AtTheSnapshot` | 5 — renamed + annotated (no behaviour change) |
+| `AccessibilityAuditUITests.testAccessibilityAuditHomeAndCollegiList` | 2 — footer scroll + second audit |
+
+**`.xcresult`: `totalTestCount 227, passedTests 227, failedTests 0`, result
+`Passed`** — 225 + 2. Occurrence count corroborates: 214 unit `func test…(`
++ 1 `@Test` + **12** UI = 227. Build `** BUILD SUCCEEDED **`, zero
+warnings. No flake in this run.
+
+**A fifth log-truncation sighting**, recorded per `CLAUDE.md`'s running
+tally: `DataVintageTests.testShippingVintageMatchesIndependentlyComputedMaxRetrievedAt`'s
+`passed` line was cut at `…testShippingVintageMatchesIn` by an interleaved
+`xcodebuild[…] IDELaunchParametersSnapshot` diagnostic. The test passed —
+confirmed in the `.xcresult`, which is the authority. Same mechanism as the
+v4 Phase 30 sighting, but truncated **mid-name** rather than at the line
+tail, so this one defeats a name inventory as well as a `grep -c "passed"`.
+`CLAUDE.md` updated.
+
+### 13.2 Deliberately left alone
+
+- **`docs/v4/28-membership-history.md`** — completed phase report, not
+  edited for the test rename (item 5 above).
+- **The per-profile vintage line** — still declined, still trigger 2 (§6.2).
+  The closeout verified the footer renders; it did not reopen where it goes.
+- **The 62-plus accessibility findings**, now including the footer's two —
+  recorded, not fixed. Phase 32A owns them, as it has since Phase 24.
+- **`xcode-select`** — untouched by instruction and by design.

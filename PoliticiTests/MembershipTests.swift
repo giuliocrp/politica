@@ -99,19 +99,41 @@ final class MembershipTests: XCTestCase {
         XCTAssertTrue(file.memberships.allSatisfy { $0.representativeId.hasPrefix("p") })
     }
 
-    /// Spec #4: for every deputy appearing in votes.json, the group at *today*
-    /// equals their shipped group (sigla — the canonical field). This is the
-    /// Swift-side twin of validate_data.py's reconciliation invariant.
-    func testEveryVotingDeputyGroupAtTodayMatchesShippedGroup() throws {
+    /// Spec #4 (Phase 28): **internal consistency between two artifacts of the
+    /// same snapshot** — for every deputy appearing in votes.json, the group
+    /// their open membership interval yields equals the group
+    /// representatives.json records (sigla — the canonical field). The Swift
+    /// twin of `validate_data.py`'s reconciliation invariant, and worth
+    /// keeping: it is what catches an importer that writes the two files out
+    /// of step.
+    ///
+    /// **It is not a currency guard and cannot detect real-world drift.**
+    /// Both sides come from the same fetch (representatives 2026-07-18,
+    /// memberships 2026-07-22) and every deputy's last interval is open-ended,
+    /// so it covers any date passed in — including `Date()`. When a deputy
+    /// switches group *after* the snapshot, both files keep asserting the old
+    /// group, they stay mutually consistent, and this test stays green while
+    /// the app misstates that named person. Measured rate and consequence:
+    /// `docs/v4/31-live-refresh-adr.md` §2.3 (19 switch events across 14
+    /// deputies in a trailing 12 months).
+    ///
+    /// Renamed in the Phase 31 closeout: the old name
+    /// (`testEveryVotingDeputyGroupAtTodayMatchesShippedGroup`) read as a
+    /// check that the shipped group is *current*, which is exactly what it
+    /// cannot be. Phase 28's report records the original name.
+    func testEveryVotingDeputyOpenIntervalAgreesWithShippedGroupAtTheSnapshot() throws {
         let reps = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
         let repById = Dictionary(uniqueKeysWithValues: reps.map { ($0.id, $0) })
         let votesFile = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
         let service = MembershipService()
-        let today = Date()
+        // Any date at or after the last interval start resolves to the open
+        // interval; `Date()` is simply a convenient such date, not a claim
+        // that the answer is current. See the doc comment.
+        let anyDateInsideTheOpenInterval = Date()
         for depId in Set(votesFile.positions.map(\.representativeId)) {
             let rep = try XCTUnwrap(repById[depId], "deputy \(depId) missing from representatives.json")
-            let current = service.membershipAt(representativeId: depId, date: today)
-            XCTAssertEqual(current?.groupSigla, rep.party, "group-at-today != shipped party for \(depId)")
+            let open = service.membershipAt(representativeId: depId, date: anyDateInsideTheOpenInterval)
+            XCTAssertEqual(open?.groupSigla, rep.party, "open-interval group != shipped party for \(depId)")
         }
     }
 

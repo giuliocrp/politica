@@ -92,6 +92,17 @@ final class AccessibilityAuditUITests: PoliticiUITestCase {
     func testAccessibilityAuditHomeAndCollegiList() throws {
         audit("Home")
 
+        // Phase 31 closeout: Home is a `ScrollView` and its footer — which now
+        // carries the data-vintage line — sits below the fold, so the audit
+        // above has never traversed it (not before this phase either). Scroll
+        // it into view and audit again, so the recorded inventory covers the
+        // whole screen rather than only its first viewport. The relaunch puts
+        // Home back at the top for the rest of the flow; this test touches no
+        // favorites, so wiping the ephemeral suite is harmless here.
+        scrollUntilHittable(button("home.footer.fonti"))
+        audit("Home — piè di pagina")
+        relaunch()
+
         openCollegiList()
         audit("Elenco dei collegi — Camera")
         selectChamber("Senato della Repubblica")
