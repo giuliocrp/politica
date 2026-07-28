@@ -166,10 +166,12 @@ struct VoteRow: View {
             .accessibilityIdentifier("vote.row.\(vote.id)")
 
             if let sourceUrl = vote.sourceUrl, let url = URL(string: sourceUrl) {
+                // `.secondary`, not `.tertiary` — see `VoteEventRow`'s note
+                // (Phase 32A a11y triage).
                 Link(destination: url) {
                     Label("Fonte", systemImage: "arrow.up.right.square")
                         .font(.caption2)
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(.secondary)
                 }
                 .frame(minHeight: 44)
                 .contentShape(Rectangle())

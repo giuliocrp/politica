@@ -83,7 +83,8 @@ class PoliticiUITestCase: XCTestCase {
         app.buttons.matching(identifier: identifier).firstMatch
     }
 
-    /// Scrolls the enclosing scroll view until `element` is hittable.
+    /// Scrolls the screen's main scrollable container until `element` both
+    /// exists and is hittable.
     ///
     /// Needed for content below the fold — `HomeView` is a `ScrollView`, so
     /// its footer exists in the accessibility tree from launch but is not
@@ -91,32 +92,95 @@ class PoliticiUITestCase: XCTestCase {
     /// is scrolled into view. `swipeUp()` is a gesture sent to a real,
     /// identified element, so this stays inside the suite's rule against
     /// screen coordinates; it is not a retry of any assertion.
+    ///
+    /// Existence is re-checked **inside** the loop rather than required up
+    /// front (Phase 32A): a `List` is lazy, so a row below the fold is not in
+    /// the accessibility tree at all until scrolling brings it near — which is
+    /// how `FontiEDatiView`'s later source cards behave. A `ScrollView`'s
+    /// children do exist from the start, so both cases go through one loop.
     @discardableResult
     func scrollUntilHittable(
         _ element: XCUIElement,
         maxSwipes: Int = 8,
         file: StaticString = #filePath, line: UInt = #line
     ) -> XCUIElement {
-        XCTAssertTrue(
-            element.waitForExistence(timeout: Self.timeout),
-            "Elemento da raggiungere con lo scorrimento non trovato", file: file, line: line
-        )
-        guard !element.isHittable else { return element }
-        let scrollView = app.scrollViews.firstMatch
-        XCTAssertTrue(
-            scrollView.waitForExistence(timeout: Self.timeout),
-            "Nessuna vista scorrevole in cui scorrere", file: file, line: line
-        )
+        _ = element.waitForExistence(timeout: 2)
         var swipes = 0
-        while !element.isHittable && swipes < maxSwipes {
-            scrollView.swipeUp()
+        while !(element.exists && element.isHittable) {
+            guard swipes < maxSwipes, let scrollable = mainScrollable() else { break }
+            scrollable.swipeUp()
             swipes += 1
+            _ = element.waitForExistence(timeout: 1)
         }
         XCTAssertTrue(
+            element.exists,
+            "Elemento da raggiungere con lo scorrimento non trovato dopo \(swipes) scorrimenti",
+            file: file, line: line
+        )
+        XCTAssertTrue(
             element.isHittable,
-            "Elemento ancora non raggiungibile dopo \(maxSwipes) scorrimenti", file: file, line: line
+            "Elemento ancora non raggiungibile dopo \(swipes) scorrimenti", file: file, line: line
         )
         return element
+    }
+
+    /// The screen's **main** scrollable container, or `nil` when nothing on
+    /// screen scrolls.
+    ///
+    /// Chosen by largest frame area across the three container types SwiftUI
+    /// actually produces — `ScrollView` → `scrollView`, `List` →
+    /// `table`/`collectionView` depending on style and OS — rather than by
+    /// picking `app.scrollViews.firstMatch`. Two screens make that necessary:
+    /// `VoteHistoryView` puts a *horizontal* chip `ScrollView` inside its list
+    /// header, and `AddressSearchView` has one for its sample-city chips.
+    /// Swiping up on either does nothing, so "first scroll view" would
+    /// silently stop paging. Largest-area picks the full-screen container in
+    /// both cases.
+    func mainScrollable() -> XCUIElement? {
+        var best: XCUIElement?
+        var bestArea: CGFloat = 0
+        for query in [app.scrollViews, app.tables, app.collectionViews] {
+            for element in query.allElementsBoundByIndex where element.exists {
+                let frame = element.frame
+                let area = frame.width * frame.height
+                if area > bestArea {
+                    bestArea = area
+                    best = element
+                }
+            }
+        }
+        return best
+    }
+
+    /// Blocks until the screen stops moving, or `timeout` elapses.
+    ///
+    /// `swipeUp()` returns when the *gesture* ends, not when the inertial
+    /// scroll it started has settled — so anything that samples the screen
+    /// immediately afterwards can see a layout that never rests. That is not
+    /// hypothetical: the Phase 32A full-suite run caught
+    /// `performAccessibilityAudit` mid-scroll and raised a real
+    /// `.elementDetection` issue ("This element appears to display text that
+    /// should be represented using the accessibility API") against Home's map
+    /// CTA as it passed under the status bar. The attached screenshot shows
+    /// the two overlapping. It reproduced only under parallel simulator
+    /// clones, where the animation runs slower — i.e. exactly the conditions
+    /// a full run has and a single-test re-run does not.
+    ///
+    /// Settling is detected by polling a probe element's frame until two
+    /// consecutive samples agree. This is a wait, not a retry: no assertion
+    /// is re-evaluated, and a screen that never settles simply proceeds after
+    /// `timeout` rather than failing here.
+    func waitForScrollToSettle(timeout: TimeInterval = 5) {
+        guard let scrollable = mainScrollable() else { return }
+        let probe = scrollable.descendants(matching: .any).firstMatch
+        var previous = CGRect.null
+        let deadline = Date().addingTimeInterval(timeout)
+        while Date() < deadline {
+            let current = probe.exists ? probe.frame : .null
+            if current == previous && current != .null { return }
+            previous = current
+            _ = XCTWaiter.wait(for: [XCTestExpectation(description: "assestamento")], timeout: 0.2)
+        }
     }
 
     @discardableResult
@@ -232,15 +296,56 @@ class PoliticiUITestCase: XCTestCase {
         field.typeText(text)
     }
 
-    /// Selects a chamber on the shared `ChamberPicker`, addressing the
-    /// segment by the full institutional accessibility label pinned in v3
-    /// (docs/v3/a11y-checklist.md) rather than by its short visible title.
-    func selectChamber(_ label: String) {
-        let picker = app.segmentedControls.firstMatch
-        XCTAssertTrue(picker.waitForExistence(timeout: Self.timeout), "Selettore della camera non trovato")
-        let segment = picker.buttons[label]
-        XCTAssertTrue(segment.waitForExistence(timeout: Self.timeout), "Segmento '\(label)' non trovato")
+    /// Taps one segment of a shared segmented picker **by its own
+    /// identifier**, and asserts it still carries the pinned institutional
+    /// VoiceOver label.
+    ///
+    /// Until Phase 32A the two pickers carried a single identifier on the
+    /// *container* (`chamber.picker` / `collegioType.picker`), which SwiftUI
+    /// propagates onto every child — so both segments answered to the same
+    /// identifier and neither was individually addressable, and the helper
+    /// below had to reach segments through `app.segmentedControls.firstMatch`
+    /// plus the label. "First segmented control" is positional, and both
+    /// screens that host these pickers show *two* of them stacked, so that
+    /// lookup silently depended on `ChamberPicker` staying on top. Addressing
+    /// each segment by its own identifier removes both problems; the label is
+    /// asserted rather than used for lookup, so the v3 accessibility contract
+    /// is still tested.
+    func selectSegment(
+        _ identifier: String,
+        expectedLabel: String,
+        file: StaticString = #filePath, line: UInt = #line
+    ) {
+        let segment = app.buttons.matching(identifier: identifier).firstMatch
+        XCTAssertTrue(
+            segment.waitForExistence(timeout: Self.timeout),
+            "Segmento '\(identifier)' non trovato", file: file, line: line
+        )
+        XCTAssertEqual(
+            segment.label, expectedLabel,
+            "Etichetta VoiceOver inattesa sul segmento '\(identifier)'", file: file, line: line
+        )
         segment.tap()
+    }
+
+    /// Selects a chamber on the shared `ChamberPicker`, keeping the full
+    /// institutional label pinned in v3 (docs/v3/a11y-checklist.md) as the
+    /// asserted contract rather than as the lookup key.
+    func selectChamber(_ label: String, file: StaticString = #filePath, line: UInt = #line) {
+        let identifier = label == "Camera dei Deputati"
+            ? "chamber.picker.camera"
+            : "chamber.picker.senato"
+        selectSegment(identifier, expectedLabel: label, file: file, line: line)
+    }
+
+    /// Selects a collegio type on the shared `CollegioTypePicker` — Phase 25's
+    /// plurinominale layer filter, which no UI test addressed at all before
+    /// Phase 32A.
+    func selectCollegioType(_ label: String, file: StaticString = #filePath, line: UInt = #line) {
+        let identifier = label == "Collegi uninominali"
+            ? "collegioType.picker.uninominale"
+            : "collegioType.picker.plurinominale"
+        selectSegment(identifier, expectedLabel: label, file: file, line: line)
     }
 
     /// Opens the profile of the first representative row on the current

@@ -45,97 +45,108 @@ struct AddressSearchView: View {
         suggestionsVisible && !autocomplete.suggestions.isEmpty && !isSearching
     }
 
+    /// A `ScrollView`, not a bare `VStack` (Phase 32A — docs/v4/32a-release.md
+    /// §4). Phase 30B made this screen's tallest state much taller than it had
+    /// ever been: a comune divided between several collegi lists **all** of
+    /// them, and Roma's answer is seven Camera rows plus three Senato ones
+    /// under two explanatory paragraphs. In a non-scrolling `VStack` that
+    /// overflows the screen, and the overflow was measured to be
+    /// *unreachable* — the whole-screen accessibility audit found Roma's seven
+    /// Camera collegi on screen and **none of its three Senato ones anywhere
+    /// in the accessibility tree**. Listing every assigned collegio is the
+    /// point of the name path; a collegio the user cannot reach is not listed.
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 6) {
-                Text("Cerca il tuo collegio")
-                    .font(.title2.bold())
-                Text("Inserisci un indirizzo o una città per trovare il collegio elettorale e i rappresentanti collegati.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "magnifyingglass")
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Cerca il tuo collegio")
+                        .font(.title2.bold())
+                    Text("Inserisci un indirizzo o una città per trovare il collegio elettorale e i rappresentanti collegati.")
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
-                        .accessibilityHidden(true)
-                    TextField("Es. Roma, Via del Corso", text: $query)
-                        .textInputAutocapitalization(.words)
-                        .submitLabel(.search)
-                        .onSubmit(search)
-                        .accessibilityHint("Inserisci un indirizzo o una città per trovare il collegio")
-                        .accessibilityIdentifier("addressSearch.field")
                 }
-                .padding(12)
-                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
 
-                if showSuggestions {
-                    suggestionsList
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundStyle(.secondary)
+                            .accessibilityHidden(true)
+                        TextField("Es. Roma, Via del Corso", text: $query)
+                            .textInputAutocapitalization(.words)
+                            .submitLabel(.search)
+                            .onSubmit(search)
+                            .accessibilityHint("Inserisci un indirizzo o una città per trovare il collegio")
+                            .accessibilityIdentifier("addressSearch.field")
+                    }
+                    .padding(12)
+                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+
+                    if showSuggestions {
+                        suggestionsList
+                    }
                 }
-            }
 
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Comuni di esempio")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
-                        ForEach(sampleCities, id: \.self) { city in
-                            Button(city) {
-                                selectSampleCity(city)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Comuni di esempio")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(sampleCities, id: \.self) { city in
+                                Button(city) {
+                                    selectSampleCity(city)
+                                }
+                                .buttonStyle(.bordered)
+                                .controlSize(.small)
+                                .frame(minHeight: 44)
+                                .contentShape(Rectangle())
+                                .accessibilityIdentifier("addressSearch.city.\(city)")
                             }
-                            .buttonStyle(.bordered)
-                            .controlSize(.small)
-                            .frame(minHeight: 44)
-                            .contentShape(Rectangle())
-                            .accessibilityIdentifier("addressSearch.city.\(city)")
                         }
                     }
                 }
-            }
 
-            Button {
-                search()
-            } label: {
-                if isSearching {
-                    HStack(spacing: 8) {
-                        ProgressView()
-                        Text("Ricerca in corso…")
-                    }
-                    .frame(maxWidth: .infinity)
-                } else {
-                    Text("Cerca collegio")
+                Button {
+                    search()
+                } label: {
+                    if isSearching {
+                        HStack(spacing: 8) {
+                            ProgressView()
+                            Text("Ricerca in corso…")
+                        }
                         .frame(maxWidth: .infinity)
+                    } else {
+                        Text("Cerca collegio")
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(query.trimmingCharacters(in: .whitespaces).isEmpty || isSearching)
+                .accessibilityIdentifier("addressSearch.submit")
+
+                if let errorMessage {
+                    // `Label` already presents icon+text as one accessibility
+                    // element (VoiceOver reads just the title), so no extra
+                    // grouping is needed here.
+                    Label(errorMessage, systemImage: "exclamationmark.triangle.fill")
+                        .font(.callout)
+                        .foregroundStyle(.orange)
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
+                }
+
+                if let comuneCandidates {
+                    candidatesSection(comuneCandidates)
+                }
+
+                if let resolvedMatches {
+                    resultsSection(resolvedMatches)
                 }
             }
-            .buttonStyle(.borderedProminent)
-            .disabled(query.trimmingCharacters(in: .whitespaces).isEmpty || isSearching)
-            .accessibilityIdentifier("addressSearch.submit")
-
-            if let errorMessage {
-                // `Label` already presents icon+text as one accessibility
-                // element (VoiceOver reads just the title), so no extra
-                // grouping is needed here.
-                Label(errorMessage, systemImage: "exclamationmark.triangle.fill")
-                    .font(.callout)
-                    .foregroundStyle(.orange)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
-            }
-
-            if let comuneCandidates {
-                candidatesSection(comuneCandidates)
-            }
-
-            if let resolvedMatches {
-                resultsSection(resolvedMatches)
-            }
-
-            Spacer()
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding()
         .navigationTitle("Cerca Indirizzo")
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: query) { _, newValue in

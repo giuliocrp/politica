@@ -110,10 +110,19 @@ struct VoteEventRow: View {
             .accessibilityIdentifier("vote.event.\(event.id)")
 
             if let sourceUrl = event.sourceUrl, let url = URL(string: sourceUrl) {
+                // `.secondary`, not `.tertiary` (Phase 32A a11y triage —
+                // docs/v4/a11y-checklist.md). `.tertiary` is the system's
+                // style for non-essential decoration; this is an interactive
+                // link to the official record, and the whole-screen audit
+                // flags it on both screens that carry it. Raising the
+                // hierarchy strictly increases contrast against whatever the
+                // real background turns out to be, so unlike the material-
+                // backed findings it needs no on-device measurement to
+                // justify. Same change in `VoteRow`.
                 Link(destination: url) {
                     Label("Fonte", systemImage: "arrow.up.right.square")
                         .font(.caption2)
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(.secondary)
                 }
                 .frame(minHeight: 44)
                 .contentShape(Rectangle())

@@ -160,6 +160,14 @@ struct MapView: View {
 /// convention). Visible labels stay short ("Camera"/"Senato") to fit a
 /// segmented control; VoiceOver reads the full institutional name via the
 /// explicit accessibility label on each segment.
+///
+/// **Identifiers sit on the segments, not on the `Picker`** (Phase 32A). A
+/// segmented `Picker` is not a single accessibility element, so an
+/// identifier on the container propagates onto *both* segments and makes
+/// neither individually addressable — the shadowing shape Phase 30B's survey
+/// flagged here (docs/v4/30b-comuni-assignment.md §11). The former
+/// `chamber.picker` container identifier is therefore replaced by, rather
+/// than added to, the two per-segment identifiers below.
 struct ChamberPicker: View {
     @Binding var selection: Chamber
 
@@ -167,14 +175,15 @@ struct ChamberPicker: View {
         Picker("Camera del Parlamento", selection: $selection) {
             Text("Camera")
                 .accessibilityLabel("Camera dei Deputati")
+                .accessibilityIdentifier("chamber.picker.camera")
                 .tag(Chamber.camera)
             Text("Senato")
                 .accessibilityLabel("Senato della Repubblica")
+                .accessibilityIdentifier("chamber.picker.senato")
                 .tag(Chamber.senato)
         }
         .pickerStyle(.segmented)
         .labelsHidden()
-        .accessibilityIdentifier("chamber.picker")
     }
 }
 
@@ -183,7 +192,9 @@ struct ChamberPicker: View {
 /// set of collegi is shown. Sits *below* `ChamberPicker` on both screens so
 /// the chamber selector stays the first segmented control in the
 /// accessibility tree. Visible labels stay short; VoiceOver reads the full
-/// "Collegi uninominali/plurinominali" via the per-segment label.
+/// "Collegi uninominali/plurinominali" via the per-segment label. Identifiers
+/// sit on the segments, not on the `Picker`, for the same reason as
+/// `ChamberPicker`'s.
 struct CollegioTypePicker: View {
     @Binding var selection: CollegioType
 
@@ -191,14 +202,15 @@ struct CollegioTypePicker: View {
         Picker("Tipo di collegio", selection: $selection) {
             Text("Uninominali")
                 .accessibilityLabel("Collegi uninominali")
+                .accessibilityIdentifier("collegioType.picker.uninominale")
                 .tag(CollegioType.uninominale)
             Text("Plurinominali")
                 .accessibilityLabel("Collegi plurinominali")
+                .accessibilityIdentifier("collegioType.picker.plurinominale")
                 .tag(CollegioType.plurinominale)
         }
         .pickerStyle(.segmented)
         .labelsHidden()
-        .accessibilityIdentifier("collegioType.picker")
     }
 }
 
