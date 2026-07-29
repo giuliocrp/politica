@@ -310,9 +310,15 @@ final class AccessibilityAuditUITests: PoliticiUITestCase {
 
     /// Two profiles, because they are structurally different screens: a life
     /// senator's carries the long a-vita badge and the Senato "Regione:" line,
-    /// a Camera deputy's carries the "Circoscrizione:" line **and Phase 29's
-    /// alignment metric** — which the Phase 24 audit never saw, since it only
-    /// ever opened a senator's profile.
+    /// a Camera deputy's carries the "Circoscrizione:" line and the
+    /// plurinominale-elected shape. Phase 24 audited only a senator's, so the
+    /// deputy state was unaudited until Phase 32A.
+    ///
+    /// Until the post-v4 tidy the deputy half waited on `profile.alignment`,
+    /// Phase 29's metric section — the reason this second profile was added.
+    /// That section no longer renders (see `GroupAlignment`), so the wait is on
+    /// the header, and the deputy profile is audited for what it still is: the
+    /// Camera-shaped profile, distinct from the senator one above.
     @MainActor
     func testAccessibilityAuditProfilesAndPreferiti() throws {
         let nameSearch = openRepresentativeList()
@@ -324,8 +330,11 @@ final class AccessibilityAuditUITests: PoliticiUITestCase {
 
         let deputySearch = openRepresentativeList()
         type("Giachetti", into: deputySearch)
-        tapButton("representative.row.p300480", waitingFor: el("profile.alignment"), "Profilo del deputato con la metrica non aperto")
-        audit("Profilo del rappresentante — deputato con metrica", viewports: 3)
+        tapButton("representative.row.p300480", waitingFor: el("profile.header"), "Profilo del deputato non aperto")
+        // The metric section is gone, so this screen is shorter than it was;
+        // `viewports` may over-estimate without affecting the merged inventory
+        // (see `audit(_:viewports:)`), and 3 still reaches its bottom.
+        audit("Profilo del rappresentante — deputato", viewports: 3)
 
         relaunch()
 

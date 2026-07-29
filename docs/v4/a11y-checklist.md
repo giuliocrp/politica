@@ -14,6 +14,35 @@ by reading the source" limitation the v3 checklist opened with. It does
 **not** close the visual and VoiceOver items: those still need a human, and
 the honest list is at the bottom.
 
+> **Note added 2026-07-29 (post-v4 tidy) — the representative profile
+> changed after this checklist was measured.** The numbers below are the
+> Phase 32A certifying run and are left exactly as measured. Three things on
+> that screen have since been removed: the duplicated plain party line above
+> the coloured chip, the `"Fonte ufficiale"` provenance badge, and the whole
+> `profile.alignment` section (Phase 29's metric — still computed and tested,
+> just not rendered; see `GroupAlignment`). The chip now shows the group's
+> full name with the Camera source's defective `" (SIGLA) (dd.mm.yyyy"` suffix
+> dropped display-side (`PartyDisplayName`).
+>
+> Re-measured on the same simulator the day of the change, same three
+> viewports: **"Profilo del rappresentante — deputato" raised 19 findings
+> (16 `.contrast` + 3 `.dynamicType` + 0 `.textClipped`), against the 17
+> recorded below (16 / 1 / 0) for the same screen when it still carried the
+> metric. Zero structural findings either way** — which is the assertion this
+> suite actually makes. The delta is **not** a regression on the removed
+> content: the `.contrast` total is unchanged at 16 even though its
+> composition shifted (no metric label, value or caption appears in the
+> inventory any more; vote-row content that used to sit below the fold does),
+> and the two added `.dynamicType` hits are both
+> `partially unsupported: Fonte` — the vote-row source links, which the
+> shorter screen now brings into one viewport together. The two rows below are
+> therefore stale in *what they name*, not wrong in what they measured, and
+> are kept rather than rewritten:
+> * `Profilo del rappresentante — deputato con metrica ★ | 17 | 16 | 1 | 0` —
+>   the screen state still exists and is still audited; it no longer renders a
+>   metric, and the audit is now named `Profilo del rappresentante — deputato`.
+> * §4's `profile.alignment` row — the identifier no longer exists in the app.
+
 ---
 
 ## 0. What changed about the *method*, and why it matters

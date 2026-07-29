@@ -14,6 +14,11 @@ nonisolated enum DataProvenance: String, Codable, Hashable {
     case sample
     case official
 
+    /// Not currently rendered anywhere: the representative profile's provenance
+    /// badge was its only surface, and the post-v4 tidy removed it (every
+    /// shipping record is `.official`, so the badge said the same thing on
+    /// every profile). Kept because `provenance` itself is still decoded,
+    /// asserted across the suite, and load-bearing for constraint #4.
     var displayName: String {
         switch self {
         case .sample: return "Dati dimostrativi"

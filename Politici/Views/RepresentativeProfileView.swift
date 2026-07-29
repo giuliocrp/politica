@@ -24,7 +24,6 @@ struct RepresentativeProfileView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     header(for: representative)
                     committeesSection(for: representative)
-                    alignmentSection(for: representative)
                     recentVotesSection
                 }
                 .padding()
@@ -76,18 +75,18 @@ struct RepresentativeProfileView: View {
                 .font(.title2.bold())
                 .multilineTextAlignment(.center)
 
-            Text(representative.party)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-
-            Text(representative.parliamentaryGroup)
+            // One party field, not two: the sigla line that used to sit above
+            // this chip repeated what the chip already says. The chip shows the
+            // group's full name with the Camera source's defective
+            // `" (SIGLA) (dd.mm.yyyy"` suffix dropped display-side — see
+            // `PartyDisplayName`, which never rewrites what the source says.
+            Text(PartyDisplayName.full(from: representative.parliamentaryGroup))
                 .font(.caption)
+                .multilineTextAlignment(.center)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 4)
                 .background(services.partyStyleService.color(for: representative.party).opacity(0.15), in: Capsule())
                 .foregroundStyle(services.partyStyleService.color(for: representative.party))
-
-            provenanceBadge(representative.provenance)
 
             if let mandateBadgeLabel = representative.mandate?.profileBadgeLabel {
                 mandateBadge(mandateBadgeLabel)
@@ -119,17 +118,6 @@ struct RepresentativeProfileView: View {
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("profile.header")
-    }
-
-    private func provenanceBadge(_ provenance: DataProvenance) -> some View {
-        let color: Color = provenance == .official ? .blue : .orange
-        let icon = provenance == .official ? "checkmark.seal.fill" : "wand.and.stars"
-        return Label(provenance.displayName, systemImage: icon)
-            .font(.caption.weight(.semibold))
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
-            .background(color.opacity(0.15), in: Capsule())
-            .foregroundStyle(color)
     }
 
     private func mandateBadge(_ text: String) -> some View {
@@ -169,37 +157,10 @@ struct RepresentativeProfileView: View {
         }
     }
 
-    /// The Phase 29 group-alignment metric — profile-only, Camera-only, and
-    /// only when the deputy clears the minimum denominator. Below threshold (or
-    /// for senators, who have no positions) the whole section is absent — an
-    /// honest silence, never `0%` or a default (docs/v4/29-alignment-metric.md).
-    /// No color is used: the value is never rendered as a judgment.
-    @ViewBuilder
-    private func alignmentSection(for representative: Representative) -> some View {
-        if representative.chamber == .camera, services.voteService.state == .loaded,
-           case let .value(percentage, denominator) = GroupAlignment.alignment(
-               representativeId: representative.id,
-               events: services.voteService.eventRecords,
-               positions: services.voteService.positionRecords,
-               memberships: services.membershipService.memberships
-           ) {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(GroupAlignment.metricLabel)
-                    .font(.headline)
-                Text(GroupAlignment.valueText(percentage: percentage, denominator: denominator))
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(.primary)
-                Text(GroupAlignment.sampleCaption)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(GroupAlignment.accessibilityText(percentage: percentage, denominator: denominator)
-                + " " + GroupAlignment.sampleCaption)
-            .accessibilityIdentifier("profile.alignment")
-        }
-    }
+    // The Phase 29 group-alignment section used to render here, between the
+    // committees and the recent votes. It was removed from this screen in the
+    // post-v4 tidy — the metric is still computed and still fully tested; see
+    // `GroupAlignment`'s own note for why it stays.
 
     private var recentVotesSection: some View {
         VStack(alignment: .leading, spacing: 12) {
