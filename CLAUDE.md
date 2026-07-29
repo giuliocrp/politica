@@ -201,6 +201,25 @@ absent cache — is tracked in the deferred list in
   Phase 30B found it, Phase 32A fixed the last two instances (the two
   segmented `Picker`s, whose container identifier was propagating onto both
   segments). A segmented `Picker` is *not* one accessibility element.
+- **Existing in the accessibility tree is not the same as being reachable
+  on screen.** Wherever a UI test's claim is that a user can *see or use*
+  something, it must assert **hittability after scrolling**
+  (`scrollUntilHittable`), never `.exists` — XCUITest counts tree elements
+  regardless of whether any of them can be reached, and
+  `performAccessibilityAudit()` only ever describes the current viewport.
+  Three defects in the v4 cycle shared this single cause: Phase 31's Home
+  footer rendered below the fold and was never visually verified; Phase
+  24's audits traversed only each screen's first viewport (63 findings
+  against **123** on the same eight screens, same tree, same day); and
+  Phase 32A found `AddressSearchView`
+  never scrolled, so Roma's three Senato collegi — Phase 30B's central
+  deliverable — were unreachable while `SmokeFlowUITests` flow 7 passed
+  throughout, because it asserted `.exists` on rows that were in the tree and
+  off the screen. `XCTAssertFalse(…exists)` remains the correct assertion for
+  **absence**: something absent from the tree is unreachable by construction,
+  so no scrolling can strengthen it. The suite has not yet been swept for the
+  remaining `.exists`-as-reachability sites — they are enumerated in
+  `docs/plan/00-baseline-and-rules.md`'s deferred table.
 
 ## The V4 plan & per-session workflow
 

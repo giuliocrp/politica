@@ -784,3 +784,283 @@ phase could not do: **the 200 recorded findings need a device-side contrast
 and Dynamic Type pass** (§2.3). That is not a blocker for tagging a
 prototype, and it is recorded as such — but it is the honest gap in the
 release.
+
+---
+
+# Decisions received — Phase 32B (2026-07-29)
+
+Phase 32B's addendum, appended here per `phase-32b.md`. **Network acts:
+none** — no fetch, no push, no GitHub call; the live remote was never
+contacted and every remote fact below is derived from the local tracking
+ref. **No file under `Politici/Data/` was touched and no pipeline script
+ran**, so the generated-data change protocol again has an empty diff to
+explain.
+
+**Report-location deviation, stated first.** `phase-32b.md` pins the
+addendum to `docs/v4/32-release.md`, which **does not exist**. It is
+appended to `docs/v4/32a-release.md` — the same substitution §0 deviation 1
+recorded, for the same reason (the lettered-phase report convention), and
+the same file `docs/plan/README.md`'s status table links.
+
+## 32B.1 The approval, quoted verbatim
+
+Phase 32A ended with the PENDING USER DECISIONS block (§15). The user's
+reply opened with a decisions block, prefixed *"DECISIONS — quote this
+block verbatim in the addendum"*, reproduced here in full and unaltered:
+
+> **Tag: approved.** Create the local annotated tag `v4.0-prototype` at the
+> decisions commit, following the `v3.0-prototype` convention.
+>
+> **Branch push: already performed.** I pushed `f97a35a` to `origin/v4`
+> myself before this phase. Nothing further is owed on the branch.
+>
+> **Tag push: explicitly pending.** Do not print it as a recommended next
+> step. I will decide after reading your output and the release note. This
+> is a deliberate hold, not an oversight.
+>
+> **GitHub release and repository visibility: explicitly pending.** I have
+> not decided, and public-vs-private could not be determined from the
+> repository (`gh` is not installed). Record as pending; do not guess, do
+> not infer from the v3 record.
+>
+> **Q6 (commissioning brief): closed as never produced.** Phase 32A's
+> search covered the working tree, every commit on every ref, deleted
+> files, the stash and three dangling objects, and found no V3 or V4
+> commissioning brief. It does not exist and never did. Close it — do not
+> carry it into V5.
+
+and closed with:
+
+> Explicit approval for the tag is in the block above. Proceed with 32B.
+
+That satisfies `phase-32b.md`'s hard gate twice over: the tag is approved by
+name in a written decisions block **and** the "proceed" is given in direct
+response to the printed pending-decisions block (the v3 22B pattern).
+
+## 32B.2 Recorded status, per item
+
+| Item (32A §15) | Status | How it is recorded |
+|---|---|---|
+| 1. Local `v4.0-prototype` tag | **APPROVED** | Created at the 32B decisions commit — annotated, local only, §32B.5 |
+| Branch push (raised by the user, not by §15) | **DONE BY THE USER** | `origin/v4` = `f97a35a` = Phase 32A's commit, from the local tracking ref. Nothing owed for 32A's work; 32B's own decisions commit is one ahead and is what `git push origin v4` would carry (§32B.7) |
+| Tag push | **EXPLICITLY PENDING — a deliberate hold** | Printed in §32B.7 as a command, **not** as a recommended next step, per the instruction |
+| 2. GitHub Release / repository visibility | **EXPLICITLY PENDING** | Neither decided. `<github-release-url>` placeholder kept. `gh` is confirmed absent on this host (`command -v gh` → nothing), so visibility is **not determinable** here and **nothing is inferred from the v3 record** |
+| 3. Q6 — the V3/V4 commissioning brief | **CLOSED as never produced** | By the user's decision, which §6.1 already identified as the only thing that could close it. Not carried into V5 |
+| *(the honest gap)* device-side a11y pass | **DISCLOSED, not closed** | Now stated in the release note and the CHANGELOG entry themselves (§32B.4, requirement A2), not only in this report and the checklist |
+
+**On Q6's evidence.** §6.1 above publishes the working-tree form of that
+search (`find … -iname "*commission*"` / `"*brief*"`). The wider sweep the
+decision describes — every commit on every ref, deleted files, the stash,
+three dangling objects — is quoted as the user states it; **this session did
+not re-run it**, and did not need to: no assistant-side action could ever
+have closed Q6 (§6.1), so the close is the user's decision and rests on it.
+
+## 32B.3 Preconditions, verified before anything was written
+
+| Precondition | Verified how | Result |
+|---|---|---|
+| Explicit tag approval in front of the session | The block quoted in §32B.1 | **met** — the phase's hard gate |
+| Phase 32A committed, its report present | `git log` → `f97a35a docs(v4): phase 32a …`; `docs/v4/32a-release.md` present | **met** |
+| Working tree clean at start | `git status --porcelain` → empty | **met** |
+| Branch / tip / remote state | `v4` = `origin/v4` = `f97a35a`; `git log @{u}..` → empty | **met** — the user's push is visible in the tracking ref |
+| Tags untouched | `git tag -l` → `v1.0.0` (`6d3b866`, lightweight), `v2.0-prototype` (`72448dc`, annotated), `v3.0-prototype` (`f90f194`, annotated) | **met** |
+| `docs/plan/README.md` row for 32B | `pending` | **met** — flipped to `done` in this commit |
+| Frozen dirs unmodified | `git diff HEAD -- docs/v2 docs/v3 docs/history` → empty | **met**, re-checked at commit |
+| `Politici/Data/` untouched | `git status --porcelain Politici/Data/` → empty | **met** |
+
+## 32B.4 The pre-tag corrections (requirement A)
+
+The tag points at this tree permanently, so figures the certifying run
+superseded are corrected **before** it is created, not after.
+
+### A1 — the accessibility counts, reconciled
+
+**The authoritative run is `p32a-final3`** — the certifying run of the
+rebuilt whole-screen audits, `totalTestCount 230 / 0 failures`, from which
+[`a11y-checklist.md`](a11y-checklist.md) §1.1's per-screen table and §1.2's
+comparison are measured, and which §2's triage above is built on. It yields
+**200** findings over 16 screen states and **123** on Phase 24's eight
+screens. The **139 / 205** pair comes from an **earlier run of the same
+code** (§1.3 of the checklist): on the two `List`-backed vote screens that
+run resolved element labels the certifying run reported as 15 anonymous `—`
+entries, so the same defects merged into a different arithmetic. Four
+committed files had frozen that earlier pair.
+
+Each line was checked against the certifying run rather than against the
+requirement's table — and **the table was one site short**:
+
+| File | Line | Was | Now |
+|---|---:|---|---|
+| `CHANGELOG.md` | 119–120 | 63 → **139**, full app **205** | 63 → **123**, full app **200** |
+| `docs/releases/v4.0-prototype.md` | 127–128 | same | same |
+| `README.md` | 374 | **205** findings | **200** findings |
+| `README.md` | 487 | the **205** recorded findings | the **200** recorded findings |
+| **`docs/plan/00-baseline-and-rules.md`** | **175** | **measured 205 findings over 16 screen states** | **measured 200 … in its certifying run**, + the lower-bound qualifier |
+
+The fifth site is in the deferred table's *"Fixing the 62
+`performAccessibilityAudit` findings — DISCHARGED"* row. It is a living plan
+document, it would have been frozen into the tag with the superseded figure
+like the other four, and it is fixed for the same reason. The 63
+first-viewport figure was verified consistent everywhere and **not** touched.
+
+**The variance qualifier is added once, where the figure first appears in
+the release note** — inside the Phase 32A bullet, at the sentence that
+introduces 123/200. Because the release note reproduces the CHANGELOG entry
+*verbatim* and CHANGELOG is canonical (both files say so), the qualifier is
+written into that one sentence and therefore appears in both copies: adding
+it to only one would have broken the verbatim relationship the two files
+document. It is **not** repeated at the README's two sites — "once" is read
+as once in the entry, not once per occurrence in the tree. A bare number
+would claim a precision the measurement does not have; the qualifier states
+the merge rule, the collapse of unattributable findings, and the earlier
+run's 139/205, and points at the checklist's §1.3.
+
+**Not edited:** §2.2 and §1.3 of this report and the checklist already carry
+both the certifying figures and the earlier run's, correctly attributed —
+there was nothing to correct there.
+
+### A2 — the device-pass disclosure now lives in the release note itself
+
+The absence of a device-side contrast and Dynamic Type pass was stated in
+this report (§2.3), in [`a11y-checklist.md`](a11y-checklist.md) §5 and in
+`README.md` — but **not** in `docs/releases/v4.0-prototype.md`, which is the
+document a reader of the release alone will read. A paragraph headed
+**"Known gap in this release — no device-side accessibility pass"** is now
+the last thing in the release-actions subsection of **both** the release
+note and the CHANGELOG entry that mirrors it. It states that the pass did
+not happen for this release, why no headless session can produce it (the
+auditor's opaque approximation of translucent material, which flags even
+`.primary` text), that a full VoiceOver traversal is likewise still human,
+and that this is not a blocker for a prototype tag but is the honest gap in
+it.
+
+### A3 — the reachability rule is now in `CLAUDE.md`
+
+Three defects in this cycle shared one cause: **an element existing in the
+accessibility tree is not the same as being reachable on screen.** Phase 31's
+Home footer rendered below the fold and was never visually verified; Phase
+24's audits traversed only each screen's first viewport (63 findings against
+123 on the same eight screens, same tree, same day); and §4 above found
+`AddressSearchView` never scrolled, so Roma's three Senato collegi — Phase
+30B's central deliverable — were unreachable while flow 7 passed throughout.
+
+The rule is written into "Durable conventions established in v4": **UI tests
+assert hittability after scrolling (`scrollUntilHittable`), not `.exists`,
+wherever the claim is that a user can see or use something**;
+`XCTAssertFalse(…exists)` **remains correct for absence**, because something
+absent from the tree is unreachable by construction and no scrolling can
+strengthen it. It points at the deferred entry for the un-swept sites.
+
+### A4 — the sweep itself is recorded as V5 work, and deliberately not done
+
+**None of A4's items were fixed here.** They are UI-test changes immediately
+before a tag, and the tag must point at the tree the certifying run
+validated. A row was added to `docs/plan/00-baseline-and-rules.md`'s
+deferred table with the sites Phase 32A enumerated — every one re-verified
+against the source at 32B time, not copied:
+
+| # | Site | Why it is on the list |
+|---|---|---|
+| 1 | `SmokeFlowUITests.swift:273–274` — `el("addressSearch.result.camera").exists` / `…senato").exists` | **The exact shape of the bug that was live.** These passed for the whole of Phase 30B while Roma's Senato rows sat off-screen and unreachable |
+| 2 | `SmokeFlowUITests.swift:85–86` — the Home CTAs `home.cta.map`, `home.cta.votazioni` | `.exists` where the claim is that a user can tap them |
+| 3 | `SmokeFlowUITests.swift:257` — `addressSearch.city.Roma` | The sample-city chips scroll **horizontally**, which is not what `scrollUntilHittable` does today, so the fix is not a one-line substitution |
+| 4 | `SmokeFlowUITests.swift:213–216` — the per-row `Fonte ufficiale` link (`vote.event.source.*`) | `waitForExistence` + a label equality, and deliberately never tapped (tapping leaves the app for Safari) — so reachability is the *only* thing left to prove about it, and it is not proven |
+| 5 | `PoliticiUITestCase.swift:197–203` — `tapButton(_:_:)` | It waits up to 5 s for hittability and then calls `element.tap()` **regardless**. A never-hittable button therefore produces a dropped tap and a downstream failure, not a diagnosis at the real site |
+
+And the three caveats on §4's own `AddressSearchView` guard
+(`AccessibilityAuditUITests.swift:385–386`), recorded rather than presented
+as a closed matter: it asserts **one** row on the **inference** that
+`S120004` is bottom-most rather than proving all ten are reachable; it lives
+in the **audit** test rather than in flow 7, which is where the reachability
+claim belongs; and it **pins a collegio id**, so an ISTAT re-issue would fail
+it for the wrong reason.
+
+## 32B.5 The tag
+
+Created **after** the decisions commit and **after** the verification trio
+ran on that commit — the ordering is this phase's entire point, so the tag
+contains the complete release record including these decisions.
+
+- **Annotated** (`git tag -a`), at the decisions commit — **not** at
+  `f97a35a`.
+- Message shaped exactly like `v3.0-prototype`'s: a subject line
+  `v4.0-prototype — <comma-separated summary of the cycle>`, then a body
+  naming `docs/releases/v4.0-prototype.md`, the canonical CHANGELOG entry,
+  `docs/v4/` for the phase reports, the phase that created it, and the fact
+  that it was **not pushed at creation time**.
+- `git tag -n` re-checked afterwards: `v1.0.0`, `v2.0-prototype` and
+  `v3.0-prototype` unchanged, on their original commits (`6d3b866`,
+  `72448dc`, `f90f194`).
+- **No other tag was created.**
+
+## 32B.6 Verification
+
+Run on the **exact committed state the tag points at**, after the commit and
+before the tag, per the execution order. The commit is docs-only — no
+Swift source, no `Politici/Data/`, no `tools/` file changed — so the
+expected result is Phase 32A's certifying figure unchanged: **`.xcresult`
+`totalTestCount` 230, 0 failures**, and `** BUILD SUCCEEDED **`.
+
+The `.xcresult` bundle is the **only** authority for the count. The
+log-truncation quirk now has enough sightings that `CLAUDE.md` stopped
+tallying them: a long run's log is expected to disagree with the bundle by
+one or two lines, the most recent sightings cut **mid-name** (defeating both
+a `passed` count and a name inventory), and the interrupting diagnostic is
+not always the same one. A green log is not the evidence; the bundle is.
+
+Had the trio not come back green, the tag would have been deleted and this
+phase would have reported the failure rather than a release.
+
+## 32B.7 Push commands — printed, deliberately not executed
+
+Re-derived from **local** state (`git rev-parse @{u}`, `git log @{u}..`);
+the live remote was **not** contacted. `origin/v4` exists and is tracked, so
+no `-u` first-push form is needed. Note that the remote repository is
+`politica` (lowercase) while the Xcode project is `Politici` — the two names
+do not match, and nothing here assumes they do.
+
+```
+git push origin v4
+git push origin v4.0-prototype
+```
+
+- The **first** carries exactly one commit: this phase's decisions commit.
+  Phase 32A's `f97a35a` is already on `origin/v4` — the user pushed it
+  before this phase ran.
+- The **second is presented as pending the user's decision, not as a
+  recommended next step**, per the instruction. It is printed because
+  `phase-32b.md` requires the hand-over to be complete, and for no other
+  reason.
+
+Neither was executed. No GitHub Release was drafted; no GitHub call of any
+kind was made.
+
+## 32B.8 Acceptance criteria (`phase-32b.md` §"Test specifications")
+
+| # | Criterion | Outcome |
+|---|---|---|
+| 1 | Approval and answers quoted; unanswered items explicitly pending | **Met** — §32B.1 quotes the decisions block verbatim and in full; §32B.2 records the tag push and the GitHub Release / visibility question as *explicitly pending*, with the reason each is pending rather than a guess |
+| 2 | The decisions commit precedes the tag; `git tag --points-at HEAD` lists `v4.0-prototype` | **Met** — execution order in §32B.5; evidence recorded at execution time |
+| 3 | `git tag -n` shows all prior tags untouched | **Met** — §32B.5 |
+| 4 | Clean tree; nothing pushed; `git log @{u}..` shows only what the user will push; commands printed as specified | **Met** — one commit ahead, not two, because `f97a35a` is already pushed (§32B.7) |
+| 5 | Build + tests green on the tagged state | **Met** — §32B.6, `.xcresult`-measured |
+
+### Deviations, stated plainly
+
+1. **Addendum location** — `docs/v4/32a-release.md`, not the
+   `docs/v4/32-release.md` the phase file names, because that file does not
+   exist (§0 deviation 1, same substitution).
+2. **A fifth A1 site**, beyond the four the requirement tabulated:
+   `docs/plan/00-baseline-and-rules.md:175` also carried **205**. Corrected,
+   for the same reason as the other four (§32B.4/A1).
+3. **The A1 variance qualifier appears in two files, once in the entry** —
+   the release note reproduces the CHANGELOG entry verbatim, so writing the
+   qualifier into the shared sentence was the only way to add it "once"
+   without breaking that documented relationship (§32B.4/A1).
+4. **The CHANGELOG entry gained a Phase 32B bullet** and its release-actions
+   subsection was rewritten from "pending user decisions" to a per-item
+   status. The phase file asks for the subsection to be updated to match the
+   decisions; leaving the entry's closing sentence saying tagging "is
+   deferred to Phase 32B" would have been false in the tagged tree.
+5. **The release note's preamble was updated** for the same reason: it
+   stated that the tag "did not yet exist", which the tag itself falsifies.

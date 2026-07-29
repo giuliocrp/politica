@@ -371,7 +371,7 @@ after the fact:
   element detection, hit regions, element descriptions, traits,
   parent/child relationships — raises **zero** issues on all 16 audited
   screen states. Three types are **recorded rather than asserted**
-  (`.contrast`, `.dynamicType`, `.textClipped`): 205 findings, every one of
+  (`.contrast`, `.dynamicType`, `.textClipped`): 200 findings, every one of
   them triaged in [`docs/v4/a11y-checklist.md`](docs/v4/a11y-checklist.md),
   and most of them awaiting a measurement no headless run can make. MapKit
   polygon overlays remain undiscoverable by VoiceOver — a platform limit,
@@ -484,7 +484,7 @@ deferred" table in
 - **A Senato group-membership import** — the Camera has one (Phase 28); the
   Senato's group-switching exposure is therefore *unmeasured*, which
   Phase 31 §2.3 records as a fact rather than closing.
-- **Measured on-device contrast and Dynamic Type judgment** for the 205
+- **Measured on-device contrast and Dynamic Type judgment** for the 200
   recorded accessibility findings — the residue Phase 32A could not decide
   headlessly.
 - **Push notifications for new votes** — still deferred (needs a backend

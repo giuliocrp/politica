@@ -29,7 +29,7 @@ phase's report. Statuses: `pending` / `in progress` / `done` /
 | [30B](phase-30b.md) | Comuni Resolve via Published Assignment | GO-ASSIGN | [done](../v4/30b-comuni-assignment.md) |
 | [31](phase-31.md) | Staleness + live-refresh ADR | — | [done](../v4/31-live-refresh-adr.md) |
 | [32A](phase-32a.md) | Docs, a11y, release prep | — | [done](../v4/32a-release.md) |
-| [32B](phase-32b.md) | Decisions + tag | explicit tag approval | pending |
+| [32B](phase-32b.md) | Decisions + tag | explicit tag approval | [done](../v4/32a-release.md#decisions-received--phase-32b-2026-07-29) |
 
 **Dependencies:** 23 first; 24–26, 30, 31 independent after it; 27 and
 28 are the two network-gated evidence phases; 29 requires 27 **and** 28
