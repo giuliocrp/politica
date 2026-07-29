@@ -11,6 +11,7 @@ struct MapView: View {
     @Binding var path: [AppRoute]
     @Environment(\.services) private var services
     @State private var selectedChamber: Chamber = .camera
+    @State private var selectedCollegioType: CollegioType = .uninominale
     @State private var selectedDistrictId: String?
     @State private var fittedChambers: Set<Chamber> = []
     @State private var cameraPosition: MapCameraPosition = .region(
@@ -27,7 +28,7 @@ struct MapView: View {
     var body: some View {
         MapReader { proxy in
             Map(position: $cameraPosition) {
-                ForEach(services.districtService.allDistricts(chamber: selectedChamber)) { district in
+                ForEach(services.districtService.allDistricts(chamber: selectedChamber, collegioType: selectedCollegioType)) { district in
                     districtOverlay(district)
                 }
             }
@@ -40,7 +41,9 @@ struct MapView: View {
                 SpatialTapGesture()
                     .onEnded { value in
                         guard let coordinate = proxy.convert(value.location, from: .local) else { return }
-                        selectedDistrictId = services.districtService.district(for: coordinate, chamber: selectedChamber)?.id
+                        selectedDistrictId = services.districtService.district(
+                            for: coordinate, chamber: selectedChamber, collegioType: selectedCollegioType
+                        )?.id
                     }
             )
         }
@@ -60,6 +63,8 @@ struct MapView: View {
             VStack(spacing: 8) {
                 ChamberPicker(selection: $selectedChamber)
                     .padding(.horizontal, 12)
+                CollegioTypePicker(selection: $selectedCollegioType)
+                    .padding(.horizontal, 12)
                 caption
             }
             .padding(.top, 8)
@@ -74,6 +79,11 @@ struct MapView: View {
         .onChange(of: selectedChamber) { _, newChamber in
             selectedDistrictId = nil
             fitCamera(to: newChamber)
+        }
+        .onChange(of: selectedCollegioType) { _, _ in
+            // The tapped collegio belongs to the previous overlay set; clear
+            // it so the selection card never outlives its own overlay.
+            selectedDistrictId = nil
         }
     }
 
@@ -109,9 +119,9 @@ struct MapView: View {
     }
 
     private var caption: some View {
-        Text(selectedChamber == .camera
-            ? "Collegi uninominali — Camera dei Deputati"
-            : "Collegi uninominali — Senato della Repubblica")
+        let tipo = selectedCollegioType == .plurinominale ? "plurinominali" : "uninominali"
+        let camera = selectedChamber == .camera ? "Camera dei Deputati" : "Senato della Repubblica"
+        return Text("Collegi \(tipo) — \(camera)")
             .font(.caption)
             .foregroundStyle(.secondary)
             .padding(.horizontal, 12)
@@ -150,6 +160,14 @@ struct MapView: View {
 /// convention). Visible labels stay short ("Camera"/"Senato") to fit a
 /// segmented control; VoiceOver reads the full institutional name via the
 /// explicit accessibility label on each segment.
+///
+/// **Identifiers sit on the segments, not on the `Picker`** (Phase 32A). A
+/// segmented `Picker` is not a single accessibility element, so an
+/// identifier on the container propagates onto *both* segments and makes
+/// neither individually addressable — the shadowing shape Phase 30B's survey
+/// flagged here (docs/v4/30b-comuni-assignment.md §11). The former
+/// `chamber.picker` container identifier is therefore replaced by, rather
+/// than added to, the two per-segment identifiers below.
 struct ChamberPicker: View {
     @Binding var selection: Chamber
 
@@ -157,10 +175,39 @@ struct ChamberPicker: View {
         Picker("Camera del Parlamento", selection: $selection) {
             Text("Camera")
                 .accessibilityLabel("Camera dei Deputati")
+                .accessibilityIdentifier("chamber.picker.camera")
                 .tag(Chamber.camera)
             Text("Senato")
                 .accessibilityLabel("Senato della Repubblica")
+                .accessibilityIdentifier("chamber.picker.senato")
                 .tag(Chamber.senato)
+        }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+    }
+}
+
+/// Segmented uninominale/plurinominale toggle shared by `MapView` and
+/// `CollegiListView` (Phase 25) — chooses which mutually-exclusive overlay
+/// set of collegi is shown. Sits *below* `ChamberPicker` on both screens so
+/// the chamber selector stays the first segmented control in the
+/// accessibility tree. Visible labels stay short; VoiceOver reads the full
+/// "Collegi uninominali/plurinominali" via the per-segment label. Identifiers
+/// sit on the segments, not on the `Picker`, for the same reason as
+/// `ChamberPicker`'s.
+struct CollegioTypePicker: View {
+    @Binding var selection: CollegioType
+
+    var body: some View {
+        Picker("Tipo di collegio", selection: $selection) {
+            Text("Uninominali")
+                .accessibilityLabel("Collegi uninominali")
+                .accessibilityIdentifier("collegioType.picker.uninominale")
+                .tag(CollegioType.uninominale)
+            Text("Plurinominali")
+                .accessibilityLabel("Collegi plurinominali")
+                .accessibilityIdentifier("collegioType.picker.plurinominale")
+                .tag(CollegioType.plurinominale)
         }
         .pickerStyle(.segmented)
         .labelsHidden()

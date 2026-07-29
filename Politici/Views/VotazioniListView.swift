@@ -19,31 +19,60 @@ struct VotazioniListView: View {
 
     var body: some View {
         Group {
-            if events.isEmpty {
+            switch services.voteService.state {
+            case .idle, .loading:
+                ProgressView("Caricamento votazioni…")
+                    .accessibilityIdentifier("votazioni.loading")
+            case .failed:
                 ContentUnavailableView(
-                    "Nessuna votazione",
-                    systemImage: "checkmark.circle.trianglebadge.exclamationmark",
-                    description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    "Votazioni non disponibili",
+                    systemImage: "exclamationmark.triangle",
+                    description: Text("Impossibile caricare le votazioni in questa versione del prototipo.")
                 )
-            } else {
-                List {
-                    Section {
-                        ForEach(events) { event in
-                            VoteEventRow(event: event)
-                                .listRowSeparator(.hidden)
-                                .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+            case .loaded:
+                if events.isEmpty {
+                    ContentUnavailableView(
+                        "Nessuna votazione",
+                        systemImage: "checkmark.circle.trianglebadge.exclamationmark",
+                        description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    )
+                } else {
+                    List {
+                        Section {
+                            ForEach(events) { event in
+                                VoteEventRow(event: event)
+                                    .listRowSeparator(.hidden)
+                                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            }
+                        } header: {
+                            scopeHeader
                         }
-                    } header: {
-                        Text("Campione di \(events.count) votazioni importate — non l'archivio completo")
-                            .font(.footnote)
-                            .textCase(nil)
                     }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
             }
         }
         .navigationTitle("Votazioni")
         .navigationBarTitleDisplayMode(.inline)
+        .task { await services.voteService.loadIfNeeded() }
+    }
+
+    /// States plainly what the sample IS a sample of (Phase 27): not "the N
+    /// most recent" but a coverage-driven stratified pick across several
+    /// sittings and months — deliberately part procedural (ordini del
+    /// giorno), part final votes on atti. N is read from the data, never
+    /// hardcoded.
+    private var scopeHeader: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Campione stratificato di \(events.count) votazioni importate — non l'archivio completo")
+                .font(.footnote)
+            Text("Selezione per copertura: sedute distribuite su più mesi, in parte voti procedurali (ordini del giorno), in parte votazioni finali su atti.")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .textCase(nil)
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("votazioni.scope")
     }
 }
 
@@ -78,17 +107,28 @@ struct VoteEventRow: View {
                 tallyRow
             }
             .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("vote.event.\(event.id)")
 
             if let sourceUrl = event.sourceUrl, let url = URL(string: sourceUrl) {
+                // `.secondary`, not `.tertiary` (Phase 32A a11y triage —
+                // docs/v4/a11y-checklist.md). `.tertiary` is the system's
+                // style for non-essential decoration; this is an interactive
+                // link to the official record, and the whole-screen audit
+                // flags it on both screens that carry it. Raising the
+                // hierarchy strictly increases contrast against whatever the
+                // real background turns out to be, so unlike the material-
+                // backed findings it needs no on-device measurement to
+                // justify. Same change in `VoteRow`.
                 Link(destination: url) {
                     Label("Fonte", systemImage: "arrow.up.right.square")
                         .font(.caption2)
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(.secondary)
                 }
                 .frame(minHeight: 44)
                 .contentShape(Rectangle())
                 .accessibilityLabel("Fonte ufficiale")
                 .accessibilityHint("Apre la scheda della votazione sul sito della Camera dei Deputati")
+                .accessibilityIdentifier("vote.event.source.\(event.id)")
             }
         }
         .padding(12)

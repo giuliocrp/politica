@@ -12,7 +12,14 @@ struct ServiceContainer {
     let districtService: DistrictService
     let representativeService: RepresentativeService
     let voteService: VoteService
+    /// Phase 28 — parliamentary-group membership intervals. No view consumes
+    /// it yet; it's wired here so the Phase 29 alignment metric can inject it
+    /// through the environment like every other service.
+    let membershipService: MembershipService
     let geocodingService: GeocodingService
+    /// Phase 30 — the offline comuni-centroid table. Backs `GeocodingService`'s
+    /// middle tier and `AddressSearchView`'s up-front homonym disambiguation.
+    let comuneService: ComuneService
     let manifestService: ManifestService
     let partyStyleService: PartyStyleService
     let favoritesStore: any FavoritesStore
@@ -21,10 +28,12 @@ struct ServiceContainer {
         districtService: .shared,
         representativeService: .shared,
         voteService: .shared,
-        geocodingService: .shared,
+        membershipService: .shared,
+        geocodingService: .live,
+        comuneService: .shared,
         manifestService: .shared,
         partyStyleService: .shared,
-        favoritesStore: UserDefaultsFavoritesStore.shared
+        favoritesStore: UserDefaultsFavoritesStore.live
     )
 }
 

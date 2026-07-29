@@ -15,10 +15,13 @@ struct CollegiListView: View {
     @Binding var path: [AppRoute]
     @Environment(\.services) private var services
     @State private var selectedChamber: Chamber = .camera
+    @State private var selectedCollegioType: CollegioType = .uninominale
     @State private var searchText = ""
 
     private var allDistricts: [District] {
-        services.districtService.allDistricts(chamber: selectedChamber).sorted { $0.name < $1.name }
+        services.districtService
+            .allDistricts(chamber: selectedChamber, collegioType: selectedCollegioType)
+            .sorted { $0.name < $1.name }
     }
 
     private var filteredDistricts: [District] {
@@ -42,6 +45,9 @@ struct CollegiListView: View {
         VStack(spacing: 0) {
             ChamberPicker(selection: $selectedChamber)
                 .padding(.horizontal, 16)
+                .padding(.top, 8)
+            CollegioTypePicker(selection: $selectedCollegioType)
+                .padding(.horizontal, 16)
                 .padding(.vertical, 8)
 
             if filteredDistricts.isEmpty {
@@ -54,6 +60,7 @@ struct CollegiListView: View {
                         CollegioRow(district: district)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("collegio.row.\(district.id)")
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                 }

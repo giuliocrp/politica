@@ -57,6 +57,7 @@ struct RepresentativeListView: View {
                         RepresentativeRow(representative: representative)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("representative.row.\(representative.id)")
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                 }

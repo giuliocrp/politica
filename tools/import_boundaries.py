@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Transforms an ogr2ogr-produced intermediate GeoJSON into the final
-schema-v2 boundaries file for one chamber — Camera
-(tools/raw/camera_collegi_uninominali_wgs84.geojson ->
-Politici/Data/districts.geojson) or Senato
-(tools/raw/senato_collegi_uninominali_wgs84.geojson ->
-Politici/Data/districts_senato.geojson), selected via --chamber.
+schema-v2 boundaries file for one layer, selected via --chamber:
+
+- Camera uninominale (tools/raw/camera_collegi_uninominali_wgs84.geojson ->
+  Politici/Data/districts.geojson)
+- Senato uninominale (tools/raw/senato_collegi_uninominali_wgs84.geojson ->
+  Politici/Data/districts_senato.geojson)
+- Camera plurinominale (Phase 25 —
+  tools/raw/camera_collegi_plurinominali_wgs84.geojson ->
+  Politici/Data/districts_plurinominali_camera.geojson)
+- Senato plurinominale (Phase 25 ->
+  Politici/Data/districts_plurinominali_senato.geojson)
 
 Offline — makes no network calls and doesn't invoke ogr2ogr itself; that's
-tools/build_boundaries.sh's job (`make boundaries` / `make boundaries-senato`),
+tools/build_boundaries.sh's job (`make boundaries` / `make boundaries-senato`
+/ `make boundaries-plurinominale-camera` / `make boundaries-plurinominale-senato`),
 which calls this script right after the shapefile conversion.
 
 Also prints a per-feature vertex report and enforces
@@ -59,6 +66,33 @@ for this implementation):
 - provenance = "official", sourceName = "ISTAT" (same source dataset as
   Camera — see tools/SOURCES.md's single "ISTAT — Collegi Elettorali"
   entry, which covers both layers).
+
+Design notes — plurinominale (Phase 25, see docs/v4/25-plurinominale-geography.md
+and the GO-PLURI probe tools/probes/probe_plurinominale_geography.py):
+
+- Two more layers from the SAME ISTAT D.Lgs. 177/2020 release: Camera
+  (CAMERA_CollegiPLURINOMINALI_2020 -> districts_plurinominali_camera.geojson,
+  49 collegi) and Senato (SENATO_CollegiPLURINOMINALI_2020 ->
+  districts_plurinominali_senato.geojson, 26 collegi).
+- collegioType = "plurinominale" (config-driven now, was hardcoded).
+- id = "CP" + CP20_COD (Camera) / "SP" + SP20_COD (Senato), applied
+  UNCONDITIONALLY. The probe collision-checked all 75 new ids against the
+  221 shipped uninominale ids and the two new files against each other: zero
+  collisions, 296 unique ids across all four boundary files. (Camera
+  uninominale ids are bare numerics like "120101"; Senato uninominale are
+  "S"+digit like "S120001"; "CP"/"SP"+digit never alias either or each
+  other.)
+- grouping = circoscrizione (Camera, e.g. "Piemonte 1") / regione (Senato,
+  e.g. "Piemonte"), parsed from the DEN prefix exactly like the uninominale
+  layers — the same "{grouping} - {subCode}" structure, with subCode now a
+  "P0N" plurinominale code instead of "U0N".
+- Each raw layer carries ONE extra null-attribute placeholder feature
+  (OBJECTID=1, COD=0, DEN/C1 null): a residual polygon over the territory
+  with no plurinominale collegio — Valle d'Aosta for Camera, Valle d'Aosta +
+  Trentino-Alto Adige for Senato (Q1, confirmed by POP_2011 cross-check
+  against Regioni_Senato_2020 in the probe). It is SKIPPED here
+  (expected_placeholders), not written as a collegio; finding a different
+  count of placeholders fails the import loudly.
 """
 
 import argparse
@@ -84,8 +118,13 @@ MAX_OUTPUT_BYTES = 3 * 1024 * 1024
 # was kept. Phase 16 re-measured against the Senato geometry at the same
 # tolerance (observed maximum 800 vertices — see
 # docs/v3/16-senato-boundaries.md) and confirmed the same gate value still
-# holds with headroom for both chambers; re-measure and reconsider if either
-# chamber's SIMPLIFY_TOLERANCE_METERS (tools/build_boundaries.sh) changes.
+# holds with headroom for both chambers. Phase 25 re-measured against BOTH
+# plurinominale layers at the same 1000m tolerance (observed maximum 994
+# vertices — Sardegna P01, for both Camera and Senato — and ~749 KB / ~595 KB
+# output, all well under both gates; see the GO-PLURI probe and
+# docs/v4/25-plurinominale-geography.md) and again found no reason to
+# diverge. Re-measure and reconsider if any layer's SIMPLIFY_TOLERANCE_METERS
+# (tools/build_boundaries.sh) changes.
 MAX_VERTICES_PER_FEATURE = 1500
 
 # Both layers come from the same D.Lgs. 177/2020 ISTAT release, downloaded
@@ -99,6 +138,10 @@ MAX_VERTICES_PER_FEATURE = 1500
 # reading the same, correct, historical date.
 FETCH_METADATA_KEY = "istat"
 
+# Each config declares its layer's fields, the schema-v2 collegioType it
+# emits, its id prefix, and how many null-attribute placeholder rows to skip
+# (0 for the uninominale layers, 1 for each plurinominale layer — see the
+# plurinominale design note above).
 CHAMBER_CONFIGS = {
     "camera": {
         "intermediate_path": RAW_DIR / "camera_collegi_uninominali_wgs84.geojson",
@@ -108,7 +151,9 @@ CHAMBER_CONFIGS = {
         "denom_field": "CU20_DEN",
         "subcode_field": "CU20_C1",
         "chamber_value": "Camera",
+        "collegio_type": "uninominale",
         "expected_count": 147,
+        "expected_placeholders": 0,
         "id_prefix": "",
         "grouping_property": "circoscrizione",
     },
@@ -120,8 +165,38 @@ CHAMBER_CONFIGS = {
         "denom_field": "SU20_DEN",
         "subcode_field": "SU20_C1",
         "chamber_value": "Senato",
+        "collegio_type": "uninominale",
         "expected_count": 74,
+        "expected_placeholders": 0,
         "id_prefix": "S",
+        "grouping_property": "regione",
+    },
+    "camera-plurinominale": {
+        "intermediate_path": RAW_DIR / "camera_collegi_plurinominali_wgs84.geojson",
+        "output_path": DATA_DIR / "districts_plurinominali_camera.geojson",
+        "sample_backup_path": None,
+        "code_field": "CP20_COD",
+        "denom_field": "CP20_DEN",
+        "subcode_field": "CP20_C1",
+        "chamber_value": "Camera",
+        "collegio_type": "plurinominale",
+        "expected_count": 49,
+        "expected_placeholders": 1,
+        "id_prefix": "CP",
+        "grouping_property": "circoscrizione",
+    },
+    "senato-plurinominale": {
+        "intermediate_path": RAW_DIR / "senato_collegi_plurinominali_wgs84.geojson",
+        "output_path": DATA_DIR / "districts_plurinominali_senato.geojson",
+        "sample_backup_path": None,
+        "code_field": "SP20_COD",
+        "denom_field": "SP20_DEN",
+        "subcode_field": "SP20_C1",
+        "chamber_value": "Senato",
+        "collegio_type": "plurinominale",
+        "expected_count": 26,
+        "expected_placeholders": 1,
+        "id_prefix": "SP",
         "grouping_property": "regione",
     },
 }
@@ -161,7 +236,9 @@ def main():
     denom_field = config["denom_field"]
     subcode_field = config["subcode_field"]
     chamber_value = config["chamber_value"]
+    collegio_type = config["collegio_type"]
     expected_count = config["expected_count"]
+    expected_placeholders = config["expected_placeholders"]
     id_prefix = config["id_prefix"]
     grouping_property = config["grouping_property"]
 
@@ -183,6 +260,7 @@ def main():
 
     features = []
     seen_ids = set()
+    skipped_placeholders = 0
     for raw_feature in raw_features:
         props = raw_feature.get("properties", {})
         geometry = raw_feature.get("geometry")
@@ -194,8 +272,14 @@ def main():
         name = (props.get(denom_field) or "").strip()
         sub_code = (props.get(subcode_field) or "").strip() or None
 
-        if not raw_code or not name:
-            fail(f"feature con id o nome mancante: {props}")
+        # A null-attribute placeholder row (code 0 / no denominazione) is the
+        # residual polygon over territory with no plurinominale collegio (see
+        # the plurinominale design note): skip exactly the expected number,
+        # counting them, and fail later if the count is wrong — never write it
+        # as a collegio, never silently drop an unexpected one.
+        if raw_code in ("", "0") or not name:
+            skipped_placeholders += 1
+            continue
         if district_id in seen_ids:
             fail(f"id duplicato dopo la conversione: {district_id}")
         seen_ids.add(district_id)
@@ -213,7 +297,7 @@ def main():
             "id": district_id,
             "name": name,
             "chamber": chamber_value,
-            "collegioType": "uninominale",
+            "collegioType": collegio_type,
             "subCode": sub_code,
             # Only the grouping key this chamber actually uses is present —
             # not both keys with the unused one set to null. Camera features
@@ -231,6 +315,11 @@ def main():
 
     features.sort(key=lambda f: f["properties"]["id"])
 
+    if skipped_placeholders != expected_placeholders:
+        fail(
+            f"saltate {skipped_placeholders} righe segnaposto (id/nome assenti), "
+            f"attese {expected_placeholders} — layer sorgente inatteso, nulla è stato scritto"
+        )
     if len(features) != expected_count:
         fail(f"attesi {expected_count} collegi, trovati {len(features)} — controlla il layer sorgente")
 

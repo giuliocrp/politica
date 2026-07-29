@@ -46,6 +46,7 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Politica Italia")
                 .font(.largeTitle.bold())
+                .accessibilityIdentifier("home.title")
             Text("Scopri il tuo collegio elettorale, i rappresentanti in Parlamento e il loro operato — un prototipo locale, senza account né connessione a Internet.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
@@ -65,6 +66,7 @@ struct HomeView: View {
                     .submitLabel(.search)
                     .onSubmit(navigateToSearch)
                     .accessibilityHint("Cerca il collegio elettorale per indirizzo o città")
+                    .accessibilityIdentifier("home.search.field")
                 Button(action: navigateToSearch) {
                     Image(systemName: "arrow.right.circle.fill")
                         .font(.title3)
@@ -73,6 +75,7 @@ struct HomeView: View {
                 .contentShape(Rectangle())
                 .disabled(addressQuery.trimmingCharacters(in: .whitespaces).isEmpty)
                 .accessibilityLabel("Cerca")
+                .accessibilityIdentifier("home.search.submit")
             }
             .padding(12)
             .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
@@ -90,6 +93,7 @@ struct HomeView: View {
         }
         .buttonStyle(.borderedProminent)
         .tint(.blue)
+        .accessibilityIdentifier("home.cta.map")
     }
 
     private var statsSection: some View {
@@ -99,10 +103,11 @@ struct HomeView: View {
             Button {
                 path.append(.collegiList)
             } label: {
-                StatCard(value: "\(services.districtService.allDistricts().count)", label: "Collegi uninominali")
+                StatCard(value: "\(services.districtService.allDistricts(collegioType: .uninominale).count)", label: "Collegi uninominali")
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco completo dei collegi")
+            .accessibilityIdentifier("home.stat.collegi")
 
             Button {
                 path.append(.representativeList)
@@ -111,8 +116,10 @@ struct HomeView: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco completo dei rappresentanti")
+            .accessibilityIdentifier("home.stat.rappresentanti")
 
             StatCard(value: "2", label: "Camere del Parlamento")
+                .accessibilityIdentifier("home.stat.camere")
 
             Button {
                 path.append(.preferiti)
@@ -121,6 +128,7 @@ struct HomeView: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint("Apre l'elenco dei preferiti")
+            .accessibilityIdentifier("home.stat.preferiti")
         }
     }
 
@@ -135,14 +143,15 @@ struct HomeView: View {
         }
         .buttonStyle(.bordered)
         .accessibilityHint("Apre l'elenco delle votazioni importate")
+        .accessibilityIdentifier("home.cta.votazioni")
     }
 
     private var comeFunzionaSection: some View {
         DisclosureGroup("Come funziona l'elezione") {
             VStack(alignment: .leading, spacing: 10) {
                 BulletRow(text: "Alla Camera, 147 deputati sono eletti direttamente in un collegio uninominale: il loro nome è associato al collegio geografico che rappresentano, visibile sulla mappa.")
-                BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale (collegi plurinominali) o nella circoscrizione Estero: non sono associati a un singolo collegio uninominale, ma ogni pagina di collegio della Camera mostra anche i deputati plurinominali della sua circoscrizione. I deputati eletti all'Estero restano consultabili solo nell'elenco dei rappresentanti.")
-                BulletRow(text: "Al Senato, 73 dei 74 collegi uninominali mostrano il senatore eletto direttamente nel collegio (seleziona \"Senato\" nel selettore della mappa); un collegio è attualmente privo di senatore in carica nei dati ufficiali. Gli altri senatori — eletti con il sistema proporzionale, nella circoscrizione Estero o nominati a vita — sono consultabili nell'elenco dei rappresentanti, senza un'area specifica sulla mappa.")
+                BulletRow(text: "Gli altri deputati della Camera sono eletti con il sistema proporzionale nei collegi plurinominali o nella circoscrizione Estero. I 49 collegi plurinominali della Camera sono ora visibili sulla mappa (seleziona \"Plurinominali\" nel selettore): la pagina di ciascuno elenca i deputati eletti in quel collegio, e ogni pagina di collegio uninominale mostra i deputati plurinominali della sua circoscrizione. I deputati eletti all'Estero restano consultabili solo nell'elenco dei rappresentanti.")
+                BulletRow(text: "Al Senato, 73 dei 74 collegi uninominali mostrano il senatore eletto direttamente nel collegio (seleziona \"Senato\" nel selettore della mappa); un collegio è attualmente privo di senatore in carica nei dati ufficiali. Ogni pagina di collegio uninominale del Senato elenca anche i senatori eletti con il sistema proporzionale nella sua regione. Sono visibili anche i 26 collegi plurinominali del Senato, come geografia, ma nessun senatore è ancora collegato al proprio collegio in questo prototipo. I senatori eletti nella circoscrizione Estero o nominati a vita restano consultabili solo nell'elenco dei rappresentanti.")
             }
             .padding(.top, 8)
         }
@@ -172,21 +181,40 @@ struct HomeView: View {
                     RepresentativeRow(representative: representative)
                 }
                 .buttonStyle(.plain)
+                .accessibilityIdentifier("representative.row.\(representative.id)")
             }
         }
     }
 
+    /// The data-vintage line sits *inside* the "Informazioni e fonti" button
+    /// rather than beside it: the footer states one fact — the last retrieval
+    /// across every source — and the per-source breakdown that qualifies it is
+    /// then one tap away. It is deliberately a plain statement with no
+    /// threshold and no warning colour (Phase 31 — docs/v4/31-live-refresh-adr.md
+    /// §7); when the manifest fails to load the line is simply absent, never a
+    /// placeholder date. No `accessibilityIdentifier` is set on the inner
+    /// `Text`s: they are inside a `Button` label, so the button is the single
+    /// accessibility element and a child identifier would be unreachable —
+    /// the shadowing trap `CLAUDE.md` records from Phase 30B.
     private var footer: some View {
         Button {
             path.append(.fontiEDati)
         } label: {
-            Text("Informazioni e fonti")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity)
+            VStack(spacing: 4) {
+                Text("Informazioni e fonti")
+                    .font(.footnote)
+                if let vintage = services.manifestService.dataVintageText {
+                    Text(vintage)
+                        .font(.caption)
+                }
+            }
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
         }
         .frame(minHeight: 44)
         .contentShape(Rectangle())
+        .accessibilityIdentifier("home.footer.fonti")
         .padding(.top, 4)
     }
 

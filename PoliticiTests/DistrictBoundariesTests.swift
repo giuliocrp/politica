@@ -201,6 +201,35 @@ final class DistrictBoundariesTests: XCTestCase {
         XCTAssertTrue(districtService.districts(containing: coordinate).isEmpty)
     }
 
+    // MARK: - Nested uninominale + containing plurinominale (Phase 25)
+    //
+    // The same real coordinate resolves to one collegio per (chamber, type)
+    // overlay set: a uninominale collegio and the plurinominale collegio that
+    // contains it are distinct features in distinct files. All four expected
+    // ids were independently verified with a standalone even-odd ray-casting
+    // script (matching PointInPolygon) run directly against the four shipping
+    // GeoJSON files — see docs/v4/25-plurinominale-geography.md — not derived
+    // from the implementation under test.
+
+    func testRomaCoordinateResolvesUninominaleAndItsContainingPlurinominale() {
+        let coordinate = CLLocationCoordinate2D(latitude: 41.9028, longitude: 12.4964)
+        XCTAssertEqual(districtService.district(for: coordinate, chamber: .camera, collegioType: .uninominale)?.id, "120101")
+        XCTAssertEqual(districtService.district(for: coordinate, chamber: .camera, collegioType: .plurinominale)?.id, "CP120101")
+        XCTAssertEqual(districtService.district(for: coordinate, chamber: .senato, collegioType: .uninominale)?.id, "S120002")
+        XCTAssertEqual(districtService.district(for: coordinate, chamber: .senato, collegioType: .plurinominale)?.id, "SP120001")
+    }
+
+    func testResolvedUninominaleAndPlurinominaleShareTheSameCircoscrizione() {
+        // Not a tautology: the uninominale collegio and its containing
+        // plurinominale collegio come from different files, yet both must
+        // report the same Camera circoscrizione for the coordinate.
+        let coordinate = CLLocationCoordinate2D(latitude: 41.9028, longitude: 12.4964)
+        let uninominale = districtService.district(for: coordinate, chamber: .camera, collegioType: .uninominale)
+        let plurinominale = districtService.district(for: coordinate, chamber: .camera, collegioType: .plurinominale)
+        XCTAssertEqual(uninominale?.circoscrizione, "Lazio 1")
+        XCTAssertEqual(plurinominale?.circoscrizione, "Lazio 1")
+    }
+
     // MARK: - Cold decode measurement (Phase 16 — informs the eager-vs-lazy
     // decision for the Senato bucket; see docs/v3/16-senato-boundaries.md
     // for the recorded numbers and decision). Prints its own measurements

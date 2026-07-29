@@ -35,6 +35,24 @@ LicenseURL: https://creativecommons.org/licenses/by/4.0/
 RetrievedAt: 2026-07-18
 Notes: Queried via SPARQL for XIX Legislature. Filter uses ocd:rif_leg <http://dati.camera.it/ocd/legislatura.rdf/repubblica_19\>. Group name literals may be truncated at parentheses in source data — use sigla as primary identifier.
 
+# Camera dei Deputati — Votazioni
+Name: Votazioni Assemblea XIX Legislatura (via SPARQL endpoint)
+URL: https://dati.camera.it/sparql
+Endpoint: https://dati.camera.it/sparql
+License: CC BY 4.0
+LicenseURL: https://creativecommons.org/licenses/by/4.0/
+RetrievedAt: 2026-07-22
+Notes: Assemblea non-secret roll-call votes, XIX Legislature, with every deputy's per-vote position. Separate cache (camera_votazioni_sparql.json) from the deputies fetch above; refetched independently. 2026-07-22 (v4 Phase 27): switched from "most recent N" to a stratified selection (tools/select_votes_scope.py from a metadata-window probe, writing votes_scope.json explicit mode) — 30 votes across 10 sittings over ~9 months; detail fetched in chunks of 10 URIs/request. Legislature XIX re-verified current at fetch time. See docs/v4/27-votes-stratified.md.
+
+# Camera dei Deputati — Adesioni ai gruppi parlamentari
+Name: Adesioni ai gruppi parlamentari XIX Legislatura (via SPARQL endpoint)
+URL: https://dati.camera.it/sparql
+Endpoint: https://dati.camera.it/sparql
+License: CC BY 4.0
+LicenseURL: https://creativecommons.org/licenses/by/4.0/
+RetrievedAt: 2026-07-22
+Notes: Per-deputy ocd:aderisce group-membership intervals (ocd:startDate / optional ocd:endDate / ocd:rif_gruppoParlamentare) for the 400 current XIX deputies — 468 intervals, half-open [start, end). Separate cache (camera_adesioni_sparql.json) from the deputies and votes fetches above; minimal-scope fetch (camera_adesioni.rq only). 2026-07-22 (v4 Phase 28): new source; shape verified first by probe (ocd:startDate is the discovered start predicate; adesione is a blank node). Legislature XIX re-verified current at fetch time; deputies and votes caches untouched. See docs/v4/28-membership-history.md.
+
 # Senato della Repubblica
 Name: Senatori XIX Legislatura (via SPARQL endpoint)
 URL: https://dati.senato.it/sparql
@@ -50,4 +68,4 @@ URL: https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettora
 License: CC BY 4.0
 LicenseURL: https://creativecommons.org/licenses/by/4.0/
 RetrievedAt: 2026-07-18
-Notes: Shapefile format. Camera collegi uninominali layer used for district boundaries. Requires reprojection to EPSG:4326 and simplification for mobile.
+Notes: Shapefile format, one manual download batch covering every layer. Camera + Senato collegi uninominali layers (v2/v3 Phase 16) and Camera + Senato collegi plurinominali layers (v4 Phase 25) used for district boundaries. Requires reprojection to EPSG:4326 and simplification for mobile. 2026-07-23 (v4 Phase 30): the UT_Collegi2020 comune-level layer of this SAME already-downloaded package is now also the source of Politici/Data/comuni.json — one interior point (PointOnSurface of the largest polygon part) per each of the 7,904 comuni, for offline comune-name geocoding. No new download, no new licence, no fetch: the shared "istat" fetch-metadata key and its 2026-07-18 RetrievedAt above cover it. See docs/v4/30-comuni-geocoding.md. 2026-07-27 (v4 Phase 30B): the same UT_Collegi2020 layer's published CU20_COD/SU20_COD fields (the comune-to-collegio assignment ISTAT itself publishes) are now imported alongside the interior points, and it is the assignment — not the geometry — that answers a comune-NAME query; the interior point is retained for the coordinate/address path. Still the same layer, same download, same licence, no fetch. See docs/v4/30b-comuni-assignment.md.

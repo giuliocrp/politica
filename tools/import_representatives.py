@@ -78,12 +78,44 @@ superseded):
   Valle d'Aosta naming alias per docs/v3/15b-senato-link-probe.md §4.
   Proporzionale/estero/life senators keep districtId null, mirroring
   Camera's plurinominale/estero pattern.
-- Senators' electionType stays null even though osr:tipoElezione now
-  exists in the cache: mapping "Eletto proporzionale ..." onto Camera's
-  "plurinominale" case would be a new cross-chamber semantic best-fit
-  that hasn't been decided — tipoElezione is consumed at import time for
-  linkage eligibility only (flagged as an open decision in the Phase 17
-  report).
+- Senators' electionType stayed null through Phase 17 (tipoElezione was
+  consumed for linkage eligibility only) — that deferral was resolved in
+  Phase 26 (see the Phase 26 block below); this note is kept for the audit
+  trail.
+
+Phase 25 addition — collegioPlurinominale (see
+docs/v4/25-plurinominale-geography.md; ships the field Phase 18 deferred):
+
+- Every deputy whose dc:coverage is a "{CIRCOSCRIZIONE} - P0N" literal (389:
+  144 uninominale + 245 plurinominale) carries "collegioPlurinominale" = the
+  "CP..."-prefixed id of that plurinominale collegio in the new
+  districts_plurinominali_camera.geojson, joined on
+  (normalize(circoscrizione), P-code). The 8 estero and 3 bare records (Valle
+  d'Aosta + 2 suppletiva) carry no key — the disclosed absence; senators
+  never carry it (Camera-only, chamber/field-conditional-key convention).
+- The join is cross-checked at import time: the resolved collegio's
+  circoscrizione must equal the deputy's own derived circoscrizione, and any
+  P-suffix that fails to resolve fails the import loudly (the GO-PLURI probe
+  verified all 389 resolve consistently, no new alias needed).
+
+Phase 26 addition — Senato regione + electionType decision (see
+docs/v4/26-senato-regione.md; the Phase-18 analog for the Senato):
+
+- Every elective senator (the 196 with osr:regioneElezione) carries "regione"
+  = the canonical regione name derived from regioneElezione, stored in
+  districts_senato.geojson's own casing ("Estero" for the 2 overseas
+  senators). The 5 a-vita senators and all Camera records omit the key
+  (absent, not null) — the Senato-side mirror of Camera's "circoscrizione".
+  Matching is strict .upper() equality + two disclosed bilingual aliases
+  (Valle d'Aosta, Trentino-Alto Adige); any other variant fails loudly.
+- A linked (uninominale) senator's derived regione is cross-checked at import
+  time against their collegio's shipped regione (GO-REG condition (c)).
+- The deferred senator-electionType decision is taken here (its owning phase),
+  with explicit user approval quoted in the report: osr:tipoElezione ->
+  ElectionType ("Eletto uninominale…"->uninominale 73, "Eletto proporzionale…"
+  ->plurinominale 121, "circoscrizioni estere"->estero 2; a-vita absent->None
+  ->.sconosciuto 5) — a disclosed cross-chamber best fit, the "Non ha votato"
+  ->.assente precedent class.
 """
 
 import json
@@ -99,6 +131,7 @@ OUTPUT_PATH = DATA_DIR / "representatives.json"
 SAMPLE_BACKUP_PATH = DATA_DIR / "representatives.sample.json"
 DISTRICTS_PATH = DATA_DIR / "districts.geojson"
 DISTRICTS_SENATO_PATH = DATA_DIR / "districts_senato.geojson"
+DISTRICTS_PLURINOMINALI_CAMERA_PATH = DATA_DIR / "districts_plurinominali_camera.geojson"
 
 FALLBACK_PHOTO_NAME = "person.crop.circle.fill"
 LEGISLATURE = "XIX"
@@ -127,7 +160,10 @@ UNINOMINALE_TIPO_ELEZIONE = {"maggioritario", "maggioritario suppletiva"}
 # circoscrizione with no plurinominale collegio at all) and "maggioritario
 # suppletiva" records (by-election mandates carry no P-collegio). Any other
 # bare value is a new source pattern and fails the import for review.
-PLURINOMINALE_COVERAGE_RE = re.compile(r"^(?P<circ>.+) - P\d+$")
+# The <sub> group (Phase 25) is the plurinominale collegio code ("P01".."P04")
+# used to resolve collegioPlurinominale against the shipped plurinominale
+# boundary file; the <circ> group is what Phase 18 already used.
+PLURINOMINALE_COVERAGE_RE = re.compile(r"^(?P<circ>.+) - (?P<sub>P\d+)$")
 BARE_COVERAGE_CIRCOSCRIZIONI = {"VALLE D'AOSTA"}
 
 MIN_LINKED_COLLEGI = 133  # 90% of 147 — see docs/v2/03-linkage-report.md
@@ -144,15 +180,37 @@ SENATO_UNINOMINALE_PREFIX = "Eletto uninominale"
 # " (city detail)" — the detail can itself contain " - ", so strip it first.
 SENATO_COLLEGIO_RE = re.compile(r"^(?P<regione>.+) - (?P<sub>U\d+)$")
 
-# The single verified naming variant between the two sources: SPARQL gives
-# the Italian-only "VALLE D'AOSTA", ISTAT's SU20_DEN is the bilingual
-# "Valle d'aosta/Vallée d'Aoste". That region has exactly one Senato
-# collegio, so this one-entry alias is unambiguous. Any OTHER mismatch
-# fails the import loudly — extending this table requires the same
-# per-entry verification the 15b probe did, not ad hoc fuzzy matching.
+# The verified naming variants between the two sources: the SPARQL source
+# gives the Italian-only regione name, ISTAT's SU20_DEN is the bilingual form.
+# Both bilingual regioni need an alias to match districts_senato.geojson under
+# strict .upper() equality — each has exactly the expected number of collegi,
+# so the mapping is unambiguous. Any OTHER mismatch fails the import loudly:
+# extending this table requires the same per-entry verification the 15b/26
+# probes did, not ad hoc fuzzy matching.
+#
+#   - "VALLE D'AOSTA" (Phase 17): needed on BOTH the linkage side
+#     (osr:collegioElezione is "VALLE D'AOSTA - U01", Italian-only) and the
+#     Phase 26 regione side (osr:regioneElezione is "Valle D'Aosta").
+#   - "TRENTINO-ALTO ADIGE" (Phase 26): needed only on the regione side —
+#     osr:regioneElezione is "Trentino-Alto Adige" (Italian-only), while
+#     osr:collegioElezione already carries the bilingual
+#     "TRENTINO-ALTO ADIGE/SÜDTIROL - U0N" (so Phase 17 linkage never needed
+#     it). See docs/v4/26-senato-regione.md §2(b)-(c) and the GO-REG probe.
 SENATO_REGIONE_ALIASES = {
     "VALLE D'AOSTA": "Valle d'aosta/Vallée d'Aoste".upper(),
+    "TRENTINO-ALTO ADIGE": "Trentino-Alto Adige/Südtirol".upper(),
 }
+
+# Phase 26 (docs/v4/26-senato-regione.md): senators' electionType is now
+# derived from osr:tipoElezione — a disclosed cross-chamber best fit onto the
+# Camera ElectionType vocabulary (same precedent class as the votes import's
+# "Non ha votato" -> .assente), taken with explicit user approval in the phase
+# report. "Eletto proporzionale ..." maps to "plurinominale" (the Senato's
+# proportional route is the cross-chamber analog of the Camera's plurinominale
+# list seats). The 5 a-vita senators have no tipoElezione at all -> electionType
+# stays None (decodes to .sconosciuto), honestly reflecting "not elected".
+SENATO_PROPORZIONALE_PREFIX = "Eletto proporzionale"
+SENATO_ESTERO_TIPO_ELEZIONE = "circoscrizioni estere"
 
 MIN_LINKED_SENATO = 66  # ceil(0.9 × 73) — same 90% convention as MIN_LINKED_COLLEGI
 
@@ -255,19 +313,108 @@ def derive_circoscrizione(person_id, name, tipo_elezione, coverage, canonical_ci
     return canonical
 
 
+def load_plurinominale_index():
+    """Phase 25 Camera plurinominale lookup from
+    districts_plurinominali_camera.geojson (run 'make
+    boundaries-plurinominale-camera' first):
+    - (normalize(circoscrizione), subCode "P0N") -> plurinominale district id
+    - district id -> its shipped circoscrizione (for the import-time
+      consistency cross-check)
+
+    Same (circoscrizione, subCode) join shape as the uninominale index, with
+    a "P0N" sub-code instead of "U0N" — the GO-PLURI probe verified all 49
+    distinct deputy P-suffix coverage values resolve through it with the
+    existing normalize_circoscrizione and no new alias."""
+    if not DISTRICTS_PLURINOMINALI_CAMERA_PATH.exists():
+        fail(
+            f"manca {DISTRICTS_PLURINOMINALI_CAMERA_PATH.relative_to(ROOT)} — "
+            "esegui prima 'make boundaries-plurinominale-camera'"
+        )
+
+    collection = json.loads(DISTRICTS_PLURINOMINALI_CAMERA_PATH.read_text(encoding="utf-8"))
+    index = {}
+    circoscrizione_of_district = {}
+    for feature in collection.get("features", []):
+        props = feature.get("properties", {})
+        if props.get("chamber") != "Camera" or props.get("collegioType") != "plurinominale":
+            continue
+        circoscrizione = props.get("circoscrizione")
+        sub_code = props.get("subCode")
+        district_id = props.get("id")
+        if not circoscrizione or not sub_code or not district_id:
+            fail(
+                f"{DISTRICTS_PLURINOMINALI_CAMERA_PATH.relative_to(ROOT)}: collegio "
+                f"{district_id!r} senza circoscrizione/subCode — esegui "
+                "'make boundaries-plurinominale-camera' con la pipeline aggiornata"
+            )
+        key = (normalize_circoscrizione(circoscrizione), sub_code)
+        if key in index:
+            fail(f"chiave (circoscrizione, subCode) plurinominale duplicata: {key}")
+        index[key] = district_id
+        circoscrizione_of_district[district_id] = circoscrizione
+    return index, circoscrizione_of_district
+
+
+def derive_collegio_plurinominale(person_id, name, coverage, circoscrizione, pluri_index, circ_of_pluri):
+    """Phase 25: one deputy's dc:coverage -> their plurinominale collegio id,
+    or None when the deputy structurally has none.
+
+    Returns the "CP..."-prefixed district id for a "{CIRC} - P0N" coverage
+    (389 deputies: 144 uninominale + 245 plurinominale), or None for the 8
+    estero (macro-constituency coverage) and the 3 bare records (Valle
+    d'Aosta / suppletiva) — the "disclosed 3-record absence". Any P-suffix
+    coverage that fails to resolve, or resolves to a collegio whose
+    circoscrizione disagrees with the deputy's, means the source moved: fail
+    loudly, never guess. (The GO-PLURI probe verified all 389 resolve
+    consistently — tools/probes/probe_plurinominale_geography.py.)"""
+    if not coverage:
+        return None
+    if coverage.strip().upper() in ESTERO_COVERAGE_VALUES:
+        return None
+    match = PLURINOMINALE_COVERAGE_RE.match(coverage)
+    if not match:
+        # A bare coverage (Valle d'Aosta / suppletiva) — already validated by
+        # derive_circoscrizione; it structurally has no plurinominale collegio.
+        return None
+    sub_code = match.group("sub")
+    district_id = pluri_index.get((normalize_circoscrizione(match.group("circ")), sub_code))
+    if district_id is None:
+        fail(
+            f"deputato {person_id} ({name}): coverage {coverage!r} non risolve a nessun "
+            "collegio in districts_plurinominali_camera.geojson — la sorgente è cambiata "
+            "(vedi docs/v4/25-plurinominale-geography.md), rivedi prima di importare"
+        )
+    if circoscrizione is not None and circ_of_pluri.get(district_id) != circoscrizione:
+        fail(
+            f"deputato {person_id} ({name}): circoscrizione derivata {circoscrizione!r} != "
+            f"{circ_of_pluri.get(district_id)!r} del collegio plurinominale {district_id} — "
+            "join incoerente, rivedi prima di importare"
+        )
+    return district_id
+
+
 def load_senato_uninominale_index():
-    """(regione_uppercased, subCode) -> "S"-prefixed id for every shipping
-    Senato uninominale collegio, plus the full id set. Unlike Camera's
-    accent-stripping normalize_circoscrizione, this match is deliberately
-    strict (plain .upper() equality + the one disclosed alias): the 15b
-    probe verified 73/73 resolve this way, and a looser normalization would
-    silently absorb future naming drift instead of surfacing it."""
+    """Senato lookup structures from districts_senato.geojson. Unlike Camera's
+    accent-stripping normalize_circoscrizione, these matches are deliberately
+    strict (plain .upper() equality + the disclosed bilingual aliases): the
+    15b/26 probes verified everything resolves this way, and a looser
+    normalization would silently absorb future naming drift instead of
+    surfacing it. Returns:
+    - (regione_uppercased, subCode) -> "S"-prefixed id (the Phase 17 linkage join)
+    - the set of all Senato uninominale ids
+    - regione_uppercased -> canonical shipped regione string (Phase 26 —
+      senators' derived regione is stored in the shipped casing so the (c)
+      cross-check is exact string equality, mirroring Camera's canonical
+      circoscrizione storage)
+    - district id -> its shipped regione (Phase 26 (c) cross-check)."""
     if not DISTRICTS_SENATO_PATH.exists():
         fail(f"manca {DISTRICTS_SENATO_PATH.relative_to(ROOT)} — esegui prima 'make boundaries-senato'")
 
     collection = json.loads(DISTRICTS_SENATO_PATH.read_text(encoding="utf-8"))
     index = {}
     all_ids = set()
+    canonical_regioni = {}
+    regione_of_district = {}
     for feature in collection.get("features", []):
         props = feature.get("properties", {})
         if props.get("chamber") != "Senato" or props.get("collegioType") != "uninominale":
@@ -285,7 +432,57 @@ def load_senato_uninominale_index():
             fail(f"chiave (regione, subCode) duplicata in {DISTRICTS_SENATO_PATH.name}: {key}")
         index[key] = district_id
         all_ids.add(district_id)
-    return index, all_ids
+        canonical_regioni[regione.upper()] = regione
+        regione_of_district[district_id] = regione
+    return index, all_ids, canonical_regioni, regione_of_district
+
+
+def derive_regione(person_id, name, regione_elezione, canonical_regioni):
+    """Phase 26: one senator's osr:regioneElezione -> canonical regione name
+    ("Estero" for the two overseas-constituency senators), or None when the
+    senator has no regioneElezione at all (the 5 a-vita — they aren't elected
+    in a regione, so the key is omitted, mirroring Camera deputies omitting
+    "mandate"). Every branch that would require guessing fails loudly: the
+    GO-REG gate verified all 196 elective values map cleanly under strict
+    uppercase + the two bilingual aliases, so a failure here means the source
+    moved and must be reviewed, never absorbed by a looser match."""
+    if not regione_elezione:
+        return None
+    if regione_elezione.strip().upper() in ESTERO_COVERAGE_VALUES:
+        return "Estero"
+    key = regione_elezione.upper()
+    key = SENATO_REGIONE_ALIASES.get(key, key)
+    canonical = canonical_regioni.get(key)
+    if canonical is None:
+        fail(
+            f"senatore {person_id} ({name}): regioneElezione {regione_elezione!r} non "
+            "corrisponde a nessuna delle 20 regioni di districts_senato.geojson (regola "
+            "strict-uppercase + alias bilingui) — variante nuova? Va verificata e documentata "
+            "(vedi docs/v4/26-senato-regione.md), non aggiunta d'ufficio agli alias"
+        )
+    return canonical
+
+
+def derive_senato_election_type(tipo_elezione):
+    """Phase 26: osr:tipoElezione -> Camera ElectionType vocabulary (the
+    approved cross-chamber best fit). Returns None for the 5 a-vita senators
+    (no tipoElezione), which decodes to .sconosciuto. Any non-None value
+    outside the three known prefixes/literals fails loudly rather than being
+    silently dropped to None — a new tipoElezione vocabulary would need a
+    documented decision, not a silent miss."""
+    if not tipo_elezione:
+        return None
+    if tipo_elezione.startswith(SENATO_UNINOMINALE_PREFIX):
+        return "uninominale"
+    if tipo_elezione.startswith(SENATO_PROPORZIONALE_PREFIX):
+        return "plurinominale"
+    if tipo_elezione == SENATO_ESTERO_TIPO_ELEZIONE:
+        return "estero"
+    fail(
+        f"senatore: tipoElezione {tipo_elezione!r} fuori dal vocabolario noto "
+        "(Eletto uninominale… / Eletto proporzionale… / circoscrizioni estere) — "
+        "sorgente cambiata, rivedi prima di importare (docs/v4/26-senato-regione.md)"
+    )
 
 
 def fail(message):
@@ -327,7 +524,14 @@ def title_case_italian(name):
     return name.title() if name else name
 
 
-def import_camera(uninominale_index, all_uninominale_ids, canonical_circoscrizioni, circoscrizione_of_district):
+def import_camera(
+    uninominale_index,
+    all_uninominale_ids,
+    canonical_circoscrizioni,
+    circoscrizione_of_district,
+    pluri_index,
+    circ_of_pluri,
+):
     payload = load_raw("camera_deputati_sparql.json")
     people = {}
     order = []
@@ -409,29 +613,40 @@ def import_camera(uninominale_index, all_uninominale_ids, canonical_circoscrizio
                 f"del collegio collegato {district_id} — join incoerente, rivedi prima di importare"
             )
 
-        records.append(
-            {
-                "id": person_id,
-                "name": full_name,
-                "chamber": "Camera",
-                "districtId": district_id,
-                "party": p["sigla"] or p["nomeGruppo"] or "",
-                "parliamentaryGroup": p["nomeGruppo"] or p["sigla"] or "",
-                "committees": sorted(p["committees"]),
-                "attendanceRate": None,
-                "photoName": FALLBACK_PHOTO_NAME,
-                "provenance": "official",
-                "legislature": LEGISLATURE,
-                "electionType": election_type,
-                # Camera-only key (Phase 18): the canonical circoscrizione
-                # name ("Estero" for overseas deputies). Senato records omit
-                # the key entirely — same chamber-conditional convention as
-                # "mandate" (Senato-only) and districts' circoscrizione/regione.
-                "circoscrizione": circoscrizione,
-                "stableSourceId": person_id[1:],  # strip the leading "p"
-                "sourceUrl": p["sourceUrl"],
-            }
+        # Phase 25: the plurinominale collegio the deputy's dc:coverage names
+        # (None for estero + the 3 bare records — the disclosed absence).
+        collegio_plurinominale = derive_collegio_plurinominale(
+            person_id, full_name, p["collegio"], circoscrizione, pluri_index, circ_of_pluri
         )
+
+        record = {
+            "id": person_id,
+            "name": full_name,
+            "chamber": "Camera",
+            "districtId": district_id,
+            "party": p["sigla"] or p["nomeGruppo"] or "",
+            "parliamentaryGroup": p["nomeGruppo"] or p["sigla"] or "",
+            "committees": sorted(p["committees"]),
+            "attendanceRate": None,
+            "photoName": FALLBACK_PHOTO_NAME,
+            "provenance": "official",
+            "legislature": LEGISLATURE,
+            "electionType": election_type,
+            # Camera-only key (Phase 18): the canonical circoscrizione
+            # name ("Estero" for overseas deputies). Senato records omit
+            # the key entirely — same chamber-conditional convention as
+            # "mandate" (Senato-only) and districts' circoscrizione/regione.
+            "circoscrizione": circoscrizione,
+            "stableSourceId": person_id[1:],  # strip the leading "p"
+            "sourceUrl": p["sourceUrl"],
+        }
+        # Field-conditional key (Phase 25): present only when the deputy has a
+        # plurinominale collegio — absent (not null) for the 8 estero and 3
+        # bare records, and never present on any senator (same
+        # absent-not-null convention as "mandate"/"circoscrizione").
+        if collegio_plurinominale is not None:
+            record["collegioPlurinominale"] = collegio_plurinominale
+        records.append(record)
 
     vacant_ids = sorted(all_uninominale_ids - set(linked_ids))
     linkage_report = {
@@ -474,7 +689,7 @@ def link_senato_collegio(person_id, name, collegio_elezione, index):
     return district_id
 
 
-def import_senato(uninominale_index, all_uninominale_ids):
+def import_senato(uninominale_index, all_uninominale_ids, canonical_regioni, regione_of_district):
     senatori_payload = load_raw("senato_senatori_sparql.json")
     gruppi_payload = load_raw("senato_gruppi_sparql.json")
     commissioni_payload = load_raw("senato_commissioni_sparql.json")
@@ -520,6 +735,7 @@ def import_senato(uninominale_index, all_uninominale_ids):
             "tipoMandato": tipo_mandato,
             "tipoElezione": value(binding, "tipoElezione"),
             "collegioElezione": value(binding, "collegioElezione"),
+            "regioneElezione": value(binding, "regioneElezione"),
         }
 
     for binding in bindings_of(gruppi_payload):
@@ -560,29 +776,50 @@ def import_senato(uninominale_index, all_uninominale_ids):
                 )
             linked_ids[district_id] = person_id
 
-        records.append(
-            {
-                "id": person_id,
-                "name": name,
-                "chamber": "Senato",
-                "districtId": district_id,
-                "party": party,
-                "parliamentaryGroup": party,
-                "committees": sorted(p["committees"]),
-                "attendanceRate": None,
-                "photoName": FALLBACK_PHOTO_NAME,
-                "provenance": "official",
-                "legislature": LEGISLATURE,
-                "electionType": None,
-                # Senato-only key (Phase 17), carried verbatim from
-                # osr:tipoMandato. Camera records don't get a null here —
-                # the key is absent entirely, same chamber-conditional-key
-                # convention as districts' circoscrizione/regione.
-                "mandate": p["tipoMandato"],
-                "stableSourceId": person_id[1:],  # strip the leading "s"
-                "sourceUrl": p["sourceUrl"],
-            }
-        )
+        # Phase 26: electionType (approved cross-chamber mapping) and regione.
+        election_type = derive_senato_election_type(p["tipoElezione"])
+        regione = derive_regione(person_id, name, p["regioneElezione"], canonical_regioni)
+        # (c) cross-check: a linked (uninominale) senator's derived regione
+        # must equal their collegio's shipped regione property exactly — the
+        # GO-REG gate's condition (c), re-enforced at import time so a future
+        # source drift fails loudly rather than shipping an inconsistent join.
+        if district_id is not None and regione != regione_of_district[district_id]:
+            fail(
+                f"senatore {person_id} ({name}): regione derivata {regione!r} != "
+                f"{regione_of_district[district_id]!r} del collegio collegato {district_id} — "
+                "join incoerente, rivedi prima di importare (docs/v4/26-senato-regione.md)"
+            )
+
+        record = {
+            "id": person_id,
+            "name": name,
+            "chamber": "Senato",
+            "districtId": district_id,
+            "party": party,
+            "parliamentaryGroup": party,
+            "committees": sorted(p["committees"]),
+            "attendanceRate": None,
+            "photoName": FALLBACK_PHOTO_NAME,
+            "provenance": "official",
+            "legislature": LEGISLATURE,
+            # Phase 26: derived from osr:tipoElezione (None for the 5 a-vita).
+            "electionType": election_type,
+            # Senato-only key (Phase 17), carried verbatim from
+            # osr:tipoMandato. Camera records don't get a null here —
+            # the key is absent entirely, same chamber-conditional-key
+            # convention as districts' circoscrizione/regione.
+            "mandate": p["tipoMandato"],
+            "stableSourceId": person_id[1:],  # strip the leading "s"
+            "sourceUrl": p["sourceUrl"],
+        }
+        # Senato-only, field-conditional key (Phase 26): the canonical regione
+        # ("Estero" for the two overseas senators). Present on the 196 elective
+        # senators, absent (not null) on the 5 a-vita and on every Camera
+        # record — the mirror of Camera's "circoscrizione" and the same
+        # absent-not-null convention as "mandate"/"collegioPlurinominale".
+        if regione is not None:
+            record["regione"] = regione
+        records.append(record)
 
     linkage_report = {
         "linkedCount": len(linked_ids),
@@ -596,11 +833,21 @@ def main():
     uninominale_index, all_uninominale_ids, canonical_circoscrizioni, circoscrizione_of_district = (
         load_uninominale_index()
     )
+    pluri_index, circ_of_pluri = load_plurinominale_index()
     camera_records, linkage_report = import_camera(
-        uninominale_index, all_uninominale_ids, canonical_circoscrizioni, circoscrizione_of_district
+        uninominale_index,
+        all_uninominale_ids,
+        canonical_circoscrizioni,
+        circoscrizione_of_district,
+        pluri_index,
+        circ_of_pluri,
     )
-    senato_index, all_senato_ids = load_senato_uninominale_index()
-    senato_records, senato_linkage = import_senato(senato_index, all_senato_ids)
+    senato_index, all_senato_ids, senato_canonical_regioni, senato_regione_of_district = (
+        load_senato_uninominale_index()
+    )
+    senato_records, senato_linkage = import_senato(
+        senato_index, all_senato_ids, senato_canonical_regioni, senato_regione_of_district
+    )
     all_records = camera_records + senato_records
 
     if not all_records:
@@ -623,6 +870,24 @@ def main():
     for tipo in sorted(mandate_counts):
         print(f"  {tipo!r}: {mandate_counts[tipo]}")
 
+    # Phase 26: regione coverage + the approved electionType distribution.
+    regione_counts = {}
+    for record in senato_records:
+        key = record.get("regione")
+        regione_counts[key] = regione_counts.get(key, 0) + 1
+    with_regione = sum(1 for r in senato_records if "regione" in r)
+    print(
+        f"Regione Senato derivata: {with_regione} senatori con regione "
+        f"({len(regione_counts) - (1 if None in regione_counts else 0)} valori distinti; "
+        f"Estero: {regione_counts.get('Estero', 0)}; senza regione/a-vita: {regione_counts.get(None, 0)})"
+    )
+    senato_type_counts = {}
+    for record in senato_records:
+        senato_type_counts[record["electionType"]] = senato_type_counts.get(record["electionType"], 0) + 1
+    print("electionType Senato (mappatura approvata Fase 26):")
+    for tipo in sorted(senato_type_counts, key=lambda t: (t is None, t or "")):
+        print(f"  {tipo!r}: {senato_type_counts[tipo]}")
+
     circoscrizione_counts = {}
     for record in camera_records:
         key = record["circoscrizione"]
@@ -630,6 +895,15 @@ def main():
     print(
         f"Circoscrizioni Camera derivate: {len(circoscrizione_counts)} valori distinti "
         f"su {len(camera_records)} deputati (Estero: {circoscrizione_counts.get('Estero', 0)})"
+    )
+
+    with_pluri = [r for r in camera_records if "collegioPlurinominale" in r]
+    covered_pluri = {r["collegioPlurinominale"] for r in with_pluri}
+    without_pluri = len(camera_records) - len(with_pluri)
+    print(
+        f"Collegio plurinominale -> deputato: {len(with_pluri)} deputati collegati a "
+        f"{len(covered_pluri)} collegi plurinominali "
+        f"({without_pluri} senza collegio: Estero + record bare)"
     )
 
     print(

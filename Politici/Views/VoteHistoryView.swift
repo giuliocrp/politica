@@ -25,39 +25,53 @@ struct VoteHistoryView: View {
 
     var body: some View {
         Group {
-            if votes.isEmpty {
+            switch services.voteService.state {
+            case .idle, .loading:
+                ProgressView("Caricamento votazioni…")
+                    .accessibilityIdentifier("voteHistory.loading")
+            case .failed:
                 ContentUnavailableView(
-                    "Nessuna votazione",
-                    systemImage: "checkmark.circle.trianglebadge.exclamationmark",
-                    description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    "Votazioni non disponibili",
+                    systemImage: "exclamationmark.triangle",
+                    description: Text("Impossibile caricare le votazioni in questa versione del prototipo.")
                 )
-            } else {
-                List {
-                    Section {
-                        if filteredVotes.isEmpty {
-                            // Honest empty state for an over-narrow filter —
-                            // distinct from the no-data case above.
-                            Text("Nessuna votazione corrisponde ai filtri selezionati.")
-                                .foregroundStyle(.secondary)
-                                .listRowSeparator(.hidden)
-                        } else {
-                            ForEach(filteredVotes) { vote in
-                                VoteRow(vote: vote)
+            case .loaded:
+                if votes.isEmpty {
+                    ContentUnavailableView(
+                        "Nessuna votazione",
+                        systemImage: "checkmark.circle.trianglebadge.exclamationmark",
+                        description: Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                    )
+                } else {
+                    List {
+                        Section {
+                            if filteredVotes.isEmpty {
+                                // Honest empty state for an over-narrow filter —
+                                // distinct from the no-data case above.
+                                Text("Nessuna votazione corrisponde ai filtri selezionati.")
+                                    .foregroundStyle(.secondary)
+                                    .accessibilityIdentifier("voteHistory.emptyFilter")
                                     .listRowSeparator(.hidden)
-                                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            } else {
+                                ForEach(filteredVotes) { vote in
+                                    VoteRow(vote: vote)
+                                        .listRowSeparator(.hidden)
+                                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                                }
                             }
+                        } header: {
+                            choiceFilterChips
+                                .textCase(nil)
                         }
-                    } header: {
-                        choiceFilterChips
-                            .textCase(nil)
                     }
+                    .listStyle(.plain)
+                    .searchable(text: $searchText, prompt: "Cerca nel titolo")
                 }
-                .listStyle(.plain)
-                .searchable(text: $searchText, prompt: "Cerca nel titolo")
             }
         }
         .navigationTitle(representative.map { "Voti di \($0.name)" } ?? "Cronologia Voti")
         .navigationBarTitleDisplayMode(.inline)
+        .task { await services.voteService.loadIfNeeded() }
     }
 
     /// Chip row: "Tutte" plus the four real outcomes. A `.sconosciuto`
@@ -93,6 +107,7 @@ struct VoteHistoryView: View {
         .contentShape(Rectangle())
         .accessibilityLabel(choice == nil ? "Tutte le votazioni" : "Filtra per \(title)")
         .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier("voteHistory.chip.\(choice?.rawValue ?? "tutte")")
     }
 
     /// Pure filter (unit-tested as such): outcome chip and title search
@@ -148,12 +163,15 @@ struct VoteRow: View {
                 }
             }
             .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("vote.row.\(vote.id)")
 
             if let sourceUrl = vote.sourceUrl, let url = URL(string: sourceUrl) {
+                // `.secondary`, not `.tertiary` — see `VoteEventRow`'s note
+                // (Phase 32A a11y triage).
                 Link(destination: url) {
                     Label("Fonte", systemImage: "arrow.up.right.square")
                         .font(.caption2)
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(.secondary)
                 }
                 .frame(minHeight: 44)
                 .contentShape(Rectangle())

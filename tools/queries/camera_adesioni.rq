@@ -1,0 +1,50 @@
+# Camera dei Deputati — parliamentary-group membership intervals ("adesioni"),
+# XIX Legislature, for currently-serving deputies.
+# Endpoint: https://dati.camera.it/sparql   License: CC BY 4.0
+# Used by: tools/fetch_camera_adesioni.py  (Phase 28 — docs/v4/28-membership-history.md)
+#
+# One row per ocd:aderisce interval of each current deputato. The person is
+# reached via the same mandato join tools/queries/camera_deputati.rq uses
+# (?persona ocd:rif_mandatoCamera ?mandato ; ?d ...same mandato), and the
+# `MINUS { ?mandato ocd:endDate }` restricts ?d to the deputato holding the
+# CURRENT (open) mandate — i.e. the 400 deputies in representatives.json —
+# while ?d ocd:aderisce still returns that deputato's FULL XIX membership
+# history (open + closed intervals), which is exactly what this phase needs.
+#
+# Shape verified by probe first, never assumed (Q4 — see the report and
+# tools/probes/probe_camera_adesioni_shape.rq): an ocd:aderisce carries
+# ocd:startDate (YYYYMMDD) and, only when the membership has ended,
+# ocd:endDate (absent = the single open/current interval); the group is
+# ocd:rif_gruppoParlamentare -> ?gruppo, whose dc:title / dcterms:alternative
+# are the same (name, sigla) the deputies query pulls (name carries the same
+# documented truncation-at-"(" source quirk). The adesione node itself is a
+# BLANK NODE (no stable URI), so tools/import_memberships.py mints a composed,
+# deterministic id and never relies on the blank-node label.
+#
+# startDate / group / endDate are OPTIONAL on purpose: the fetch caches
+# whatever the source holds (the fetch/import split — fetch pulls, import
+# enforces), so a missing startDate or group is CAUGHT and fails loudly in
+# tools/import_memberships.py rather than being silently dropped by a
+# required triple here. Aggregate-free plain SELECT DISTINCT (dati.senato.it
+# rejects aggregates with 403/400 — Phase 15b; the Camera votes work stayed
+# aggregate-free too — Phase 27 Q3).
+PREFIX ocd:     <http://dati.camera.it/ocd/>
+PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
+PREFIX dc:      <http://purl.org/dc/elements/1.1/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+SELECT DISTINCT ?persona ?aderisce ?nomeGruppo ?sigla ?startDate ?endDate
+WHERE {
+  ?d a ocd:deputato ;
+     ocd:rif_leg <http://dati.camera.it/ocd/legislatura.rdf/repubblica_19> ;
+     ocd:rif_mandatoCamera ?mandato ;
+     ocd:aderisce ?aderisce .
+  ?persona ocd:rif_mandatoCamera ?mandato ; a foaf:Person .
+  MINUS { ?mandato ocd:endDate ?fineMandato . }
+  OPTIONAL {
+    ?aderisce ocd:rif_gruppoParlamentare ?gruppo .
+    ?gruppo dc:title ?nomeGruppo ; dcterms:alternative ?sigla .
+  }
+  OPTIONAL { ?aderisce ocd:startDate ?startDate . }
+  OPTIONAL { ?aderisce ocd:endDate ?endDate . }
+}
+ORDER BY ?persona ?startDate

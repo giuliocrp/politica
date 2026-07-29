@@ -24,6 +24,7 @@ struct RepresentativeProfileView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     header(for: representative)
                     committeesSection(for: representative)
+                    alignmentSection(for: representative)
                     recentVotesSection
                 }
                 .padding()
@@ -44,6 +45,7 @@ struct RepresentativeProfileView: View {
                 }
             }
         }
+        .task { await services.voteService.loadIfNeeded() }
     }
 
     private var favoriteButton: some View {
@@ -57,6 +59,7 @@ struct RepresentativeProfileView: View {
         .contentShape(Rectangle())
         .accessibilityLabel(isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti")
         .accessibilityAddTraits(isFavorite ? .isSelected : [])
+        .accessibilityIdentifier("profile.favorite")
     }
 
     @ViewBuilder
@@ -103,9 +106,19 @@ struct RepresentativeProfileView: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
+
+            // Senato mirror of the circoscrizione line (Phase 26): the regione
+            // the senator was elected in ("Estero" for overseas senators;
+            // absent for the a-vita).
+            if let regione = representative.regione {
+                Text("Regione: \(regione)")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity)
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("profile.header")
     }
 
     private func provenanceBadge(_ provenance: DataProvenance) -> some View {
@@ -156,17 +169,58 @@ struct RepresentativeProfileView: View {
         }
     }
 
+    /// The Phase 29 group-alignment metric — profile-only, Camera-only, and
+    /// only when the deputy clears the minimum denominator. Below threshold (or
+    /// for senators, who have no positions) the whole section is absent — an
+    /// honest silence, never `0%` or a default (docs/v4/29-alignment-metric.md).
+    /// No color is used: the value is never rendered as a judgment.
+    @ViewBuilder
+    private func alignmentSection(for representative: Representative) -> some View {
+        if representative.chamber == .camera, services.voteService.state == .loaded,
+           case let .value(percentage, denominator) = GroupAlignment.alignment(
+               representativeId: representative.id,
+               events: services.voteService.eventRecords,
+               positions: services.voteService.positionRecords,
+               memberships: services.membershipService.memberships
+           ) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(GroupAlignment.metricLabel)
+                    .font(.headline)
+                Text(GroupAlignment.valueText(percentage: percentage, denominator: denominator))
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(.primary)
+                Text(GroupAlignment.sampleCaption)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(GroupAlignment.accessibilityText(percentage: percentage, denominator: denominator)
+                + " " + GroupAlignment.sampleCaption)
+            .accessibilityIdentifier("profile.alignment")
+        }
+    }
+
     private var recentVotesSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Votazioni recenti")
                 .font(.headline)
 
-            if recentVotes.isEmpty {
-                Text("Nessuna votazione disponibile in questa versione del prototipo.")
+            switch services.voteService.state {
+            case .idle, .loading:
+                ProgressView()
+                    .accessibilityIdentifier("profile.votes.loading")
+            case .failed:
+                Text("Impossibile caricare le votazioni in questa versione del prototipo.")
                     .foregroundStyle(.secondary)
-            } else {
-                ForEach(recentVotes) { vote in
-                    VoteRow(vote: vote)
+            case .loaded:
+                if recentVotes.isEmpty {
+                    Text("Nessuna votazione disponibile in questa versione del prototipo.")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(recentVotes) { vote in
+                        VoteRow(vote: vote)
+                    }
                 }
             }
 
@@ -178,6 +232,7 @@ struct RepresentativeProfileView: View {
             }
             .buttonStyle(.bordered)
             .accessibilityHint("Apre l'elenco completo delle votazioni")
+            .accessibilityIdentifier("profile.cta.voteHistory")
         }
     }
 }

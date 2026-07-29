@@ -40,6 +40,16 @@ CONFIG_PATH = Path(__file__).parent / "config" / "votes_scope.json"
 
 ALLOWED_URI_PREFIX = "http://dati.camera.it/ocd/votazione.rdf/"
 
+# Detail is fetched in chunks of this many votazioni per request. A single
+# 25-votazione shot returned 9,975 rows (Phase 21) — uncomfortably close to
+# the ~10k-row result cap the Senato endpoint showed in Phase 15b, and a
+# 30-votazione shot (~12k rows) could cross it and silently truncate. 10
+# URIs/request (~3,990 rows/chunk) keeps every response far from any cap;
+# the per-chunk row counts are printed so a truncation would be visible.
+# Any chunk failing raises through fetch_detail -> fail() -> non-zero exit
+# BEFORE anything is written, so a partial fetch is never cached.
+DETAIL_CHUNK_SIZE = 10
+
 
 def fail(message):
     print(f"ERRORE: {message}", file=sys.stderr)
@@ -135,11 +145,28 @@ def main():
     if not uris:
         fail("nessuna votazione nello scope configurato — controlla tools/config/votes_scope.json")
 
-    print(f"Recupero il dettaglio completo di {len(uris)} votazioni (con tutte le posizioni per deputato)...")
-    payload, row_count = fetch_detail(uris)
+    print(
+        f"Recupero il dettaglio completo di {len(uris)} votazioni "
+        f"(con tutte le posizioni per deputato), in chunk da {DETAIL_CHUNK_SIZE}..."
+    )
+    head = None
+    all_bindings = []
+    for start in range(0, len(uris), DETAIL_CHUNK_SIZE):
+        chunk = uris[start:start + DETAIL_CHUNK_SIZE]
+        # fetch_detail() calls fail() (non-zero exit, nothing written) on any
+        # HTTP/parse error, so a failing chunk aborts before OUTPUT_PATH is
+        # touched — never a partial cache.
+        payload, rows = fetch_detail(chunk)
+        print(f"  chunk {start // DETAIL_CHUNK_SIZE + 1}: {len(chunk)} votazioni, {rows} righe")
+        if head is None:
+            head = payload.get("head", {})
+        all_bindings.extend(payload["results"]["bindings"])
+
+    combined = {"head": head or {}, "results": {"bindings": all_bindings}}
+    row_count = len(all_bindings)
 
     RAW_DIR.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT_PATH.write_text(json.dumps(combined, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     stamp_fetch_metadata("camera_votazioni")
 
     print(

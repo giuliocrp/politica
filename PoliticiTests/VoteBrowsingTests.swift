@@ -29,7 +29,7 @@ final class VoteBrowsingTests: XCTestCase {
 
     func testShippingVotesFileMatchesPhase20Invariants() throws {
         let file = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
-        XCTAssertEqual(file.events.count, 12, "the curated sample is 12 events")
+        XCTAssertEqual(file.events.count, 30, "the Phase 27 stratified sample is 30 events")
         XCTAssertTrue(file.positions.allSatisfy { !$0.voteEventId.isEmpty })
         XCTAssertEqual(
             Set(file.positions.map(\.voteEventId)),
@@ -42,7 +42,7 @@ final class VoteBrowsingTests: XCTestCase {
         let file = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
         let events = VoteService.aggregateEvents(file.events, positions: file.positions)
         let positionsByEvent = Dictionary(grouping: file.positions, by: \.voteEventId)
-        XCTAssertEqual(events.count, 12)
+        XCTAssertEqual(events.count, 30)
         for event in events {
             XCTAssertEqual(
                 event.totalPositions,
@@ -91,8 +91,12 @@ final class VoteBrowsingTests: XCTestCase {
 
     // MARK: - Flat-fixture fallback
 
-    func testSampleFlatFixtureLoadsViaFallbackWithNoEvents() {
+    // Now async: VoteService loads lazily (Phase 27), so tests that read its
+    // decoded data must `await loadIfNeeded()` first.
+    @MainActor
+    func testSampleFlatFixtureLoadsViaFallbackWithNoEvents() async {
         let service = VoteService(resource: "votes.sample")
+        await service.loadIfNeeded()
         XCTAssertFalse(service.votes.isEmpty, "the frozen flat fixture must keep decoding")
         XCTAssertTrue(
             service.allEvents().isEmpty,
@@ -100,14 +104,57 @@ final class VoteBrowsingTests: XCTestCase {
         )
     }
 
-    func testShippingServiceJoinsEventFieldsIntoVotes() throws {
+    @MainActor
+    func testShippingServiceJoinsEventFieldsIntoVotes() async throws {
         let service = VoteService()
+        await service.loadIfNeeded()
         XCTAssertNil(service.loadError)
         XCTAssertFalse(service.votes.isEmpty)
         let file = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
         XCTAssertEqual(service.votes.count, file.positions.count, "every position joins to exactly one Vote")
         XCTAssertTrue(service.votes.allSatisfy { !$0.title.isEmpty && $0.provenance == .official })
     }
+
+    // MARK: - Lazy loading (Phase 27 — docs/v4/27-votes-stratified.md)
+
+    @MainActor
+    func testLoadIfNeededTransitionsIdleToLoaded() async {
+        let service = VoteService()
+        XCTAssertEqual(service.state, .idle, "nothing loads at init")
+        XCTAssertTrue(service.votes.isEmpty, "no decode before loadIfNeeded")
+        await service.loadIfNeeded()
+        XCTAssertEqual(service.state, .loaded)
+        XCTAssertFalse(service.votes.isEmpty)
+        XCTAssertNil(service.loadError)
+    }
+
+    @MainActor
+    func testConcurrentLoadIfNeededIsIdempotent() async throws {
+        let service = VoteService()
+        // Many concurrent callers must all observe one consistent load, not a
+        // doubled or re-run decode.
+        await withTaskGroup(of: Void.self) { group in
+            for _ in 0..<25 { group.addTask { await service.loadIfNeeded() } }
+        }
+        XCTAssertEqual(service.state, .loaded)
+        let file = try LocalJSONLoader.decode(VotesFile.self, fromResource: "votes")
+        XCTAssertEqual(
+            service.votes.count, file.positions.count,
+            "concurrent loadIfNeeded must load exactly once (no doubled positions)"
+        )
+    }
+
+    #if DEBUG
+    @MainActor
+    func testShippingDecodeRunsOffTheMainThread() async {
+        let service = VoteService()
+        await service.loadIfNeeded()
+        XCTAssertTrue(
+            VoteService.lastDecodeRanOffMainThread,
+            "votes.json must be decoded off the main thread (Task.detached)"
+        )
+    }
+    #endif
 
     // MARK: - VoteHistory filter logic (pure function)
 

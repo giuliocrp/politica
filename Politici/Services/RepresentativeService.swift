@@ -61,4 +61,58 @@ final class RepresentativeService {
             }
             .sorted { $0.name < $1.name }
     }
+
+    /// The Senato proporzionale senators of one regione, sorted by name —
+    /// what DistrictDetailView's Phase 26 Senato section lists (the mirror of
+    /// the Camera plurinominale grouping above). Filtering on
+    /// `electionType == .plurinominale` (the approved Senato mapping of "Eletto
+    /// proporzionale…", not just the regione string) keeps the region's
+    /// uninominale senators out of its proporzionale section, and the a-vita
+    /// (nil regione) and estero ("Estero" regione, `.estero`) senators off
+    /// every geographic page even in the hypothetical where a regione string
+    /// matched.
+    func proporzionaleSenators(inRegione regione: String) -> [Representative] {
+        Self.proporzionaleSenators(inRegione: regione, from: representatives)
+    }
+
+    /// Static so tests can exercise the grouping as a pure function on
+    /// hand-built fixtures, independent of any bundled resource.
+    static func proporzionaleSenators(
+        inRegione regione: String,
+        from representatives: [Representative]
+    ) -> [Representative] {
+        representatives
+            .filter {
+                $0.chamber == .senato
+                    && $0.electionType == .plurinominale
+                    && $0.regione == regione
+            }
+            .sorted { $0.name < $1.name }
+    }
+
+    /// The deputies elected in one plurinominale collegio, sorted by name —
+    /// what the Phase 25 plurinominale-collegio detail page lists. Filtering
+    /// on `electionType == .plurinominale` (not merely the id) keeps it to
+    /// the deputies actually elected there by proportional list: the
+    /// uninominale deputies whose seat geographically sits inside the same
+    /// collegio also carry the id, but they belong on their own uninominale
+    /// collegio page, not here.
+    func deputies(inPlurinominaleCollegio collegioId: String) -> [Representative] {
+        Self.deputies(inPlurinominaleCollegio: collegioId, from: representatives)
+    }
+
+    /// Static so tests can exercise the grouping as a pure function on
+    /// hand-built fixtures, independent of any bundled resource.
+    static func deputies(
+        inPlurinominaleCollegio collegioId: String,
+        from representatives: [Representative]
+    ) -> [Representative] {
+        representatives
+            .filter {
+                $0.chamber == .camera
+                    && $0.electionType == .plurinominale
+                    && $0.collegioPlurinominale == collegioId
+            }
+            .sorted { $0.name < $1.name }
+    }
 }

@@ -3,9 +3,185 @@
 This project doesn't follow strict [SemVer](https://semver.org/) yet (no
 public releases), but entries are grouped by tagged/named milestone, newest
 first, in the spirit of [Keep a Changelog](https://keepachangelog.com/).
-Each entry corresponds to one phase's commit on its branch (`v2`/`v3`) —
-see `docs/v2/*.md` / `docs/v3/*.md` for the full investigation and
-verification behind each.
+Each entry corresponds to one phase's commit on its branch (`v2`/`v3`/`v4`)
+— see `docs/v2/*.md` / `docs/v3/*.md` / `docs/v4/*.md` for the full
+investigation and verification behind each.
+
+## v4.0-prototype (2026-07-28)
+
+Took the v3 prototype from "the geography and the people are real" to "the
+*context* is real too": both chambers' proportional-list geography, the
+regione/circoscrizione context that explains who represents whom, a
+stratified vote sample large enough to pass a methodology gate written a
+release earlier, the group-membership history that gate demanded, the one
+metric it then permitted, offline comune-level resolution answered from the
+publisher's own assignment, and an explicit decision about staleness. Two
+phases produced deliberate non-shipping outcomes and one open question is
+carried forward unresolved rather than closed by assumption. See
+`README.md` for the shipped state and `docs/v4/*.md` for the per-phase
+reports; the plan those phases executed is `docs/plan/`.
+
+- **V4 master plan** (`3907689`): per-phase specs, shared
+  baseline/open-questions/rules (`docs/plan/00-baseline-and-rules.md`), and
+  the canonical per-session workflow — committed before any phase ran, so
+  every later gate decision was measured against a written spec rather than
+  a remembered one.
+- **Phase 23 — Baseline audit & hygiene** (`4f251a3`): re-verified the
+  volatile baseline facts (branch, 136/139 tests, bundle bytes) and dumped
+  all five raw ISTAT layers, answering **Q2** — `UT_Collegi2020` is the
+  comune-level base table (8,213 rows / 7,904 comuni) every collegi layer
+  aggregates from, which is what made Phases 30/30B possible without a new
+  download. Four hygiene findings recorded with their disposition; **none
+  met the "trivially safe" bar, so nothing was fixed**.
+- **Phase 24 — Real UI tests + accessibility audits** (`4bcd006`): replaced
+  the Xcode template `PoliticiUITests` with 7 deterministic smoke flows and
+  4 `performAccessibilityAudit()` runs over 8 screens, and **redefined the
+  test-count baseline** (136 declared / 139 runtime → **144/144**, the ×4
+  `testLaunch` multiplier gone). Every structural audit type raised zero
+  issues; three types were recorded rather than asserted and handed to
+  Phase 32A.
+- **Phase 25 — Plurinominale geography** (`15f3f95`) — **GO-PLURI**:
+  resolved **Q1** from feature attributes (each layer's null-attribute row
+  is a residual placeholder for the un-split territory, so 49 Camera / 26
+  Senato are real), shipped both plurinominale boundary layers with
+  `CP`/`SP`-prefixed ids, the map/list collegio-type filter, per-collegio
+  pages, and 245/245 plurinominale-deputy linkage.
+- *Interstitial fixes* (`7af1dce`, `a7d4c71`, `b6f70b2`): two stale
+  generated-note corrections in `tools/make_manifest.py`, then a plan-baseline
+  sync recording the side-task rules and `docs/v4/25a-doc-sync.md` — the
+  first side-task record, notable because the spawned session had been
+  forked from a **stale base** and its diff was discarded and re-applied by
+  hand (baseline rule 8).
+- **Phase 26 — Senato regione + `electionType`** (`02750b3`, follow-ups
+  `d0b9910`) — **GO-REG**: every elective senator gained a `regione` from
+  `osr:regioneElezione`, Senato collegio pages a "Senatori proporzionali
+  della regione {name}" section, senator profiles a "Regione:" line. The
+  senator-`electionType` decision deferred since v3 was **taken here with
+  explicit user approval** — 121 plurinominale + 73 uninominale + 2 estero,
+  the 5 a-vita left `null`. No network act.
+- **Phase 27 — Stratified votes + lazy loading** (`ff1b71b`, follow-ups
+  `aa78bfe`) — **user-gated network**: replaced the "most recent N" scope
+  the Phase 21 exit had killed with a coverage-driven stratified pick — 30
+  votes, 3 from each of 10 sittings across ~9 months, 11,899 positions —
+  and answered **Q3** (dati.camera.it `LIMIT/OFFSET` paging over a total
+  `ORDER BY` is stable: zero URI overlap, monotonic dates). `votes.json`
+  grew 711 KB → 1.77 MB, which is why vote decoding moved off the main
+  thread behind a loading state.
+- **Phase 28 — Group-membership history** (`fe0038a`) — **GO-STORICO,
+  user-gated network**: answered **Q4** by discovering the `ocd:startDate`
+  predicate and importing 468 half-open `[start, end)` intervals for the
+  400 serving deputies, at 100 % coverage of the shipped votes. That
+  flipped the last of `docs/v3/votes-methodology.md`'s six lines.
+  **Infrastructure only — no metric UI.**
+- **Phase 29 — Group-alignment metric** (`744d045`, follow-ups `17cc2a7`):
+  the gate now reading **6 of 6**, one vote-derived metric ships — the share
+  of a deputy's expressed positions matching their group's majority *at each
+  vote's date*. **Q7** closed by explicit user sign-off (2026-07-23): a
+  group-majority tie excludes the vote from the denominator, the minimum
+  denominator is 10, and below it the metric renders **nothing** rather than
+  0 %. Profile-only, Camera-only, never listed, ranked or coloured;
+  `Alignment.insufficientData` carries no number, so the misrender is
+  non-representable.
+- **Phase 30 — Offline comuni geocoding** (`0e76a75`, follow-ups `5186a51`)
+  — **GO-COMUNI, user-gated acquisition**: answered **Q5** with the finding
+  that the product was **already local** — the `UT_Collegi2020` layer of the
+  ISTAT package this repo has carried since v2 — so the acquisition path was
+  "none required", the licence was the CC BY 4.0 already recorded, **no
+  download and no network act occurred**, and the comuni vintage matches the
+  shipped collegi *by construction*. 7,904 comuni with an interior point
+  each; homonyms disambiguated by province.
+- **Phase 30B — Comuni resolve via the published assignment** (`2768d8a`,
+  closeout `b5b73a7`) — **GO-ASSIGN**: inverted Phase 30's answer for
+  **name** queries — the app now cites ISTAT's own `CU20_COD`/`SU20_COD`
+  rather than a value derived from simplified geometry, and geometry is kept
+  for the **coordinate** path alone. That made the honest answer expressible:
+  the six comuni divided between several collegi (Roma spans **seven** Camera
+  collegi, 11.67 % of the population by `POP_2011`) are shown with **all** of
+  them, never one.
+- **Phase 31 — Staleness disclosure + live-refresh ADR** (`e21a236`,
+  closeout `f2ab6f2`): **live refresh stays deferred**, re-derived from the
+  shipped artifacts rather than inherited — 91 % of the bundle cannot change
+  within the legislature, and refreshing the comuni table would *break* its
+  legally-pinned join. What does age is the 8.88 % about named people
+  (~1.6 group switches per month, measured), so the deliverable is
+  **disclosure**: a Home footer line, `Ultimo aggiornamento dei dati: {date}`
+  — deliberately not the phase file's wording, because the value is a max
+  over a spread. Also fixed there: **every date the app rendered was one
+  calendar day early west of Rome**, because the display formatters ran on
+  the device timezone while every parser produces midnight Europe/Rome.
+- **This phase — 32A: documentation, accessibility, release prep**: the v4
+  accessibility checklist (`docs/v4/a11y-checklist.md`), README /
+  `CLAUDE.md` / `docs/DATA_SOURCES.md` refreshed to the shipped state, this
+  changelog entry, `docs/releases/v4.0-prototype.md`, and the final
+  verification (`docs/v4/32a-release.md`). The accessibility work was not a
+  formality: **Phase 24's audits were viewport-limited**, so its 62-finding
+  inventory covered only each screen's first viewport. Rebuilding them to
+  page through whole screens raised the same eight screens from 63 to **123**
+  findings and the full app to **200** across 16 screen states — figures from
+  the certifying run, and a lower bound rather than an exact count: the merge
+  takes the maximum per element key and findings the auditor cannot attribute
+  collapse onto one label, so an earlier run of the same code arrived at
+  139/205 ([`docs/v4/a11y-checklist.md`](docs/v4/a11y-checklist.md) §1.3,
+  which is why the triage is by cause and not by instance). The rebuild also
+  turned up two real defects, both fixed here: `AddressSearchView` did not
+  scroll, so Roma's three Senato collegi were listed in code and
+  **unreachable on screen**; and both segmented pickers carried their
+  identifier on the container, propagating it onto every segment. Tagging
+  and pushing were
+  deferred to Phase 32B pending the release actions below.
+- **Phase 32B — release decisions + the tag** (2026-07-29): the user's
+  decisions recorded verbatim in the addendum to
+  [`docs/v4/32a-release.md`](docs/v4/32a-release.md), four pre-tag
+  corrections landed first (the accessibility counts reconciled to the
+  certifying run, the device-side gap disclosed in this entry, the
+  reachability rule written into `CLAUDE.md`, and the reachability sweep
+  recorded as deferred V5 work), and only then the **local annotated
+  `v4.0-prototype` tag** at that decisions commit. Nothing was pushed and no
+  GitHub call was made; the push commands are printed in the addendum.
+
+### Release actions (status at Phase 32B, 2026-07-29)
+
+The user performs every remote action personally; no phase of this plan
+pushes, tags remotely, or makes a GitHub call. Approval and per-item status
+are quoted verbatim in
+[`docs/v4/32a-release.md`](docs/v4/32a-release.md)'s "Decisions received"
+addendum.
+
+- [x] **Branch `v4` pushed through `f97a35a`** — performed by the user
+      before Phase 32B ran, so nothing is owed on the branch for Phase 32A's
+      work. Phase 32B's own decisions commit sits one ahead of `origin/v4`
+      and is the single commit `git push origin v4` would carry. (Derived
+      from the local tracking ref — Phase 32B is network-free and did not
+      contact the live remote.)
+- [x] **Tag `v4.0-prototype`** — **approved**, and created by Phase 32B as a
+      **local annotated tag** at that phase's decisions commit, so the tag
+      contains the complete release record. `v1.0.0`, `v2.0-prototype` and
+      `v3.0-prototype` are untouched, and no other tag was created.
+- [ ] **Push the tag** (`git push origin v4.0-prototype`) — **explicitly
+      pending the user's decision**: a deliberate hold, not an outstanding
+      item. Printed, not executed.
+- [ ] **Repository visibility / GitHub Release** — **explicitly pending user
+      decision**; release URL placeholder `<github-release-url>`. Neither was
+      decided, and public-vs-private could not be determined from the
+      repository, so nothing is inferred from the v3 record.
+- [x] **V3/V4 commissioning brief archival** (Q6, open since v3 Phase 13) —
+      **closed as never produced**, by the user's decision. Searched in
+      Phases 13, 23 and 32A with the same result each time; the document was
+      never provided, and nothing may be fabricated in its place, so no
+      phase could ever have closed it. Not carried into V5.
+
+**Known gap in this release — no device-side accessibility pass.** The 200
+recorded `.contrast` / `.dynamicType` / `.textClipped` findings are triaged
+by cause in [`docs/v4/a11y-checklist.md`](docs/v4/a11y-checklist.md), but
+the residue after that triage needs a **measured contrast and Dynamic Type
+judgment on a real device, in both appearances** — which no headless session
+can produce, and which therefore did not happen for this release. The
+auditor evaluates translucent `.regularMaterial` against an opaque
+approximation and flags even `.primary` text, so its verdict cannot on its
+own justify changing a colour. A full VoiceOver traversal (element order,
+whether state changes are announced) is likewise still a human check, open
+since the v2 checklist. This is not a blocker for tagging a prototype; it is
+the honest gap in it.
 
 ## v3.0-prototype (2026-07-21)
 

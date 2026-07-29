@@ -97,8 +97,24 @@ private struct SourceCard: View {
                 Text("Dati aggiornati al: \(formattedRetrievedAt)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                // The manifest's `notes` — already committed, already Italian,
+                // already the copy `tools/make_manifest.py` maintains for this
+                // screen — reached no user before Phase 32A. Rendering it is
+                // what makes the fictional fixture row unambiguous *on screen*:
+                // its own note says the dataset is entirely invented and
+                // represents no real collegio, deputy or vote, which nothing
+                // above it said. Every other card gains its provenance summary
+                // for the same reason. No new string is introduced here; the
+                // text is the source's own (see docs/v4/32a-release.md §5).
+                if !source.notes.isEmpty {
+                    Text(source.notes)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .padding(.top, 2)
+                }
             }
             .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("fontiEDati.source.\(source.id)")
 
             if !source.url.isEmpty, let url = URL(string: source.url) {
                 Link(destination: url) {

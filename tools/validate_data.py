@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Structural validation of Data/representatives.json, Data/districts.geojson,
-and Data/votes.json.
+Data/votes.json, Data/memberships_camera.json, and Data/comuni.json.
 
 Offline — does not fetch anything. Checks each file is well-formed and
 internally consistent, plus the votes<->representatives referential
@@ -19,7 +19,60 @@ ROOT = Path(__file__).parent.parent
 REPRESENTATIVES_PATH = ROOT / "Politici" / "Data" / "representatives.json"
 DISTRICTS_PATH = ROOT / "Politici" / "Data" / "districts.geojson"
 DISTRICTS_SENATO_PATH = ROOT / "Politici" / "Data" / "districts_senato.geojson"
+DISTRICTS_PLURINOMINALI_CAMERA_PATH = ROOT / "Politici" / "Data" / "districts_plurinominali_camera.geojson"
+DISTRICTS_PLURINOMINALI_SENATO_PATH = ROOT / "Politici" / "Data" / "districts_plurinominali_senato.geojson"
 VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
+MEMBERSHIPS_PATH = ROOT / "Politici" / "Data" / "memberships_camera.json"
+COMUNI_PATH = ROOT / "Politici" / "Data" / "comuni.json"
+
+# Phase 28 (docs/v4/28-membership-history.md): memberships_camera.json is
+# {"schemaVersion":1,"memberships":[...]} — per-deputy parliamentary-group
+# intervals, half-open [start, end) with end==null for the single current
+# interval. The composed id ("m_<personId>_<startYYYYMMDD>") is minted by
+# import_memberships.py because the source ocd:aderisce node is a blank node.
+REQUIRED_MEMBERSHIP_KEYS = {
+    "id",
+    "representativeId",
+    "groupName",
+    "groupSigla",
+    "start",
+    "end",
+}
+MEMBERSHIPS_SCHEMA_VERSION = 1
+# Measured 108,917 B (106.4 KiB) at import for the 468 XIX intervals (Phase
+# 28); the 256 KiB gate is a coarse drift backstop (~2.4x headroom, room for
+# legitimate mid-legislature group-switching) — the precise scope guard is
+# the referential-integrity check that every membership's deputy is a shipped
+# Camera deputy, which no size bound could replace.
+MAX_MEMBERSHIPS_FILE_BYTES = 256 * 1024
+
+# Phase 30 (docs/v4/30-comuni-geocoding.md) + Phase 30B
+# (docs/v4/30b-comuni-assignment.md): comuni.json is
+# {"schemaVersion":2,"comuni":[{"name","province","lat","lon","camera","senato"},...]}
+# — per Italian comune (ISTAT UT_Collegi2020, 7,904 comuni) the source's own
+# published uninominale collegio assignment (`camera`/`senato`, from
+# CU20_COD/SU20_COD, legitimately multi-valued for the 6 split comuni) plus
+# one interior point for the coordinate path. Measured 875.7 KiB; the 1.25 MiB
+# gate is a coarse drift backstop (68.4% used). Coordinate bounds are Italy's
+# real extremes (Lampedusa 35.51 .. Predoi 47.04 lat; Bardonecchia 6.72 ..
+# Salento 18.45 lon) with margin — a sanity check that a reprojection/axis-order
+# accident can't slip a Null-Island coordinate through.
+REQUIRED_COMUNE_KEYS = {"name", "province", "lat", "lon", "camera", "senato"}
+COMUNI_SCHEMA_VERSION = 2
+MAX_COMUNI_FILE_BYTES = 1280 * 1024
+# GO-ASSIGN gate evidence, not a plan figure (tools/probes/probe_comuni_assignment.py,
+# quoted in docs/v4/30b-comuni-assignment.md §2): the published assignment
+# covers all 147 Camera and all 74 Senato uninominale collegi with zero
+# unshipped codes, and exactly 6 comuni (Roma, Milano, Napoli, Torino,
+# Palermo, Genova) span more than one uninominale collegio. Both are drift
+# detectors: a change in either means the source's assignment moved, which
+# must be examined deliberately, never absorbed silently.
+EXPECTED_COMUNI_MULTI_COLLEGIO = 6
+COMUNI_LAT_RANGE = (35.0, 47.5)
+COMUNI_LON_RANGE = (6.3, 19.0)
+# The ISTAT-2020 comune count is 7,904; the window is a drift backstop only.
+COMUNI_MIN_COUNT = 7000
+COMUNI_MAX_COUNT = 8500
 
 # Phase 20 normalized schema (docs/v3/20-vote-browsing.md): votes.json is
 # {"events":[...],"positions":[...]} — event fields live once per event,
@@ -92,6 +145,32 @@ EXPECTED_CAMERA_PLURINOMINALE = 245
 EXPECTED_CAMERA_ESTERO = 8
 CIRCOSCRIZIONE_ESTERO = "Estero"
 
+# Phase 25 (docs/v4/25-plurinominale-geography.md): "collegioPlurinominale" is
+# a Camera-only, field-conditional key — present on every deputy whose
+# dc:coverage is a "{CIRC} - P0N" literal (the GO-PLURI probe measured 389:
+# 144 uninominale + 245 plurinominale), absent (not null) on the 8 estero and
+# the 3 bare records (Valle d'Aosta + 2 suppletiva), and never on any
+# senator. Every plurinominale deputy must carry it; every estero deputy must
+# not. Values are resolved against districts_plurinominali_camera.geojson in
+# validate_collegio_plurinominale() rather than a hardcoded list.
+EXPECTED_CAMERA_WITH_COLLEGIO_PLURINOMINALE = 389
+
+# Phase 26 (docs/v4/26-senato-regione.md): "regione" is a Senato-only,
+# field-conditional key — the mirror of Camera's "circoscrizione". Present on
+# the 196 elective senators (those with mandate "elettivo"), absent (not null)
+# on the 5 a-vita senators and on every Camera record. "Estero" is the pinned
+# regione value for the 2 overseas-constituency senators; domestic values are
+# checked against districts_senato.geojson's own regione set in
+# validate_regione() rather than a hardcoded list. The approved cross-chamber
+# electionType mapping (osr:tipoElezione -> ElectionType, user-gated in the
+# phase report) yields this Senato distribution — a drift detector against the
+# GO-REG gate evidence, with the 5 a-vita carrying a null electionType.
+EXPECTED_SENATO_WITH_REGIONE = 196
+REGIONE_ESTERO = "Estero"
+EXPECTED_SENATO_UNINOMINALE = 73
+EXPECTED_SENATO_PLURINOMINALE = 121
+EXPECTED_SENATO_ESTERO = 2
+
 # "circoscrizione"/"regione" are deliberately NOT in this base set: Camera
 # features carry "circoscrizione" and Senato features carry "regione", never
 # both (see tools/import_boundaries.py) — checked separately, per chamber,
@@ -112,6 +191,11 @@ EXPECTED_DISTRICT_COUNT = 147
 # See docs/v3/15-senato-exploration.md: 74 is ISTAT's exact feature count
 # for the Senato collegi-uninominali layer (verified via ogrinfo).
 EXPECTED_SENATO_DISTRICT_COUNT = 74
+# Phase 25 (docs/v4/25-plurinominale-geography.md): 49 named Camera / 26 named
+# Senato plurinominale collegi — each raw ISTAT layer's remaining
+# null-attribute placeholder feature (Q1) is dropped at import, not counted.
+EXPECTED_CAMERA_PLURINOMINALE_DISTRICT_COUNT = 49
+EXPECTED_SENATO_PLURINOMINALE_DISTRICT_COUNT = 26
 MAX_DISTRICTS_FILE_BYTES = 3 * 1024 * 1024
 
 
@@ -188,13 +272,42 @@ def validate_representatives():
                 errors.append(f"{label}: 'mandate' non valido: {record['mandate']!r}")
             if "circoscrizione" in record:
                 errors.append(f"{label}: chiave 'circoscrizione' presente su un record Senato — deve essere assente")
+            # collegioPlurinominale is Camera-only (Phase 25).
+            if "collegioPlurinominale" in record:
+                errors.append(f"{label}: chiave 'collegioPlurinominale' presente su un record Senato — deve essere assente")
+            # "regione" (Phase 26): Senato-only, field-conditional — present on
+            # elective senators (mandate "elettivo"), absent (not null) on the
+            # 5 a-vita. When present it must be a non-empty string; its
+            # cross-file value is checked in validate_regione().
+            has_regione = "regione" in record
+            if has_regione and (not isinstance(record["regione"], str) or not record["regione"].strip()):
+                errors.append(f"{label}: 'regione' deve essere una stringa non vuota")
+            if record.get("mandate") == MANDATE_ELETTIVO and not has_regione:
+                errors.append(f"{label}: senatore elettivo senza 'regione'")
+            if record.get("mandate") in (MANDATE_A_VITA, MANDATE_EMERITO) and has_regione:
+                errors.append(f"{label}: senatore a vita con 'regione' — deve essere assente")
         elif record["chamber"] == "Camera":
             if "mandate" in record:
                 errors.append(f"{label}: chiave 'mandate' presente su un record Camera — deve essere assente")
+            # "regione" is Senato-only (Phase 26) — the mirror of "mandate".
+            if "regione" in record:
+                errors.append(f"{label}: chiave 'regione' presente su un record Camera — deve essere assente")
             if "circoscrizione" not in record:
                 errors.append(f"{label}: chiave 'circoscrizione' mancante (obbligatoria per i deputati)")
             elif not isinstance(record["circoscrizione"], str) or not record["circoscrizione"].strip():
                 errors.append(f"{label}: 'circoscrizione' deve essere una stringa non vuota")
+            # collegioPlurinominale (Phase 25): a field-conditional key. When
+            # present it must be a non-empty string; every plurinominale
+            # deputy must carry it; every estero deputy must not (the disclosed
+            # absence also covers the 3 bare uninominale records, checked via
+            # the 389 total below rather than per-record).
+            has_pluri = "collegioPlurinominale" in record
+            if has_pluri and (not isinstance(record["collegioPlurinominale"], str) or not record["collegioPlurinominale"].strip()):
+                errors.append(f"{label}: 'collegioPlurinominale' deve essere una stringa non vuota")
+            if record.get("electionType") == "plurinominale" and not has_pluri:
+                errors.append(f"{label}: deputato plurinominale senza 'collegioPlurinominale'")
+            if record.get("circoscrizione") == CIRCOSCRIZIONE_ESTERO and has_pluri:
+                errors.append(f"{label}: deputato Estero con 'collegioPlurinominale' — deve essere assente")
 
         if record["provenance"] not in VALID_PROVENANCE:
             errors.append(f"{label}: 'provenance' non valido: {record['provenance']!r}")
@@ -253,6 +366,40 @@ def validate_representatives():
             "la sorgente è cambiata: rivedi prima di accettare"
         )
 
+    # Phase 26: the approved Senato electionType distribution (drift detector
+    # against the GO-REG gate evidence) and the regione<->"Estero"
+    # correspondence — the set of senators whose regione is "Estero" must be
+    # exactly the set with electionType "estero" (each identifies the other,
+    # no drift), mirroring Camera's Phase 18 estero check. The 5 a-vita carry a
+    # null electionType (they aren't elected).
+    senato_with_regione = sum(1 for r in senato_records if "regione" in r)
+    if senato_with_regione != EXPECTED_SENATO_WITH_REGIONE:
+        errors.append(
+            f"representatives.json: senatori con 'regione' = {senato_with_regione}, atteso "
+            f"{EXPECTED_SENATO_WITH_REGIONE} (i 196 elettivi — vedi docs/v4/26-senato-regione.md)"
+        )
+    sen_uninominale = sum(1 for r in senato_records if r["electionType"] == "uninominale")
+    sen_plurinominale = sum(1 for r in senato_records if r["electionType"] == "plurinominale")
+    sen_estero = sum(1 for r in senato_records if r["electionType"] == "estero")
+    for expected, actual, label_name in (
+        (EXPECTED_SENATO_UNINOMINALE, sen_uninominale, "uninominale"),
+        (EXPECTED_SENATO_PLURINOMINALE, sen_plurinominale, "plurinominale"),
+        (EXPECTED_SENATO_ESTERO, sen_estero, "estero"),
+    ):
+        if actual != expected:
+            errors.append(
+                f"representatives.json: senatori {label_name} = {actual}, atteso {expected} "
+                "(vedi docs/v4/26-senato-regione.md)"
+            )
+    sen_estero_regione_ids = {r["id"] for r in senato_records if r.get("regione") == REGIONE_ESTERO}
+    sen_estero_type_ids = {r["id"] for r in senato_records if r["electionType"] == "estero"}
+    if sen_estero_regione_ids != sen_estero_type_ids:
+        errors.append(
+            "representatives.json: insieme regione='Estero' != insieme electionType='estero' (Senato) "
+            f"(solo regione: {sorted(sen_estero_regione_ids - sen_estero_type_ids)}, "
+            f"solo tipo: {sorted(sen_estero_type_ids - sen_estero_regione_ids)})"
+        )
+
     # Phase 18: the measured electionType distribution and the
     # estero<->"Estero" correspondence — the set of deputies whose
     # circoscrizione is "Estero" must be exactly the set with
@@ -280,6 +427,17 @@ def validate_representatives():
             f"solo tipo: {sorted(estero_type_ids - estero_circ_ids)})"
         )
 
+    # Phase 25: exactly 389 deputies carry collegioPlurinominale (144
+    # uninominale + 245 plurinominale; the 8 estero + 3 bare carry none) — a
+    # drift detector against the GO-PLURI gate evidence.
+    with_pluri_count = sum(1 for r in camera_records if "collegioPlurinominale" in r)
+    if with_pluri_count != EXPECTED_CAMERA_WITH_COLLEGIO_PLURINOMINALE:
+        errors.append(
+            f"representatives.json: deputati con collegioPlurinominale = {with_pluri_count}, "
+            f"atteso {EXPECTED_CAMERA_WITH_COLLEGIO_PLURINOMINALE} "
+            "(vedi docs/v4/25-plurinominale-geography.md)"
+        )
+
     if not errors:
         official_count = sum(1 for r in records if r["provenance"] == "official")
         sample_count = sum(1 for r in records if r["provenance"] == "sample")
@@ -293,15 +451,24 @@ def validate_representatives():
             f"  deputati per tipo: uninominale {uninominale_count}  "
             f"plurinominale {plurinominale_count}  estero {estero_count}"
         )
+        print(f"  deputati con collegioPlurinominale: {with_pluri_count}")
+        print(
+            f"  senatori per tipo: uninominale {sen_uninominale}  "
+            f"plurinominale {sen_plurinominale}  estero {sen_estero}  "
+            f"(a-vita/null {senato_count - sen_uninominale - sen_plurinominale - sen_estero})"
+        )
+        print(f"  senatori con regione: {senato_with_regione}")
 
     return errors
 
 
-def validate_districts_file(path, expected_chamber, expected_count, grouping_property, missing_hint):
-    """Structural validation for one boundaries file — Camera
-    (districts.geojson, chamber="Camera", grouping_property="circoscrizione")
-    or Senato (districts_senato.geojson, chamber="Senato",
-    grouping_property="regione", Phase 16). Returns (errors, feature_ids)."""
+def validate_districts_file(path, expected_chamber, expected_collegio_type, expected_count, grouping_property, missing_hint):
+    """Structural validation for one boundaries file — the two uninominale
+    files (Camera districts.geojson / Senato districts_senato.geojson, Phase
+    16) and the two plurinominale files (districts_plurinominali_camera.geojson
+    / districts_plurinominali_senato.geojson, Phase 25). Every feature must be
+    the file's own chamber AND collegioType, carry its chamber's grouping
+    property, and the count must match. Returns (errors, feature_ids)."""
     errors = []
 
     if not path.exists():
@@ -358,8 +525,12 @@ def validate_districts_file(path, expected_chamber, expected_count, grouping_pro
 
         if props["collegioType"] not in VALID_COLLEGIO_TYPES:
             errors.append(f"{label}: 'collegioType' non valido: {props['collegioType']!r}")
+        elif props["collegioType"] != expected_collegio_type:
+            errors.append(
+                f"{label}: 'collegioType' atteso {expected_collegio_type!r}, trovato {props['collegioType']!r}"
+            )
 
-        if props["chamber"] == expected_chamber and props["collegioType"] == "uninominale":
+        if props["chamber"] == expected_chamber and props["collegioType"] == expected_collegio_type:
             grouping_value = props.get(grouping_property)
             if not isinstance(grouping_value, str) or not grouping_value.strip():
                 errors.append(f"{label}: '{grouping_property}' deve essere una stringa non vuota")
@@ -389,29 +560,44 @@ def validate_districts_file(path, expected_chamber, expected_count, grouping_pro
 
 
 def validate_districts():
-    """Validates both boundary files (Camera, Senato — Phase 16) and their
-    cross-file id uniqueness (147 + 74 = 221 unique ids expected; a Senato
-    id colliding with a Camera one would silently alias two real, distinct
-    collegi onto the same id — see docs/v3/15-senato-exploration.md's
-    collision check and the "S" id-prefix policy in
-    tools/import_boundaries.py)."""
-    camera_errors, camera_ids = validate_districts_file(
-        DISTRICTS_PATH, "Camera", EXPECTED_DISTRICT_COUNT, "circoscrizione", "make boundaries"
-    )
-    senato_errors, senato_ids = validate_districts_file(
-        DISTRICTS_SENATO_PATH, "Senato", EXPECTED_SENATO_DISTRICT_COUNT, "regione", "make boundaries-senato"
-    )
-    errors = camera_errors + senato_errors
+    """Validates all four boundary files (Camera/Senato uninominali — Phase
+    16; Camera/Senato plurinominali — Phase 25) and their cross-file id
+    uniqueness (147 + 74 + 49 + 26 = 296 unique ids expected; any id shared
+    between two files would silently alias two real, distinct collegi onto the
+    same id — see the unconditional id-prefix policy in
+    tools/import_boundaries.py: bare numeric / "S" / "CP" / "SP")."""
+    files = [
+        (DISTRICTS_PATH, "Camera", "uninominale", EXPECTED_DISTRICT_COUNT, "circoscrizione", "make boundaries"),
+        (DISTRICTS_SENATO_PATH, "Senato", "uninominale", EXPECTED_SENATO_DISTRICT_COUNT, "regione", "make boundaries-senato"),
+        (DISTRICTS_PLURINOMINALI_CAMERA_PATH, "Camera", "plurinominale",
+         EXPECTED_CAMERA_PLURINOMINALE_DISTRICT_COUNT, "circoscrizione", "make boundaries-plurinominale-camera"),
+        (DISTRICTS_PLURINOMINALI_SENATO_PATH, "Senato", "plurinominale",
+         EXPECTED_SENATO_PLURINOMINALE_DISTRICT_COUNT, "regione", "make boundaries-plurinominale-senato"),
+    ]
 
-    if not camera_errors and not senato_errors:
-        colliding_ids = camera_ids & senato_ids
-        if colliding_ids:
-            errors.append(
-                f"id in collisione tra districts.geojson e districts_senato.geojson: {sorted(colliding_ids)}"
-            )
+    errors = []
+    ids_per_file = []
+    any_file_error = False
+    for path, chamber, collegio_type, expected_count, grouping, hint in files:
+        file_errors, file_ids = validate_districts_file(
+            path, chamber, collegio_type, expected_count, grouping, hint
+        )
+        errors += file_errors
+        ids_per_file.append((path.name, file_ids))
+        any_file_error = any_file_error or bool(file_errors)
+
+    if not any_file_error:
+        # Pairwise collision check across all four files.
+        colliding = set()
+        for i in range(len(ids_per_file)):
+            for j in range(i + 1, len(ids_per_file)):
+                colliding |= ids_per_file[i][1] & ids_per_file[j][1]
+        if colliding:
+            errors.append(f"id in collisione tra i file di confine: {sorted(colliding)}")
         else:
-            combined_count = len(camera_ids) + len(senato_ids)
-            print(f"OK: id univoci tra le due camere — {combined_count} collegi totali (Camera {len(camera_ids)} + Senato {len(senato_ids)})")
+            total = sum(len(ids) for _, ids in ids_per_file)
+            breakdown = " + ".join(f"{name} {len(ids)}" for name, ids in ids_per_file)
+            print(f"OK: id univoci tra tutti i file di confine — {total} collegi totali ({breakdown})")
 
     return errors
 
@@ -510,6 +696,106 @@ def validate_circoscrizione():
         print(
             f"OK: circoscrizioni deputati coerenti — {len(observed)} valori osservati "
             f"({len(valid_values)} ammessi: {len(valid_values) - 1} da districts.geojson + 'Estero')"
+        )
+
+    return errors
+
+
+def validate_regione():
+    """Phase 26 cross-file checks (docs/v4/26-senato-regione.md), the Senato
+    mirror of validate_circoscrizione(): every senator's regione (when present)
+    is either "Estero" or one of districts_senato.geojson's own shipped regione
+    values (the reference set is the real data, not a hardcoded list), and
+    every *linked* uninominale senator's regione equals their collegio's
+    shipped property exactly (GO-REG condition (c)). Only meaningful once both
+    files passed their own structural checks, so main() gates the call."""
+    errors = []
+
+    records = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    collection = json.loads(DISTRICTS_SENATO_PATH.read_text(encoding="utf-8"))
+    regione_of_district = {
+        f["properties"]["id"]: f["properties"]["regione"]
+        for f in collection["features"]
+        if f["properties"]["chamber"] == "Senato" and f["properties"]["collegioType"] == "uninominale"
+    }
+    valid_values = set(regione_of_district.values()) | {REGIONE_ESTERO}
+
+    observed = set()
+    for record in records:
+        if record["chamber"] != "Senato" or "regione" not in record:
+            continue
+        label = f"representatives.json id={record['id']}"
+        regione = record["regione"]
+        observed.add(regione)
+        if regione not in valid_values:
+            errors.append(
+                f"{label}: regione {regione!r} non è né 'Estero' né una "
+                "regione di districts_senato.geojson"
+            )
+        district_id = record["districtId"]
+        if district_id is not None and regione != regione_of_district.get(district_id):
+            errors.append(
+                f"{label}: regione {regione!r} != "
+                f"{regione_of_district.get(district_id)!r} del collegio {district_id}"
+            )
+
+    if not errors:
+        print(
+            f"OK: regioni senatori coerenti — {len(observed)} valori osservati "
+            f"({len(valid_values)} ammessi: {len(valid_values) - 1} da districts_senato.geojson + 'Estero')"
+        )
+
+    return errors
+
+
+def validate_collegio_plurinominale():
+    """Phase 25 cross-file checks (docs/v4/25-plurinominale-geography.md):
+    every deputy's collegioPlurinominale (when present) is a real Camera
+    plurinominale district id, and equals a collegio whose own circoscrizione
+    matches the deputy's; and every one of the 49 plurinominale collegi is
+    named by at least one deputy (the drift detector — the GO-PLURI probe
+    found full 49/49 coverage). Only meaningful once both files passed their
+    own structural checks, so main() gates the call."""
+    errors = []
+
+    records = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    collection = json.loads(DISTRICTS_PLURINOMINALI_CAMERA_PATH.read_text(encoding="utf-8"))
+    circoscrizione_of_district = {
+        f["properties"]["id"]: f["properties"].get("circoscrizione")
+        for f in collection["features"]
+        if f["properties"]["chamber"] == "Camera" and f["properties"]["collegioType"] == "plurinominale"
+    }
+
+    covered = set()
+    for record in records:
+        if record["chamber"] != "Camera" or "collegioPlurinominale" not in record:
+            continue
+        label = f"representatives.json id={record['id']}"
+        district_id = record["collegioPlurinominale"]
+        if district_id not in circoscrizione_of_district:
+            errors.append(
+                f"{label}: collegioPlurinominale {district_id!r} non corrisponde a nessun "
+                "collegio in districts_plurinominali_camera.geojson"
+            )
+            continue
+        covered.add(district_id)
+        if record.get("circoscrizione") != circoscrizione_of_district[district_id]:
+            errors.append(
+                f"{label}: circoscrizione {record.get('circoscrizione')!r} != "
+                f"{circoscrizione_of_district[district_id]!r} del collegio plurinominale {district_id}"
+            )
+
+    uncovered = set(circoscrizione_of_district) - covered
+    if uncovered:
+        errors.append(
+            f"districts_plurinominali_camera.geojson: {len(uncovered)} collegi senza alcun "
+            f"deputato collegato: {sorted(uncovered)}"
+        )
+
+    if not errors:
+        print(
+            f"OK: collegi plurinominali coerenti — {len(covered)}/{len(circoscrizione_of_district)} "
+            "collegi Camera con almeno un deputato, circoscrizioni concordi"
         )
 
     return errors
@@ -649,18 +935,384 @@ def validate_votes_reference_representatives():
     return []
 
 
+def _parse_iso(value):
+    """A yyyy-MM-dd string -> datetime.date, or None if malformed. Used only
+    for interval ordering/overlap checks; the format itself is validated
+    separately via DATE_RE so a malformed value is reported, not silently
+    skipped."""
+    from datetime import date as _date
+    try:
+        parts = value.split("-")
+        return _date(int(parts[0]), int(parts[1]), int(parts[2]))
+    except (ValueError, IndexError, AttributeError):
+        return None
+
+
+def validate_memberships():
+    """Structural + per-deputy interval invariants for
+    memberships_camera.json (Phase 28 — docs/v4/28-membership-history.md):
+    schema/byte gate, parseable dates, half-open [start, end) validity, and
+    exactly one open (end==null) interval per deputy with non-overlapping
+    intervals. The cross-file reconciliation with representatives.json lives
+    in validate_memberships_reference_representatives() (called only when both
+    files were independently clean)."""
+    errors = []
+
+    if not MEMBERSHIPS_PATH.exists():
+        return [f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make import'"]
+
+    file_size = MEMBERSHIPS_PATH.stat().st_size
+    if file_size > MAX_MEMBERSHIPS_FILE_BYTES:
+        errors.append(
+            f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: {file_size / 1024:.1f} KiB, "
+            f"supera il limite di {MAX_MEMBERSHIPS_FILE_BYTES / 1024:.0f} KiB"
+        )
+
+    try:
+        payload = json.loads(MEMBERSHIPS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return errors + [f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+
+    if not isinstance(payload, dict) or set(payload.keys()) != {"schemaVersion", "memberships"}:
+        return errors + [
+            f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: atteso un oggetto con esattamente le chiavi "
+            "'schemaVersion' e 'memberships' (Fase 28)"
+        ]
+    if payload["schemaVersion"] != MEMBERSHIPS_SCHEMA_VERSION:
+        errors.append(
+            f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: schemaVersion "
+            f"{payload['schemaVersion']!r}, atteso {MEMBERSHIPS_SCHEMA_VERSION}"
+        )
+
+    memberships = payload["memberships"]
+    if not isinstance(memberships, list) or not memberships:
+        errors.append(f"{MEMBERSHIPS_PATH.relative_to(ROOT)}: 'memberships' deve essere un array non vuoto")
+        return errors
+
+    seen_ids = set()
+    by_person = {}
+    for index, m in enumerate(memberships):
+        label = f"memberships_camera.json #{index} (id={m.get('id', '?') if isinstance(m, dict) else '?'})"
+        if not isinstance(m, dict):
+            errors.append(f"{label}: non è un oggetto JSON")
+            continue
+        missing = REQUIRED_MEMBERSHIP_KEYS - m.keys()
+        if missing:
+            errors.append(f"{label}: chiavi mancanti: {sorted(missing)}")
+            continue
+        mid = m["id"]
+        if not isinstance(mid, str) or not mid:
+            errors.append(f"{label}: 'id' deve essere una stringa non vuota")
+        elif mid in seen_ids:
+            errors.append(f"{label}: id duplicato")
+        else:
+            seen_ids.add(mid)
+        for key in ("representativeId", "groupName", "groupSigla"):
+            if not isinstance(m[key], str) or not m[key].strip():
+                errors.append(f"{label}: '{key}' deve essere una stringa non vuota")
+        if not isinstance(m["start"], str) or not DATE_RE.fullmatch(m["start"]) or _parse_iso(m["start"]) is None:
+            errors.append(f"{label}: 'start' deve essere una data yyyy-MM-dd valida, trovato {m.get('start')!r}")
+        end = m["end"]
+        if end is not None and (not isinstance(end, str) or not DATE_RE.fullmatch(end) or _parse_iso(end) is None):
+            errors.append(f"{label}: 'end' deve essere null o una data yyyy-MM-dd valida, trovato {end!r}")
+        # Half-open validity: a closed interval must have start < end.
+        if isinstance(m["start"], str) and isinstance(end, str):
+            s, e = _parse_iso(m["start"]), _parse_iso(end)
+            if s is not None and e is not None and not (s < e):
+                errors.append(f"{label}: intervallo non valido: start {m['start']} >= end {end}")
+        if isinstance(m.get("representativeId"), str):
+            by_person.setdefault(m["representativeId"], []).append(m)
+
+    if errors:
+        return errors
+
+    # Per-deputy invariants: exactly one open interval; non-overlapping under
+    # half-open [start, end) (a closed interval must end no later than the
+    # next interval starts; only the latest-starting interval may be open).
+    for pid, intervals in by_person.items():
+        opens = [m for m in intervals if m["end"] is None]
+        if len(opens) != 1:
+            errors.append(f"memberships_camera.json: deputato {pid} ha {len(opens)} intervalli aperti, atteso 1")
+        ordered = sorted(intervals, key=lambda m: (m["start"], m["id"]))
+        for earlier, later in zip(ordered, ordered[1:]):
+            if earlier["end"] is None:
+                errors.append(f"memberships_camera.json: deputato {pid}: un intervallo aperto ne precede un altro")
+                break
+            if _parse_iso(earlier["end"]) > _parse_iso(later["start"]):
+                errors.append(
+                    f"memberships_camera.json: deputato {pid}: intervalli sovrapposti "
+                    f"({earlier['start']}..{earlier['end']} / {later['start']}..)"
+                )
+                break
+
+    if not errors:
+        open_count = sum(1 for m in memberships if m["end"] is None)
+        print(
+            f"OK: {len(memberships)} intervalli di adesione ({open_count} aperti) per "
+            f"{len(by_person)} deputati in {MEMBERSHIPS_PATH.relative_to(ROOT)} "
+            f"({file_size / 1024:.1f} KiB)"
+        )
+
+    return errors
+
+
+def validate_memberships_reference_representatives():
+    """Cross-file invariants tying memberships_camera.json to
+    representatives.json — the Phase 28 reconciliation (only called when both
+    files passed their own structural checks):
+      - every membership's deputy is a shipping Camera deputy;
+      - every Camera deputy has >=1 interval;
+      - the single open interval's group reconciles with the shipped gruppo
+        (sigla equality + parliamentaryGroup prefix-comparison, the
+        documented truncation-at-"(" normalization)."""
+    representatives = json.loads(REPRESENTATIVES_PATH.read_text(encoding="utf-8"))
+    camera = {r["id"]: r for r in representatives if r.get("chamber") == "Camera"}
+    memberships = json.loads(MEMBERSHIPS_PATH.read_text(encoding="utf-8"))["memberships"]
+
+    by_person = {}
+    for m in memberships:
+        by_person.setdefault(m["representativeId"], []).append(m)
+
+    errors = []
+    unknown = sorted(set(by_person) - set(camera))
+    if unknown:
+        errors.append(f"memberships_camera.json: representativeId non deputati Camera: {unknown}")
+    missing = sorted(set(camera) - set(by_person))
+    if missing:
+        errors.append(f"memberships_camera.json: {len(missing)} deputati Camera senza intervalli: {missing[:10]}")
+    if errors:
+        return errors
+
+    for pid, intervals in by_person.items():
+        opens = [m for m in intervals if m["end"] is None]
+        if len(opens) != 1:
+            continue  # already reported by validate_memberships()
+        current = opens[0]
+        rep = camera[pid]
+        rep_sigla = (rep.get("party") or "").strip()
+        rep_group = (rep.get("parliamentaryGroup") or "").strip()
+        open_name = (current["groupName"] or "").strip()
+        if current["groupSigla"] != rep_sigla:
+            errors.append(
+                f"memberships_camera.json: deputato {pid} sigla aperta {current['groupSigla']!r} "
+                f"!= party {rep_sigla!r}"
+            )
+        elif not (rep_group.startswith(open_name) or open_name.startswith(rep_group)):
+            errors.append(
+                f"memberships_camera.json: deputato {pid} gruppo aperto {open_name!r} "
+                f"non coerente (prefix) con parliamentaryGroup {rep_group!r}"
+            )
+
+    if not errors:
+        switchers = sum(1 for iv in by_person.values() if len(iv) > 1)
+        print(
+            f"OK: integrità referenziale adesioni coerente — {len(memberships)} intervalli, "
+            f"{len(by_person)} deputati, {switchers} con più gruppi nel tempo"
+        )
+    return errors
+
+
+def validate_comuni():
+    """Structural + sanity invariants for comuni.json (Phase 30 —
+    docs/v4/30-comuni-geocoding.md; Phase 30B —
+    docs/v4/30b-comuni-assignment.md): schema/byte gate, exactly {name,
+    province, lat, lon, camera, senato} per entry with correct types,
+    non-empty name/province, non-empty sorted string arrays for the published
+    collegio assignment, coordinates inside Italy's bounds, (name, province)
+    unique (the app's Comune id and the homonym-by-province disambiguation
+    depend on it), and a coarse count window. Referential integrity of the
+    published codes against the shipped district ids is a cross-file check —
+    see validate_comuni_reference_districts(). The coordinate path's
+    geometric resolution is proven by the offline full-table dry run in
+    tools/probes/probe_comuni_centroids.py and pinned by the app's
+    integration tests, not re-run here (this validator is deliberately
+    osgeo-free)."""
+    errors = []
+
+    if not COMUNI_PATH.exists():
+        return [f"{COMUNI_PATH.relative_to(ROOT)}: file non trovato — esegui prima 'make comuni'"]
+
+    file_size = COMUNI_PATH.stat().st_size
+    if file_size > MAX_COMUNI_FILE_BYTES:
+        errors.append(
+            f"{COMUNI_PATH.relative_to(ROOT)}: {file_size / 1024:.1f} KiB, "
+            f"supera il limite di {MAX_COMUNI_FILE_BYTES / 1024:.0f} KiB"
+        )
+
+    try:
+        payload = json.loads(COMUNI_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        return errors + [f"{COMUNI_PATH.relative_to(ROOT)}: JSON non valido: {error}"]
+
+    if not isinstance(payload, dict) or set(payload.keys()) != {"schemaVersion", "comuni"}:
+        return errors + [
+            f"{COMUNI_PATH.relative_to(ROOT)}: atteso un oggetto con esattamente le chiavi "
+            "'schemaVersion' e 'comuni' (Fase 30/30B)"
+        ]
+    if payload["schemaVersion"] != COMUNI_SCHEMA_VERSION:
+        errors.append(
+            f"{COMUNI_PATH.relative_to(ROOT)}: schemaVersion "
+            f"{payload['schemaVersion']!r}, atteso {COMUNI_SCHEMA_VERSION}"
+        )
+
+    comuni = payload["comuni"]
+    if not isinstance(comuni, list) or not comuni:
+        errors.append(f"{COMUNI_PATH.relative_to(ROOT)}: 'comuni' deve essere un array non vuoto")
+        return errors
+
+    if not (COMUNI_MIN_COUNT <= len(comuni) <= COMUNI_MAX_COUNT):
+        errors.append(
+            f"{COMUNI_PATH.relative_to(ROOT)}: {len(comuni)} comuni fuori dalla finestra "
+            f"attesa [{COMUNI_MIN_COUNT}, {COMUNI_MAX_COUNT}]"
+        )
+
+    lat_lo, lat_hi = COMUNI_LAT_RANGE
+    lon_lo, lon_hi = COMUNI_LON_RANGE
+    seen_keys = set()
+    for index, c in enumerate(comuni):
+        label = f"comuni.json #{index}"
+        if not isinstance(c, dict):
+            errors.append(f"{label}: non è un oggetto JSON")
+            continue
+        if set(c.keys()) != REQUIRED_COMUNE_KEYS:
+            errors.append(f"{label}: chiavi {sorted(c.keys())}, attese {sorted(REQUIRED_COMUNE_KEYS)}")
+            continue
+        for key in ("name", "province"):
+            if not isinstance(c[key], str) or not c[key].strip():
+                errors.append(f"{label}: '{key}' deve essere una stringa non vuota")
+        for key in ("lat", "lon"):
+            if not isinstance(c[key], (int, float)) or isinstance(c[key], bool):
+                errors.append(f"{label}: '{key}' deve essere numerico, trovato {c[key]!r}")
+        if isinstance(c["lat"], (int, float)) and not (lat_lo <= c["lat"] <= lat_hi):
+            errors.append(f"{label} ({c.get('name')}): lat {c['lat']} fuori dai limiti Italia {COMUNI_LAT_RANGE}")
+        if isinstance(c["lon"], (int, float)) and not (lon_lo <= c["lon"] <= lon_hi):
+            errors.append(f"{label} ({c.get('name')}): lon {c['lon']} fuori dai limiti Italia {COMUNI_LON_RANGE}")
+        # The published assignment (Phase 30B). Non-empty by construction —
+        # the importer refuses to write a comune without one — and always an
+        # array, including for the 7,898 single-collegio comuni, so the app
+        # never has to decode a scalar-or-array union. Sorted so the artifact
+        # is byte-identical across runs.
+        for key in ("camera", "senato"):
+            value = c[key]
+            if not isinstance(value, list) or not value:
+                errors.append(f"{label} ({c.get('name')}): '{key}' deve essere un array non vuoto")
+                continue
+            if not all(isinstance(v, str) and v.strip() for v in value):
+                errors.append(f"{label} ({c.get('name')}): '{key}' deve contenere solo stringhe non vuote")
+                continue
+            if list(value) != sorted(value):
+                errors.append(f"{label} ({c.get('name')}): '{key}' non è ordinato: {value}")
+            if len(set(value)) != len(value):
+                errors.append(f"{label} ({c.get('name')}): '{key}' contiene codici duplicati: {value}")
+        if isinstance(c.get("senato"), list) and not all(
+            isinstance(v, str) and v.startswith("S") for v in c["senato"]
+        ):
+            errors.append(
+                f"{label} ({c.get('name')}): i codici 'senato' devono avere il prefisso 'S' "
+                f"come gli id dei collegi pubblicati: {c['senato']}"
+            )
+        if isinstance(c.get("name"), str) and isinstance(c.get("province"), str):
+            key = (c["name"], c["province"])
+            if key in seen_keys:
+                errors.append(f"{label}: coppia (name, province) duplicata: {key}")
+            else:
+                seen_keys.add(key)
+
+    if not errors:
+        multi = [c for c in comuni if len(c["camera"]) > 1 or len(c["senato"]) > 1]
+        if len(multi) != EXPECTED_COMUNI_MULTI_COLLEGIO:
+            errors.append(
+                f"{COMUNI_PATH.relative_to(ROOT)}: {len(multi)} comuni su più collegi "
+                f"uninominali, attesi {EXPECTED_COMUNI_MULTI_COLLEGIO} "
+                f"({sorted(c['name'] for c in multi)})"
+            )
+
+    if not errors:
+        homonyms = len(seen_keys) - len({name for name, _ in seen_keys})
+        print(
+            f"OK: {len(comuni)} comuni in {COMUNI_PATH.relative_to(ROOT)} "
+            f"({file_size / 1024:.1f} KiB) — {homonyms} nomi omonimi disambiguati per provincia, "
+            f"{len(multi)} su più collegi uninominali"
+        )
+
+    return errors
+
+
+def validate_comuni_reference_districts():
+    """Cross-file referential integrity for the published comune -> collegio
+    assignment (Phase 30B GO-ASSIGN condition (b)): every distinct code in
+    comuni.json's `camera`/`senato` must ALREADY be a shipped uninominale
+    district id, and — the other direction — every shipped uninominale
+    collegio must be assigned to at least one comune. One unresolvable code
+    would mean the name lookup can cite the publisher for a collegio the app
+    cannot open; a shipped collegio no comune points at would mean the
+    assignment stopped covering the country. Neither may be closed with an
+    alias (gate condition (b)); both mean the source moved and must be
+    examined deliberately.
+
+    Only meaningful once comuni.json and the boundary files have each passed
+    their own structural checks, so main() only calls this when they have."""
+    errors = []
+
+    comuni = json.loads(COMUNI_PATH.read_text(encoding="utf-8"))["comuni"]
+    published = {
+        "Camera": {code for c in comuni for code in c["camera"]},
+        "Senato": {code for c in comuni for code in c["senato"]},
+    }
+    shipped = {}
+    for chamber, path in (("Camera", DISTRICTS_PATH), ("Senato", DISTRICTS_SENATO_PATH)):
+        collection = json.loads(path.read_text(encoding="utf-8"))
+        shipped[chamber] = {
+            f["properties"]["id"] for f in collection["features"]
+            if f["properties"].get("collegioType") == "uninominale"
+        }
+
+    for chamber in ("Camera", "Senato"):
+        unresolvable = sorted(published[chamber] - shipped[chamber])
+        if unresolvable:
+            errors.append(
+                f"comuni.json: codici collegio {chamber} pubblicati ma non presenti tra i "
+                f"collegi distribuiti: {unresolvable}"
+            )
+        unassigned = sorted(shipped[chamber] - published[chamber])
+        if unassigned:
+            errors.append(
+                f"comuni.json: collegi {chamber} distribuiti a cui nessun comune è assegnato: "
+                f"{unassigned}"
+            )
+
+    if not errors:
+        print(
+            "OK: assegnazione comune → collegio referenzialmente esatta — "
+            f"Camera {len(published['Camera'])}/{len(shipped['Camera'])} collegi, "
+            f"Senato {len(published['Senato'])}/{len(shipped['Senato'])} collegi coperti"
+        )
+
+    return errors
+
+
 def main():
     representative_errors = validate_representatives()
     district_errors = validate_districts()
     vote_errors = validate_votes()
-    all_errors = representative_errors + district_errors + vote_errors
+    membership_errors = validate_memberships()
+    comuni_errors = validate_comuni()
+    all_errors = representative_errors + district_errors + vote_errors + membership_errors + comuni_errors
+
+    if not comuni_errors and not district_errors:
+        all_errors += validate_comuni_reference_districts()
 
     if not representative_errors and not district_errors:
         all_errors += validate_linkage()
         all_errors += validate_circoscrizione()
+        all_errors += validate_regione()
+        all_errors += validate_collegio_plurinominale()
 
     if not representative_errors and not vote_errors:
         all_errors += validate_votes_reference_representatives()
+
+    if not representative_errors and not membership_errors:
+        all_errors += validate_memberships_reference_representatives()
 
     if all_errors:
         print(f"ERRORE: {len(all_errors)} problema/i:", file=sys.stderr)

@@ -1,13 +1,21 @@
 {
-  "generatedAt": "2026-07-21",
+  "generatedAt": "2026-07-27",
   "schemaVersion": 2,
   "sources": [
+    {
+      "id": "camera-dei-deputati-adesioni-gruppi-xix-legislatura",
+      "license": "CC BY 4.0",
+      "name": "Camera dei Deputati — Adesioni ai gruppi parlamentari (XIX Legislatura)",
+      "notes": "Storico delle adesioni ai gruppi parlamentari dei 400 deputati in carica della XIX legislatura, ottenuto tramite interrogazione SPARQL all'endpoint ufficiale dati.camera.it. Ogni adesione è un intervallo con data di inizio ed eventuale data di fine (468 intervalli in tutto; 52 deputati hanno cambiato gruppo almeno una volta): questo permette di attribuire ogni voto al gruppo di cui il deputato faceva parte alla data del voto, e non all'attuale. La sigla del gruppo è il dato canonico; il nome esteso conserva la troncatura alla parentesi presente nella fonte. Solo Camera: le votazioni importate sono solo della Camera.",
+      "retrievedAt": "2026-07-22",
+      "url": "https://dati.camera.it/sparql"
+    },
     {
       "id": "camera-dei-deputati-votazioni-xix-legislatura",
       "license": "CC BY 4.0",
       "name": "Camera dei Deputati — Votazioni (XIX Legislatura)",
-      "notes": "12 votazioni dell'Assemblea, XIX legislatura (voto elettronico, non a scrutinio segreto), con la posizione di voto di ogni deputato coinvolto. Le votazioni a scrutinio segreto sono escluse: il dato sorgente non attribuisce una posizione al singolo deputato per quel tipo di voto, per garantirne la segretezza. Il Senato non è incluso in questa fase.",
-      "retrievedAt": "2026-07-18",
+      "notes": "Campione stratificato di 30 votazioni dell'Assemblea, XIX legislatura (voto elettronico, non a scrutinio segreto), con la posizione di voto di ogni deputato coinvolto. Non è l'archivio completo: le votazioni sono selezionate per copertura su 10 sedute distribuite in più mesi, in parte voti procedurali (ordini del giorno) e in parte votazioni finali su atti. Le votazioni a scrutinio segreto sono escluse: il dato sorgente non attribuisce una posizione al singolo deputato per quel tipo di voto, per garantirne la segretezza. Il Senato non è incluso in questa fase.",
+      "retrievedAt": "2026-07-22",
       "url": "https://dati.camera.it/sparql"
     },
     {
@@ -19,6 +27,14 @@
       "url": "https://dati.camera.it/sparql"
     },
     {
+      "id": "istat-collegi-elettorali-camera-plurinominali",
+      "license": "CC BY 4.0",
+      "name": "ISTAT — Basi geografiche dei collegi elettorali (Camera, plurinominali)",
+      "notes": "Confini geografici dei 49 collegi plurinominali della Camera (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini uninominali (vedi la fonte istat-collegi-elettorali-camera-uninominali), scaricato nello stesso momento. Ogni deputato eletto con quota proporzionale è associato al proprio collegio plurinominale.",
+      "retrievedAt": "2026-07-18",
+      "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
+    },
+    {
       "id": "istat-collegi-elettorali-camera-uninominali",
       "license": "CC BY 4.0",
       "name": "ISTAT — Basi geografiche dei collegi elettorali (Camera, uninominali)",
@@ -27,10 +43,26 @@
       "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
     },
     {
+      "id": "istat-collegi-elettorali-senato-plurinominali",
+      "license": "CC BY 4.0",
+      "name": "ISTAT — Basi geografiche dei collegi elettorali (Senato, plurinominali)",
+      "notes": "Confini geografici dei 26 collegi plurinominali del Senato (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini della Camera, scaricato nello stesso momento. I senatori non sono ancora collegati al proprio collegio plurinominale in questo prototipo.",
+      "retrievedAt": "2026-07-18",
+      "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
+    },
+    {
       "id": "istat-collegi-elettorali-senato-uninominali",
       "license": "CC BY 4.0",
       "name": "ISTAT — Basi geografiche dei collegi elettorali (Senato, uninominali)",
-      "notes": "Confini geografici dei 74 collegi uninominali del Senato (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini della Camera (vedi la fonte istat-collegi-elettorali-camera-uninominali), scaricato nello stesso momento. Nessun senatore è ancora collegato al proprio collegio in questo prototipo (vedi docs/v3/15-senato-exploration.md).",
+      "notes": "Confini geografici dei 74 collegi uninominali del Senato (D.Lgs. 177/2020), riproiettati da EPSG:32632 a EPSG:4326 e semplificati per l'uso su mobile. Stesso rilascio ISTAT dei confini della Camera (vedi la fonte istat-collegi-elettorali-camera-uninominali), scaricato nello stesso momento. 73 dei 74 collegi sono collegati al rispettivo senatore eletto in via uninominale (districtId associato tramite osr:collegioElezione; vedi docs/v3/17-senato-mandates.md).",
+      "retrievedAt": "2026-07-18",
+      "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
+    },
+    {
+      "id": "istat-comuni-centroidi",
+      "license": "CC BY 4.0",
+      "name": "ISTAT — Comuni (assegnazione ai collegi e centroidi)",
+      "notes": "Tabella dei 7.904 comuni italiani. Per ciascuno riporta l'assegnazione ai collegi uninominali pubblicata dalla fonte (CU20_COD per la Camera, SU20_COD per il Senato): è questa, e non la geometria, a rispondere alla ricerca per nome di comune. Sei comuni (Roma, Milano, Napoli, Torino, Palermo, Genova) sono divisi tra più collegi uninominali e vengono mostrati con tutti i collegi assegnati, mai con uno solo. Riporta inoltre un punto interno (centroide) per ciascun comune, usato per la ricerca per coordinate/indirizzo tramite point-in-polygon, senza rete. Derivata dal livello comunale UT_Collegi2020 dello stesso rilascio ISTAT dei confini dei collegi (D.Lgs. 177/2020; vedi la fonte istat-collegi-elettorali-camera-uninominali), scaricato nello stesso momento — nessun nuovo download. I nomi omonimi (6, es. Castro, Livo) sono distinti per provincia.",
       "retrievedAt": "2026-07-18",
       "url": "https://www.istat.it/notizia/le-basi-geografiche-dei-nuovi-collegi-elettorali-2"
     },
@@ -46,7 +78,7 @@
       "id": "senato-della-repubblica-xix-legislatura",
       "license": "CC BY 3.0",
       "name": "Senato della Repubblica — Open Data (XIX Legislatura)",
-      "notes": "Dati su senatori, gruppi parlamentari e commissioni della XIX Legislatura, ottenuti tramite tre interrogazioni SPARQL all'endpoint ufficiale dati.senato.it. Il collegio elettorale non è ancora associato ai collegi campione di questo prototipo (districtId è null).",
+      "notes": "Dati su senatori, gruppi parlamentari e commissioni della XIX Legislatura, ottenuti tramite tre interrogazioni SPARQL all'endpoint ufficiale dati.senato.it. I senatori eletti in un collegio uninominale sono associati al relativo collegio ISTAT (districtId); gli altri non hanno un collegio associato (districtId è null). Vedi docs/v3/17-senato-mandates.md.",
       "retrievedAt": "2026-07-21",
       "url": "https://dati.senato.it/sparql"
     }
