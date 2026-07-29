@@ -287,6 +287,18 @@ outcomes; every network act user-gated with approval quoted verbatim in
 the report; **never push, tag (outside phase 32B), or touch GitHub — the
 user performs all remote actions personally; print commands instead.**
 
+**Worktree hygiene (rule 8, output side).** When a spawned or background
+session that ran in its own worktree finishes, run `git worktree list` and
+remove that worktree **and** its branch. Treat it as the same reflex as
+checking `git status` before committing — a worktree nobody removes is
+invisible from the working checkout, so nothing surfaces it later. Three
+accumulated under `.claude/worktrees/` across the v4 cycle, none removed by
+the session that created it, and the first went undetected for several
+phases; the orphaned branch `claude/strange-payne-57880c` is the residue
+still on record. Verifying a spawned session's **base commit** before
+trusting its output is the *input* side of the same rule and is unchanged —
+both halves are in `docs/plan/00-baseline-and-rules.md` rule 8.
+
 ## Data Files
 
 `Politici/Data/districts.geojson`, `Politici/Data/districts_senato.geojson`,
