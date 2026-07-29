@@ -31,7 +31,7 @@ narrow exception:
 | 30 curated Camera roll-call votes (stratified sample), 11,899 per-deputy positions | Real — dati.camera.it |
 | 468 Camera group-membership intervals for the 400 serving deputies | Real — dati.camera.it `ocd:aderisce` (v4 Phase 28) |
 | 7,904 comuni with their published collegio assignment + one interior point each | Real — ISTAT `UT_Collegi2020`, same D.Lgs. 177/2020 release (v4 Phases 30/30B) |
-| The original 5 fictional sample districts / 14 sample representatives / 37 sample votes | Fictional, preserved at `*.sample.*` for tests only — never shown in the app UI. The in-app sources screen lists this fixture with the manifest's own note stating it is entirely invented |
+| The original 5 fictional sample districts / 14 sample representatives / 37 sample votes | Fictional, preserved at `*.sample.*` for tests only — never shown in the app UI. No shipping code path loads them and every shipped record carries `provenance: "official"`, so the sources screen no longer lists a fictional entry (it did until the post-v4 tidy). The files are still bundled in the .app as a side effect of the FileSystemSynchronized `Politici/` group |
 
 ## Features
 
@@ -99,9 +99,9 @@ narrow exception:
 - **"Informazioni e fonti"** attribution screen, rendered live from
   `Data/sources.json` — every source's name, license, retrieval date and
   (since v4 Phase 32A) its provenance note, with a link to the original.
-  The note is what makes the one fictional entry say on screen that it is
-  fictional. Reachable from the Home footer, which also states the last
-  retrieval across all sources (v4 Phase 31).
+  All nine entries are real, officially-sourced datasets. Reachable from
+  the Home footer, which also states the last retrieval across all sources
+  (v4 Phase 31).
 - **"Come funziona l'elezione"** explainer on Home, stating plainly which
   representatives are mapped to geography (both chambers' uninominale
   winners) and which aren't (plurinominale/estero, life senators).

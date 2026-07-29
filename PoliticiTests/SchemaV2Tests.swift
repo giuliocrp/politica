@@ -470,4 +470,41 @@ final class SchemaV2Tests: XCTestCase {
         XCTAssertNil(service.loadError)
         XCTAssertEqual(service.manifest?.schemaVersion, 2)
     }
+
+    /// The manifest lists no fictional source, and `FontiEDatiView` renders
+    /// `ForEach(sources)` unfiltered — so this is exactly what that screen
+    /// shows. It replaces the UI-test assertion that the fictional card
+    /// declared itself, which lost its subject when the row was retired
+    /// (`tools/make_manifest.py`'s `RETIRED_SOURCE_IDS`).
+    ///
+    /// Asserted here rather than in the UI test on purpose: `FontiEDatiView`
+    /// is a lazy `List`, where a card below the fold is absent from the
+    /// accessibility tree whether or not it exists — so a UI-level
+    /// `XCTAssertFalse(…exists)` would pass for the wrong reason. Absence is
+    /// only a sound assertion where the tree is the whole truth.
+    ///
+    /// The v1 fixtures themselves are still committed and still ship inside
+    /// the .app (the `Politici/` group is FileSystemSynchronized), but no
+    /// shipping code path loads them and every shipped record carries
+    /// `.official`, so a "Dati dimostrativi" card would describe nothing a
+    /// user can reach.
+    /// `@MainActor` only to keep this from adding a sixth instance of the
+    /// Swift 6 "main actor-isolated conformance … in nonisolated context"
+    /// warning the sibling decode tests already raise (lines 62, 96, 112,
+    /// 463 here and `DataVintageTests`' shipping-vintage test). Sweeping
+    /// those five is a separate change, not this one's business.
+    @MainActor
+    func testShippingManifestListsNoFictionalSource() throws {
+        let manifest = try LocalJSONLoader.decode(SourcesManifest.self, fromResource: "sources")
+        XCTAssertFalse(
+            manifest.sources.contains { $0.id == "prototipo-dati-dimostrativi" },
+            "La fonte fittizia è ricomparsa nel manifest"
+        )
+        // Not keyed to that one id: any row without a real URL or licence is
+        // the same defect wearing a different name.
+        for source in manifest.sources {
+            XCTAssertFalse(source.url.isEmpty, "Fonte senza URL: \(source.id)")
+            XCTAssertNotEqual(source.license, "n/a", "Fonte senza licenza reale: \(source.id)")
+        }
+    }
 }

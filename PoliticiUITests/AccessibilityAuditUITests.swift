@@ -398,23 +398,31 @@ final class AccessibilityAuditUITests: PoliticiUITestCase {
             waitingFor: el("fontiEDati.source.camera-dei-deputati-adesioni-gruppi-xix-legislatura"),
             "Schermata Informazioni e fonti non aperta"
         )
-        // Bounded at 5 viewports: the screen is ten instances of one
+        // Bounded at 5 viewports: the screen is nine instances of one
         // `SourceCard`, so further scrolling adds card instances rather than
         // new causes.
         audit("Informazioni e fonti", viewports: 5)
 
-        // The fictional fixture's card must be reachable and must say, on
-        // screen, that it is fictional — the manifest's own `notes`, rendered
-        // since Phase 32A. It is the manifest's oldest `retrievedAt`, so it is
-        // exactly the row a reader could otherwise mistake for a real source
-        // (docs/v4/31-live-refresh-adr.md §7.1, docs/v4/32a-release.md §5).
-        // It is the ninth of ten cards on a now-much-taller screen, hence the
-        // raised swipe ceiling.
-        let fixtureCard = el("fontiEDati.source.prototipo-dati-dimostrativi")
-        scrollUntilHittable(fixtureCard, maxSwipes: 25)
-        XCTAssertTrue(
-            fixtureCard.label.contains("Dataset interamente fittizio"),
-            "La scheda dei dati dimostrativi non si dichiara fittizia: '\(fixtureCard.label)'"
+        // The fictional fixture's card used to be asserted here — reachable,
+        // and declaring itself invented via the manifest's own `notes`. That
+        // row is retired (`tools/make_manifest.py`'s `RETIRED_SOURCE_IDS`), so
+        // the assertion has no subject; its replacement is
+        // `SchemaV2Tests.testShippingManifestListsNoFictionalSource`, which
+        // pins the same guarantee against the manifest the screen renders.
+        //
+        // What is still worth asserting *here* is that the list ends where the
+        // manifest says it does. `senato-…` sorts last of the nine, and the
+        // retired id sorts immediately before it, so reaching the last card
+        // puts the position the fixture would occupy on screen — which is the
+        // only scroll offset where a lazy `List` makes its absence meaningful.
+        // Anywhere else, a card below the fold is out of the accessibility
+        // tree whether or not it exists, and the check would pass for the
+        // wrong reason.
+        let lastCard = el("fontiEDati.source.senato-della-repubblica-xix-legislatura")
+        scrollUntilHittable(lastCard, maxSwipes: 25)
+        XCTAssertFalse(
+            el("fontiEDati.source.prototipo-dati-dimostrativi").exists,
+            "La scheda della fonte fittizia è ancora elencata in 'Informazioni e fonti'"
         )
     }
 }

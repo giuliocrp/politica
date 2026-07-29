@@ -11,10 +11,9 @@ retrieved, not whenever this script happens to run. `generatedAt` (the
 manifest's own top-level field) is a different thing — when *this file* was
 last regenerated — and is always today's date.
 
-Preserves the original "prototipo-dati-dimostrativi" entry as the only
-remaining fictional-data source — representatives.json, districts.geojson,
-and (as of the votes-import phase) votes.json now all carry real,
-officially-sourced data.
+Retires the original "prototipo-dati-dimostrativi" entry (see
+RETIRED_SOURCE_IDS): every dataset the app can load is now real and
+officially sourced, so the manifest no longer lists a fictional source.
 """
 
 import json
@@ -27,6 +26,20 @@ MANIFEST_PATH = ROOT / "Politici" / "Data" / "sources.json"
 VOTES_PATH = ROOT / "Politici" / "Data" / "votes.json"
 MEMBERSHIPS_PATH = ROOT / "Politici" / "Data" / "memberships_camera.json"
 FETCH_METADATA_PATH = Path(__file__).parent / "raw" / ".fetch_metadata.json"
+
+# Ids dropped from the manifest even if a committed sources.json still carries
+# them. This exists because main() seeds itself from the *existing* file and
+# then overlays real_sources(), so an entry no longer produced by this script
+# would otherwise be carried forward verbatim forever — which is exactly how
+# "prototipo-dati-dimostrativi" outlived the fictional data it described.
+#
+# That entry documented the v1 fixtures. They are still committed and still
+# ship inside the .app (the Politici/ group is FileSystemSynchronized), but no
+# shipping code path loads them — every service defaults to the real resource
+# name — and every shipped record carries provenance "official". A source card
+# for data the app cannot display is a disclosure with no referent, so the row
+# is retired here rather than deleted by hand from the generated JSON.
+RETIRED_SOURCE_IDS = frozenset({"prototipo-dati-dimostrativi"})
 
 
 def fail(message):
@@ -267,6 +280,8 @@ def main():
     sources_by_id = {s["id"]: s for s in manifest.get("sources", [])}
     for source in real_sources(fetch_metadata):
         sources_by_id[source["id"]] = source
+    for retired in RETIRED_SOURCE_IDS:
+        sources_by_id.pop(retired, None)
 
     manifest["schemaVersion"] = 2
     manifest["generatedAt"] = date.today().isoformat()

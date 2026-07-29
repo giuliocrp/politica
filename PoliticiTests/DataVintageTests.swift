@@ -42,17 +42,22 @@ final class DataVintageTests: XCTestCase {
         XCTAssertNil(ManifestService.latestRetrievedAt(in: [source("x", "31/12/2025")]))
     }
 
-    /// Pins the deliberate **no-exclusion** decision (ADR §6): the max runs
-    /// over every entry including the `prototipo-dati-dimostrativi` fixture
-    /// row, because the max is the only value that makes the rendered sentence
-    /// ("nothing here was retrieved after this date") true. `make_manifest.py`
-    /// never advances that row's own `retrievedAt`, so this case cannot arise
-    /// from a normal pipeline run — if it ever does, that is a pipeline defect
-    /// worth surfacing, and an id-keyed exclusion would hide it.
-    func testLatestRetrievedAtIncludesTheSampleFixtureEntryByDesign() throws {
+    /// Pins the deliberate **no-exclusion** decision (ADR §7.2): the max runs
+    /// over every entry, whatever its id, because the max is the only value
+    /// that makes the rendered sentence ("nothing here was retrieved after
+    /// this date") true. An id-keyed exclusion would hide precisely the
+    /// condition worth seeing.
+    ///
+    /// The row this case was originally written around,
+    /// `prototipo-dati-dimostrativi`, was retired from the manifest after the
+    /// v4 cycle (`tools/make_manifest.py`'s `RETIRED_SOURCE_IDS`; ADR §7.4).
+    /// The rule it pins is not about that id, so the case is kept with a
+    /// synthetic id instead — `latestRetrievedAt` must not special-case
+    /// anything.
+    func testLatestRetrievedAtAppliesNoIdKeyedExclusions() throws {
         let sources = [
             source("camera-dei-deputati-xix-legislatura", "2026-03-14"),
-            source("prototipo-dati-dimostrativi", "2026-04-01"),
+            source("una-fonte-qualsiasi", "2026-04-01"),
         ]
         let latest = try XCTUnwrap(ManifestService.latestRetrievedAt(in: sources))
         XCTAssertEqual(latest, DateFormatting.parseISODate("2026-04-01"))

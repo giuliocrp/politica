@@ -319,7 +319,7 @@ Every row was exercised by a running test, not read.
 |---|---|---|
 | `FontiEDatiView` | **Newly audited**, 5 viewports — the app's attribution screen and legal anchor had never been under the auditor | ✓ zero structural issues |
 | Per-source `notes`, newly rendered | Each `SourceCard` is one combined element with its own `fontiEDati.source.<id>` identifier | ✓ |
-| The fictional-fixture card declares itself | `AccessibilityAuditUITests` scrolls to `fontiEDati.source.prototipo-dati-dimostrativi` and asserts its label contains *"Dataset interamente fittizio"* | ✓ — the disclosure cannot be lost silently |
+| ~~The fictional-fixture card declares itself~~ — **superseded 2026-07-29** | Was: `AccessibilityAuditUITests` scrolls to `fontiEDati.source.prototipo-dati-dimostrativi` and asserts its label contains *"Dataset interamente fittizio"*. That row is now retired from the manifest (post-v4 tidy — `tools/make_manifest.py`'s `RETIRED_SOURCE_IDS`), so the assertion has no subject. Replaced by `SchemaV2Tests.testShippingManifestListsNoFictionalSource`, which asserts the shipped manifest lists **no** fictional source at all; the UI test now scrolls to the last card and checks the retired id is absent there | ✓ — a fictional entry cannot reappear silently. Asserted against the manifest rather than the accessibility tree on purpose: `FontiEDatiView` is a lazy `List`, where a card below the fold is absent from the tree whether or not it exists, so a UI-only absence check would pass for the wrong reason |
 
 ---
 
