@@ -1064,3 +1064,96 @@ kind was made.
    deferred to Phase 32B" would have been false in the tagged tree.
 5. **The release note's preamble was updated** for the same reason: it
    stated that the tag "did not yet exist", which the tag itself falsifies.
+
+---
+
+# Post-release actions (2026-07-29, after the tag)
+
+What actually happened after `v4.0-prototype` was created. **The tagged
+commit `93527d4` and its tree are not edited and history is not rewritten** —
+that tree was accurate at tag time, and this section is appended to the
+living report instead.
+
+**Committed on `main`, not on `v4`, deliberately.** The V4 line is closed:
+`v4`'s tip must stay at the exact object the tag points at, so appending here
+from `v4` would either move the branch past the tag or invite an amend of the
+tagged commit. `main` is now the branch carrying the merged V4 history
+(§PR.2), so the post-release record belongs there.
+
+**Network acts: two, both read-only, both user-authorized**, with the
+authorization quoted verbatim:
+
+> Network: I authorize `git fetch origin --tags` and `git ls-remote origin` —
+> read-only, against my own remote. No other network act.
+
+`git fetch origin --tags` and `git ls-remote --heads/--tags origin` were the
+only commands run against the network. **Nothing was pushed**, no tag was
+created, moved or deleted, no branch was deleted, and no GitHub API call was
+made — `gh` is still absent from this host.
+
+## PR.1 Both pushes performed by the user — the 32B hold is resolved
+
+Phase 32B printed two commands and executed neither, recording the tag push
+as *"explicitly pending the user's decision … a deliberate hold, not an
+oversight"*. **The user performed both. The hold is resolved as pushed.**
+
+| Command | Evidence from the two authorized read-only commands |
+|---|---|
+| `git push origin v4` | `git ls-remote --heads origin` → `refs/heads/v4` = **`93527d4`**, the 32B decisions commit. The one commit 32B left unpushed is on the remote, and the branch **still exists** — it was not deleted |
+| `git push origin v4.0-prototype` | `git ls-remote --tags origin` → `refs/tags/v4.0-prototype` = **`7ded589`**, peeling (`^{}`) to **`93527d4`**. That is the **same annotated tag object** as the local one (`git rev-parse v4.0-prototype` → `7ded589`) — a faithful push of the annotated tag, not a re-created or lightweight one |
+
+All four tags are on the remote, each resolving to the same commit it does
+locally:
+
+| Tag | Remote object | Peels to | Kind |
+|---|---|---|---|
+| `v1.0.0` | `6d3b866` | *(is the commit)* | lightweight |
+| `v2.0-prototype` | `a7593ad` | `72448dc` | annotated |
+| `v3.0-prototype` | `a453986` | `f90f194` | annotated |
+| `v4.0-prototype` | `7ded589` | `93527d4` | annotated |
+
+## PR.2 The merge — a merge commit, so V4's history is on `main` intact
+
+`v4` was merged into `main` by a pull request merged on GitHub.
+
+- `origin/main` tip: **`7ea6a23` — "Merge pull request #3 from giuliocrp/v4"**
+  (Giulio, 2026-07-29 08:45:03 +0200).
+- `git merge-base --is-ancestor 93527d4 origin/main` → **exit 0**: the tagged
+  commit **is** an ancestor of `main`.
+- `7ea6a23`'s parents are **`3dc224e`** (the pre-merge `main` tip) and
+  **`93527d4`** (the `v4` tip).
+
+**The strategy was a merge commit — not a squash and not a rebase.** That
+matters for this record specifically: every V4 phase commit keeps its
+original hash, so the hashes the CHANGELOG entry quotes (`3907689` …
+`f97a35a`, `93527d4`) resolve on `main` as well as on `v4`, and the tag sits
+**inside** `main`'s history rather than pointing at a line reachable only
+from the branch. Same shape as the v3 line's PR #2.
+
+## PR.3 Repository visibility — still not determined, still pending
+
+Unchanged from Phase 32B and deliberately **not inferred**. `gh` is absent
+from this host; the two authorized commands reveal nothing about visibility;
+and the v3 record's HTTP 404 is evidence about the *v3 release URL at that
+time*, not a current fact about this repository. **Pending, owner: the
+user.** Whether a GitHub Release was published for `v4.0-prototype` was
+likewise **not checked** — that would have needed a network act outside the
+authorization above — so nothing is asserted about it either way, and the
+`<github-release-url>` placeholder stands.
+
+## PR.4 Local state
+
+| Ref | Before | After |
+|---|---|---|
+| `main` | `3dc224e`, 23 behind `origin/main`, strictly behind | fast-forwarded to `7ea6a23`, then this docs-only commit on top |
+| `v4` | `93527d4` = `origin/v4` | **unchanged** — not merged locally, not rebased, not deleted |
+| `v2`, `docs/history-archive` | in sync with their remotes | unchanged |
+| tags | four, local objects identical to remote | unchanged — none created, moved or deleted |
+
+Nothing was pushed. The command that would publish this section is printed
+and deliberately not run, per the standing rule that the user performs every
+remote action personally:
+
+```
+git push origin main
+```
