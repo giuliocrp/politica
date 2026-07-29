@@ -34,7 +34,7 @@ import Foundation
 /// `id`. `lat`/`lon` are the decoded storage; `coordinate` is the derived
 /// `CLLocationCoordinate2D` (which is itself neither `Codable` nor
 /// `Hashable`, hence the split).
-struct Comune: Codable, Hashable, Identifiable {
+nonisolated struct Comune: Codable, Hashable, Identifiable {
     let name: String
     let province: String
     let lat: Double
@@ -76,12 +76,12 @@ struct Comune: Codable, Hashable, Identifiable {
 /// empty published assignment, which is exactly the fabrication standing
 /// constraint #4 forbids. `ComuneService` surfaces it as `loadError` with a
 /// console warning and answers nothing, rather than answering wrongly.
-enum ComuniFileError: Error, Equatable {
+nonisolated enum ComuniFileError: Error, Equatable {
     case unsupportedSchemaVersion(found: Int, expected: Int)
 }
 
 /// Top-level shape of `comuni.json`: `{"schemaVersion":2,"comuni":[...]}`.
-struct ComuniFile: Codable {
+nonisolated struct ComuniFile: Codable {
     /// The only version this build can read. Kept in lockstep with
     /// `SCHEMA_VERSION` in `tools/import_comuni.py` and
     /// `COMUNI_SCHEMA_VERSION` in `tools/validate_data.py`.

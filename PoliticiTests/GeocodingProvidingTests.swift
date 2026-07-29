@@ -15,6 +15,13 @@ private struct FakeGeocodingProvider: GeocodingProviding {
     }
 }
 
+/// `@MainActor` because `GeocodingService` and the `DistrictService` stored
+/// below are genuinely main-actor-isolated (mutable state; `DistrictService`
+/// loads its GeoJSON eagerly on the main actor for the SwiftUI environment).
+/// The test adopts that isolation rather than stripping it from a stateful
+/// shipping service; XCTest methods are nonisolated by default, which is what
+/// made the conformance unusable here.
+@MainActor
 final class GeocodingProvidingTests: XCTestCase {
     // Data/districts.geojson ships real ISTAT geometry now; these tests
     // exercise the *.sample.* rectangles instead, since "IT-RM-C01" only

@@ -5,7 +5,7 @@
 
 import Foundation
 
-enum ElectionType: String, TolerantStringEnum, Hashable {
+nonisolated enum ElectionType: String, TolerantStringEnum, Hashable {
     case uninominale
     case plurinominale
     case estero
@@ -14,7 +14,7 @@ enum ElectionType: String, TolerantStringEnum, Hashable {
     static var unknownCase: ElectionType { .sconosciuto }
 }
 
-extension ElectionType: Codable {
+nonisolated extension ElectionType: Codable {
     init(from decoder: Decoder) throws {
         self = try Self.decodeTolerant(from: decoder)
     }
@@ -29,7 +29,7 @@ extension ElectionType: Codable {
 /// bearer's mandate has ended); the pipeline validator asserts that stays
 /// true. `.sconosciuto` is a decode-time fallback only — the importer fails
 /// loudly on unknown raw values rather than ever writing it.
-enum MandateType: String, TolerantStringEnum, Hashable {
+nonisolated enum MandateType: String, TolerantStringEnum, Hashable {
     case elettivo
     case nominaAVita = "a vita, di nomina del Presidente della Repubblica"
     case diDirittoEAVita = "di diritto e a vita, Presidente emerito della Repubblica"
@@ -47,13 +47,13 @@ enum MandateType: String, TolerantStringEnum, Hashable {
     }
 }
 
-extension MandateType: Codable {
+nonisolated extension MandateType: Codable {
     init(from decoder: Decoder) throws {
         self = try Self.decodeTolerant(from: decoder)
     }
 }
 
-struct Representative: Identifiable, Hashable {
+nonisolated struct Representative: Identifiable, Hashable {
     let id: String
     let name: String
     let chamber: Chamber
@@ -109,7 +109,7 @@ struct Representative: Identifiable, Hashable {
 /// `provenance` defaults to `.sample` and `electionType` defaults to
 /// `.sconosciuto` when absent, so the current sample fixture (which predates
 /// these fields) keeps decoding unchanged.
-extension Representative: Codable {
+nonisolated extension Representative: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, name, chamber, districtId, party, parliamentaryGroup, committees
         case attendanceRate, photoName, provenance, legislature, electionType

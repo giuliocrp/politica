@@ -25,6 +25,13 @@
 import XCTest
 @testable import Politici
 
+/// `@MainActor` because both subjects here — `ComuneService` and
+/// `DistrictService` — are genuinely main-actor-isolated: they hold mutable
+/// state and load their bundled data eagerly on the main actor for the SwiftUI
+/// environment. The test adopts that isolation rather than stripping it from a
+/// stateful shipping service; XCTest methods are nonisolated by default, which
+/// is what made the conformance unusable here.
+@MainActor
 final class ComuneGeocodingIntegrationTests: XCTestCase {
     private let comuni = ComuneService()
     private let districts = DistrictService()

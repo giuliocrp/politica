@@ -183,6 +183,31 @@ absent cache — is tracked in the deferred list in
   a bare `yyyy-MM-dd`; a device-timezone formatter rendered it one day
   early west of Rome. `DateFormatting` exposes `make…(timeZone:)` factories
   so the guard is testable on any host.
+- **Everything in `Models/` is `nonisolated`; main-actor isolation is for
+  services only.** The project sets `SWIFT_DEFAULT_ACTOR_ISOLATION =
+  MainActor` with `SWIFT_APPROACHABLE_CONCURRENCY = YES`, so every
+  declaration — *including every protocol conformance* — is `@MainActor` by
+  default, and a main-actor-isolated conformance cannot be used from a
+  nonisolated context (a hard error under the Swift 6 language mode). The
+  models are pure Sendable value types decoded from bundled JSON by
+  `VoteService`'s deliberately **off-main** decode and by nonisolated XCTest
+  methods, so `nonisolated` is the honest declaration, not a silencer. Two
+  traps, both on record:
+  - **`nonisolated` on a type does *not* cover a conformance declared in a
+    separate `extension`** — that extension picks up the file default
+    independently. `nonisolated struct Vote` with a plain
+    `extension Vote: Codable` left `Vote`'s `Decodable` conformance
+    main-actor-isolated *while `VoteService` decoded it off the main actor*.
+    Write `nonisolated extension Vote: Codable`. Conformances declared
+    inline on a `nonisolated` type, and nested types inside one, are covered.
+  - **Where the isolation is real, annotate the test, not the type.**
+    `ComuneService`/`GeocodingService`/`DistrictService` hold mutable state
+    and load eagerly on the main actor for the SwiftUI environment; their
+    test classes carry `@MainActor`. Stripping isolation off a stateful
+    service to quiet a test warning would be the dishonest fix.
+  These warnings are **invisible on incremental builds** — only a full
+  recompile of the test target shows them, so a partial rebuild that touches
+  two files will report a handful and hide the rest.
 - **Test-count baseline definition** — since Phase 24 the declared and
   runtime counts are equal (the template's ×4 `testLaunch` multiplier is
   gone), and "zero regressions" means the current `.xcresult`

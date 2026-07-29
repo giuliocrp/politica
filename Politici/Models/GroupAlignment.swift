@@ -47,7 +47,7 @@ import Foundation
 /// `GroupAlignment` is a caseless namespace — no stored state — so it is a pure
 /// function of its `(events, positions, memberships)` inputs and is exercised
 /// directly on hand-built fixtures in `GroupAlignmentTests`.
-enum GroupAlignment {
+nonisolated enum GroupAlignment {
     /// The **only** permitted name for this metric (methodology gate). Pinned;
     /// this constant is the single occurrence of the label string in the app
     /// target — the UI references it rather than repeating the literal. The

@@ -11,7 +11,7 @@ import Foundation
 /// data-vintage line) parse at the edge via `DateFormatting.parseISODate`,
 /// which lets an unparseable value degrade to an honest absence rather than
 /// failing the whole decode.
-struct DataSource: Codable, Identifiable, Hashable {
+nonisolated struct DataSource: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let url: String
@@ -22,7 +22,7 @@ struct DataSource: Codable, Identifiable, Hashable {
 
 /// Top-level contents of `Data/sources.json`, tracking data provenance
 /// separately from the domain data itself.
-struct SourcesManifest: Codable, Hashable {
+nonisolated struct SourcesManifest: Codable, Hashable {
     let schemaVersion: Int
     let generatedAt: String
     let sources: [DataSource]

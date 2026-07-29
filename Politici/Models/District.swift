@@ -6,12 +6,12 @@
 import Foundation
 import MapKit
 
-enum Chamber: String, Codable, CaseIterable, Hashable {
+nonisolated enum Chamber: String, Codable, CaseIterable, Hashable {
     case camera = "Camera"
     case senato = "Senato"
 }
 
-enum CollegioType: String, TolerantStringEnum, Hashable {
+nonisolated enum CollegioType: String, TolerantStringEnum, Hashable {
     case uninominale
     case plurinominale
     case sconosciuto
@@ -19,7 +19,10 @@ enum CollegioType: String, TolerantStringEnum, Hashable {
     static var unknownCase: CollegioType { .sconosciuto }
 }
 
-extension CollegioType: Codable {
+// `nonisolated` on the *extension*, not just the type: a conformance declared
+// in a separate extension picks up the file's default `@MainActor` isolation
+// even when the extended type is already nonisolated.
+nonisolated extension CollegioType: Codable {
     init(from decoder: Decoder) throws {
         self = try Self.decodeTolerant(from: decoder)
     }
@@ -33,7 +36,7 @@ extension CollegioType: Codable {
 /// `MKPolygon` already models both natively, so districts are built
 /// directly from `MKGeoJSONDecoder`'s output (see `GeoJSONLoader`) rather
 /// than a hand-rolled coordinate representation.
-struct District: Identifiable {
+nonisolated struct District: Identifiable {
     let id: String
     let name: String
     let chamber: Chamber
@@ -71,7 +74,7 @@ struct District: Identifiable {
 /// `MKPolygon` isn't `Equatable`/`Hashable`, so identity is the district's
 /// own `id` — two `District` values are equal iff they represent the same
 /// collegio, regardless of geometry (which never changes for a given id).
-extension District: Equatable, Hashable {
+nonisolated extension District: Equatable, Hashable {
     static func == (lhs: District, rhs: District) -> Bool {
         lhs.id == rhs.id
     }

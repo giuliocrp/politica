@@ -20,7 +20,7 @@ import Foundation
 /// truncation-at-`"("` source quirk (e.g. `"MISTO (MISTO) (18.10.2022"` — an
 /// unterminated parenthesis); it is kept for provenance/traceability and is
 /// never "repaired" (reconstructing the missing suffix would be fabrication).
-struct GroupMembership: Identifiable, Hashable {
+nonisolated struct GroupMembership: Identifiable, Hashable {
     let id: String
     let representativeId: String
     let groupName: String
@@ -33,7 +33,7 @@ struct GroupMembership: Identifiable, Hashable {
 /// Decodes `start`/`end` as plain `yyyy-MM-dd` strings (reusing
 /// `Vote.dateFormatter`, the project's shared Europe/Rome ISO parser) so the
 /// model stays self-contained regardless of the `JSONDecoder` configuration.
-extension GroupMembership: Codable {
+nonisolated extension GroupMembership: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, representativeId, groupName, groupSigla, start, end
     }
@@ -80,7 +80,7 @@ extension GroupMembership: Codable {
 
 /// `memberships_camera.json`'s on-disk shape:
 /// `{"schemaVersion":1,"memberships":[...]}`.
-struct MembershipsFile: Codable {
+nonisolated struct MembershipsFile: Codable {
     let schemaVersion: Int
     let memberships: [GroupMembership]
 }

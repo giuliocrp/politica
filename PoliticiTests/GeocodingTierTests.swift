@@ -23,6 +23,12 @@ private struct FakeComuni: ComuneLookup {
     func comuni(matching query: String) -> [Comune] { byQuery[query] ?? [] }
 }
 
+/// `@MainActor` because `GeocodingService` is genuinely main-actor-isolated —
+/// it is a stateful service built for the SwiftUI environment, so even its
+/// initializer is main-actor. The test adopts that isolation rather than
+/// stripping it from the shipping type; XCTest methods are nonisolated by
+/// default, which is what made these calls warn.
+@MainActor
 final class GeocodingTierTests: XCTestCase {
     private let clGeocoderPoint = CLLocationCoordinate2D(latitude: 44.5, longitude: 11.0)
     private let comunePoint = CLLocationCoordinate2D(latitude: 45.79971, longitude: 10.06471)
