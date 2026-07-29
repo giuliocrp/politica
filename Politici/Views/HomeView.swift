@@ -17,7 +17,6 @@ struct HomeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
-                header
                 searchSection
                 mapCTA
                 statsSection
@@ -39,17 +38,6 @@ struct HomeView: View {
                 }
                 .accessibilityLabel("Informazioni e fonti")
             }
-        }
-    }
-
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Politica Italia")
-                .font(.largeTitle.bold())
-                .accessibilityIdentifier("home.title")
-            Text("Scopri il tuo collegio elettorale, i rappresentanti in Parlamento e il loro operato — un prototipo locale, senza account né connessione a Internet.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
         }
     }
 
