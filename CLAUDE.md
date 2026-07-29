@@ -96,6 +96,31 @@ Phase 32A** — an `FBSOpenApplicationServiceErrorDomain` "failed to launch"
 on the app in the baseline run and on the `xctrunner` in an audit-only run,
 both of which the infrastructure retried on its own so the runs still ended
 green — **five-plus** occurrences.
+**The log can hide a failure, not just a pass.** The truncation note above is
+written around log lines that undercount *passes*; the post-v4 concurrency
+sweep hit the opposite and more dangerous direction — a run whose `.xcresult`
+reported `testsFailedCount 1` while `grep -c "Test case.*failed"` on the log
+returned **0**. Had the log been trusted, a red run would have been reported
+green. This is the same divergence, so the same rule settles it, but state it
+in both directions: the `.xcresult` is the authority for failures as well as
+for counts, and a log grep must never be the evidence that a run was clean.
+
+**Accessibility audits fail under machine load, and the failure moves.** The
+same sweep saw two consecutive full-suite runs fail with
+`com.apple.xcode.xctest.accessibilityAudit Code=-56 "Audit failed to complete
+in time"` — on a *different* test each run
+(`testAccessibilityAuditDistrictDetailBothChambers`, then
+`testAccessibilityAuditVotazioniAndVoteHistory`), never the same one twice.
+`performAccessibilityAudit()` carries an internal deadline, and the heaviest
+audits miss it when the host is loaded; 1-minute load averages were in the
+hundreds, driven by the preceding full-suite runs' own parallel simulator
+clones. A third run, started only once the 1-minute average had fallen below
+8, passed 231/231 with zero failures. So: **a `-56` audit timeout is a
+statement about the host, not the screen** — the tell is that it relocates
+between runs, whereas a real defect pins the same test. Let the machine settle
+before re-running rather than re-running immediately, which only deepens the
+contention being diagnosed.
+
 Re-run once and diagnose before suspecting the code. **Caveat on the re-run:**
 running the flaky test *alone* removes the parallelism (concurrent simulator
 clones) that triggers the flake, so an isolated green is *weaker* evidence than

@@ -488,12 +488,6 @@ final class SchemaV2Tests: XCTestCase {
     /// shipping code path loads them and every shipped record carries
     /// `.official`, so a "Dati dimostrativi" card would describe nothing a
     /// user can reach.
-    /// `@MainActor` only to keep this from adding a sixth instance of the
-    /// Swift 6 "main actor-isolated conformance … in nonisolated context"
-    /// warning the sibling decode tests already raise (lines 62, 96, 112,
-    /// 463 here and `DataVintageTests`' shipping-vintage test). Sweeping
-    /// those five is a separate change, not this one's business.
-    @MainActor
     func testShippingManifestListsNoFictionalSource() throws {
         let manifest = try LocalJSONLoader.decode(SourcesManifest.self, fromResource: "sources")
         XCTAssertFalse(
