@@ -532,6 +532,48 @@ the day that stops being true.
 Pinned by `testLatestRetrievedAtIncludesTheSampleFixtureEntryByDesign`, so
 the choice is deliberate rather than accidental.
 
+### 7.4 Addendum (2026-07-29) — the fixture row is gone; reason 1 of §7.1 no longer applies
+
+Post-v4 tidy, not a phase. `prototipo-dati-dimostrativi` has been retired
+from the manifest (`tools/make_manifest.py`'s new `RETIRED_SOURCE_IDS`),
+because no shipping code path loads the `*.sample.*` fixtures it described
+and every shipped record carries `provenance: "official"` — so the card
+disclosed nothing a user could reach. The fixtures themselves are
+unchanged and still committed; they remain bundled in the .app as a side
+effect of the FileSystemSynchronized `Politici/` group.
+
+**What this invalidates.** §7.1's *first* of three reasons for a max —
+"a min would be a date derived from data the app never shows", the
+minimum being the fixture's 2026-07-17 — is now void. The spread today:
+
+| `retrievedAt` | Sources |
+|---|---|
+| **2026-07-22** (max) | Camera votazioni, Camera adesioni |
+| 2026-07-21 | Senato |
+| **2026-07-18** (min) | Camera deputati + the five ISTAT rows |
+
+Every date in the manifest, minimum included, now describes data the app
+actually ships. A min would today be *defensible* on the ground §7.1
+denied it.
+
+**What still stands, and why the decision is unchanged.** Reasons 2
+(a min needs warning-shaped wording, and the phase forbids inventing a
+staleness judgment) and 3 (the range was rejected on proportion — the
+real-source spread is now **four days**, and the per-source breakdown is
+one tap away) are untouched, and either alone carries the choice. §7.2's
+no-exclusion rule is likewise unaffected: it says the max special-cases no
+id, which is if anything easier to hold now that no id is a candidate for
+exclusion. Trigger 6 (§5) is unchanged — the max is still carried by
+`camera-dei-deputati-adesioni-gruppi`, a Class C source.
+
+**Rendered output is unchanged**: the max was 2026-07-22 before and after,
+so the footer line still reads *"Ultimo aggiornamento dei dati: 22 luglio
+2026"*.
+
+The test that pinned §7.2 is renamed
+`testLatestRetrievedAtAppliesNoIdKeyedExclusions` and now uses a synthetic
+id — the rule it pins was never about that particular row.
+
 ---
 
 ## 8. A real defect found and fixed: display dates were off by one west of Rome

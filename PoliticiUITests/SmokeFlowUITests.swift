@@ -62,7 +62,17 @@ final class SmokeFlowUITests: PoliticiUITestCase {
 
     @MainActor
     func testColdLaunchHomeShowsStatCardsWithDataDrivenValues() throws {
-        XCTAssertTrue(el("home.title").exists, "Titolo della Home non trovato")
+        // Home's introductory header (`home.title`) was removed in the post-v4
+        // tidy, so this flow's opening assertion took the address field as its
+        // new subject — the topmost thing on Home now. Asserted **hittable**,
+        // not merely existing: with ~100 pt of heading and tagline gone above
+        // it, everything below moved up, and the failure this guards against
+        // is the field coming to rest under the translucent navigation bar,
+        // where it would still be in the accessibility tree and untappable
+        // (the `.exists`-is-not-reachability rule in CLAUDE.md). No scrolling
+        // first: at the top of the page it must be reachable on launch.
+        let search = assertExists("home.search.field", "Campo indirizzo in Home non trovato")
+        XCTAssertTrue(search.isHittable, "Campo indirizzo non raggiungibile all'avvio della Home")
 
         let expectedCaptions = [
             "home.stat.collegi": "Collegi uninominali",

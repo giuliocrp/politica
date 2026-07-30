@@ -28,13 +28,16 @@ final class ManifestService {
     /// The most recent `retrievedAt` across the manifest — an upper bound on
     /// the whole bundle's vintage: nothing in the app was retrieved after it.
     ///
-    /// Deliberately the **max over every entry, with no exclusion for the
-    /// sample fixture's row**. Two reasons, both recorded in the ADR §6:
-    /// the max is the only value that makes the rendered sentence true, and
-    /// `make_manifest.py` never advances the fixture's own `retrievedAt`
-    /// (that row is carried forward verbatim; only `real_sources(...)` rows
-    /// get a fresh date), so an id-keyed exclusion would suppress the one
-    /// condition worth seeing rather than hiding.
+    /// Deliberately the **max over every entry, with no id-keyed exclusion**
+    /// (ADR §7.2): the max is the only value that makes the rendered sentence
+    /// true, and an exclusion would suppress the one condition worth seeing
+    /// rather than hiding it.
+    ///
+    /// The exclusion originally weighed was for the `prototipo-dati-dimostrativi`
+    /// fixture row, which is now retired from the manifest altogether
+    /// (`tools/make_manifest.py`'s `RETIRED_SOURCE_IDS`; ADR §7.4). Every
+    /// remaining row is a real source, so the max and the min are now both
+    /// dates that describe data the app actually ships.
     ///
     /// Entries whose `retrievedAt` does not parse are skipped rather than
     /// crashing or defaulting — an unparseable date is not evidence of any

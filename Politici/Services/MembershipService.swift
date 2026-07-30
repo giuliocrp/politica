@@ -51,7 +51,7 @@ final class MembershipService {
     /// validated shipping data the intervals are non-overlapping, so at most
     /// one matches; if two ever did, the one with the latest `start` (the more
     /// recent) wins — a group-switch date always resolves to the joined group.
-    static func membership(at date: Date, in intervals: [GroupMembership]) -> GroupMembership? {
+    nonisolated static func membership(at date: Date, in intervals: [GroupMembership]) -> GroupMembership? {
         intervals
             .filter { $0.start <= date && ($0.end.map { date < $0 } ?? true) }
             .max { ($0.start, $0.id) < ($1.start, $1.id) }

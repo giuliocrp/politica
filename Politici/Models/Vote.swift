@@ -43,7 +43,7 @@ nonisolated enum VoteChoice: String, TolerantStringEnum, CaseIterable, Hashable 
     }
 }
 
-extension VoteChoice: Codable {
+nonisolated extension VoteChoice: Codable {
     // Inlined (rather than via TolerantStringEnum.decodeTolerant) so the
     // conformance stays nonisolated for the off-main decode; same tolerant
     // semantics (unknown raw value -> .sconosciuto).
@@ -61,7 +61,7 @@ nonisolated enum VoteResult: String, TolerantStringEnum, CaseIterable, Hashable 
     static var unknownCase: VoteResult { .sconosciuto }
 }
 
-extension VoteResult: Codable {
+nonisolated extension VoteResult: Codable {
     nonisolated init(from decoder: Decoder) throws {
         let raw = try decoder.singleValueContainer().decode(String.self)
         self = VoteResult(rawValue: raw) ?? .sconosciuto
@@ -84,7 +84,7 @@ nonisolated struct Vote: Identifiable, Hashable {
 /// `provenance` defaults to `.sample` when absent, and `vote`/`result` decode
 /// tolerantly (unrecognized raw values become `.sconosciuto` rather than
 /// throwing), so the current sample fixture keeps decoding unchanged.
-extension Vote: Codable {
+nonisolated extension Vote: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, representativeId, title, date, vote, result, sourceUrl, provenance
     }
@@ -158,7 +158,7 @@ nonisolated struct VoteEventRecord: Identifiable, Hashable {
     let provenance: DataProvenance
 }
 
-extension VoteEventRecord: Codable {
+nonisolated extension VoteEventRecord: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, title, date, result, sourceUrl, provenance
     }

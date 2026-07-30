@@ -18,7 +18,7 @@ import Foundation
 /// Note that `one` still says nothing about how many *collegi* the answer has:
 /// a single comune can be assigned to several (Roma spans seven Camera
 /// collegi). That multiplicity lives on `Comune.collegioIds(for:)`.
-enum ComuneNameMatch: Equatable {
+nonisolated enum ComuneNameMatch: Equatable {
     case none
     case one(Comune)
     case ambiguous([Comune])

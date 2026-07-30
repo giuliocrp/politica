@@ -77,6 +77,16 @@ metric that ships.
   `GroupAlignment.metricLabel`, the **single** occurrence of the literal in the
   app target (grep-verified exactly once in `Politici/`); it appeared in this
   documentation only through Phase 28.
+
+  > **Note added 2026-07-29 (post-v4 tidy).** The metric is still computed and
+  > still fully tested, but **nothing in the app renders it any more** — the
+  > profile section that did was removed, and `GroupAlignment.metricLabel` now
+  > has no caller in `Politici/`. The grep still returns exactly one hit, but
+  > it now proves only that the constant is defined once and never inlined; it
+  > no longer certifies what a user reads on screen, because no user reads it.
+  > Nothing else here changes: the gate still stands at 6/6, every rule above
+  > still binds this metric if it is surfaced again, and re-surfacing it must
+  > use this label and no other.
 - Any metric ships with its exact denominator definition and the gate
   table above, re-measured, in the same commit.
 

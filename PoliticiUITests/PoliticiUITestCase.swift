@@ -45,13 +45,24 @@ class PoliticiUITestCase: XCTestCase {
 
     var app: XCUIApplication!
 
+    /// The element every "are we on Home?" gate waits for.
+    ///
+    /// Was `home.title` — Home's `largeTitle` heading — until that
+    /// introductory header was removed. The address field replaces it as the
+    /// first thing on the screen, and it is just as good a marker: it appears
+    /// on Home and on no other screen (`AddressSearchView`'s own field is
+    /// `addressSearch.field`). Looked up through `el(_:)` rather than as a
+    /// `staticTexts[…]` so the gate doesn't encode which element type SwiftUI
+    /// produces for a `TextField`, for the reason `el(_:)` documents below.
+    var homeMarker: XCUIElement { el("home.search.field") }
+
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
         app.launchArguments += Self.launchArguments
         app.launch()
         XCTAssertTrue(
-            app.staticTexts["home.title"].waitForExistence(timeout: Self.timeout),
+            homeMarker.waitForExistence(timeout: Self.timeout),
             "La schermata Home non è comparsa dopo il lancio"
         )
     }
@@ -263,7 +274,7 @@ class PoliticiUITestCase: XCTestCase {
     func relaunch(file: StaticString = #filePath, line: UInt = #line) {
         app.launch()
         XCTAssertTrue(
-            app.staticTexts["home.title"].waitForExistence(timeout: Self.timeout),
+            homeMarker.waitForExistence(timeout: Self.timeout),
             "La Home non è comparsa dopo il rilancio", file: file, line: line
         )
     }
@@ -272,7 +283,7 @@ class PoliticiUITestCase: XCTestCase {
     func goBackToHome(file: StaticString = #filePath, line: UInt = #line) {
         goBack(file: file, line: line)
         XCTAssertTrue(
-            app.staticTexts["home.title"].waitForExistence(timeout: Self.timeout),
+            homeMarker.waitForExistence(timeout: Self.timeout),
             "Non è stato possibile tornare alla Home", file: file, line: line
         )
     }

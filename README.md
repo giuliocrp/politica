@@ -31,7 +31,7 @@ narrow exception:
 | 30 curated Camera roll-call votes (stratified sample), 11,899 per-deputy positions | Real — dati.camera.it |
 | 468 Camera group-membership intervals for the 400 serving deputies | Real — dati.camera.it `ocd:aderisce` (v4 Phase 28) |
 | 7,904 comuni with their published collegio assignment + one interior point each | Real — ISTAT `UT_Collegi2020`, same D.Lgs. 177/2020 release (v4 Phases 30/30B) |
-| The original 5 fictional sample districts / 14 sample representatives / 37 sample votes | Fictional, preserved at `*.sample.*` for tests only — never shown in the app UI. The in-app sources screen lists this fixture with the manifest's own note stating it is entirely invented |
+| The original 5 fictional sample districts / 14 sample representatives / 37 sample votes | Fictional, preserved at `*.sample.*` for tests only — never shown in the app UI. No shipping code path loads them and every shipped record carries `provenance: "official"`, so the sources screen no longer lists a fictional entry (it did until the post-v4 tidy). The files are still bundled in the .app as a side effect of the FileSystemSynchronized `Politici/` group |
 
 ## Features
 
@@ -69,10 +69,12 @@ narrow exception:
   **stratified sample chosen for coverage** (v4 Phase 27), not "the N most
   recent": 3 votes from each of 10 sittings spread across ~9 months,
   deliberately part procedural and part final votes on atti — decoded lazily
-  off the main thread. One derived metric now ships (v4 Phase 29): a per-deputy
-  within-group **alignment** figure on the profile, strictly behind the
-  six-line methodology gate — see
-  [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md).
+  off the main thread. **No vote-derived metric is currently surfaced in the
+  app.** v4 Phase 29 shipped one — a per-deputy within-group **alignment**
+  figure on the profile, strictly behind the six-line methodology gate
+  ([`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md)) — and the
+  post-v4 tidy removed the profile section that rendered it. The computation
+  and its tests are unchanged and still pass; only the surface is gone.
 - **Preferiti** (v3 Phase 19) — star representatives from their profile
   and find them again from Home; stored only on-device in `UserDefaults`.
 - **Address search with autocomplete** (`MKLocalSearchCompleter`), answering
@@ -99,9 +101,9 @@ narrow exception:
 - **"Informazioni e fonti"** attribution screen, rendered live from
   `Data/sources.json` — every source's name, license, retrieval date and
   (since v4 Phase 32A) its provenance note, with a link to the original.
-  The note is what makes the one fictional entry say on screen that it is
-  fictional. Reachable from the Home footer, which also states the last
-  retrieval across all sources (v4 Phase 31).
+  All nine entries are real, officially-sourced datasets. Reachable from
+  the Home footer, which also states the last retrieval across all sources
+  (v4 Phase 31).
 - **"Come funziona l'elezione"** explainer on Home, stating plainly which
   representatives are mapped to geography (both chambers' uninominale
   winners) and which aren't (plurinominale/estero, life senators).
@@ -322,20 +324,25 @@ after the fact:
   spans sittings and months within the same gate (see
   [`docs/v4/27-votes-stratified.md`](docs/v4/27-votes-stratified.md)).
   Senato votes are out of scope entirely.
-- **Exactly one vote-derived metric ships, strictly behind the gate.** The
-  six-line gate any metric must pass is
+- **No vote-derived metric is currently surfaced — one exists, computed and
+  tested, but nothing renders it.** The six-line gate any metric must pass is
   [`docs/v3/votes-methodology.md`](docs/v3/votes-methodology.md); Phase 27's
   stratified sample flipped the four sample-shape lines (≥30 events, ≥3
   sittings, ≥6 months, ≥2 distinct atti) and **Phase 28's
   group-membership-history import flipped the sixth** (group-at-vote-date, at
   100 % coverage of the shipped sample), so the gate passes **6 of 6**. On that
-  basis **Phase 29 ships a per-deputy group-alignment figure** — the share of a
-  deputy's expressed positions (favorevole/contrario/astenuto; absences
+  basis **Phase 29 shipped a per-deputy group-alignment figure** — the share of
+  a deputy's expressed positions (favorevole/contrario/astenuto; absences
   excluded) matching their group-at-vote-date majority, over the shipped sample
-  only. It is profile-only, **never on lists, never ranked, never colored as a
+  only — profile-only, **never on lists, never ranked, never colored as a
   judgment**, shown only above a minimum denominator (10) with that denominator
-  visible, and it exists for Camera deputies only. See
-  [`docs/v4/29-alignment-metric.md`](docs/v4/29-alignment-metric.md).
+  visible, Camera deputies only. See
+  [`docs/v4/29-alignment-metric.md`](docs/v4/29-alignment-metric.md). **The
+  post-v4 tidy removed that profile section**, which was the metric's only
+  surface. `GroupAlignment` and all of `GroupAlignmentTests` are kept
+  deliberately — the metric may be surfaced again, and every rule above still
+  binds it if it is — so this limitation now reads: the app displays no
+  vote-derived metric at all.
 - **`attendanceRate` is not populated** for any real representative — no
   source in this pipeline publishes a documented, reproducible attendance
   methodology, and inventing one would be fabrication.
@@ -440,6 +447,8 @@ remains — not promised on any timeline:
   the Camera deputy profile only, above a minimum denominator of 10, with the
   denominator visible, never listed/ranked/colored. Ships behind the re-measured
   6/6 gate and explicit user sign-off on the tie rule and threshold (Q7).
+  **Since the post-v4 tidy it is no longer displayed** — the profile section was
+  removed; the computation and its tests remain.
 - The Home **data-vintage line** and the ADR that decided live refresh
   (Phase 31, [`docs/v4/31-live-refresh-adr.md`](docs/v4/31-live-refresh-adr.md)).
   Also fixed there: every date the app rendered was one calendar day early

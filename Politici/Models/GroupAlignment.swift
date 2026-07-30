@@ -47,7 +47,17 @@ import Foundation
 /// `GroupAlignment` is a caseless namespace — no stored state — so it is a pure
 /// function of its `(events, positions, memberships)` inputs and is exercised
 /// directly on hand-built fixtures in `GroupAlignmentTests`.
-enum GroupAlignment {
+///
+/// **Computed but not currently surfaced — deliberately, not dead code.** The
+/// post-v4 tidy removed the profile section that rendered this (the only
+/// surface it ever had); nothing in the app calls `alignment(...)` today. The
+/// type, its pinned label and caption, and all of `GroupAlignmentTests` are
+/// kept intentionally: the metric may be surfaced again, the computation and
+/// its user-signed-off rules (tie handling, the minimum denominator, the
+/// nil-not-fallback typing) are unchanged and still pass, and re-deriving them
+/// from the phase report would risk re-litigating decisions that were already
+/// taken against the six-line methodology gate. Do not delete this as unused.
+nonisolated enum GroupAlignment {
     /// The **only** permitted name for this metric (methodology gate). Pinned;
     /// this constant is the single occurrence of the label string in the app
     /// target — the UI references it rather than repeating the literal. The

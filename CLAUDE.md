@@ -96,12 +96,111 @@ Phase 32A** — an `FBSOpenApplicationServiceErrorDomain` "failed to launch"
 on the app in the baseline run and on the `xctrunner` in an audit-only run,
 both of which the infrastructure retried on its own so the runs still ended
 green — **five-plus** occurrences.
+**The log can hide a failure, not just a pass.** The truncation note above is
+written around log lines that undercount *passes*; the post-v4 concurrency
+sweep hit the opposite and more dangerous direction — a run whose `.xcresult`
+reported `testsFailedCount 1` while `grep -c "Test case.*failed"` on the log
+returned **0**. Had the log been trusted, a red run would have been reported
+green. This is the same divergence, so the same rule settles it, but state it
+in both directions: the `.xcresult` is the authority for failures as well as
+for counts, and a log grep must never be the evidence that a run was clean.
+
+**Nor is the exit code you are handed, if something wrapped it.** The
+post-v4-tidy profile work ran `xcodebuild … test` as a background task and the
+harness's completion notification reported **exit code 0** for a run that had
+actually exited **65** with `failedTests 1`. The notification was not lying
+about the process it watched — the command was `xcodebuild … ; echo "exit=$?"`,
+so the shell's exit status was the `echo`'s, and the notification reported that.
+Any wrapper with the same shape (a trailing `echo`, a `tee`, a `|| true`, a
+pipeline whose last stage succeeds) will do this. So the rule generalises past
+the log: **neither a log grep nor a reported exit status is evidence a run was
+clean — open the `.xcresult`.** If you do want the exit code to survive a
+wrapper, capture it (`rc=$?`) and exit with it, or read
+`${PIPESTATUS[0]}`/`$pipestatus[1]`; but read the `.xcresult` anyway.
+
+**Accessibility audits fail under machine load — sometimes moving between
+tests, sometimes not** (the "and the failure moves" this heading used to claim
+held for the first sighting only; see "Relocation proves environmental" below).
+The same sweep saw two consecutive full-suite runs fail with
+`com.apple.xcode.xctest.accessibilityAudit Code=-56 "Audit failed to complete
+in time"` — on a *different* test each run
+(`testAccessibilityAuditDistrictDetailBothChambers`, then
+`testAccessibilityAuditVotazioniAndVoteHistory`), never the same one twice.
+`performAccessibilityAudit()` carries an internal deadline, and the heaviest
+audits miss it when the host is loaded; 1-minute load averages were in the
+hundreds, driven by the preceding full-suite runs' own parallel simulator
+clones. A third run, started only once the 1-minute average had fallen below
+8, passed 231/231 with zero failures. So: **a `-56` audit timeout is a
+statement about the host, not the screen.** Let the machine settle before
+re-running rather than re-running immediately, which only deepens the
+contention being diagnosed.
+
+**The gate is the slow load averages, not the 1-minute one.** "Below 8 on the
+1-minute average" is *insufficient*, and the post-v4-tidy profile work proved
+it: the 1-minute average dips within about 90 s of a run ending while the host
+is still saturated, because it is the fastest-decaying of the three. A re-run
+gated on it alone launched at a 1-minute average of 1.81 while the **15-minute**
+average was still 63.8 — and failed. A later run launched at 2.46 / 6.75 / 63.80
+and failed too. The gate that actually worked, and that reproduced a known-green
+run's conditions in **360 s** of waiting, is all three at once:
+
+```
+1-min < 3   AND   5-min < 4   AND   15-min < 12
+```
+
+It admitted the run at 1.51 / 3.93 / 4.83 — essentially the conditions of the
+earlier green run in the same session (15-minute average ~4) — and that run
+passed 243/243. Poll every 30 s and cap the wait; expect several minutes after
+a full suite, not seconds.
+
+**Relocation proves environmental; pinning proves nothing.** The earlier
+wording here said the tell is that a host problem relocates between runs
+"whereas a real defect pins the same test". The first half stands — a failure
+that moves between tests is not a defect in any of them. **The second half is
+wrong and was corrected by measurement.** In the post-v4-tidy profile work,
+three loaded runs failed as: `testAccessibilityAuditVotazioniAndVoteHistory`
+(`-56`), then `testAccessibilityAuditDistrictDetailBothChambers` ("Test crashed
+with signal kill"), then `testAccessibilityAuditVotazioniAndVoteHistory` again
+(`-56`) — i.e. it pinned one test in two of three runs, and every one of those
+failures was environmental. A repeat on one test is therefore consistent with
+contention and does not by itself indicate a defect: pinning is
+**inconclusive**, not incriminating.
+
+**Do not reach for "the heaviest audit fails first" as the mechanism** — that
+was asserted here on the strength of it sounding right, and the durations
+refute it. Measured in the same session: the longest audit,
+`testAccessibilityAuditAddressSearchAndFontiEDati` (129 s), **never failed**;
+`…VotazioniAndVoteHistory` (112 s) blew the deadline twice; and
+`…DistrictDetailBothChambers` (87 s) died once by *signal kill*, a different
+mechanism entirely. What the evidence does support is narrower and still
+useful: contention surfaces in the **audits** rather than in the smoke flows or
+the unit target (3 of 3 failures), but duration rank does not predict which
+audit takes it, and more than one failure mechanism appears. Report which test
+and which mechanism; do not infer an ordering.
+
+**The reliable check is a diff against a tree that already went green**, which
+exonerates by construction instead of by pattern. Concretely, and in this
+order: (1) `git diff <green-tree>..HEAD --stat -- Politici/` to see how many
+files under the app target changed at all; (2) for each one, strip comments and
+compare — `sed -E 's|^[[:space:]]*///.*$||; s|^[[:space:]]*//.*$||' | grep -v
+'^[[:space:]]*$' | shasum` on both revisions. Identical hashes mean no
+executable line changed, so a UI failure cannot be the code's. **Do the whole
+directory, not one file:** a grep over the single file you happen to have edited
+does not substantiate a claim about the target. Only once that comes back clean
+is "environmental" a finding rather than a hope.
+
 Re-run once and diagnose before suspecting the code. **Caveat on the re-run:**
 running the flaky test *alone* removes the parallelism (concurrent simulator
 clones) that triggers the flake, so an isolated green is *weaker* evidence than
 a clean full-suite green — the honest state after a flake is "one full-suite run
 at N−1/N with a diagnosed environmental failure"; a second full-suite run is
-what actually settles it.
+what actually settles it. **But only a *gated* one.** The post-v4-tidy profile
+work fired three ungated re-runs and all three failed; the wait is not optional
+ceremony, it is the experiment. Re-running immediately does not test the code,
+it reproduces the contention. Apply the three-average gate above, then re-run
+once — and if that run is green, say how long the gate waited and at what load
+it admitted the run, because those two numbers are what make the green
+meaningful.
 
 Note (re-running after a bundled-data change): **changes to a bundled data
 file (anything under `Politici/Data/` — the app decodes and displays these)
@@ -183,6 +282,31 @@ absent cache — is tracked in the deferred list in
   a bare `yyyy-MM-dd`; a device-timezone formatter rendered it one day
   early west of Rome. `DateFormatting` exposes `make…(timeZone:)` factories
   so the guard is testable on any host.
+- **Everything in `Models/` is `nonisolated`; main-actor isolation is for
+  services only.** The project sets `SWIFT_DEFAULT_ACTOR_ISOLATION =
+  MainActor` with `SWIFT_APPROACHABLE_CONCURRENCY = YES`, so every
+  declaration — *including every protocol conformance* — is `@MainActor` by
+  default, and a main-actor-isolated conformance cannot be used from a
+  nonisolated context (a hard error under the Swift 6 language mode). The
+  models are pure Sendable value types decoded from bundled JSON by
+  `VoteService`'s deliberately **off-main** decode and by nonisolated XCTest
+  methods, so `nonisolated` is the honest declaration, not a silencer. Two
+  traps, both on record:
+  - **`nonisolated` on a type does *not* cover a conformance declared in a
+    separate `extension`** — that extension picks up the file default
+    independently. `nonisolated struct Vote` with a plain
+    `extension Vote: Codable` left `Vote`'s `Decodable` conformance
+    main-actor-isolated *while `VoteService` decoded it off the main actor*.
+    Write `nonisolated extension Vote: Codable`. Conformances declared
+    inline on a `nonisolated` type, and nested types inside one, are covered.
+  - **Where the isolation is real, annotate the test, not the type.**
+    `ComuneService`/`GeocodingService`/`DistrictService` hold mutable state
+    and load eagerly on the main actor for the SwiftUI environment; their
+    test classes carry `@MainActor`. Stripping isolation off a stateful
+    service to quiet a test warning would be the dishonest fix.
+  These warnings are **invisible on incremental builds** — only a full
+  recompile of the test target shows them, so a partial rebuild that touches
+  two files will report a handful and hide the rest.
 - **Test-count baseline definition** — since Phase 24 the declared and
   runtime counts are equal (the template's ×4 `testLaunch` multiplier is
   gone), and "zero regressions" means the current `.xcresult`
@@ -236,6 +360,18 @@ gates decided on quoted evidence with NO-GO/NOT-RUN as first-class
 outcomes; every network act user-gated with approval quoted verbatim in
 the report; **never push, tag (outside phase 32B), or touch GitHub — the
 user performs all remote actions personally; print commands instead.**
+
+**Worktree hygiene (rule 8, output side).** When a spawned or background
+session that ran in its own worktree finishes, run `git worktree list` and
+remove that worktree **and** its branch. Treat it as the same reflex as
+checking `git status` before committing — a worktree nobody removes is
+invisible from the working checkout, so nothing surfaces it later. Three
+accumulated under `.claude/worktrees/` across the v4 cycle, none removed by
+the session that created it, and the first went undetected for several
+phases; the orphaned branch `claude/strange-payne-57880c` is the residue
+still on record. Verifying a spawned session's **base commit** before
+trusting its output is the *input* side of the same rule and is unchanged —
+both halves are in `docs/plan/00-baseline-and-rules.md` rule 8.
 
 ## Data Files
 

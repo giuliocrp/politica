@@ -58,7 +58,6 @@ struct FontiEDatiView: View {
             Section("Avvertenze") {
                 VStack(alignment: .leading, spacing: 10) {
                     BulletRow(text: "I dati mostrati sono uno snapshot e potrebbero non essere aggiornati.")
-                    BulletRow(text: "Le sezioni contrassegnate come \"Dati dimostrativi\" contengono dati fittizi a solo scopo di prototipo.")
                     BulletRow(text: "Questa app non utilizza loghi o emblemi istituzionali.")
                 }
                 .padding(.vertical, 4)

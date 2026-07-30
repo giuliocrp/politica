@@ -13,6 +13,12 @@
 import XCTest
 @testable import Politici
 
+/// `@MainActor` because the subject (ComuneService) is genuinely
+/// main-actor-isolated — it holds mutable state and loads its bundled table
+/// eagerly on the main actor for the SwiftUI environment. The test adopts the
+/// isolation rather than stripping it from the shipping type; XCTest methods are
+/// nonisolated by default, which is what made the conformance unusable here.
+@MainActor
 final class ComuniSchemaVersionTests: XCTestCase {
 
     private func decode(_ json: String) throws -> ComuniFile {

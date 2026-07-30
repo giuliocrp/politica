@@ -393,7 +393,7 @@ publisher instead.
 
 ---
 
-## Dati dimostrativi generati per il prototipo
+## Dati dimostrativi generati per il prototipo *(retired from the manifest 2026-07-29)*
 
 | | |
 |---|---|
@@ -414,17 +414,26 @@ displayed (it isn't). The three fixture files total **14,765 B**
 entirely — data that is never displayed and never claimed to be real has no
 staleness consequence (v4 Phase 31 §1.1).
 
-**This entry is visible to users, and now says so on screen.** It has a card
-on "Informazioni e fonti" like every other source, carrying `Licenza: n/a`
-and `Dati aggiornati al: 17 luglio 2026` — a "retrieval" date for a dataset
-that was never retrieved from anywhere, and the **oldest** date in the
-manifest, which is exactly why Phase 31 §7.1 reports the *max* rather than
-the minimum. Until v4 Phase 32A the card said nothing about the data being
-invented: the manifest's `notes` were not rendered. They are now, so the
-card states in the source's own words that the dataset is *"interamente
-fittizio … non rappresenta collegi, rappresentanti o votazioni realmente
-esistenti"*. `AccessibilityAuditUITests` asserts that sentence reaches the
-screen, so the disclosure cannot be lost silently.
+**This entry is no longer in the manifest (retired 2026-07-29, post-v4
+tidy).** It used to have a card on "Informazioni e fonti" like every other
+source, carrying `Licenza: n/a` and `Dati aggiornati al: 17 luglio 2026` —
+a "retrieval" date for a dataset that was never retrieved from anywhere,
+and the **oldest** date in the manifest. It was removed because it
+disclosed nothing a user can reach: no shipping code path loads the
+`*.sample.*` fixtures (every service defaults to the real resource name)
+and every shipped record carries `provenance: "official"`, so the card
+described data the app cannot display. The removal is enforced at the
+producing script — `tools/make_manifest.py`'s `RETIRED_SOURCE_IDS` — because
+`main()` seeds itself from the existing `sources.json` and would otherwise
+carry the row forward forever.
+
+The fixtures themselves are unchanged, still committed, and still bundled
+inside the .app as a side effect of the FileSystemSynchronized `Politici/`
+group. `SchemaV2Tests.testShippingManifestListsNoFictionalSource` asserts
+the manifest lists no fictional source, so the entry cannot reappear
+silently. Two documents that leaned on this row are annotated rather than
+rewritten: `docs/v4/31-live-refresh-adr.md` §7.4 (the min/max reasoning)
+and `docs/v4/a11y-checklist.md` (the superseded guarantee row).
 
 ---
 
@@ -487,7 +496,8 @@ the live `Politici/Data/sources.json` on 2026-07-20 (v3 Phase 16), by id:
 - `istat-collegi-elettorali-camera-plurinominali` ✓ (new in v4 Phase 25)
 - `istat-collegi-elettorali-senato-plurinominali` ✓ (new in v4 Phase 25)
 - `istat-comuni-centroidi` ✓ (new in v4 Phase 30)
-- `prototipo-dati-dimostrativi` ✓
+- ~~`prototipo-dati-dimostrativi`~~ — retired from the manifest 2026-07-29
+  (post-v4 tidy); the section above is kept as the record of what it was
 
 No mismatches found. If a future `make fetch && make manifest` run changes
 any `retrievedAt` date or `notes` text (e.g. the votes count changes
