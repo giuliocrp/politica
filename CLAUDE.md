@@ -105,8 +105,23 @@ green. This is the same divergence, so the same rule settles it, but state it
 in both directions: the `.xcresult` is the authority for failures as well as
 for counts, and a log grep must never be the evidence that a run was clean.
 
-**Accessibility audits fail under machine load, and the failure moves.** The
-same sweep saw two consecutive full-suite runs fail with
+**Nor is the exit code you are handed, if something wrapped it.** The
+post-v4-tidy profile work ran `xcodebuild … test` as a background task and the
+harness's completion notification reported **exit code 0** for a run that had
+actually exited **65** with `failedTests 1`. The notification was not lying
+about the process it watched — the command was `xcodebuild … ; echo "exit=$?"`,
+so the shell's exit status was the `echo`'s, and the notification reported that.
+Any wrapper with the same shape (a trailing `echo`, a `tee`, a `|| true`, a
+pipeline whose last stage succeeds) will do this. So the rule generalises past
+the log: **neither a log grep nor a reported exit status is evidence a run was
+clean — open the `.xcresult`.** If you do want the exit code to survive a
+wrapper, capture it (`rc=$?`) and exit with it, or read
+`${PIPESTATUS[0]}`/`$pipestatus[1]`; but read the `.xcresult` anyway.
+
+**Accessibility audits fail under machine load — sometimes moving between
+tests, sometimes not** (the "and the failure moves" this heading used to claim
+held for the first sighting only; see "Relocation proves environmental" below).
+The same sweep saw two consecutive full-suite runs fail with
 `com.apple.xcode.xctest.accessibilityAudit Code=-56 "Audit failed to complete
 in time"` — on a *different* test each run
 (`testAccessibilityAuditDistrictDetailBothChambers`, then
@@ -116,17 +131,65 @@ audits miss it when the host is loaded; 1-minute load averages were in the
 hundreds, driven by the preceding full-suite runs' own parallel simulator
 clones. A third run, started only once the 1-minute average had fallen below
 8, passed 231/231 with zero failures. So: **a `-56` audit timeout is a
-statement about the host, not the screen** — the tell is that it relocates
-between runs, whereas a real defect pins the same test. Let the machine settle
-before re-running rather than re-running immediately, which only deepens the
+statement about the host, not the screen.** Let the machine settle before
+re-running rather than re-running immediately, which only deepens the
 contention being diagnosed.
+
+**The gate is the slow load averages, not the 1-minute one.** "Below 8 on the
+1-minute average" is *insufficient*, and the post-v4-tidy profile work proved
+it: the 1-minute average dips within about 90 s of a run ending while the host
+is still saturated, because it is the fastest-decaying of the three. A re-run
+gated on it alone launched at a 1-minute average of 1.81 while the **15-minute**
+average was still 63.8 — and failed. A later run launched at 2.46 / 6.75 / 63.80
+and failed too. The gate that actually worked, and that reproduced a known-green
+run's conditions in **360 s** of waiting, is all three at once:
+
+```
+1-min < 3   AND   5-min < 4   AND   15-min < 12
+```
+
+It admitted the run at 1.51 / 3.93 / 4.83 — essentially the conditions of the
+earlier green run in the same session (15-minute average ~4) — and that run
+passed 243/243. Poll every 30 s and cap the wait; expect several minutes after
+a full suite, not seconds.
+
+**Relocation proves environmental; pinning proves nothing.** The earlier
+wording here said the tell is that a host problem relocates between runs
+"whereas a real defect pins the same test". The first half stands — a failure
+that moves between tests is not a defect in any of them. **The second half is
+wrong and was corrected by measurement.** In the post-v4-tidy profile work,
+three loaded runs failed as: `testAccessibilityAuditVotazioniAndVoteHistory`
+(`-56`), then `testAccessibilityAuditDistrictDetailBothChambers` ("Test crashed
+with signal kill"), then `testAccessibilityAuditVotazioniAndVoteHistory` again
+(`-56`) — i.e. it pinned one test in two of three runs, and every one of those
+failures was environmental. That is what contention should be expected to look
+like: the **heaviest** audit has the least deadline headroom, so under load it
+fails *first and repeatedly*, deterministically. Pinning is therefore
+**inconclusive**, not incriminating.
+
+**The reliable check is a diff against a tree that already went green**, which
+exonerates by construction instead of by pattern. Concretely, and in this
+order: (1) `git diff <green-tree>..HEAD --stat -- Politici/` to see how many
+files under the app target changed at all; (2) for each one, strip comments and
+compare — `sed -E 's|^[[:space:]]*///.*$||; s|^[[:space:]]*//.*$||' | grep -v
+'^[[:space:]]*$' | shasum` on both revisions. Identical hashes mean no
+executable line changed, so a UI failure cannot be the code's. **Do the whole
+directory, not one file:** a grep over the single file you happen to have edited
+does not substantiate a claim about the target. Only once that comes back clean
+is "environmental" a finding rather than a hope.
 
 Re-run once and diagnose before suspecting the code. **Caveat on the re-run:**
 running the flaky test *alone* removes the parallelism (concurrent simulator
 clones) that triggers the flake, so an isolated green is *weaker* evidence than
 a clean full-suite green — the honest state after a flake is "one full-suite run
 at N−1/N with a diagnosed environmental failure"; a second full-suite run is
-what actually settles it.
+what actually settles it. **But only a *gated* one.** The post-v4-tidy profile
+work fired three ungated re-runs and all three failed; the wait is not optional
+ceremony, it is the experiment. Re-running immediately does not test the code,
+it reproduces the contention. Apply the three-average gate above, then re-run
+once — and if that run is green, say how long the gate waited and at what load
+it admitted the run, because those two numbers are what make the green
+meaningful.
 
 Note (re-running after a bundled-data change): **changes to a bundled data
 file (anything under `Politici/Data/` — the app decodes and displays these)
