@@ -162,10 +162,21 @@ three loaded runs failed as: `testAccessibilityAuditVotazioniAndVoteHistory`
 (`-56`), then `testAccessibilityAuditDistrictDetailBothChambers` ("Test crashed
 with signal kill"), then `testAccessibilityAuditVotazioniAndVoteHistory` again
 (`-56`) — i.e. it pinned one test in two of three runs, and every one of those
-failures was environmental. That is what contention should be expected to look
-like: the **heaviest** audit has the least deadline headroom, so under load it
-fails *first and repeatedly*, deterministically. Pinning is therefore
+failures was environmental. A repeat on one test is therefore consistent with
+contention and does not by itself indicate a defect: pinning is
 **inconclusive**, not incriminating.
+
+**Do not reach for "the heaviest audit fails first" as the mechanism** — that
+was asserted here on the strength of it sounding right, and the durations
+refute it. Measured in the same session: the longest audit,
+`testAccessibilityAuditAddressSearchAndFontiEDati` (129 s), **never failed**;
+`…VotazioniAndVoteHistory` (112 s) blew the deadline twice; and
+`…DistrictDetailBothChambers` (87 s) died once by *signal kill*, a different
+mechanism entirely. What the evidence does support is narrower and still
+useful: contention surfaces in the **audits** rather than in the smoke flows or
+the unit target (3 of 3 failures), but duration rank does not predict which
+audit takes it, and more than one failure mechanism appears. Report which test
+and which mechanism; do not infer an ordering.
 
 **The reliable check is a diff against a tree that already went green**, which
 exonerates by construction instead of by pattern. Concretely, and in this
