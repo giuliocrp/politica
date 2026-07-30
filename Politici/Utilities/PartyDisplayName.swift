@@ -35,6 +35,20 @@ import Foundation
 /// (NM(N-C-U-I)M-CP) (27.10.2022"` contains brackets in both the name and the
 /// sigla, and a leftmost match would cut it at the first one.
 ///
+/// **Coupled to the defect, on purpose — and guarded.** Because the rule keys
+/// on the *unterminated* date, it stops firing the moment the source is
+/// repaired: a properly closed `"… (FDI) (18.10.2022)"` no longer matches, is
+/// returned whole, and the date silently reappears on every Camera profile.
+/// Widening the rule to strip closed parentheticals too is **not** the fix —
+/// that is what would mangle `"Per le Autonomie (SVP-PATT, Campobase)"`. The
+/// fix, when it happens, is to re-derive the rule against whatever the source
+/// then actually emits. Until then the tripwire is
+/// `PartyDisplayNameTests.testNoShippingPartyNameEndsInADateLikeFragment`,
+/// which rejects a date-like tail whether or not it is closed, so a refetch
+/// that repairs the source fails the suite loudly instead of regressing the
+/// screen quietly. The neighbouring `testCameraNamesLose…` fails on the same
+/// event from the other direction: every Camera name must get *shorter*.
+///
 /// Verified against all 19 distinct group strings in the shipping data (10
 /// Camera, 9 Senato) plus the sample fixture — see `PartyDisplayNameTests`.
 nonisolated enum PartyDisplayName {

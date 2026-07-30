@@ -125,6 +125,41 @@ final class PartyDisplayNameTests: XCTestCase {
         }
     }
 
+    /// **The tripwire for a source repair.** `PartyDisplayName` keys on the
+    /// *unterminated* date, so if Camera ever emits a properly closed
+    /// `"… (FDI) (18.10.2022)"` the rule stops firing, the string is returned
+    /// whole, and the date reappears on every Camera profile. The sibling check
+    /// in `testEveryShippingRepresentativeGetsAnHonestFullName` would **not**
+    /// catch that: its pattern requires end-of-string right after the year, so
+    /// a closed bracket slips past it.
+    ///
+    /// This one rejects a date-like tail whether or not it is closed — so the
+    /// suite fails loudly at the next refetch rather than the screen regressing
+    /// quietly. A failure here is **not** a reason to widen the strip rule to
+    /// eat closed parentheticals (that would mangle
+    /// `"Per le Autonomie (SVP-PATT, Campobase)"`); it means re-deriving the
+    /// rule against whatever the source then actually emits.
+    func testNoShippingPartyNameEndsInADateLikeFragment() throws {
+        // Optional opening bracket, three separator-joined numeric fields,
+        // optional closing bracket, end of string: catches "(18.10.2022",
+        // "(18.10.2022)", "18/10/2022" and "(2022-10-18)" alike.
+        let dateLikeTail = #"\(?\s*\d{1,4}[./-]\d{1,2}[./-]\d{1,4}\)?$"#
+        let representatives = try LocalJSONLoader.decode([Representative].self, fromResource: "representatives")
+        XCTAssertFalse(representatives.isEmpty)
+        for representative in representatives {
+            let derived = PartyDisplayName.full(from: representative.parliamentaryGroup)
+            XCTAssertNil(
+                derived.range(of: dateLikeTail, options: .regularExpression),
+                """
+                \(representative.id): the displayed party name ends in a date — "\(derived)".
+                The source string is "\(representative.parliamentaryGroup)". If the source has been \
+                repaired (a closed bracket), PartyDisplayName no longer matches it and must be \
+                re-derived against the new shape — do not widen it to strip closed parentheticals.
+                """
+            )
+        }
+    }
+
     /// Camera is the chamber with the defect, so assert it is actually gone
     /// there — not just that the function ran. Every Camera deputy's derived
     /// name must be strictly shorter than the source string and must no longer
